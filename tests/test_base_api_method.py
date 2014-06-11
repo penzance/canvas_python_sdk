@@ -4,6 +4,7 @@ from canvas_sdk.base_api_method import BaseAPIMethod
 
 # Mock concrete implementation for testing
 class MockAPIMethod(BaseAPIMethod):
+
     def path(self):
         return '/path/to/method'
 
