@@ -1,6 +1,6 @@
 # config.py
 
-AUTH_TOKEN = 'change me'
+AUTH_TOKEN = None  # Expects a string value
 
 BASE_API_URL = 'change me'
 
