@@ -27,6 +27,7 @@ setup(
     keywords='canvas api sdk LMS',
     license='MIT',
     install_requires=[
+        'requests>=2.3.0'
     ],
     test_suite='tests',
     tests_require=[
