@@ -2,6 +2,12 @@
 __pycache__/
 *.py[cod]
 
+# log files
+*.log
+
+# secure file
+secure.py
+
 # C extensions
 *.so
 
