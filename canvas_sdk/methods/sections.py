@@ -1,4 +1,5 @@
-from canvas_sdk import client, utils, config
+from canvas_sdk import client, utils
+import canvas_sdk.config as config
 
 
 def list_course_sections(course_id, include=None, per_page=config.LIMIT_PER_PAGE):
