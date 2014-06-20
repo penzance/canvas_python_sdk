@@ -16,6 +16,14 @@ def get_default_headers():
 
 
 def set_default_request_params_for_kwargs(request_kwargs=None):
+    """
+    Given a possible set of kwargs, set defaults for request library's optional
+    arguments.  A user of the SDK would be able to provide one of these options
+    per request, or set them once in the config module (modifying a provided
+    default) and have it take effect by default for each request.  Refer to the
+    :method:canvas_sdk.client.base.call for the definitions of these optional
+    parameters.
+    """
     if request_kwargs is None:
         request_kwargs = {}
     request_kwargs.setdefault('headers', get_default_headers())
@@ -23,6 +31,7 @@ def set_default_request_params_for_kwargs(request_kwargs=None):
     request_kwargs.setdefault('proxies', config.OPTIONAL_REQUEST_PARAMS.get('proxies', None))
     request_kwargs.setdefault('timeout', config.OPTIONAL_REQUEST_PARAMS.get('timeout', None))
     request_kwargs.setdefault('cookies', config.OPTIONAL_REQUEST_PARAMS.get('cookies', None))
+    request_kwargs.setdefault('allow_redirects', config.OPTIONAL_REQUEST_PARAMS.get('allow_redirects', None))
     request_kwargs.setdefault('stream', config.OPTIONAL_REQUEST_PARAMS.get('stream', None))
     request_kwargs.setdefault('verify', config.OPTIONAL_REQUEST_PARAMS.get('verify', None))
     request_kwargs.setdefault('cert', config.OPTIONAL_REQUEST_PARAMS.get('cert', None))
