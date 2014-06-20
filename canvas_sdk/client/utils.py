@@ -15,7 +15,9 @@ def get_default_headers():
     return default_headers
 
 
-def set_default_request_params_for_kwargs(request_kwargs={}):
+def set_default_request_params_for_kwargs(request_kwargs=None):
+    if request_kwargs is None:
+        request_kwargs = {}
     request_kwargs.setdefault('headers', get_default_headers())
     request_kwargs.setdefault('auth', OAuth2Bearer(config.OAUTH2_TOKEN))
     request_kwargs.setdefault('proxies', config.OPTIONAL_REQUEST_PARAMS.get('proxies', None))

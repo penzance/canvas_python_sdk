@@ -3,6 +3,7 @@ from mock import patch
 from canvas_sdk.client import utils
 
 AUTH_TOKEN = 'test-token'
+# Set of defaults for requests params in config
 DEFAULT_REQUEST_PARAMS = {
     'timeout': 30,
     'stream': False,
@@ -21,6 +22,10 @@ class TestUtils(unittest.TestCase):
     @patch('canvas_sdk.client.utils.get_default_headers')
     @patch('canvas_sdk.client.utils.OAuth2Bearer')
     def test_set_default_request_params_for_kwargs_with_default_auth(self, oauth2_bearer_mock, get_default_headers_mock):
+        """
+        Test that the OAuth2Bearer is initialized with the config token.  NOTE: in Python, the default function/value will be called even if
+        it's not going to be set.
+        """
         utils.set_default_request_params_for_kwargs()
         oauth2_bearer_mock.assert_called_once_with(AUTH_TOKEN)
 
@@ -29,6 +34,10 @@ class TestUtils(unittest.TestCase):
     @patch('canvas_sdk.client.utils.get_default_headers')
     @patch('canvas_sdk.client.utils.OAuth2Bearer')
     def test_set_default_request_params_for_kwargs_with_default_headers(self, oauth2_bearer_mock, get_default_headers_mock):
+        """
+        Test that get_default_headers is called once.  NOTE: in Python, the default function/value will be called even if
+        it's not going to be set.
+        """
         utils.set_default_request_params_for_kwargs()
         get_default_headers_mock.assert_called_once_with()
 
@@ -37,6 +46,9 @@ class TestUtils(unittest.TestCase):
     @patch('canvas_sdk.client.utils.get_default_headers')
     @patch('canvas_sdk.client.utils.OAuth2Bearer')
     def test_set_default_request_params_for_kwargs_sets_default_values_with_no_args(self, oauth2_bearer_mock, get_default_headers_mock):
+        """
+        Test that if a caller doesn't specify request params, default config values will be set
+        """
         response = utils.set_default_request_params_for_kwargs()
         self.assertEqual(response['headers'], get_default_headers_mock.return_value, "Default header should be set to get_default_heders()")
         self.assertEqual(response['auth'], oauth2_bearer_mock.return_value, "Default auth should be set to OAuth2Bearer class")

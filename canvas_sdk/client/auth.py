@@ -2,7 +2,9 @@ from requests.auth import AuthBase
 
 
 class OAuth2Bearer(AuthBase):
+
     """ Attached Oauth2 HTTP Bearer Authentication to the given Request object """
+
     def __init__(self, oauth2_token):
         if oauth2_token is None:
             raise AttributeError("OAuth2 token must be set to a value other than None.")

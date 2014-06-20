@@ -5,11 +5,18 @@ from .session import get_canvas_session
 from .utils import set_default_request_params_for_kwargs
 
 MAX_RETRIES = config.MAX_RETRIES
+RETRY_ERROR_CODES = (
+    requests.codes['conflict'],  # 409
+    requests.codes['internal_server_error'],  # 500
+    requests.codes['bad_gateway'],  # 502
+    requests.codes['service_unavailable'],  # 503
+    requests.codes['gateway_timeout']  # 504
+)
 
 
 def get(url, payload=None, **optional_request_params):
     """
-    Shortcut for making a GET call to the API
+    Shortcut for making a GET call to the API.  Data is passed as url params.
     """
     return call("GET", url, params=payload, **optional_request_params)
 
@@ -35,7 +42,7 @@ def delete(url, payload=None, **optional_request_params):
     return call("DELETE", url, data=payload, **optional_request_params)
 
 
-def call(action, url, **kwarg_request_params):
+def call(action, url, **request_param_kwargs):
     """This method servers as a pass-through to the requests library request functionality, but provides some configurable default
     values.  Constructs and sends a :class:`requests.Request <Request>`.
     Returns :class:`requests.Response <Response>` object.
@@ -61,35 +68,26 @@ def call(action, url, **kwarg_request_params):
       >>> req = base.call('GET', 'http://httpbin.org/get')
       <Response [200]>
     """
-    set_default_request_params_for_kwargs(kwarg_request_params)
+    set_default_request_params_for_kwargs(request_param_kwargs)
     canvas_session = get_canvas_session()
-    # try the request until max_retries is reached
-    for retry in range(0, MAX_RETRIES):
+    # try the request until max_retries is reached.  we need to account for the
+    # fact that the first iteration through isn't a retry, so add 1 to MAX_RETRIES
+    for retry in range(MAX_RETRIES + 1):
         try:
             # build and send the request
-            response = canvas_session.request(action, url, **kwarg_request_params)
+            response = canvas_session.request(action, url, **request_param_kwargs)
 
             # raise an http exception if one occured
             response.raise_for_status()
 
-            break
+            # Otherwise, return raw response
+            return response
 
         except HTTPError as http_error:
-            # Need to check its an 404, 503, 500, 403 etc.
-            http_codes = requests.codes
-            http_error_codes = [
-                http_codes['conflict'],  # 409
-                http_codes['internal_server_error'],  # 500
-                http_codes['bad_gateway'],  # 502
-                http_codes['service_unavailable'],  # 503
-                http_codes['gateway_timeout']  # 504
-            ]
+            # Need to check its an error code that can be retried
             status_code = http_error.response.status_code
-            if status_code in http_error_codes:
+            if status_code in RETRY_ERROR_CODES and retry < MAX_RETRIES:
                 # continue in a retry loop until max_retries
-                if retry < MAX_RETRIES:
-                    continue
+                continue
+            # Otherwise, re-raise the exception
             raise
-
-    # Otherwise, return raw response
-    return response
