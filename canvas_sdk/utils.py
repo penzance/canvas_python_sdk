@@ -1,7 +1,7 @@
 """
 The util module contains helper methods for the SDK
 """
-from canvas_sdk import config
+import config
 
 
 def build_url(path, base_url=config.BASE_API_URL):
