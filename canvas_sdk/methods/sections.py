@@ -1,6 +1,8 @@
-from canvas_sdk import client, utils, config
+from canvas_sdk import utils, config
+from canvas_sdk.client import base as client
 
-def list_course_sections(course_id, include=None, per_page=None):
+
+def list_course_sections(course_id, include=None, per_page=None, **request_kwargs):
     """
     Returns the list of sections for this course.
 
@@ -11,25 +13,25 @@ def list_course_sections(course_id, include=None, per_page=None):
         :param per_page: (optional) Set how many results canvas should return, defaults to config.LIMIT_PER_PAGE
         :type per_page: integer or None
         :return: List course sections
-        :rtype: array
+        :rtype: requests.Response (with array data)
 
     """
 
     if per_page is None:
-        per_page=config.LIMIT_PER_PAGE
+        per_page = config.LIMIT_PER_PAGE
     include_types = ('students', 'avatar_url')
     utils.validate_attr_is_acceptable(include, include_types)
     path = '/v1/courses/{course_id}/sections'
     payload = {
-        'include' : include,
-        'per_page' : per_page,
+        'include': include,
+        'per_page': per_page,
     }
-    response = client.get(utils.build_url(path.format(course_id=course_id)), payload=payload)
+    response = client.get(utils.build_url(path.format(course_id=course_id)), payload=payload, **request_kwargs)
 
     return response
 
 
-def create_course_section(course_id, name, sis_section_id=None, start_at=None, end_at=None):
+def create_course_section(course_id, name, sis_section_id=None, start_at=None, end_at=None, **request_kwargs):
     """
     Creates a new section for this course.
 
@@ -44,125 +46,52 @@ def create_course_section(course_id, name, sis_section_id=None, start_at=None, e
         :param end_at: (optional) Section end date in ISO8601 format. e.g. 2011-01-01T01:00Z
         :type end_at: datetime or None
         :return: Create course section
-        :rtype: Section
+        :rtype: requests.Response (with Section data)
 
     """
 
     path = '/v1/courses/{course_id}/sections'
     payload = {
-        'course_section[name]' : name,
-        'course_section[sis_section_id]' : sis_section_id,
-        'course_section[start_at]' : start_at,
-        'course_section[end_at]' : end_at,
+        'course_section[name]': name,
+        'course_section[sis_section_id]': sis_section_id,
+        'course_section[start_at]': start_at,
+        'course_section[end_at]': end_at,
     }
-    response = client.post(utils.build_url(path.format(course_id=course_id)), payload=payload)
+    response = client.post(utils.build_url(path.format(course_id=course_id)), payload=payload, **request_kwargs)
 
     return response
 
 
-def cross_list_section(id, new_course_id):
-    """
-    Move the Section to another course. The new course may be in a different
-    account (department), but must belong to the same root account (institution).
-
-        :param id: (required) ID
-        :type id: string
-        :param new_course_id: (required) ID
-        :type new_course_id: string
-        :return: Cross-list a Section
-        :rtype: Section
-
-    """
-
-    path = '/v1/sections/{id}/crosslist/{new_course_id}'
-    response = client.post(utils.build_url(path.format(id=id, new_course_id=new_course_id)))
-
-    return response
-
-
-def de_cross_list_section(id):
-    """
-    Undo cross-listing of a Section, returning it to its original course.
-
-        :param id: (required) ID
-        :type id: string
-        :return: De-cross-list a Section
-        :rtype: Section
-
-    """
-
-    path = '/v1/sections/{id}/crosslist'
-    response = client.delete(utils.build_url(path.format(id=id)))
-
-    return response
-
-
-def edit_section(id):
+def edit_section(id, **request_kwargs):
     """
     Modify an existing section. See the documentation for {api:SectionsController#create
 
         :param id: (required) ID
         :type id: string
         :return: Edit a section
-        :rtype: Section
+        :rtype: requests.Response (with Section data)
 
     """
 
     path = '/v1/sections/{id}'
-    response = client.put(utils.build_url(path.format(id=id)))
+    response = client.put(utils.build_url(path.format(id=id)), **request_kwargs)
 
     return response
 
 
-def get_section_information_courses(course_id, id):
-    """
-    Gets details about a specific section
-
-        :param course_id: (required) ID
-        :type course_id: string
-        :param id: (required) ID
-        :type id: string
-        :return: Get section information
-        :rtype: Section
-
-    """
-
-    path = '/v1/courses/{course_id}/sections/{id}'
-    response = client.get(utils.build_url(path.format(course_id=course_id, id=id)))
-
-    return response
-
-
-def get_section_information_sections(id):
-    """
-    Gets details about a specific section
-
-        :param id: (required) ID
-        :type id: string
-        :return: Get section information
-        :rtype: Section
-
-    """
-
-    path = '/v1/sections/{id}'
-    response = client.get(utils.build_url(path.format(id=id)))
-
-    return response
-
-
-def delete_section(id):
+def delete_section(id, **request_kwargs):
     """
     Delete an existing section.  Returns the former Section.
 
         :param id: (required) ID
         :type id: string
         :return: Delete a section
-        :rtype: Section
+        :rtype: requests.Response (with Section data)
 
     """
 
     path = '/v1/sections/{id}'
-    response = client.delete(utils.build_url(path.format(id=id)))
+    response = client.delete(utils.build_url(path.format(id=id)), **request_kwargs)
 
     return response
 
