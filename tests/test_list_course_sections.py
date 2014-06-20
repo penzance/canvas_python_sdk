@@ -1,70 +1,71 @@
 import unittest
 from mock import patch
-from canvas_sdk import base_api_method
-from canvas_sdk.methods.sections import ListCourseSections
+from canvas_sdk.methods.sections import list_course_sections
+
+BASE_API_URL = 'http://hostname/api'
+MAX_RESULTS = 60  # used for setting the per_page and LIMIT_PER_PAGE values
+COURSE_ID = 5956  # set a fake course id for the tests
 
 
-class TestListCourseSections(unittest.TestCase):
-    longMessage = True
+class TestSections(unittest.TestCase):
+    
+    @patch('canvas_sdk.utils.build_url')
+    @patch('canvas_sdk.utils.validate_attr_is_acceptable')
+    @patch('canvas_sdk.client.get')
+    def test_sections_list_course_sections(self, mock_client, mock_util, mock_build_url):
+        """
+        Assert that list_course_sections returned the dictionary object defined in the client mock
+        """
+        mock_build_url.return_value = BASE_API_URL
+        mock_client.return_value = {'ok'}
+        results = list_course_sections(COURSE_ID)
+        self.assertEquals(results, {'ok'}, 'The client call did not return the correct result.')
 
-    def setUp(self):
-        course_id = '9999'
-        self.api_method = ListCourseSections(course_id)
-        self.test_course_id = course_id
+    @patch('canvas_sdk.utils.build_url')
+    @patch('canvas_sdk.utils.validate_attr_is_acceptable')
+    @patch('canvas_sdk.client.get')
+    def test_sections_list_course_sections_client_called_with_include_value(self, mock_client, mock_util, mock_build_url):
+        """
+        Assert that list_course_sections called the client with user specified values
+        for include and per_page
+        """
+        list_course_sections(COURSE_ID, include='students', per_page=MAX_RESULTS)
+        mock_client.assert_called_once_with(
+            mock_build_url.return_value, {'include': 'students', 'per_page': MAX_RESULTS})
 
-    @patch.object(base_api_method.BaseAPIMethod, '__init__')
-    def test_instance_setup_required_params(self, mock_super_init):
+    @patch('canvas_sdk.utils.build_url')
+    @patch('canvas_sdk.client.get')
+    def test_sections_list_course_sections_build_url_called_with(self, mock_client, mock_build_url):
         """
-        Test that initialization calls super with default params set to None
+        Assert that build_url is called with the expected parameters
         """
-        ListCourseSections(self.test_course_id)
-        mock_super_init.assert_called_once_with(course_id=self.test_course_id, include=None)
+        list_course_sections(COURSE_ID)
+        mock_build_url.assert_called_once_with('/v1/courses/%d/sections' % COURSE_ID)
 
-    @patch.object(base_api_method.BaseAPIMethod, '__init__')
-    def test_instance_setup_optional_params(self, mock_super_init):
-        """
-        Test that initialization calls super with required and optional params
-        """
-        include = 'foo'
-        ListCourseSections(self.test_course_id, include)
-        mock_super_init.assert_called_once_with(course_id=self.test_course_id, include=include)
+    # @patch('canvas_sdk.utils.build_url')
+    # @patch('canvas_sdk.utils.validate_attr_is_acceptable')
+    # @patch('canvas_sdk.client.get')
+    # def test_sections_list_course_sections_validate_attr_called_with(self, mock_client, validate_mock, build_mock):
+    #     """
+    #     Assert that validate_attr_is_acceptable is called with the expected parameters
+    #     """
 
-    def test_get_action_matches_class_attribute(self):
-        """
-        Test that get_action return value matches class attributes
-        """
-        action = self.api_method.get_action()
-        self.assertEquals(action, ListCourseSections.ACTION,
-                          "Result of get_action call should match class action attribute")
+    #     list_course_sections(COURSE_ID)
+    #     print build_mock.mock_calls
+    #     validate_mock.assert_called_once_with(None, ('students', 'avatar_url'))
 
-    def test_path_property(self):
-        """
-        Test that path property is a formatted version of class _path attribute
-        """
-        path = self.api_method.path
-        self.assertEquals(path, ListCourseSections._path.format(course_id=self.test_course_id),
-                          "path should be a formatted version of 'private' _path class variable with course_id substitution")
+    #@patch('canvas_sdk.methods.sections.list_course_sections.config.LIMIT_PER_PAGE', MAX_RESULTS)
+    # @patch('canvas_sdk.utils.validate_attr_is_acceptable')
+    # @patch('canvas_sdk.client.get')
+    # def test_sections_list_course_sections_using_config_base_api_url(self, mock_client, validate_mock):
+    #     """
+    #     Assert that validate_attr_is_acceptable is called with the expected parameters
+    #     """
+    #     #print methods.sections.config.list_course_sections.LIMIT_PER_PAGE
+    #     with patch.object(list_course_sections, '__defaults__', (sections.list_course_sections.config.LIMIT_PER_PAGE,)):
+    #         list_course_sections(COURSE_ID)
 
-    def test_include_getter_setter_works_against_valid_values(self):
-        """
-        Test include setter works against valid values
-        """
-        for value in ListCourseSections.INCLUDE_TYPES:
-            self.api_method.include = value
-            self.assertEquals(value, self.api_method.include,
-                              "Include property should match what was set for valid values")
 
-    def test_include_getter_setter_works_with_none(self):
-        """
-        Test include setter works with value of None
-        """
-        self.api_method.include = None
-        self.assertEquals(None, self.api_method.include,
-                          "Include property should allow for value set to 'None'")
 
-    def test_include_setter_with_invalid_value_raises_exception(self):
-        """
-        Test include setter with invalid value raises exception
-        """
-        with self.assertRaises(AttributeError):
-            self.api_method.include = 'foo'
+
+
