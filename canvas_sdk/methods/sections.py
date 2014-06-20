@@ -1,39 +1,22 @@
-from canvas_sdk.base_api_method import BaseAPIMethod
+from canvas_sdk import client, utils, config
 
 
-class ListCourseSections(BaseAPIMethod):
+def list_course_sections(course_id, include=None, per_page=config.LIMIT_PER_PAGE):
     """
-    Retrieve a list of sections for a given course.
+    Returns the list of sections for this course.
 
     Parameters:
-       `course_id`: number or string
-       `include`:  optional string in ('students', 'avatar_url')
+        course_id (string, required): ID
+        include (string, optional): "students": Associations to include with the group. 
+            Note: this is only available if you have permission to view users or grades in 
+            the course - "avatar_url": Include the avatar URLs for students returned.
+        per_page (int, optional): The number of results to return. Defaults to config.LIMIT_PER_PAGE.
+
     """
-    _path = '/v1/courses/{course_id}/sections'
-    ACTION = 'GET'
-    INCLUDE_TYPES = ('students', 'avatar_url')
-
-    def __init__(self, course_id, include=None):
-        super(ListCourseSections, self).__init__(course_id=course_id, include=include)
-
-    @classmethod
-    def get_action(cls):
-        return cls.ACTION
-
-    @property
-    def path(self):
-        """
-        Format _path class property with course_id from instance
-        """
-        return self._path.format(course_id=self.course_id)
-
-    @property
-    def include(self):
-        return self.__dict__.get('include', None)
-
-    @include.setter
-    def include(self, value):
-        if value is not None and value not in self.INCLUDE_TYPES:
-            raise AttributeError("%s must be one of %s" % (value, self.INCLUDE_TYPES))
-        else:
-            self.__dict__.update(include=value)
+    
+    path = '/v1/courses/{course_id}/sections'
+    include_types = ('students', 'avatar_url')
+    utils.validate_attr_is_acceptable(include, include_types)
+    result = client.get(utils.build_url(path.format(course_id=course_id)),
+                        {'include': include, 'per_page': per_page})
+    return result
