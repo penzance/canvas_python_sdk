@@ -47,177 +47,214 @@ class TestBase(unittest.TestCase):
     @patch('canvas_sdk.client.base.call')
     def test_get_returns_call(self, call_mock):
         """
-        Test that the call to get helper method returns the result of 'call'
+        Test that the call to get method returns the result of 'call'
         """
         result = client.get(self.req_ctx, self.relative_url)
         self.assertEqual(result, call_mock.return_value,
                          "Call to 'get' should return result of 'call' method")
 
     @patch('canvas_sdk.client.base.call')
-    def test_get_with_defaults(self, call_mock):
+    def test_get_makes_call_with_action_url_and_context(self, call_mock):
         """
-        Test that the call to get helper method with defaults passes url and action
+        Test that the call to get method sends expected action, url, and request context
         """
         client.get(self.req_ctx, self.relative_url)
-        call_mock.assert_called_once_with("GET", self.relative_url, self.req_ctx, params=None)
+        call_mock.assert_called_once_with("GET", self.relative_url, self.req_ctx, params=mock.ANY)
 
     @patch('canvas_sdk.client.base.call')
-    def test_get_with_payload(self, call_mock):
+    def test_get_makes_call_without_payload(self, call_mock):
         """
-        Test that the call to get helper method with a payload passes it into params
+        Test that the call to get method without payload defaults params to None
+        """
+        client.get(self.req_ctx, self.relative_url)
+        call_mock.assert_called_once_with(mock.ANY, mock.ANY, mock.ANY, params=None)
+
+    @patch('canvas_sdk.client.base.call')
+    def test_get_makes_call_with_payload(self, call_mock):
+        """
+        Test that the call to get method with a payload passes it into params
         """
         client.get(self.req_ctx, self.relative_url, self.payload)
-        call_mock.assert_called_once_with(
-            "GET", self.relative_url, self.req_ctx, params=self.payload)
+        call_mock.assert_called_once_with(mock.ANY, mock.ANY, mock.ANY, params=self.payload)
 
     @patch('canvas_sdk.client.base.call')
     def test_get_with_request_kwargs_and_no_payload(self, call_mock):
         """
-        Test that the call to get helper method with a payload passes it into params
+        Test that the call to get method with no payload and request kwargs passes through
+        properly
         """
         client.get(self.req_ctx, self.relative_url, **self.request_kwargs)
         call_mock.assert_called_once_with(
-            "GET", self.relative_url, self.req_ctx, params=None, **self.request_kwargs)
+            mock.ANY, mock.ANY, mock.ANY, params=None, **self.request_kwargs)
 
     @patch('canvas_sdk.client.base.call')
     def test_get_with_request_kwargs_and_payload(self, call_mock):
         """
-        Test that the call to get helper method with a payload passes it into params
+        Test that the call to get method with a payload and request kwargs passes through
+        properly
         """
         client.get(self.req_ctx, self.relative_url, self.payload, **self.request_kwargs)
         call_mock.assert_called_once_with(
-            "GET", self.relative_url, self.req_ctx, params=self.payload, **self.request_kwargs)
+            mock.ANY, mock.ANY, mock.ANY, params=self.payload, **self.request_kwargs)
 
     @patch('canvas_sdk.client.base.call')
     def test_put_returns_call(self, call_mock):
         """
-        Test that the call to put helper method returns the result of 'call'
+        Test that the call to put method returns the result of 'call'
         """
         result = client.put(self.req_ctx, self.relative_url)
         self.assertEqual(result, call_mock.return_value,
                          "Call to 'put' should return result of 'call' method")
 
     @patch('canvas_sdk.client.base.call')
-    def test_put_with_defaults(self, call_mock):
+    def test_put_makes_call_with_action_url_and_context(self, call_mock):
         """
-        Test that the call to put helper method with defaults passes url and action
+        Test that the call to get method sends expected action, url, and request context
         """
         client.put(self.req_ctx, self.relative_url)
-        call_mock.assert_called_once_with("PUT", self.relative_url, self.req_ctx, data=None)
+        call_mock.assert_called_once_with("PUT", self.relative_url, self.req_ctx, data=mock.ANY)
+
+    @patch('canvas_sdk.client.base.call')
+    def test_put_without_payload(self, call_mock):
+        """
+        Test that the call to put method without payload defaults data to None
+        """
+        client.put(self.req_ctx, self.relative_url)
+        call_mock.assert_called_once_with(mock.ANY, mock.ANY, mock.ANY, data=None)
 
     @patch('canvas_sdk.client.base.call')
     def test_put_with_payload(self, call_mock):
         """
-        Test that the call to put helper method with a payload passes it into params
+        Test that the call to put method with a payload passes it into data
         """
         client.put(self.req_ctx, self.relative_url, self.payload)
-        call_mock.assert_called_once_with("PUT", self.relative_url, self.req_ctx, data=self.payload)
+        call_mock.assert_called_once_with(mock.ANY, mock.ANY, mock.ANY, data=self.payload)
 
     @patch('canvas_sdk.client.base.call')
     def test_put_with_request_kwargs_and_no_payload(self, call_mock):
         """
-        Test that the call to put helper method with a payload passes it into params
+        Test that the call to put method with no payload and request kwargs passes through
+        properly
         """
         client.put(self.req_ctx, self.relative_url, **self.request_kwargs)
         call_mock.assert_called_once_with(
-            "PUT", self.relative_url, self.req_ctx, data=None, **self.request_kwargs)
+            mock.ANY, mock.ANY, mock.ANY, data=None, **self.request_kwargs)
 
     @patch('canvas_sdk.client.base.call')
     def test_put_with_request_kwargs_and_payload(self, call_mock):
         """
-        Test that the call to put helper method with a payload passes it into params
+        Test that the call to put method with payload and request kwargs passes through
+        properly
         """
         client.put(self.req_ctx, self.relative_url, self.payload, **self.request_kwargs)
         call_mock.assert_called_once_with(
-            "PUT", self.relative_url, self.req_ctx, data=self.payload, **self.request_kwargs)
+            mock.ANY, mock.ANY, mock.ANY, data=self.payload, **self.request_kwargs)
 
     @patch('canvas_sdk.client.base.call')
     def test_post_returns_call(self, call_mock):
         """
-        Test that the call to post helper method returns the result of 'call'
+        Test that the call to post method returns the result of 'call'
         """
         result = client.post(self.req_ctx, self.relative_url)
         self.assertEqual(result, call_mock.return_value,
                          "Call to 'post' should return result of 'call' method")
 
     @patch('canvas_sdk.client.base.call')
-    def test_post_with_defaults(self, call_mock):
+    def test_post_makes_call_with_action_url_and_context(self, call_mock):
         """
-        Test that the call to post helper method with defaults passes url and action
+        Test that the call to get method sends expected action, url, and request context
         """
         client.post(self.req_ctx, self.relative_url)
-        call_mock.assert_called_once_with("POST", self.relative_url, self.req_ctx, data=None)
+        call_mock.assert_called_once_with("POST", self.relative_url, self.req_ctx, data=mock.ANY)
+
+    @patch('canvas_sdk.client.base.call')
+    def test_post_without_payload(self, call_mock):
+        """
+        Test that the call to post method without payload defaults data to None
+        """
+        client.post(self.req_ctx, self.relative_url)
+        call_mock.assert_called_once_with(mock.ANY, mock.ANY, mock.ANY, data=None)
 
     @patch('canvas_sdk.client.base.call')
     def test_post_with_payload(self, call_mock):
         """
-        Test that the call to post helper method with a payload passes it into params
+        Test that the call to post method with a payload passes it into params
         """
         client.post(self.req_ctx, self.relative_url, self.payload)
-        call_mock.assert_called_once_with(
-            "POST", self.relative_url, self.req_ctx, data=self.payload)
+        call_mock.assert_called_once_with(mock.ANY, mock.ANY, mock.ANY, data=self.payload)
 
     @patch('canvas_sdk.client.base.call')
     def test_post_with_request_kwargs_and_no_payload(self, call_mock):
         """
-        Test that the call to post helper method with a payload passes it into params
+        Test that the call to put method with no payload and request kwargs passes through
+        properly
         """
         client.post(self.req_ctx, self.relative_url, **self.request_kwargs)
         call_mock.assert_called_once_with(
-            "POST", self.relative_url, self.req_ctx, data=None, **self.request_kwargs)
+            mock.ANY, mock.ANY, mock.ANY, data=None, **self.request_kwargs)
 
     @patch('canvas_sdk.client.base.call')
     def test_post_with_request_kwargs_and_payload(self, call_mock):
         """
-        Test that the call to post helper method with a payload passes it into params
+        Test that the call to put method with payload and request kwargs passes through
+        properly
         """
         client.post(self.req_ctx, self.relative_url, self.payload, **self.request_kwargs)
         call_mock.assert_called_once_with(
-            "POST", self.relative_url, self.req_ctx, data=self.payload, **self.request_kwargs)
+            mock.ANY, mock.ANY, mock.ANY, data=self.payload, **self.request_kwargs)
 
     @patch('canvas_sdk.client.base.call')
     def test_delete_returns_call(self, call_mock):
         """
-        Test that the call to put helper method returns the result of 'call'
+        Test that the call to put method returns the result of 'call'
         """
         result = client.delete(self.req_ctx, self.relative_url)
         self.assertEqual(result, call_mock.return_value,
                          "Call to 'delete' should return result of 'call' method")
 
     @patch('canvas_sdk.client.base.call')
-    def test_delete_with_defaults(self, call_mock):
+    def test_delete_makes_call_with_action_url_and_context(self, call_mock):
         """
-        Test that the call to delete helper method with defaults passes url and action
+        Test that the call to delete method sends expected action, url, and request context
         """
         client.delete(self.req_ctx, self.relative_url)
-        call_mock.assert_called_once_with("DELETE", self.relative_url, self.req_ctx, data=None)
+        call_mock.assert_called_once_with("DELETE", self.relative_url, self.req_ctx, data=mock.ANY)
+
+    @patch('canvas_sdk.client.base.call')
+    def test_delete_without_payload(self, call_mock):
+        """
+        Test that the call to delete method without payload defaults data to None
+        """
+        client.delete(self.req_ctx, self.relative_url)
+        call_mock.assert_called_once_with(mock.ANY, mock.ANY, mock.ANY, data=None)
 
     @patch('canvas_sdk.client.base.call')
     def test_delete_with_payload(self, call_mock):
         """
-        Test that the call to delete helper method with a payload passes it into params
+        Test that the call to delete method with a payload passes it into data
         """
         client.delete(self.req_ctx, self.relative_url, self.payload)
-        call_mock.assert_called_once_with(
-            "DELETE", self.relative_url, self.req_ctx, data=self.payload)
+        call_mock.assert_called_once_with(mock.ANY, mock.ANY, mock.ANY, data=self.payload)
 
     @patch('canvas_sdk.client.base.call')
     def test_delete_with_request_kwargs_and_no_payload(self, call_mock):
         """
-        Test that the call to delete helper method with a payload passes it into params
+        Test that the call to delete method with request kwargs and no payload passes through
+        properly
         """
         client.delete(self.req_ctx, self.relative_url, **self.request_kwargs)
         call_mock.assert_called_once_with(
-            "DELETE", self.relative_url, self.req_ctx, data=None, **self.request_kwargs)
+            mock.ANY, mock.ANY, mock.ANY, data=None, **self.request_kwargs)
 
     @patch('canvas_sdk.client.base.call')
     def test_delete_with_request_kwargs_and_payload(self, call_mock):
         """
-        Test that the call to delete helper method with a payload passes it into params
+        Test that the call to delete method with payload and request kwargs passes through
+        properly
         """
         client.delete(self.req_ctx, self.relative_url, self.payload, **self.request_kwargs)
         call_mock.assert_called_once_with(
-            "DELETE", self.relative_url, self.req_ctx, data=self.payload, **self.request_kwargs)
+           mock.ANY, mock.ANY, mock.ANY, data=self.payload, **self.request_kwargs)
 
     def test_call_makes_request_with_required_parameters(self):
         """
