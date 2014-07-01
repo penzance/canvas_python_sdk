@@ -26,7 +26,8 @@ def list_course_sections(request_ctx, course_id, include=None, per_page=None, **
         'include': include,
         'per_page': per_page,
     }
-    response = client.get(request_ctx, path.format(course_id=course_id), payload=payload, **request_kwargs)
+    url = request_ctx.base_api_url + path.format(course_id=course_id)
+    response = client.get(request_ctx, url, payload=payload, **request_kwargs)
 
     return response
 
@@ -59,7 +60,8 @@ def create_course_section(request_ctx, course_id, name, sis_section_id=None, sta
         'course_section[start_at]': start_at,
         'course_section[end_at]': end_at,
     }
-    response = client.post(request_ctx, path.format(course_id=course_id), payload=payload, **request_kwargs)
+    url = request_ctx.base_api_url + path.format(course_id=course_id)
+    response = client.post(request_ctx, url, payload=payload, **request_kwargs)
 
     return response
 
@@ -78,7 +80,8 @@ def edit_section(request_ctx, id, **request_kwargs):
     """
 
     path = '/v1/sections/{id}'
-    response = client.put(request_ctx, path.format(id=id), **request_kwargs)
+    url = request_ctx.base_api_url + path.format(id=id)
+    response = client.put(request_ctx, url, **request_kwargs)
 
     return response
 
@@ -97,6 +100,7 @@ def delete_section(request_ctx, id, **request_kwargs):
     """
 
     path = '/v1/sections/{id}'
-    response = client.delete(request_ctx, path.format(id=id), **request_kwargs)
+    url = request_ctx.base_api_url + path.format(id=id)
+    response = client.delete(request_ctx, url, **request_kwargs)
 
     return response

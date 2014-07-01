@@ -117,6 +117,13 @@ class TestRequestContext(unittest.TestCase):
         self.assertEqual({'Accept': 'text/json', 'Custom': 'bar', 'Content': 'xml'},
                          context.headers, "headers should be merged with default headers")
 
+    def test_initialize_per_page_defaults_to_none(self):
+        """
+        Test that if cert is not passed in, the instance attribute defaults to None
+        """
+        context = RequestContext(self.auth_token, self.base_api_url)
+        self.assertEqual(None, context.per_page, "per_page should default to None on creation")
+
     def test_initialize_from_dictionary(self):
         """
         Test that RequestContext can be initialized from a dictionary of settings
@@ -125,6 +132,7 @@ class TestRequestContext(unittest.TestCase):
             'auth_token': self.auth_token,
             'base_api_url': self.base_api_url,
             'max_retries': 5,
+            'per_page': 20,
             'timeout': 60,
             'headers': {'foo': 'bar'},
             'cookies': {'oreo': 'cookie'},

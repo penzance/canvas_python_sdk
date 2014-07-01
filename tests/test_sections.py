@@ -1,6 +1,7 @@
 import unittest
 import mock
 from mock import patch
+from canvas_sdk.client import RequestContext
 from canvas_sdk.methods import sections
 
 
@@ -12,13 +13,15 @@ class TestSections(unittest.TestCase):
         self.course_name = 'Fake Course'
         self.test_request_kwargs = {'headers': {'my': 'header'}, 'cert': 'my-cert'}
         # Set up the request context
-        self.req_ctx = mock.MagicMock(name='request-context')
+        self.req_ctx = mock.MagicMock(name='request-context', spec=RequestContext)
+        self.req_ctx.base_api_url = 'http://base/url/api'
+        self.req_ctx.per_page = 10
 
     @patch('canvas_sdk.methods.sections.utils.validate_attr_is_acceptable')
     @patch('canvas_sdk.methods.sections.client.get')
     def test_list_course_sections_get_called_with_request_context(self, mock_client_get, mock_validate):
         """
-        Assert that request_context.per_page is called when no user value passed in
+        Assert that request_context is passed to client 'get' call
         """
         sections.list_course_sections(self.req_ctx, self.course_id)
         mock_client_get.assert_called_once_with(
@@ -26,13 +29,13 @@ class TestSections(unittest.TestCase):
 
     @patch('canvas_sdk.methods.sections.utils.validate_attr_is_acceptable')
     @patch('canvas_sdk.methods.sections.client.get')
-    def test_list_course_sections_get_called_with_relative_url(self, mock_client_get, mock_validate):
+    def test_list_course_sections_get_called_with_absolute_url(self, mock_client_get, mock_validate):
         """
-        Assert that request_context.per_page is called when no user value passed in
+        Assert that an absolute url made of base_api_url from context and method path is passed to client 'get' call
         """
         sections.list_course_sections(self.req_ctx, self.course_id)
         mock_client_get.assert_called_once_with(
-            mock.ANY, '/v1/courses/%s/sections' % self.course_id, payload=mock.ANY)
+            mock.ANY, self.req_ctx.base_api_url + '/v1/courses/%s/sections' % self.course_id, payload=mock.ANY)
 
     @patch('canvas_sdk.methods.sections.utils.validate_attr_is_acceptable')
     @patch('canvas_sdk.methods.sections.client.get')
@@ -97,13 +100,13 @@ class TestSections(unittest.TestCase):
             self.req_ctx, mock.ANY, payload=mock.ANY)
 
     @patch('canvas_sdk.methods.sections.client.post')
-    def test_create_course_sections_post_called_with_relative_url(self, mock_client_post):
+    def test_create_course_sections_post_called_with_absolute_url(self, mock_client_post):
         """
         Assert that request_context.per_page is called when no user value passed in
         """
         sections.create_course_section(self.req_ctx, self.course_id, self.course_name)
         mock_client_post.assert_called_once_with(
-            mock.ANY, '/v1/courses/%s/sections' % self.course_id, payload=mock.ANY)
+            mock.ANY, self.req_ctx.base_api_url + '/v1/courses/%s/sections' % self.course_id, payload=mock.ANY)
 
     @patch('canvas_sdk.methods.sections.client.post')
     def test_create_course_sections_post_called_with_default_values(self, mock_client_post):
@@ -162,13 +165,13 @@ class TestSections(unittest.TestCase):
         mock_client_put.assert_called_once_with(self.req_ctx, mock.ANY)
 
     @patch('canvas_sdk.methods.sections.client.put')
-    def test_edit_section_put_called_called_with_relative_url(self, mock_client_put):
+    def test_edit_section_put_called_called_with_absolute_url(self, mock_client_put):
         """
         Assert that request_context.per_page is called when no user value passed in
         """
         sections.edit_section(self.req_ctx, self.section_id)
         mock_client_put.assert_called_once_with(
-            mock.ANY, '/v1/sections/%s' % self.section_id)
+            mock.ANY, self.req_ctx.base_api_url + '/v1/sections/%s' % self.section_id)
 
     @patch('canvas_sdk.methods.sections.client.put')
     def test_edit_section_put_called_with_request_kwargs(self, mock_client_put):
@@ -196,13 +199,13 @@ class TestSections(unittest.TestCase):
         mock_client_delete.assert_called_once_with(self.req_ctx, mock.ANY)
 
     @patch('canvas_sdk.methods.sections.client.delete')
-    def test_delete_section_delete_called_called_with_relative_url(self, mock_client_delete):
+    def test_delete_section_delete_called_called_with_absolute_url(self, mock_client_delete):
         """
         Assert that request_context.per_page is called when no user value passed in
         """
         sections.delete_section(self.req_ctx, self.section_id)
         mock_client_delete.assert_called_once_with(
-            mock.ANY, '/v1/sections/%s' % self.section_id)
+            mock.ANY, self.req_ctx.base_api_url + '/v1/sections/%s' % self.section_id)
 
     @patch('canvas_sdk.methods.sections.client.delete')
     def test_delete_section_delete_called_with_request_kwargs(self, mock_client_delete):

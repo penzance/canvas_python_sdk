@@ -14,6 +14,7 @@ class RequestContext(object):
 
     :param str auth_token: OAuth2 token retrieved from a Canvas site
     :param str base_api_url: The api endpoint of the Canvas site in the form "http(s)://[canvas.site.com]/api"
+    :param int per_page: (optional) For get requests that return a list of data, this will be used as the default per_page value
     :param int max_retries: (optional) Number of times a request that generates a certain class of HTTP exception will be retried
         before being raised back to the caller.  See :py:mod:`client.base` for a list of those error types.
     :param dictionary headers: (optional) dictionary of headers to send for each request.  Will be merged with a default set of headers.
@@ -38,9 +39,10 @@ class RequestContext(object):
         }
         return default_headers
 
-    def __init__(self, auth_token, base_api_url, max_retries=0, headers=None, cookies=None, timeout=None, proxies=None, verify=True, cert=None):
+    def __init__(self, auth_token, base_api_url, max_retries=0, per_page=None, headers=None, cookies=None, timeout=None, proxies=None, verify=True, cert=None):
         self._session = None
         self.auth_token = auth_token
+        self.per_page = per_page
         parsed_url = urlparse(base_api_url)
         if 'http' not in parsed_url.scheme:
             raise AttributeError(

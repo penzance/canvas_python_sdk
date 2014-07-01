@@ -24,8 +24,7 @@ class TestBase(unittest.TestCase):
 
     def setUp(self):
         self.base_api_url = "https://path/to/canvas/api"
-        self.relative_url = "/fake/path/to/method"
-        self.absolute_url = self.base_api_url + self.relative_url
+        self.url = self.base_api_url + "/fake/path/to/method"
         self.session = mock.MagicMock(name='canvas-session')
         self.req_ctx = mock.MagicMock(name='request-context')
         self.req_ctx.base_api_url = self.base_api_url
@@ -42,14 +41,14 @@ class TestBase(unittest.TestCase):
         self.session.request.return_value.raise_for_status.side_effect = HTTPError(
             response=mock.MagicMock(status_code=http_error_code))
         with self.assertRaises(HTTPError):
-            base.call("GET", self.relative_url, self.req_ctx, max_retries=max_retries)
+            base.call("GET", self.url, self.req_ctx, max_retries=max_retries)
 
     @patch('canvas_sdk.client.base.call')
     def test_get_returns_call(self, call_mock):
         """
         Test that the call to get method returns the result of 'call'
         """
-        result = client.get(self.req_ctx, self.relative_url)
+        result = client.get(self.req_ctx, self.url)
         self.assertEqual(result, call_mock.return_value,
                          "Call to 'get' should return result of 'call' method")
 
@@ -58,15 +57,15 @@ class TestBase(unittest.TestCase):
         """
         Test that the call to get method sends expected action, url, and request context
         """
-        client.get(self.req_ctx, self.relative_url)
-        call_mock.assert_called_once_with("GET", self.relative_url, self.req_ctx, params=mock.ANY)
+        client.get(self.req_ctx, self.url)
+        call_mock.assert_called_once_with("GET", self.url, self.req_ctx, params=mock.ANY)
 
     @patch('canvas_sdk.client.base.call')
     def test_get_makes_call_without_payload(self, call_mock):
         """
         Test that the call to get method without payload defaults params to None
         """
-        client.get(self.req_ctx, self.relative_url)
+        client.get(self.req_ctx, self.url)
         call_mock.assert_called_once_with(mock.ANY, mock.ANY, mock.ANY, params=None)
 
     @patch('canvas_sdk.client.base.call')
@@ -74,7 +73,7 @@ class TestBase(unittest.TestCase):
         """
         Test that the call to get method with a payload passes it into params
         """
-        client.get(self.req_ctx, self.relative_url, self.payload)
+        client.get(self.req_ctx, self.url, self.payload)
         call_mock.assert_called_once_with(mock.ANY, mock.ANY, mock.ANY, params=self.payload)
 
     @patch('canvas_sdk.client.base.call')
@@ -83,7 +82,7 @@ class TestBase(unittest.TestCase):
         Test that the call to get method with no payload and request kwargs passes through
         properly
         """
-        client.get(self.req_ctx, self.relative_url, **self.request_kwargs)
+        client.get(self.req_ctx, self.url, **self.request_kwargs)
         call_mock.assert_called_once_with(
             mock.ANY, mock.ANY, mock.ANY, params=None, **self.request_kwargs)
 
@@ -93,7 +92,7 @@ class TestBase(unittest.TestCase):
         Test that the call to get method with a payload and request kwargs passes through
         properly
         """
-        client.get(self.req_ctx, self.relative_url, self.payload, **self.request_kwargs)
+        client.get(self.req_ctx, self.url, self.payload, **self.request_kwargs)
         call_mock.assert_called_once_with(
             mock.ANY, mock.ANY, mock.ANY, params=self.payload, **self.request_kwargs)
 
@@ -102,7 +101,7 @@ class TestBase(unittest.TestCase):
         """
         Test that the call to put method returns the result of 'call'
         """
-        result = client.put(self.req_ctx, self.relative_url)
+        result = client.put(self.req_ctx, self.url)
         self.assertEqual(result, call_mock.return_value,
                          "Call to 'put' should return result of 'call' method")
 
@@ -111,15 +110,15 @@ class TestBase(unittest.TestCase):
         """
         Test that the call to get method sends expected action, url, and request context
         """
-        client.put(self.req_ctx, self.relative_url)
-        call_mock.assert_called_once_with("PUT", self.relative_url, self.req_ctx, data=mock.ANY)
+        client.put(self.req_ctx, self.url)
+        call_mock.assert_called_once_with("PUT", self.url, self.req_ctx, data=mock.ANY)
 
     @patch('canvas_sdk.client.base.call')
     def test_put_without_payload(self, call_mock):
         """
         Test that the call to put method without payload defaults data to None
         """
-        client.put(self.req_ctx, self.relative_url)
+        client.put(self.req_ctx, self.url)
         call_mock.assert_called_once_with(mock.ANY, mock.ANY, mock.ANY, data=None)
 
     @patch('canvas_sdk.client.base.call')
@@ -127,7 +126,7 @@ class TestBase(unittest.TestCase):
         """
         Test that the call to put method with a payload passes it into data
         """
-        client.put(self.req_ctx, self.relative_url, self.payload)
+        client.put(self.req_ctx, self.url, self.payload)
         call_mock.assert_called_once_with(mock.ANY, mock.ANY, mock.ANY, data=self.payload)
 
     @patch('canvas_sdk.client.base.call')
@@ -136,7 +135,7 @@ class TestBase(unittest.TestCase):
         Test that the call to put method with no payload and request kwargs passes through
         properly
         """
-        client.put(self.req_ctx, self.relative_url, **self.request_kwargs)
+        client.put(self.req_ctx, self.url, **self.request_kwargs)
         call_mock.assert_called_once_with(
             mock.ANY, mock.ANY, mock.ANY, data=None, **self.request_kwargs)
 
@@ -146,7 +145,7 @@ class TestBase(unittest.TestCase):
         Test that the call to put method with payload and request kwargs passes through
         properly
         """
-        client.put(self.req_ctx, self.relative_url, self.payload, **self.request_kwargs)
+        client.put(self.req_ctx, self.url, self.payload, **self.request_kwargs)
         call_mock.assert_called_once_with(
             mock.ANY, mock.ANY, mock.ANY, data=self.payload, **self.request_kwargs)
 
@@ -155,7 +154,7 @@ class TestBase(unittest.TestCase):
         """
         Test that the call to post method returns the result of 'call'
         """
-        result = client.post(self.req_ctx, self.relative_url)
+        result = client.post(self.req_ctx, self.url)
         self.assertEqual(result, call_mock.return_value,
                          "Call to 'post' should return result of 'call' method")
 
@@ -164,15 +163,15 @@ class TestBase(unittest.TestCase):
         """
         Test that the call to get method sends expected action, url, and request context
         """
-        client.post(self.req_ctx, self.relative_url)
-        call_mock.assert_called_once_with("POST", self.relative_url, self.req_ctx, data=mock.ANY)
+        client.post(self.req_ctx, self.url)
+        call_mock.assert_called_once_with("POST", self.url, self.req_ctx, data=mock.ANY)
 
     @patch('canvas_sdk.client.base.call')
     def test_post_without_payload(self, call_mock):
         """
         Test that the call to post method without payload defaults data to None
         """
-        client.post(self.req_ctx, self.relative_url)
+        client.post(self.req_ctx, self.url)
         call_mock.assert_called_once_with(mock.ANY, mock.ANY, mock.ANY, data=None)
 
     @patch('canvas_sdk.client.base.call')
@@ -180,7 +179,7 @@ class TestBase(unittest.TestCase):
         """
         Test that the call to post method with a payload passes it into params
         """
-        client.post(self.req_ctx, self.relative_url, self.payload)
+        client.post(self.req_ctx, self.url, self.payload)
         call_mock.assert_called_once_with(mock.ANY, mock.ANY, mock.ANY, data=self.payload)
 
     @patch('canvas_sdk.client.base.call')
@@ -189,7 +188,7 @@ class TestBase(unittest.TestCase):
         Test that the call to put method with no payload and request kwargs passes through
         properly
         """
-        client.post(self.req_ctx, self.relative_url, **self.request_kwargs)
+        client.post(self.req_ctx, self.url, **self.request_kwargs)
         call_mock.assert_called_once_with(
             mock.ANY, mock.ANY, mock.ANY, data=None, **self.request_kwargs)
 
@@ -199,7 +198,7 @@ class TestBase(unittest.TestCase):
         Test that the call to put method with payload and request kwargs passes through
         properly
         """
-        client.post(self.req_ctx, self.relative_url, self.payload, **self.request_kwargs)
+        client.post(self.req_ctx, self.url, self.payload, **self.request_kwargs)
         call_mock.assert_called_once_with(
             mock.ANY, mock.ANY, mock.ANY, data=self.payload, **self.request_kwargs)
 
@@ -208,7 +207,7 @@ class TestBase(unittest.TestCase):
         """
         Test that the call to put method returns the result of 'call'
         """
-        result = client.delete(self.req_ctx, self.relative_url)
+        result = client.delete(self.req_ctx, self.url)
         self.assertEqual(result, call_mock.return_value,
                          "Call to 'delete' should return result of 'call' method")
 
@@ -217,15 +216,15 @@ class TestBase(unittest.TestCase):
         """
         Test that the call to delete method sends expected action, url, and request context
         """
-        client.delete(self.req_ctx, self.relative_url)
-        call_mock.assert_called_once_with("DELETE", self.relative_url, self.req_ctx, data=mock.ANY)
+        client.delete(self.req_ctx, self.url)
+        call_mock.assert_called_once_with("DELETE", self.url, self.req_ctx, data=mock.ANY)
 
     @patch('canvas_sdk.client.base.call')
     def test_delete_without_payload(self, call_mock):
         """
         Test that the call to delete method without payload defaults data to None
         """
-        client.delete(self.req_ctx, self.relative_url)
+        client.delete(self.req_ctx, self.url)
         call_mock.assert_called_once_with(mock.ANY, mock.ANY, mock.ANY, data=None)
 
     @patch('canvas_sdk.client.base.call')
@@ -233,7 +232,7 @@ class TestBase(unittest.TestCase):
         """
         Test that the call to delete method with a payload passes it into data
         """
-        client.delete(self.req_ctx, self.relative_url, self.payload)
+        client.delete(self.req_ctx, self.url, self.payload)
         call_mock.assert_called_once_with(mock.ANY, mock.ANY, mock.ANY, data=self.payload)
 
     @patch('canvas_sdk.client.base.call')
@@ -242,7 +241,7 @@ class TestBase(unittest.TestCase):
         Test that the call to delete method with request kwargs and no payload passes through
         properly
         """
-        client.delete(self.req_ctx, self.relative_url, **self.request_kwargs)
+        client.delete(self.req_ctx, self.url, **self.request_kwargs)
         call_mock.assert_called_once_with(
             mock.ANY, mock.ANY, mock.ANY, data=None, **self.request_kwargs)
 
@@ -252,18 +251,18 @@ class TestBase(unittest.TestCase):
         Test that the call to delete method with payload and request kwargs passes through
         properly
         """
-        client.delete(self.req_ctx, self.relative_url, self.payload, **self.request_kwargs)
+        client.delete(self.req_ctx, self.url, self.payload, **self.request_kwargs)
         call_mock.assert_called_once_with(
-           mock.ANY, mock.ANY, mock.ANY, data=self.payload, **self.request_kwargs)
+            mock.ANY, mock.ANY, mock.ANY, data=self.payload, **self.request_kwargs)
 
     def test_call_makes_request_with_required_parameters(self):
         """
         Test that the 'call' method makes a session request with required params and defaults for
         optional parameters.
         """
-        base.call("GET", self.relative_url, self.req_ctx)
+        base.call("GET", self.url, self.req_ctx)
         self.session.request.assert_called_once_with(
-            "GET", self.absolute_url, auth=None, **self.OPTIONAL_REQUEST_ARGS)
+            "GET", self.url, auth=None, **self.OPTIONAL_REQUEST_ARGS)
 
     @patch('canvas_sdk.client.base.OAuth2Bearer')
     def test_call_makes_request_with_auth_token(self, authentication_bearer_mock):
@@ -271,11 +270,11 @@ class TestBase(unittest.TestCase):
         Test that the 'call' method uses custom authentication bearer callable when making request
         """
         auth_token = "my-oauth2-token"
-        base.call("GET", self.relative_url, self.req_ctx, auth_token=auth_token)
+        base.call("GET", self.url, self.req_ctx, auth_token=auth_token)
         # Make sure custom auth class was set up properly
         authentication_bearer_mock.assert_called_once_with(auth_token)
         self.session.request.assert_called_once_with(
-            "GET", self.absolute_url, auth=authentication_bearer_mock.return_value, **self.OPTIONAL_REQUEST_ARGS)
+            "GET", self.url, auth=authentication_bearer_mock.return_value, **self.OPTIONAL_REQUEST_ARGS)
 
     def test_call_makes_request_with_optional_request_params(self):
         """
@@ -293,22 +292,22 @@ class TestBase(unittest.TestCase):
             'cert': ('custom', 'cert'),
             'allow_redirects': False,
         })
-        base.call("GET", self.relative_url, self.req_ctx, **custom_kwargs)
+        base.call("GET", self.url, self.req_ctx, **custom_kwargs)
         self.session.request.assert_called_once_with(
-            "GET", self.absolute_url, auth=None, **custom_kwargs)
+            "GET", self.url, auth=None, **custom_kwargs)
 
     def test_call_raises_status_on_result(self):
         """
         Test that 'call' method makes call to raise_for_status on result object
         """
-        result = base.call("GET", self.relative_url, self.req_ctx)
+        result = base.call("GET", self.url, self.req_ctx)
         result.raise_for_status.assert_called_once_with()
 
     def test_call_returns_value_of_session_request(self):
         """
         Test that 'call' method returns the result of session request
         """
-        result = base.call("GET", self.relative_url, self.req_ctx)
+        result = base.call("GET", self.url, self.req_ctx)
         self.assertEqual(
             result, self.session.request.return_value, "Session request should be returned")
 
