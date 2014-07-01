@@ -74,7 +74,7 @@ def call(action, relative_url, request_context, params=None, data=None, max_retr
         retries = 0  # Fall back in case max_retries in context was explicitly set to None
     # Set up an authentication callable using OAuth2Bearer if a token was passed in
     auth = None
-    if auth_token is not None:
+    if auth_token:
         auth = OAuth2Bearer(auth_token)
     # try the request until max_retries is reached.  we need to account for the
     # fact that the first iteration through isn't a retry, so add 1 to max_retries

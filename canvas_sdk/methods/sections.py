@@ -1,4 +1,4 @@
-from .. import client, utils
+from canvas_sdk import client, utils
 
 
 def list_course_sections(request_ctx, course_id, include=None, per_page=None, **request_kwargs):
