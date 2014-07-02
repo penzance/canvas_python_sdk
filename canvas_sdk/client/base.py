@@ -11,35 +11,35 @@ RETRY_ERROR_CODES = (
 )
 
 
-def get(request_context, relative_url, payload=None, **optional_request_params):
+def get(request_context, url, payload=None, **optional_request_params):
     """
     Shortcut for making a GET call to the API.  Data is passed as url params.
     """
-    return call("GET", relative_url, request_context, params=payload, **optional_request_params)
+    return call("GET", url, request_context, params=payload, **optional_request_params)
 
 
-def put(request_context, relative_url, payload=None, **optional_request_params):
+def put(request_context, url, payload=None, **optional_request_params):
     """
     Shortcut for making a PUT call to the API
     """
-    return call("PUT", relative_url, request_context, data=payload, **optional_request_params)
+    return call("PUT", url, request_context, data=payload, **optional_request_params)
 
 
-def post(request_context, relative_url, payload=None, **optional_request_params):
+def post(request_context, url, payload=None, **optional_request_params):
     """
     Shortcut for making a POST call to the API
     """
-    return call("POST", relative_url, request_context, data=payload, **optional_request_params)
+    return call("POST", url, request_context, data=payload, **optional_request_params)
 
 
-def delete(request_context, relative_url, payload=None, **optional_request_params):
+def delete(request_context, url, payload=None, **optional_request_params):
     """
     Shortcut for making a DELETE call to the API
     """
-    return call("DELETE", relative_url, request_context, data=payload, **optional_request_params)
+    return call("DELETE", url, request_context, data=payload, **optional_request_params)
 
 
-def call(action, relative_url, request_context, params=None, data=None, max_retries=None,
+def call(action, url, request_context, params=None, data=None, max_retries=None,
          auth_token=None, files=None, headers=None, cookies=None, timeout=None, proxies=None,
          verify=None, cert=None, allow_redirects=True):
     """This method servers as a pass-through to the requests library request functionality, but provides some configurable default
@@ -47,7 +47,7 @@ def call(action, relative_url, request_context, params=None, data=None, max_retr
     Returns :class:`requests.Response <Response>` object.
 
     :param action: method for the new :class:`Request` object.
-    :param relative_url: Relative url path to API method
+    :param url: Absolute url path to API method
     :param request_context: Instance of :class:`RequestContext` that holds a request session and other default values
     :param params: (optional) Dictionary or bytes to be sent in the query string for the :class:`Request`.
     :param data: (optional) Dictionary, bytes, or file-like object to send in the body of the :class:`Request`.
@@ -68,13 +68,12 @@ def call(action, relative_url, request_context, params=None, data=None, max_retr
     """
     # This will be a requests.Session object with defaults set for context
     canvas_session = request_context.session
-    url = request_context.base_api_url + relative_url  # Absolute url to API method
     retries = max_retries or request_context.max_retries  # Default back to value in request_context
     if retries is None:
         retries = 0  # Fall back in case max_retries in context was explicitly set to None
     # Set up an authentication callable using OAuth2Bearer if a token was passed in
     auth = None
-    if auth_token is not None:
+    if auth_token:
         auth = OAuth2Bearer(auth_token)
     # try the request until max_retries is reached.  we need to account for the
     # fact that the first iteration through isn't a retry, so add 1 to max_retries
