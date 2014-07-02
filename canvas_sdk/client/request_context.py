@@ -72,7 +72,9 @@ class RequestContext(object):
         Get or set a requests.Session instance based on the session related values passed into the
         class.  The setter should only be used if you need fine-grained control over your session.
         You can refer to the requests library documentation for information on available options for
-        the session object: http://docs.python-requests.org/en/latest/
+        the session object: http://docs.python-requests.org/
+        NOTE: Refer to the setup.py file to match up the version of the Requests library the SDK uses
+        with the right doc version.
         """
         if not self._session:
             self._session = requests.Session()
