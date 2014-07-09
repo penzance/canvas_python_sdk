@@ -43,8 +43,47 @@ class TestBase(unittest.TestCase):
         with self.assertRaises(HTTPError):
             base.call("GET", self.url, self.req_ctx, max_retries=max_retries)
 
+    def test_merge_or_create_key_value_for_dictionary_no_value(self):
+        """
+        Test that call to merge helper method with a value of None doesn't make any
+        changes to the dictionary that was passed in.
+        """
+        dictionary = {'foo': {'key1': 'val1'}}
+        key = 'foo'
+        value = None
+        base.merge_or_create_key_value_for_dictionary(dictionary, key, value)
+        self.assertEqual(dictionary, {'foo': {'key1': 'val1'}},
+                         "Dictionary should remain unchanged if no value was passed in to merge helper")
+
+    def test_merge_or_create_key_value_for_dictionary_key_that_does_not_exist(self):
+        """
+        Test that call to merge helper method for a key that does not already exist in
+        the dictionary that was passed in modifies the dictionary with the given key-
+        value pair.
+        """
+        dictionary = {'foo': {'key1': 'val1'}}
+        key = 'baz'
+        value = {'new': 'value'}
+        base.merge_or_create_key_value_for_dictionary(dictionary, key, value)
+        self.assertEqual(
+            dictionary, {'foo': {'key1': 'val1'}, key: value}, "Dictionary should contain new key-value pair")
+
+    def test_merge_or_create_key_value_for_dictionary_key_that_exists(self):
+        """
+        Test that call to merge helper method for a key that already exists in
+        the dictionary will merge the new value in with the existing value for
+        that key.
+        """
+        dictionary = {'foo': {'key1': 'val1', 'new': 'blue'}}
+        key = 'foo'
+        value = {'new': 'value'}
+        base.merge_or_create_key_value_for_dictionary(dictionary, key, value)
+        self.assertEqual(dictionary, {'foo': {'key1': 'val1', 'new': 'value'}},
+                         "The value should have been merged into the existing key on the dictionary")
+
+    @patch('canvas_sdk.client.base.merge_or_create_key_value_for_dictionary')
     @patch('canvas_sdk.client.base.call')
-    def test_get_returns_call(self, call_mock):
+    def test_get_returns_call(self, call_mock, merge_mock):
         """
         Test that the call to get method returns the result of 'call'
         """
@@ -52,49 +91,65 @@ class TestBase(unittest.TestCase):
         self.assertEqual(result, call_mock.return_value,
                          "Call to 'get' should return result of 'call' method")
 
+    @patch('canvas_sdk.client.base.merge_or_create_key_value_for_dictionary')
     @patch('canvas_sdk.client.base.call')
-    def test_get_makes_call_with_action_url_and_context(self, call_mock):
+    def test_get_merges_with_params_key(self, call_mock, merge_mock):
+        """
+        Test that the call to get method calls merge helper with 'params' as
+        dictionary key (second positional parameter)
+        """
+        client.get(self.req_ctx, self.url)
+        merge_mock.assert_called_once_with(mock.ANY, 'params', mock.ANY)
+
+    @patch('canvas_sdk.client.base.merge_or_create_key_value_for_dictionary')
+    @patch('canvas_sdk.client.base.call')
+    def test_get_merges_with_request_kwargs(self, call_mock, merge_mock):
+        """
+        Test that the call to get method calls merge helper with request_kwargs
+        dictionary as first positional parameter
+        """
+        client.get(self.req_ctx, self.url, **self.request_kwargs)
+        merge_mock.assert_called_once_with(self.request_kwargs, mock.ANY, mock.ANY)
+
+    @patch('canvas_sdk.client.base.merge_or_create_key_value_for_dictionary')
+    @patch('canvas_sdk.client.base.call')
+    def test_get_merges_no_payload(self, call_mock, merge_mock):
+        """
+        Test that the call to get method without a payload calls merge helper and passes
+        in None as the value parameter.
+        """
+        client.get(self.req_ctx, self.url)
+        merge_mock.assert_called_once_with(mock.ANY, mock.ANY, None)
+
+    @patch('canvas_sdk.client.base.merge_or_create_key_value_for_dictionary')
+    @patch('canvas_sdk.client.base.call')
+    def test_get_merges_with_payload(self, call_mock, merge_mock):
+        """
+        Test that the call to get method with a payload calls merge helper and passes
+        the payload as the value parameter.
+        """
+        client.get(self.req_ctx, self.url, self.payload)
+        merge_mock.assert_called_once_with(mock.ANY, mock.ANY, self.payload)
+
+    @patch('canvas_sdk.client.base.merge_or_create_key_value_for_dictionary')
+    @patch('canvas_sdk.client.base.call')
+    def test_get_makes_call_with_action_url_and_context(self, call_mock, merge_mock):
         """
         Test that the call to get method sends expected action, url, and request context
         """
         client.get(self.req_ctx, self.url)
-        call_mock.assert_called_once_with("GET", self.url, self.req_ctx, params=mock.ANY)
+        call_mock.assert_called_once_with("GET", self.url, self.req_ctx)
 
+    @patch('canvas_sdk.client.base.merge_or_create_key_value_for_dictionary')
     @patch('canvas_sdk.client.base.call')
-    def test_get_makes_call_without_payload(self, call_mock):
-        """
-        Test that the call to get method without payload defaults params to None
-        """
-        client.get(self.req_ctx, self.url)
-        call_mock.assert_called_once_with(mock.ANY, mock.ANY, mock.ANY, params=None)
-
-    @patch('canvas_sdk.client.base.call')
-    def test_get_makes_call_with_payload(self, call_mock):
-        """
-        Test that the call to get method with a payload passes it into params
-        """
-        client.get(self.req_ctx, self.url, self.payload)
-        call_mock.assert_called_once_with(mock.ANY, mock.ANY, mock.ANY, params=self.payload)
-
-    @patch('canvas_sdk.client.base.call')
-    def test_get_with_request_kwargs_and_no_payload(self, call_mock):
-        """
-        Test that the call to get method with no payload and request kwargs passes through
-        properly
-        """
-        client.get(self.req_ctx, self.url, **self.request_kwargs)
-        call_mock.assert_called_once_with(
-            mock.ANY, mock.ANY, mock.ANY, params=None, **self.request_kwargs)
-
-    @patch('canvas_sdk.client.base.call')
-    def test_get_with_request_kwargs_and_payload(self, call_mock):
+    def test_get_with_request_kwargs_and_payload(self, call_mock, merge_mock):
         """
         Test that the call to get method with a payload and request kwargs passes through
         properly
         """
         client.get(self.req_ctx, self.url, self.payload, **self.request_kwargs)
         call_mock.assert_called_once_with(
-            mock.ANY, mock.ANY, mock.ANY, params=self.payload, **self.request_kwargs)
+            mock.ANY, mock.ANY, mock.ANY, **self.request_kwargs)
 
     @patch('canvas_sdk.client.base.call')
     def test_put_returns_call(self, call_mock):
@@ -105,52 +160,69 @@ class TestBase(unittest.TestCase):
         self.assertEqual(result, call_mock.return_value,
                          "Call to 'put' should return result of 'call' method")
 
+    @patch('canvas_sdk.client.base.merge_or_create_key_value_for_dictionary')
     @patch('canvas_sdk.client.base.call')
-    def test_put_makes_call_with_action_url_and_context(self, call_mock):
+    def test_put_merges_with_data_key(self, call_mock, merge_mock):
+        """
+        Test that the call to put method calls merge helper with 'data' as
+        dictionary key (second positional parameter)
+        """
+        client.put(self.req_ctx, self.url)
+        merge_mock.assert_called_once_with(mock.ANY, 'data', mock.ANY)
+
+    @patch('canvas_sdk.client.base.merge_or_create_key_value_for_dictionary')
+    @patch('canvas_sdk.client.base.call')
+    def test_put_merges_with_request_kwargs(self, call_mock, merge_mock):
+        """
+        Test that the call to put method calls merge helper with request_kwargs
+        dictionary as first positional parameter
+        """
+        client.put(self.req_ctx, self.url, **self.request_kwargs)
+        merge_mock.assert_called_once_with(self.request_kwargs, mock.ANY, mock.ANY)
+
+    @patch('canvas_sdk.client.base.merge_or_create_key_value_for_dictionary')
+    @patch('canvas_sdk.client.base.call')
+    def test_put_merges_no_payload(self, call_mock, merge_mock):
+        """
+        Test that the call to put method without a payload calls merge helper and passes
+        in None as the value parameter.
+        """
+        client.put(self.req_ctx, self.url)
+        merge_mock.assert_called_once_with(mock.ANY, mock.ANY, None)
+
+    @patch('canvas_sdk.client.base.merge_or_create_key_value_for_dictionary')
+    @patch('canvas_sdk.client.base.call')
+    def test_put_merges_with_payload(self, call_mock, merge_mock):
+        """
+        Test that the call to put method with a payload calls merge helper and passes
+        in the payload as the value parameter.
+        """
+        client.put(self.req_ctx, self.url, self.payload)
+        merge_mock.assert_called_once_with(mock.ANY, mock.ANY, self.payload)
+
+    @patch('canvas_sdk.client.base.merge_or_create_key_value_for_dictionary')
+    @patch('canvas_sdk.client.base.call')
+    def test_put_makes_call_with_action_url_and_context(self, call_mock, merge_mock):
         """
         Test that the call to get method sends expected action, url, and request context
         """
         client.put(self.req_ctx, self.url)
-        call_mock.assert_called_once_with("PUT", self.url, self.req_ctx, data=mock.ANY)
+        call_mock.assert_called_once_with("PUT", self.url, self.req_ctx)
 
+    @patch('canvas_sdk.client.base.merge_or_create_key_value_for_dictionary')
     @patch('canvas_sdk.client.base.call')
-    def test_put_without_payload(self, call_mock):
-        """
-        Test that the call to put method without payload defaults data to None
-        """
-        client.put(self.req_ctx, self.url)
-        call_mock.assert_called_once_with(mock.ANY, mock.ANY, mock.ANY, data=None)
-
-    @patch('canvas_sdk.client.base.call')
-    def test_put_with_payload(self, call_mock):
-        """
-        Test that the call to put method with a payload passes it into data
-        """
-        client.put(self.req_ctx, self.url, self.payload)
-        call_mock.assert_called_once_with(mock.ANY, mock.ANY, mock.ANY, data=self.payload)
-
-    @patch('canvas_sdk.client.base.call')
-    def test_put_with_request_kwargs_and_no_payload(self, call_mock):
-        """
-        Test that the call to put method with no payload and request kwargs passes through
-        properly
-        """
-        client.put(self.req_ctx, self.url, **self.request_kwargs)
-        call_mock.assert_called_once_with(
-            mock.ANY, mock.ANY, mock.ANY, data=None, **self.request_kwargs)
-
-    @patch('canvas_sdk.client.base.call')
-    def test_put_with_request_kwargs_and_payload(self, call_mock):
+    def test_put_with_request_kwargs_and_payload(self, call_mock, merge_mock):
         """
         Test that the call to put method with payload and request kwargs passes through
         properly
         """
         client.put(self.req_ctx, self.url, self.payload, **self.request_kwargs)
         call_mock.assert_called_once_with(
-            mock.ANY, mock.ANY, mock.ANY, data=self.payload, **self.request_kwargs)
+            mock.ANY, mock.ANY, mock.ANY, **self.request_kwargs)
 
+    @patch('canvas_sdk.client.base.merge_or_create_key_value_for_dictionary')
     @patch('canvas_sdk.client.base.call')
-    def test_post_returns_call(self, call_mock):
+    def test_post_returns_call(self, call_mock, merge_mock):
         """
         Test that the call to post method returns the result of 'call'
         """
@@ -158,52 +230,69 @@ class TestBase(unittest.TestCase):
         self.assertEqual(result, call_mock.return_value,
                          "Call to 'post' should return result of 'call' method")
 
+    @patch('canvas_sdk.client.base.merge_or_create_key_value_for_dictionary')
     @patch('canvas_sdk.client.base.call')
-    def test_post_makes_call_with_action_url_and_context(self, call_mock):
+    def test_post_merges_with_data_key(self, call_mock, merge_mock):
+        """
+        Test that the call to post method calls merge helper with 'data' as
+        dictionary key (second positional parameter)
+        """
+        client.post(self.req_ctx, self.url)
+        merge_mock.assert_called_once_with(mock.ANY, 'data', mock.ANY)
+
+    @patch('canvas_sdk.client.base.merge_or_create_key_value_for_dictionary')
+    @patch('canvas_sdk.client.base.call')
+    def test_post_merges_with_request_kwargs(self, call_mock, merge_mock):
+        """
+        Test that the call to post method calls merge helper with request_kwargs
+        dictionary as first positional parameter
+        """
+        client.post(self.req_ctx, self.url, **self.request_kwargs)
+        merge_mock.assert_called_once_with(self.request_kwargs, mock.ANY, mock.ANY)
+
+    @patch('canvas_sdk.client.base.merge_or_create_key_value_for_dictionary')
+    @patch('canvas_sdk.client.base.call')
+    def test_post_merges_no_payload(self, call_mock, merge_mock):
+        """
+        Test that the call to post method without a payload calls merge helper and passes
+        in None as the value parameter.
+        """
+        client.post(self.req_ctx, self.url)
+        merge_mock.assert_called_once_with(mock.ANY, mock.ANY, None)
+
+    @patch('canvas_sdk.client.base.merge_or_create_key_value_for_dictionary')
+    @patch('canvas_sdk.client.base.call')
+    def test_post_merges_with_payload(self, call_mock, merge_mock):
+        """
+        Test that the call to put method with a payload calls merge helper and passes
+        in the payload as the value parameter.
+        """
+        client.post(self.req_ctx, self.url, self.payload)
+        merge_mock.assert_called_once_with(mock.ANY, mock.ANY, self.payload)
+
+    @patch('canvas_sdk.client.base.merge_or_create_key_value_for_dictionary')
+    @patch('canvas_sdk.client.base.call')
+    def test_post_makes_call_with_action_url_and_context(self, call_mock, merge_mock):
         """
         Test that the call to get method sends expected action, url, and request context
         """
         client.post(self.req_ctx, self.url)
-        call_mock.assert_called_once_with("POST", self.url, self.req_ctx, data=mock.ANY)
+        call_mock.assert_called_once_with("POST", self.url, self.req_ctx)
 
+    @patch('canvas_sdk.client.base.merge_or_create_key_value_for_dictionary')
     @patch('canvas_sdk.client.base.call')
-    def test_post_without_payload(self, call_mock):
+    def test_post_with_request_kwargs_and_payload(self, call_mock, merge_mock):
         """
-        Test that the call to post method without payload defaults data to None
-        """
-        client.post(self.req_ctx, self.url)
-        call_mock.assert_called_once_with(mock.ANY, mock.ANY, mock.ANY, data=None)
-
-    @patch('canvas_sdk.client.base.call')
-    def test_post_with_payload(self, call_mock):
-        """
-        Test that the call to post method with a payload passes it into params
-        """
-        client.post(self.req_ctx, self.url, self.payload)
-        call_mock.assert_called_once_with(mock.ANY, mock.ANY, mock.ANY, data=self.payload)
-
-    @patch('canvas_sdk.client.base.call')
-    def test_post_with_request_kwargs_and_no_payload(self, call_mock):
-        """
-        Test that the call to put method with no payload and request kwargs passes through
-        properly
-        """
-        client.post(self.req_ctx, self.url, **self.request_kwargs)
-        call_mock.assert_called_once_with(
-            mock.ANY, mock.ANY, mock.ANY, data=None, **self.request_kwargs)
-
-    @patch('canvas_sdk.client.base.call')
-    def test_post_with_request_kwargs_and_payload(self, call_mock):
-        """
-        Test that the call to put method with payload and request kwargs passes through
+        Test that the call to post method with payload and request kwargs passes through
         properly
         """
         client.post(self.req_ctx, self.url, self.payload, **self.request_kwargs)
         call_mock.assert_called_once_with(
-            mock.ANY, mock.ANY, mock.ANY, data=self.payload, **self.request_kwargs)
+            mock.ANY, mock.ANY, mock.ANY, **self.request_kwargs)
 
+    @patch('canvas_sdk.client.base.merge_or_create_key_value_for_dictionary')
     @patch('canvas_sdk.client.base.call')
-    def test_delete_returns_call(self, call_mock):
+    def test_delete_returns_call(self, call_mock, merge_mock):
         """
         Test that the call to put method returns the result of 'call'
         """
@@ -211,49 +300,65 @@ class TestBase(unittest.TestCase):
         self.assertEqual(result, call_mock.return_value,
                          "Call to 'delete' should return result of 'call' method")
 
+    @patch('canvas_sdk.client.base.merge_or_create_key_value_for_dictionary')
     @patch('canvas_sdk.client.base.call')
-    def test_delete_makes_call_with_action_url_and_context(self, call_mock):
+    def test_delete_merges_with_data_key(self, call_mock, merge_mock):
+        """
+        Test that the call to delete method calls merge helper with 'data' as
+        dictionary key (second positional parameter)
+        """
+        client.delete(self.req_ctx, self.url)
+        merge_mock.assert_called_once_with(mock.ANY, 'data', mock.ANY)
+
+    @patch('canvas_sdk.client.base.merge_or_create_key_value_for_dictionary')
+    @patch('canvas_sdk.client.base.call')
+    def test_delete_merges_with_request_kwargs(self, call_mock, merge_mock):
+        """
+        Test that the call to delete method calls merge helper with request_kwargs
+        dictionary as first positional parameter
+        """
+        client.delete(self.req_ctx, self.url, **self.request_kwargs)
+        merge_mock.assert_called_once_with(self.request_kwargs, mock.ANY, mock.ANY)
+
+    @patch('canvas_sdk.client.base.merge_or_create_key_value_for_dictionary')
+    @patch('canvas_sdk.client.base.call')
+    def test_delete_merges_no_payload(self, call_mock, merge_mock):
+        """
+        Test that the call to delete method without a payload calls merge helper and passes
+        in None as the value parameter.
+        """
+        client.delete(self.req_ctx, self.url)
+        merge_mock.assert_called_once_with(mock.ANY, mock.ANY, None)
+
+    @patch('canvas_sdk.client.base.merge_or_create_key_value_for_dictionary')
+    @patch('canvas_sdk.client.base.call')
+    def test_delete_merges_with_payload(self, call_mock, merge_mock):
+        """
+        Test that the call to delete method with a payload calls merge helper and passes
+        in the payload as the value parameter.
+        """
+        client.delete(self.req_ctx, self.url, self.payload)
+        merge_mock.assert_called_once_with(mock.ANY, mock.ANY, self.payload)
+
+    @patch('canvas_sdk.client.base.merge_or_create_key_value_for_dictionary')
+    @patch('canvas_sdk.client.base.call')
+    def test_delete_makes_call_with_action_url_and_context(self, call_mock, merge_mock):
         """
         Test that the call to delete method sends expected action, url, and request context
         """
         client.delete(self.req_ctx, self.url)
-        call_mock.assert_called_once_with("DELETE", self.url, self.req_ctx, data=mock.ANY)
+        call_mock.assert_called_once_with("DELETE", self.url, self.req_ctx)
 
+    @patch('canvas_sdk.client.base.merge_or_create_key_value_for_dictionary')
     @patch('canvas_sdk.client.base.call')
-    def test_delete_without_payload(self, call_mock):
-        """
-        Test that the call to delete method without payload defaults data to None
-        """
-        client.delete(self.req_ctx, self.url)
-        call_mock.assert_called_once_with(mock.ANY, mock.ANY, mock.ANY, data=None)
-
-    @patch('canvas_sdk.client.base.call')
-    def test_delete_with_payload(self, call_mock):
-        """
-        Test that the call to delete method with a payload passes it into data
-        """
-        client.delete(self.req_ctx, self.url, self.payload)
-        call_mock.assert_called_once_with(mock.ANY, mock.ANY, mock.ANY, data=self.payload)
-
-    @patch('canvas_sdk.client.base.call')
-    def test_delete_with_request_kwargs_and_no_payload(self, call_mock):
-        """
-        Test that the call to delete method with request kwargs and no payload passes through
-        properly
-        """
-        client.delete(self.req_ctx, self.url, **self.request_kwargs)
-        call_mock.assert_called_once_with(
-            mock.ANY, mock.ANY, mock.ANY, data=None, **self.request_kwargs)
-
-    @patch('canvas_sdk.client.base.call')
-    def test_delete_with_request_kwargs_and_payload(self, call_mock):
+    def test_delete_with_request_kwargs_and_payload(self, call_mock, merge_mock):
         """
         Test that the call to delete method with payload and request kwargs passes through
         properly
         """
         client.delete(self.req_ctx, self.url, self.payload, **self.request_kwargs)
         call_mock.assert_called_once_with(
-            mock.ANY, mock.ANY, mock.ANY, data=self.payload, **self.request_kwargs)
+            mock.ANY, mock.ANY, mock.ANY, **self.request_kwargs)
 
     def test_call_makes_request_with_required_parameters(self):
         """

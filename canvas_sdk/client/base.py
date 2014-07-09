@@ -11,32 +11,55 @@ RETRY_ERROR_CODES = (
 )
 
 
+def merge_or_create_key_value_for_dictionary(target, key, value=None):
+    """
+    This helper method will attempt to update a given key on a target dictionary with a value.
+    If the value is empty, nothing is done.  If the key does not currently exist on the target,
+    the key-value pair is created; otherwise, the given value is merged into the current key's
+    value in the target (it's assumed an existing key is a dictionary).
+
+    :param dictionary target: The dictionary to merge into
+    :param str key: The key to merge or create on the target
+    :param value: The value to merge into the dictionary key
+    :type value: Dictionary or None
+    """
+    if value:
+        if key in target:
+            target.get(key).update(value)
+        else:
+            target.update({key: value})
+
+
 def get(request_context, url, payload=None, **optional_request_params):
     """
     Shortcut for making a GET call to the API.  Data is passed as url params.
     """
-    return call("GET", url, request_context, params=payload, **optional_request_params)
+    merge_or_create_key_value_for_dictionary(optional_request_params, 'params', payload)
+    return call("GET", url, request_context, **optional_request_params)
 
 
 def put(request_context, url, payload=None, **optional_request_params):
     """
     Shortcut for making a PUT call to the API
     """
-    return call("PUT", url, request_context, data=payload, **optional_request_params)
+    merge_or_create_key_value_for_dictionary(optional_request_params, 'data', payload)
+    return call("PUT", url, request_context, **optional_request_params)
 
 
 def post(request_context, url, payload=None, **optional_request_params):
     """
     Shortcut for making a POST call to the API
     """
-    return call("POST", url, request_context, data=payload, **optional_request_params)
+    merge_or_create_key_value_for_dictionary(optional_request_params, 'data', payload)
+    return call("POST", url, request_context, **optional_request_params)
 
 
 def delete(request_context, url, payload=None, **optional_request_params):
     """
     Shortcut for making a DELETE call to the API
     """
-    return call("DELETE", url, request_context, data=payload, **optional_request_params)
+    merge_or_create_key_value_for_dictionary(optional_request_params, 'data', payload)
+    return call("DELETE", url, request_context, **optional_request_params)
 
 
 def call(action, url, request_context, params=None, data=None, max_retries=None,
