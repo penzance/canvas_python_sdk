@@ -253,4 +253,5 @@ class TestUtils(unittest.TestCase):
         as_user_id = "test-user-id"
         mock_function = mock.Mock(name='mock-function')
         utils.masquerade(self.req_ctx, mock_function, as_user_id, **params_kwarg)
-        mock_function.assert_called_once_with(mock.ANY, params={'as_user_id': as_user_id, 'foo': 'bar'})
+        mock_function.assert_called_once_with(
+            mock.ANY, params={'as_user_id': as_user_id, 'foo': 'bar'})
