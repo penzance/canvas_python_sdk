@@ -9,13 +9,25 @@ import errno
 #import getopt
 import argparse
 
+"""
+Constants for python indentation
+"""
 NONE = 0
 FOUR = 4
 EIGHT = 8
 TWELVE = 12
 
+"""
+Current working directory
+"""
 BASE_DIR = os.path.dirname(os.getcwd())
+
+"""
+The script will create a new directory relative to the CWD called
+/canvas_sdk/methods
+"""
 METHODS_DIR = BASE_DIR+'/canvas_sdk/methods'
+
 
 def line_format(line, spacing):
     '''
@@ -34,7 +46,14 @@ def format_field_name(field_name):
     format_field_name creates an entry for a dictionary with the field_name 
     being the key and the value being the variable named field_name
     Ex: 
-        'thefieldname' = thefieldname,
+        sometext[thefieldname] becomes
+        'thefieldname' = sometext_thefieldname,
+
+        The canvas api has form fields with the same name as non form fields
+        so it is necessary to preappend the dict name
+    
+        thefield becomes
+        'thefield' = thefield
 
     """
     fieldmatch = re.search(r'(\w+)\[(\w+)\]', field_name)
