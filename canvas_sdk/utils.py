@@ -1,4 +1,5 @@
 from canvas_sdk import client
+from collections import defaultdict
 
 """
 The util module contains helper methods for the SDK
@@ -50,3 +51,20 @@ def get_all_list_data(request_context, function, *args, **kwargs):
     for next_response in get_next(request_context, response):
         data.extend(next_response.json())
     return data
+
+
+def masquerade(request_context, function, as_user_id, *args, **kwargs):
+    """
+    Make a function request on behalf of another user.  In order to masquerade, the calling user must
+    have the "Become other users" permission in Canvas. If the target user is also an admin, the
+    calling user must additionally have every permission that the target user has.
+
+        :param function function: The API function to call
+        :param str as_user_id: The Canvas user ID or an SIS user ID (SIS IDs are described at
+            https://canvas.instructure.com/doc/api/file.object_ids.html)
+        :return: Response from function call
+    """
+    function_kwargs = defaultdict(dict, **kwargs)
+    # Merge or create as_user_id into params kwarg - use defaultdict to reduce conditional logic
+    function_kwargs['params'].update(as_user_id=as_user_id)
+    return function(request_context, *args, **function_kwargs)
