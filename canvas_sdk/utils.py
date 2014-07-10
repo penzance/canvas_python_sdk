@@ -41,6 +41,7 @@ def get_all_list_data(request_context, function, *args, **kwargs):
     If an exception is raised during the initial function call or in the process of paging over results,
     that exception will be bubbled back to the caller and any intermediary results will be lost.
 
+        :param RequestContext request_context: The context required to make an API call
         :param function function: The API function to call
         :return: A list of all json data retrieved while iterating over response links, or the initial json
             function response if there are no paged results
@@ -68,3 +69,15 @@ def masquerade(request_context, function, as_user_id, *args, **kwargs):
     # Merge or create as_user_id into params kwarg - use defaultdict to reduce conditional logic
     function_kwargs['params'].update(as_user_id=as_user_id)
     return function(request_context, *args, **function_kwargs)
+
+
+def get_count(request_context, function, *args, **kwargs):
+    """
+    Make a function request with args and kwargs and return the total result count.
+
+        :param RequestContext request_context: The context required to make an API call
+        :param function function: The API function to call
+        :return: Total result count
+        :rtype: int
+    """
+    return len(get_all_list_data(request_context, function, *args, **kwargs))
