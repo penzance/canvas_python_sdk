@@ -38,7 +38,9 @@ def get_all_list_data(request_context, function, *args, **kwargs):
     Return initial response json data or all json data as a single list.  Responses that have a series of
     next responses (as retrieved by get_next generator) are expected to have data returned as a list.
     If an exception is raised during the initial function call or in the process of paging over results,
-    that exception will be bubbled back to the caller and any intermediary results will be lost.
+    that exception will be bubbled back to the caller and any intermediary results will be lost.  Worst case
+    complexity O(n).
+
 
         :param RequestContext request_context: The context required to make an API call
         :param function function: The API function to call
@@ -55,7 +57,8 @@ def get_all_list_data(request_context, function, *args, **kwargs):
 
 def get_count(request_context, function, *args, **kwargs):
     """
-    Make a function request with args and kwargs and return the total result count.
+    Make a function request with args and kwargs and return the total result count.  Worst case complexity
+    is O(n).
 
         :param RequestContext request_context: The context required to make an API call
         :param function function: The API function to call
