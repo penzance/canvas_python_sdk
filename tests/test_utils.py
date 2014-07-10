@@ -217,3 +217,35 @@ class TestUtils(unittest.TestCase):
         results = utils.get_all_list_data(self.req_ctx, mock_function)
         self.assertEqual(
             results, expected_json, "The json list of data returned by get_all function should be the fully concatenated list of json")
+
+    @patch('canvas_sdk.utils.get_all_list_data')
+    def test_get_count_calls_get_all_list_data_with_request_context_and_function(self, mock_get_all):
+        """
+        Assert that call to get_count makes a call to get_all_list_data with context and function
+        """
+        mock_function = mock.Mock(name='mock-function')
+        utils.get_count(self.req_ctx, mock_function)
+        mock_get_all.assert_called_once_with(self.req_ctx, mock_function)
+
+    @patch('canvas_sdk.utils.get_all_list_data')
+    def test_get_count_calls_get_all_list_data_with_args_and_kwargs(self, mock_get_all):
+        """
+        Assert that call to get_count makes a call to get_all_list_data with args and kwargs
+        """
+        mock_function = mock.Mock(name='mock-function')
+        arg1, arg2 = 'arg1', 'arg2'
+        kwargs = {'kwarg1': 'val1', 'kwarg2': 'val2'}
+
+        utils.get_count(self.req_ctx, mock_function, arg1, arg2, **kwargs)
+        mock_get_all.assert_called_once_with(mock.ANY, mock.ANY, arg1, arg2, **kwargs)
+
+    @patch('canvas_sdk.utils.get_all_list_data')
+    def test_get_count_returns_length_of_get_all_list_data(self, mock_get_all):
+        """
+        Assert that call to get_count makes a call to get_all_list_data with args and kwargs
+        """
+        mock_get_all.return_value = [1, 2, 3, 4, 5]
+        mock_function = mock.Mock(name='mock-function')
+
+        result = utils.get_count(self.req_ctx, mock_function)
+        self.assertEqual(result, 5, "The result of get_count should match length of result set")

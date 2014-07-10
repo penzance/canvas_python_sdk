@@ -15,6 +15,13 @@ class TestAuth(unittest.TestCase):
         with self.assertRaises(AttributeError):
             auth.OAuth2Bearer(None)
 
+    def test_initialize_oauth2_bearer_empty_token_raises_exception(self):
+        """
+        Test that global session variable is set when new session is created.
+        """
+        with self.assertRaises(AttributeError):
+            auth.OAuth2Bearer('')
+
     def test_initialize_oauth2_bearer_with_token_sets_attribute(self):
         """
         Test that global session variable is set when new session is created.
