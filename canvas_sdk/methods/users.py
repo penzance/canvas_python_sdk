@@ -488,10 +488,10 @@ def edit_user(request_ctx, id, user_name=None, user_short_name=None, user_sortab
         :type user_time_zone: string or None
         :param user_locale: (optional) The user's preferred language as a two-letter ISO 639-1 code.
         :type user_locale: string or None
-        :param user_avatar: (optional) A unique representation of the avatar record to assign as the user's current avatar. This token can be obtained from the user avatars endpoint. This supersedes the user[avatar][url] argument, and if both are included the url will be ignored. Note: this is an internal representation and is subject to change without notice. It should be consumed with this api endpoint and used in the user update endpoint, and should not be constructed by the client.
-        :type user_avatar: string or None
-        :param user_avatar: (optional) To set the user's avatar to point to an external url, do not include a token and instead pass the url here. Warning: For maximum compatibility, please use 128 px square images.
-        :type user_avatar: string or None
+        :param user_avatar_token: (optional) A unique representation of the avatar record to assign as the user's current avatar. This token can be obtained from the user avatars endpoint. This supersedes the user[avatar][url] argument, and if both are included the url will be ignored. Note: this is an internal representation and is subject to change without notice. It should be consumed with this api endpoint and used in the user update endpoint, and should not be constructed by the client.
+        :type user_avatar_token: string or None
+        :param user_avatar_url: (optional) To set the user's avatar to point to an external url, do not include a token and instead pass the url here. Warning: For maximum compatibility, please use 128 px square images.
+        :type user_avatar_url: string or None
         :return: Edit a user
         :rtype: requests.Response (with User data)
 

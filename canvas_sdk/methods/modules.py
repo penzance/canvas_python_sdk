@@ -269,8 +269,8 @@ def create_module_item(request_ctx, course_id, module_id, module_item_type, modu
         :type module_item_page_url: string
         :param module_item_external_url: (required) External url that the item points to. [Required for 'ExternalUrl' and 'ExternalTool' types.
         :type module_item_external_url: string
-        :param module_item_completion_requirement: (required) Minimum score required to complete. Required for completion_requirement type 'min_score'.
-        :type module_item_completion_requirement: integer
+        :param module_item_completion_requirement_min_score: (required) Minimum score required to complete. Required for completion_requirement type 'min_score'.
+        :type module_item_completion_requirement_min_score: integer
         :param module_item_title: (optional) The name of the module item and associated content
         :type module_item_title: string or None
         :param module_item_position: (optional) The position of this item in the module (1-based).
@@ -279,17 +279,17 @@ def create_module_item(request_ctx, course_id, module_id, module_item_type, modu
         :type module_item_indent: integer or None
         :param module_item_new_tab: (optional) Whether the external tool opens in a new tab. Only applies to 'ExternalTool' type.
         :type module_item_new_tab: boolean or None
-        :param module_item_completion_requirement: (optional) Completion requirement for this module item. "must_view": Applies to all item types "must_contribute": Only applies to "Assignment", "Discussion", and "Page" types "must_submit", "min_score": Only apply to "Assignment" and "Quiz" types Inapplicable types will be ignored
-        :type module_item_completion_requirement: string or None
+        :param module_item_completion_requirement_type: (optional) Completion requirement for this module item. "must_view": Applies to all item types "must_contribute": Only applies to "Assignment", "Discussion", and "Page" types "must_submit", "min_score": Only apply to "Assignment" and "Quiz" types Inapplicable types will be ignored
+        :type module_item_completion_requirement_type: string or None
         :return: Create a module item
         :rtype: requests.Response (with ModuleItem data)
 
     """
 
-    type_types = ('File', 'Page', 'Discussion', 'Assignment', 'Quiz', 'SubHeader', 'ExternalUrl', 'ExternalTool')
-    completion_requirement_types = ('must_view', 'must_contribute', 'must_submit')
-    utils.validate_attr_is_acceptable(type, type_types)
-    utils.validate_attr_is_acceptable(completion_requirement, completion_requirement_types)
+    module_item_type_types = ('File', 'Page', 'Discussion', 'Assignment', 'Quiz', 'SubHeader', 'ExternalUrl', 'ExternalTool')
+    module_item_completion_requirement_type_types = ('must_view', 'must_contribute', 'must_submit')
+    utils.validate_attr_is_acceptable(module_item_type, module_item_type_types)
+    utils.validate_attr_is_acceptable(module_item_completion_requirement_type, module_item_completion_requirement_type_types)
     path = '/v1/courses/{course_id}/modules/{module_id}/items'
     payload = {
         'module_item[title]' : module_item_title,
@@ -321,8 +321,8 @@ def update_module_item(request_ctx, course_id, module_id, id, module_item_comple
         :type module_id: string
         :param id: (required) ID
         :type id: string
-        :param module_item_completion_requirement: (required) Minimum score required to complete, Required for completion_requirement type 'min_score'.
-        :type module_item_completion_requirement: integer
+        :param module_item_completion_requirement_min_score: (required) Minimum score required to complete, Required for completion_requirement type 'min_score'.
+        :type module_item_completion_requirement_min_score: integer
         :param module_item_title: (optional) The name of the module item
         :type module_item_title: string or None
         :param module_item_position: (optional) The position of this item in the module (1-based)
@@ -333,8 +333,8 @@ def update_module_item(request_ctx, course_id, module_id, id, module_item_comple
         :type module_item_external_url: string or None
         :param module_item_new_tab: (optional) Whether the external tool opens in a new tab. Only applies to 'ExternalTool' type.
         :type module_item_new_tab: boolean or None
-        :param module_item_completion_requirement: (optional) Completion requirement for this module item. "must_view": Applies to all item types "must_contribute": Only applies to "Assignment", "Discussion", and "Page" types "must_submit", "min_score": Only apply to "Assignment" and "Quiz" types Inapplicable types will be ignored
-        :type module_item_completion_requirement: string or None
+        :param module_item_completion_requirement_type: (optional) Completion requirement for this module item. "must_view": Applies to all item types "must_contribute": Only applies to "Assignment", "Discussion", and "Page" types "must_submit", "min_score": Only apply to "Assignment" and "Quiz" types Inapplicable types will be ignored
+        :type module_item_completion_requirement_type: string or None
         :param module_item_published: (optional) Whether the module item is published and visible to students.
         :type module_item_published: boolean or None
         :param module_item_module_id: (optional) Move this item to another module by specifying the target module id here. The target module must be in the same course.
@@ -344,8 +344,8 @@ def update_module_item(request_ctx, course_id, module_id, id, module_item_comple
 
     """
 
-    completion_requirement_types = ('must_view', 'must_contribute', 'must_submit')
-    utils.validate_attr_is_acceptable(completion_requirement, completion_requirement_types)
+    module_item_completion_requirement_type_types = ('must_view', 'must_contribute', 'must_submit')
+    utils.validate_attr_is_acceptable(module_item_completion_requirement_type, module_item_completion_requirement_type_types)
     path = '/v1/courses/{course_id}/modules/{module_id}/items/{id}'
     payload = {
         'module_item[title]' : module_item_title,

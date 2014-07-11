@@ -30,8 +30,8 @@ def start_report(request_ctx, account_id, report, parameters, **request_kwargs):
         :type account_id: string
         :param report: (required) ID
         :type report: string
-        :param [parameters]: (required) The parameters will vary for each report
-        :type [parameters]: string
+        :param parameters: (required) The parameters will vary for each report
+        :type parameters: string
         :return: Start a Report
         :rtype: requests.Response (with Report data)
 

@@ -105,12 +105,12 @@ def create_quiz(request_ctx, course_id, quiz_title, quiz_quiz_type, quiz_descrip
 
     """
 
-    quiz_type_types = ('practice_quiz', 'assignment', 'graded_survey', 'survey')
-    hide_results_types = ('always', 'until_after_last_attempt')
-    scoring_policy_types = ('keep_highest', 'keep_latest')
-    utils.validate_attr_is_acceptable(quiz_type, quiz_type_types)
-    utils.validate_attr_is_acceptable(hide_results, hide_results_types)
-    utils.validate_attr_is_acceptable(scoring_policy, scoring_policy_types)
+    quiz_quiz_type_types = ('practice_quiz', 'assignment', 'graded_survey', 'survey')
+    quiz_hide_results_types = ('always', 'until_after_last_attempt')
+    quiz_scoring_policy_types = ('keep_highest', 'keep_latest')
+    utils.validate_attr_is_acceptable(quiz_quiz_type, quiz_quiz_type_types)
+    utils.validate_attr_is_acceptable(quiz_hide_results, quiz_hide_results_types)
+    utils.validate_attr_is_acceptable(quiz_scoring_policy, quiz_scoring_policy_types)
     path = '/v1/courses/{course_id}/quizzes'
     payload = {
         'quiz[title]' : quiz_title,
@@ -211,8 +211,8 @@ def reorder_quiz_items(request_ctx, course_id, id, order_id, order_type, **reque
 
     """
 
-    type_types = ('question', 'group')
-    utils.validate_attr_is_acceptable(type, type_types)
+    order_type_types = ('question', 'group')
+    utils.validate_attr_is_acceptable(order_type, order_type_types)
     path = '/v1/courses/{course_id}/quizzes/{id}/reorder'
     payload = {
         'order[id]' : order_id,

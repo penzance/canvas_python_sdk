@@ -90,8 +90,8 @@ def create_single_quiz_question(request_ctx, course_id, quiz_id, question_questi
 
     """
 
-    question_type_types = ('calculated_question', 'essay_question', 'file_upload_question', 'fill_in_multiple_blanks_question', 'matching_question', 'multiple_answers_question', 'multiple_choice_question', 'multiple_dropdowns_question', 'numerical_question', 'short_answer_question', 'text_only_question')
-    utils.validate_attr_is_acceptable(question_type, question_type_types)
+    question_question_type_types = ('calculated_question', 'essay_question', 'file_upload_question', 'fill_in_multiple_blanks_question', 'matching_question', 'multiple_answers_question', 'multiple_choice_question', 'multiple_dropdowns_question', 'numerical_question', 'short_answer_question', 'text_only_question')
+    utils.validate_attr_is_acceptable(question_question_type, question_question_type_types)
     path = '/v1/courses/{course_id}/quizzes/{quiz_id}/questions'
     payload = {
         'question[question_name]' : question_question_name,
@@ -151,8 +151,8 @@ def update_existing_quiz_question(request_ctx, course_id, quiz_id, id, question_
 
     """
 
-    question_type_types = ('calculated_question', 'essay_question', 'file_upload_question', 'fill_in_multiple_blanks_question', 'matching_question', 'multiple_answers_question', 'multiple_choice_question', 'multiple_dropdowns_question', 'numerical_question', 'short_answer_question', 'text_only_question')
-    utils.validate_attr_is_acceptable(question_type, question_type_types)
+    question_question_type_types = ('calculated_question', 'essay_question', 'file_upload_question', 'fill_in_multiple_blanks_question', 'matching_question', 'multiple_answers_question', 'multiple_choice_question', 'multiple_dropdowns_question', 'numerical_question', 'short_answer_question', 'text_only_question')
+    utils.validate_attr_is_acceptable(question_question_type, question_question_type_types)
     path = '/v1/courses/{course_id}/quizzes/{quiz_id}/questions/{id}'
     payload = {
         'question[question_name]' : question_question_name,

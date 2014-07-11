@@ -65,8 +65,8 @@ def create_appointment_group(request_ctx, appointment_group_context_codes, appoi
         :type appointment_group_min_appointments_per_participant: integer or None
         :param appointment_group_max_appointments_per_participant: (optional) Maximum number of time slots a user may register for.
         :type appointment_group_max_appointments_per_participant: integer or None
-        :param appointment_group_new_appointments: (optional) Nested array of start time/end time pairs indicating time slots for this appointment group. Refer to the example request.
-        :type appointment_group_new_appointments: string or None
+        :param appointment_group_new_appointments_X: (optional) Nested array of start time/end time pairs indicating time slots for this appointment group. Refer to the example request.
+        :type appointment_group_new_appointments_X: string or None
         :param appointment_group_participant_visibility: (optional) "private":: participants cannot see who has signed up for a particular time slot "protected":: participants can see who has signed up. Defaults to "private".
         :type appointment_group_participant_visibility: string or None
         :return: Create an appointment group
@@ -74,8 +74,8 @@ def create_appointment_group(request_ctx, appointment_group_context_codes, appoi
 
     """
 
-    participant_visibility_types = ('private', 'protected')
-    utils.validate_attr_is_acceptable(participant_visibility, participant_visibility_types)
+    appointment_group_participant_visibility_types = ('private', 'protected')
+    utils.validate_attr_is_acceptable(appointment_group_participant_visibility, appointment_group_participant_visibility_types)
     path = '/v1/appointment_groups'
     payload = {
         'appointment_group[context_codes]' : appointment_group_context_codes,
@@ -154,8 +154,8 @@ def update_appointment_group(request_ctx, id, appointment_group_context_codes, a
         :type appointment_group_min_appointments_per_participant: integer or None
         :param appointment_group_max_appointments_per_participant: (optional) Maximum number of time slots a user may register for.
         :type appointment_group_max_appointments_per_participant: integer or None
-        :param appointment_group_new_appointments: (optional) Nested array of start time/end time pairs indicating time slots for this appointment group. Refer to the example request.
-        :type appointment_group_new_appointments: string or None
+        :param appointment_group_new_appointments_X: (optional) Nested array of start time/end time pairs indicating time slots for this appointment group. Refer to the example request.
+        :type appointment_group_new_appointments_X: string or None
         :param appointment_group_participant_visibility: (optional) "private":: participants cannot see who has signed up for a particular time slot "protected":: participants can see who has signed up. Defaults to "private".
         :type appointment_group_participant_visibility: string or None
         :return: Update an appointment group
@@ -163,8 +163,8 @@ def update_appointment_group(request_ctx, id, appointment_group_context_codes, a
 
     """
 
-    participant_visibility_types = ('private', 'protected')
-    utils.validate_attr_is_acceptable(participant_visibility, participant_visibility_types)
+    appointment_group_participant_visibility_types = ('private', 'protected')
+    utils.validate_attr_is_acceptable(appointment_group_participant_visibility, appointment_group_participant_visibility_types)
     path = '/v1/appointment_groups/{id}'
     payload = {
         'appointment_group[context_codes]' : appointment_group_context_codes,

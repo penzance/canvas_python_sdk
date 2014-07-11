@@ -532,7 +532,7 @@ def get_content_migration_users(request_ctx, user_id, id, **request_kwargs):
     return response
 
 
-def create_content_migration_accounts(request_ctx, account_id, migration_type, pre_attachment_name, settings_file_url, pre_attachment=None, settings_source_course_id=None, settings_folder_id=None, settings_overwrite_quizzes=None, settings_question_bank_id=None, settings_question_bank_name=None, date_shift_options_shift_dates=None, date_shift_options_old_start_date=None, date_shift_options_old_end_date=None, date_shift_options_new_start_date=None, date_shift_options_new_end_date=None, date_shift_options_day_substitutions_X=None, **request_kwargs):
+def create_content_migration_accounts(request_ctx, account_id, migration_type, pre_attachment_name, settings_file_url, pre_attachment_*=None, settings_source_course_id=None, settings_folder_id=None, settings_overwrite_quizzes=None, settings_question_bank_id=None, settings_question_bank_name=None, date_shift_options_shift_dates=None, date_shift_options_old_start_date=None, date_shift_options_old_end_date=None, date_shift_options_new_start_date=None, date_shift_options_new_end_date=None, date_shift_options_day_substitutions_X=None, **request_kwargs):
     """
     Create a content migration. If the migration requires a file to be uploaded
     the actual processing of the file will start once the file upload process is completed.
@@ -572,8 +572,8 @@ def create_content_migration_accounts(request_ctx, account_id, migration_type, p
         :type pre_attachment_name: string
         :param settings_file_url: (required) (optional) A URL to download the file from. Must not require authentication.
         :type settings_file_url: string
-        :param pre_attachment[*]: (optional) Other file upload properties, See {file:file_uploads.html File Upload Documentation}
-        :type pre_attachment[*]: string or None
+        :param pre_attachment_*: (optional) Other file upload properties, See {file:file_uploads.html File Upload Documentation}
+        :type pre_attachment_*: string or None
         :param settings_source_course_id: (optional) The course to copy from for a course copy migration. (required if doing course copy)
         :type settings_source_course_id: string or None
         :param settings_folder_id: (optional) The folder to unzip the .zip file into for a zip_file_import.
@@ -594,8 +594,8 @@ def create_content_migration_accounts(request_ctx, account_id, migration_type, p
         :type date_shift_options_new_start_date: date or None
         :param date_shift_options_new_end_date: (optional) The new end date for the source content/course
         :type date_shift_options_new_end_date: date or None
-        :param date_shift_options_day_substitutions: (optional) Move anything scheduled for day 'X' to the specified day. (0-Sunday, 1-Monday, 2-Tuesday, 3-Wednesday, 4-Thursday, 5-Friday, 6-Saturday)
-        :type date_shift_options_day_substitutions: integer or None
+        :param date_shift_options_day_substitutions_X: (optional) Move anything scheduled for day 'X' to the specified day. (0-Sunday, 1-Monday, 2-Tuesday, 3-Wednesday, 4-Thursday, 5-Friday, 6-Saturday)
+        :type date_shift_options_day_substitutions_X: integer or None
         :return: Create a content migration
         :rtype: requests.Response (with ContentMigration data)
 
@@ -605,7 +605,7 @@ def create_content_migration_accounts(request_ctx, account_id, migration_type, p
     payload = {
         'migration_type' : migration_type,
         'pre_attachment[name]' : pre_attachment_name,
-        'pre_attachment[*]' : pre_attachment,
+        'pre_attachment[*]' : pre_attachment_*,
         'settings[file_url]' : settings_file_url,
         'settings[source_course_id]' : settings_source_course_id,
         'settings[folder_id]' : settings_folder_id,
@@ -625,7 +625,7 @@ def create_content_migration_accounts(request_ctx, account_id, migration_type, p
     return response
 
 
-def create_content_migration_courses(request_ctx, course_id, migration_type, pre_attachment_name, settings_file_url, pre_attachment=None, settings_source_course_id=None, settings_folder_id=None, settings_overwrite_quizzes=None, settings_question_bank_id=None, settings_question_bank_name=None, date_shift_options_shift_dates=None, date_shift_options_old_start_date=None, date_shift_options_old_end_date=None, date_shift_options_new_start_date=None, date_shift_options_new_end_date=None, date_shift_options_day_substitutions_X=None, **request_kwargs):
+def create_content_migration_courses(request_ctx, course_id, migration_type, pre_attachment_name, settings_file_url, pre_attachment_*=None, settings_source_course_id=None, settings_folder_id=None, settings_overwrite_quizzes=None, settings_question_bank_id=None, settings_question_bank_name=None, date_shift_options_shift_dates=None, date_shift_options_old_start_date=None, date_shift_options_old_end_date=None, date_shift_options_new_start_date=None, date_shift_options_new_end_date=None, date_shift_options_day_substitutions_X=None, **request_kwargs):
     """
     Create a content migration. If the migration requires a file to be uploaded
     the actual processing of the file will start once the file upload process is completed.
@@ -665,8 +665,8 @@ def create_content_migration_courses(request_ctx, course_id, migration_type, pre
         :type pre_attachment_name: string
         :param settings_file_url: (required) (optional) A URL to download the file from. Must not require authentication.
         :type settings_file_url: string
-        :param pre_attachment[*]: (optional) Other file upload properties, See {file:file_uploads.html File Upload Documentation}
-        :type pre_attachment[*]: string or None
+        :param pre_attachment_*: (optional) Other file upload properties, See {file:file_uploads.html File Upload Documentation}
+        :type pre_attachment_*: string or None
         :param settings_source_course_id: (optional) The course to copy from for a course copy migration. (required if doing course copy)
         :type settings_source_course_id: string or None
         :param settings_folder_id: (optional) The folder to unzip the .zip file into for a zip_file_import.
@@ -687,8 +687,8 @@ def create_content_migration_courses(request_ctx, course_id, migration_type, pre
         :type date_shift_options_new_start_date: date or None
         :param date_shift_options_new_end_date: (optional) The new end date for the source content/course
         :type date_shift_options_new_end_date: date or None
-        :param date_shift_options_day_substitutions: (optional) Move anything scheduled for day 'X' to the specified day. (0-Sunday, 1-Monday, 2-Tuesday, 3-Wednesday, 4-Thursday, 5-Friday, 6-Saturday)
-        :type date_shift_options_day_substitutions: integer or None
+        :param date_shift_options_day_substitutions_X: (optional) Move anything scheduled for day 'X' to the specified day. (0-Sunday, 1-Monday, 2-Tuesday, 3-Wednesday, 4-Thursday, 5-Friday, 6-Saturday)
+        :type date_shift_options_day_substitutions_X: integer or None
         :return: Create a content migration
         :rtype: requests.Response (with ContentMigration data)
 
@@ -698,7 +698,7 @@ def create_content_migration_courses(request_ctx, course_id, migration_type, pre
     payload = {
         'migration_type' : migration_type,
         'pre_attachment[name]' : pre_attachment_name,
-        'pre_attachment[*]' : pre_attachment,
+        'pre_attachment[*]' : pre_attachment_*,
         'settings[file_url]' : settings_file_url,
         'settings[source_course_id]' : settings_source_course_id,
         'settings[folder_id]' : settings_folder_id,
@@ -718,7 +718,7 @@ def create_content_migration_courses(request_ctx, course_id, migration_type, pre
     return response
 
 
-def create_content_migration_groups(request_ctx, group_id, migration_type, pre_attachment_name, settings_file_url, pre_attachment=None, settings_source_course_id=None, settings_folder_id=None, settings_overwrite_quizzes=None, settings_question_bank_id=None, settings_question_bank_name=None, date_shift_options_shift_dates=None, date_shift_options_old_start_date=None, date_shift_options_old_end_date=None, date_shift_options_new_start_date=None, date_shift_options_new_end_date=None, date_shift_options_day_substitutions_X=None, **request_kwargs):
+def create_content_migration_groups(request_ctx, group_id, migration_type, pre_attachment_name, settings_file_url, pre_attachment_*=None, settings_source_course_id=None, settings_folder_id=None, settings_overwrite_quizzes=None, settings_question_bank_id=None, settings_question_bank_name=None, date_shift_options_shift_dates=None, date_shift_options_old_start_date=None, date_shift_options_old_end_date=None, date_shift_options_new_start_date=None, date_shift_options_new_end_date=None, date_shift_options_day_substitutions_X=None, **request_kwargs):
     """
     Create a content migration. If the migration requires a file to be uploaded
     the actual processing of the file will start once the file upload process is completed.
@@ -758,8 +758,8 @@ def create_content_migration_groups(request_ctx, group_id, migration_type, pre_a
         :type pre_attachment_name: string
         :param settings_file_url: (required) (optional) A URL to download the file from. Must not require authentication.
         :type settings_file_url: string
-        :param pre_attachment[*]: (optional) Other file upload properties, See {file:file_uploads.html File Upload Documentation}
-        :type pre_attachment[*]: string or None
+        :param pre_attachment_*: (optional) Other file upload properties, See {file:file_uploads.html File Upload Documentation}
+        :type pre_attachment_*: string or None
         :param settings_source_course_id: (optional) The course to copy from for a course copy migration. (required if doing course copy)
         :type settings_source_course_id: string or None
         :param settings_folder_id: (optional) The folder to unzip the .zip file into for a zip_file_import.
@@ -780,8 +780,8 @@ def create_content_migration_groups(request_ctx, group_id, migration_type, pre_a
         :type date_shift_options_new_start_date: date or None
         :param date_shift_options_new_end_date: (optional) The new end date for the source content/course
         :type date_shift_options_new_end_date: date or None
-        :param date_shift_options_day_substitutions: (optional) Move anything scheduled for day 'X' to the specified day. (0-Sunday, 1-Monday, 2-Tuesday, 3-Wednesday, 4-Thursday, 5-Friday, 6-Saturday)
-        :type date_shift_options_day_substitutions: integer or None
+        :param date_shift_options_day_substitutions_X: (optional) Move anything scheduled for day 'X' to the specified day. (0-Sunday, 1-Monday, 2-Tuesday, 3-Wednesday, 4-Thursday, 5-Friday, 6-Saturday)
+        :type date_shift_options_day_substitutions_X: integer or None
         :return: Create a content migration
         :rtype: requests.Response (with ContentMigration data)
 
@@ -791,7 +791,7 @@ def create_content_migration_groups(request_ctx, group_id, migration_type, pre_a
     payload = {
         'migration_type' : migration_type,
         'pre_attachment[name]' : pre_attachment_name,
-        'pre_attachment[*]' : pre_attachment,
+        'pre_attachment[*]' : pre_attachment_*,
         'settings[file_url]' : settings_file_url,
         'settings[source_course_id]' : settings_source_course_id,
         'settings[folder_id]' : settings_folder_id,
@@ -811,7 +811,7 @@ def create_content_migration_groups(request_ctx, group_id, migration_type, pre_a
     return response
 
 
-def create_content_migration_users(request_ctx, user_id, migration_type, pre_attachment_name, settings_file_url, pre_attachment=None, settings_source_course_id=None, settings_folder_id=None, settings_overwrite_quizzes=None, settings_question_bank_id=None, settings_question_bank_name=None, date_shift_options_shift_dates=None, date_shift_options_old_start_date=None, date_shift_options_old_end_date=None, date_shift_options_new_start_date=None, date_shift_options_new_end_date=None, date_shift_options_day_substitutions_X=None, **request_kwargs):
+def create_content_migration_users(request_ctx, user_id, migration_type, pre_attachment_name, settings_file_url, pre_attachment_*=None, settings_source_course_id=None, settings_folder_id=None, settings_overwrite_quizzes=None, settings_question_bank_id=None, settings_question_bank_name=None, date_shift_options_shift_dates=None, date_shift_options_old_start_date=None, date_shift_options_old_end_date=None, date_shift_options_new_start_date=None, date_shift_options_new_end_date=None, date_shift_options_day_substitutions_X=None, **request_kwargs):
     """
     Create a content migration. If the migration requires a file to be uploaded
     the actual processing of the file will start once the file upload process is completed.
@@ -851,8 +851,8 @@ def create_content_migration_users(request_ctx, user_id, migration_type, pre_att
         :type pre_attachment_name: string
         :param settings_file_url: (required) (optional) A URL to download the file from. Must not require authentication.
         :type settings_file_url: string
-        :param pre_attachment[*]: (optional) Other file upload properties, See {file:file_uploads.html File Upload Documentation}
-        :type pre_attachment[*]: string or None
+        :param pre_attachment_*: (optional) Other file upload properties, See {file:file_uploads.html File Upload Documentation}
+        :type pre_attachment_*: string or None
         :param settings_source_course_id: (optional) The course to copy from for a course copy migration. (required if doing course copy)
         :type settings_source_course_id: string or None
         :param settings_folder_id: (optional) The folder to unzip the .zip file into for a zip_file_import.
@@ -873,8 +873,8 @@ def create_content_migration_users(request_ctx, user_id, migration_type, pre_att
         :type date_shift_options_new_start_date: date or None
         :param date_shift_options_new_end_date: (optional) The new end date for the source content/course
         :type date_shift_options_new_end_date: date or None
-        :param date_shift_options_day_substitutions: (optional) Move anything scheduled for day 'X' to the specified day. (0-Sunday, 1-Monday, 2-Tuesday, 3-Wednesday, 4-Thursday, 5-Friday, 6-Saturday)
-        :type date_shift_options_day_substitutions: integer or None
+        :param date_shift_options_day_substitutions_X: (optional) Move anything scheduled for day 'X' to the specified day. (0-Sunday, 1-Monday, 2-Tuesday, 3-Wednesday, 4-Thursday, 5-Friday, 6-Saturday)
+        :type date_shift_options_day_substitutions_X: integer or None
         :return: Create a content migration
         :rtype: requests.Response (with ContentMigration data)
 
@@ -884,7 +884,7 @@ def create_content_migration_users(request_ctx, user_id, migration_type, pre_att
     payload = {
         'migration_type' : migration_type,
         'pre_attachment[name]' : pre_attachment_name,
-        'pre_attachment[*]' : pre_attachment,
+        'pre_attachment[*]' : pre_attachment_*,
         'settings[file_url]' : settings_file_url,
         'settings[source_course_id]' : settings_source_course_id,
         'settings[folder_id]' : settings_folder_id,

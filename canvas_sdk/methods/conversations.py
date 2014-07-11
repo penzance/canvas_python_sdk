@@ -203,10 +203,10 @@ def edit_conversation(request_ctx, id, conversation_subject, conversation_workfl
 
     """
 
-    workflow_state_types = ('read', 'unread', 'archived')
+    conversation_workflow_state_types = ('read', 'unread', 'archived')
     scope_types = ('unread', 'starred', 'archived')
     filter_mode_types = ('and', 'or', 'default or] Used when generating visible in the API response. See the explanation under the {api:ConversationsController#index index API action}')
-    utils.validate_attr_is_acceptable(workflow_state, workflow_state_types)
+    utils.validate_attr_is_acceptable(conversation_workflow_state, conversation_workflow_state_types)
     utils.validate_attr_is_acceptable(scope, scope_types)
     utils.validate_attr_is_acceptable(filter_mode, filter_mode_types)
     path = '/v1/conversations/{id}'

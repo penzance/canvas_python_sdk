@@ -37,10 +37,10 @@ def submit_assignment_courses(request_ctx, course_id, assignment_id, comment_tex
 
     """
 
-    submission_type_types = ('online_text_entry', 'online_url', 'online_upload', 'media_recording')
-    media_comment_type_types = ('audio', 'video')
-    utils.validate_attr_is_acceptable(submission_type, submission_type_types)
-    utils.validate_attr_is_acceptable(media_comment_type, media_comment_type_types)
+    submission_submission_type_types = ('online_text_entry', 'online_url', 'online_upload', 'media_recording')
+    submission_media_comment_type_types = ('audio', 'video')
+    utils.validate_attr_is_acceptable(submission_submission_type, submission_submission_type_types)
+    utils.validate_attr_is_acceptable(submission_media_comment_type, submission_media_comment_type_types)
     path = '/v1/courses/{course_id}/assignments/{assignment_id}/submissions'
     payload = {
         'comment[text_comment]' : comment_text_comment,
@@ -94,10 +94,10 @@ def submit_assignment_sections(request_ctx, section_id, assignment_id, comment_t
 
     """
 
-    submission_type_types = ('online_text_entry', 'online_url', 'online_upload', 'media_recording')
-    media_comment_type_types = ('audio', 'video')
-    utils.validate_attr_is_acceptable(submission_type, submission_type_types)
-    utils.validate_attr_is_acceptable(media_comment_type, media_comment_type_types)
+    submission_submission_type_types = ('online_text_entry', 'online_url', 'online_upload', 'media_recording')
+    submission_media_comment_type_types = ('audio', 'video')
+    utils.validate_attr_is_acceptable(submission_submission_type, submission_submission_type_types)
+    utils.validate_attr_is_acceptable(submission_media_comment_type, submission_media_comment_type_types)
     path = '/v1/sections/{section_id}/assignments/{assignment_id}/submissions'
     payload = {
         'comment[text_comment]' : comment_text_comment,
@@ -402,8 +402,8 @@ def grade_or_comment_on_submission_courses(request_ctx, course_id, assignment_id
 
     """
 
-    media_comment_type_types = ('audio', 'video')
-    utils.validate_attr_is_acceptable(media_comment_type, media_comment_type_types)
+    comment_media_comment_type_types = ('audio', 'video')
+    utils.validate_attr_is_acceptable(comment_media_comment_type, comment_media_comment_type_types)
     path = '/v1/courses/{course_id}/assignments/{assignment_id}/submissions/{user_id}'
     payload = {
         'comment[text_comment]' : comment_text_comment,
@@ -454,8 +454,8 @@ def grade_or_comment_on_submission_sections(request_ctx, section_id, assignment_
 
     """
 
-    media_comment_type_types = ('audio', 'video')
-    utils.validate_attr_is_acceptable(media_comment_type, media_comment_type_types)
+    comment_media_comment_type_types = ('audio', 'video')
+    utils.validate_attr_is_acceptable(comment_media_comment_type, comment_media_comment_type_types)
     path = '/v1/sections/{section_id}/assignments/{assignment_id}/submissions/{user_id}'
     payload = {
         'comment[text_comment]' : comment_text_comment,

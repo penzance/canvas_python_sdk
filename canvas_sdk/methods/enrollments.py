@@ -176,10 +176,10 @@ def enroll_user_courses(request_ctx, course_id, enrollment_user_id, enrollment_t
 
     """
 
-    type_types = ('StudentEnrollment', 'TeacherEnrollment', 'TaEnrollment', 'ObserverEnrollment', 'DesignerEnrollment')
-    enrollment_state_types = ('active', 'invited')
-    utils.validate_attr_is_acceptable(type, type_types)
-    utils.validate_attr_is_acceptable(enrollment_state, enrollment_state_types)
+    enrollment_type_types = ('StudentEnrollment', 'TeacherEnrollment', 'TaEnrollment', 'ObserverEnrollment', 'DesignerEnrollment')
+    enrollment_enrollment_state_types = ('active', 'invited')
+    utils.validate_attr_is_acceptable(enrollment_type, enrollment_type_types)
+    utils.validate_attr_is_acceptable(enrollment_enrollment_state, enrollment_enrollment_state_types)
     path = '/v1/courses/{course_id}/enrollments'
     payload = {
         'enrollment[user_id]' : enrollment_user_id,
@@ -226,10 +226,10 @@ def enroll_user_sections(request_ctx, section_id, enrollment_user_id, enrollment
 
     """
 
-    type_types = ('StudentEnrollment', 'TeacherEnrollment', 'TaEnrollment', 'ObserverEnrollment', 'DesignerEnrollment')
-    enrollment_state_types = ('active', 'invited')
-    utils.validate_attr_is_acceptable(type, type_types)
-    utils.validate_attr_is_acceptable(enrollment_state, enrollment_state_types)
+    enrollment_type_types = ('StudentEnrollment', 'TeacherEnrollment', 'TaEnrollment', 'ObserverEnrollment', 'DesignerEnrollment')
+    enrollment_enrollment_state_types = ('active', 'invited')
+    utils.validate_attr_is_acceptable(enrollment_type, enrollment_type_types)
+    utils.validate_attr_is_acceptable(enrollment_enrollment_state, enrollment_enrollment_state_types)
     path = '/v1/sections/{section_id}/enrollments'
     payload = {
         'enrollment[user_id]' : enrollment_user_id,

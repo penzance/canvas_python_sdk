@@ -174,8 +174,8 @@ def update_multiple_preferences_communication_channel_id(request_ctx, communicat
         :type request_ctx: :class:RequestContext
         :param communication_channel_id: (required) ID
         :type communication_channel_id: string
-        :param notification_preferences[<X>][frequency]: (required) The desired frequency for <X> notification
-        :type notification_preferences[<X>][frequency]: string
+        :param notification_preferences_X_frequency: (required) The desired frequency for <X> notification
+        :type notification_preferences_X_frequency: string
         :return: Update multiple preferences
         :rtype: requests.Response (with void data)
 
@@ -201,8 +201,8 @@ def update_multiple_preferences_type(request_ctx, type, address, notification_pr
         :type type: string
         :param address: (required) ID
         :type address: string
-        :param notification_preferences[<X>][frequency]: (required) The desired frequency for <X> notification
-        :type notification_preferences[<X>][frequency]: string
+        :param notification_preferences_X_frequency: (required) The desired frequency for <X> notification
+        :type notification_preferences_X_frequency: string
         :return: Update multiple preferences
         :rtype: requests.Response (with void data)
 

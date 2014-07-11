@@ -65,8 +65,8 @@ def update_create_front_page_courses(request_ctx, course_id, wiki_page_body, wik
 
     """
 
-    editing_roles_types = ('teachers', 'students', 'members', 'public')
-    utils.validate_attr_is_acceptable(editing_roles, editing_roles_types)
+    wiki_page_editing_roles_types = ('teachers', 'students', 'members', 'public')
+    utils.validate_attr_is_acceptable(wiki_page_editing_roles, wiki_page_editing_roles_types)
     path = '/v1/courses/{course_id}/front_page'
     payload = {
         'wiki_page[title]' : wiki_page_title,
@@ -107,8 +107,8 @@ def update_create_front_page_groups(request_ctx, group_id, wiki_page_body, wiki_
 
     """
 
-    editing_roles_types = ('teachers', 'students', 'members', 'public')
-    utils.validate_attr_is_acceptable(editing_roles, editing_roles_types)
+    wiki_page_editing_roles_types = ('teachers', 'students', 'members', 'public')
+    utils.validate_attr_is_acceptable(wiki_page_editing_roles, wiki_page_editing_roles_types)
     path = '/v1/groups/{group_id}/front_page'
     payload = {
         'wiki_page[title]' : wiki_page_title,
@@ -237,8 +237,8 @@ def create_page_courses(request_ctx, course_id, wiki_page_title, wiki_page_body,
 
     """
 
-    editing_roles_types = ('teachers', 'students', 'members', 'public')
-    utils.validate_attr_is_acceptable(editing_roles, editing_roles_types)
+    wiki_page_editing_roles_types = ('teachers', 'students', 'members', 'public')
+    utils.validate_attr_is_acceptable(wiki_page_editing_roles, wiki_page_editing_roles_types)
     path = '/v1/courses/{course_id}/pages'
     payload = {
         'wiki_page[title]' : wiki_page_title,
@@ -282,8 +282,8 @@ def create_page_groups(request_ctx, group_id, wiki_page_title, wiki_page_body, w
 
     """
 
-    editing_roles_types = ('teachers', 'students', 'members', 'public')
-    utils.validate_attr_is_acceptable(editing_roles, editing_roles_types)
+    wiki_page_editing_roles_types = ('teachers', 'students', 'members', 'public')
+    utils.validate_attr_is_acceptable(wiki_page_editing_roles, wiki_page_editing_roles_types)
     path = '/v1/groups/{group_id}/pages'
     payload = {
         'wiki_page[title]' : wiki_page_title,
@@ -373,8 +373,8 @@ def update_create_page_courses(request_ctx, course_id, url, wiki_page_title, wik
 
     """
 
-    editing_roles_types = ('teachers', 'students', 'members', 'public')
-    utils.validate_attr_is_acceptable(editing_roles, editing_roles_types)
+    wiki_page_editing_roles_types = ('teachers', 'students', 'members', 'public')
+    utils.validate_attr_is_acceptable(wiki_page_editing_roles, wiki_page_editing_roles_types)
     path = '/v1/courses/{course_id}/pages/{url}'
     payload = {
         'wiki_page[title]' : wiki_page_title,
@@ -420,8 +420,8 @@ def update_create_page_groups(request_ctx, group_id, url, wiki_page_title, wiki_
 
     """
 
-    editing_roles_types = ('teachers', 'students', 'members', 'public')
-    utils.validate_attr_is_acceptable(editing_roles, editing_roles_types)
+    wiki_page_editing_roles_types = ('teachers', 'students', 'members', 'public')
+    utils.validate_attr_is_acceptable(wiki_page_editing_roles, wiki_page_editing_roles_types)
     path = '/v1/groups/{group_id}/pages/{url}'
     payload = {
         'wiki_page[title]' : wiki_page_title,

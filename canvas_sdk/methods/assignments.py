@@ -152,10 +152,10 @@ def create_assignment(request_ctx, course_id, assignment_name, assignment_submis
 
     """
 
-    submission_types_types = ('online_quiz', 'none', 'on_paper', 'online_quiz', 'discussion_topic', 'external_tool', 'online_upload', 'online_text_entry', 'online_url', 'media_recording')
-    grading_type_types = ('pass_fail', 'percent', 'letter_grade', 'gpa_scale', 'points')
-    utils.validate_attr_is_acceptable(submission_types, submission_types_types)
-    utils.validate_attr_is_acceptable(grading_type, grading_type_types)
+    assignment_submission_types_types = ('online_quiz', 'none', 'on_paper', 'online_quiz', 'discussion_topic', 'external_tool', 'online_upload', 'online_text_entry', 'online_url', 'media_recording')
+    assignment_grading_type_types = ('pass_fail', 'percent', 'letter_grade', 'gpa_scale', 'points')
+    utils.validate_attr_is_acceptable(assignment_submission_types, assignment_submission_types_types)
+    utils.validate_attr_is_acceptable(assignment_grading_type, assignment_grading_type_types)
     path = '/v1/courses/{course_id}/assignments'
     payload = {
         'assignment[name]' : assignment_name,

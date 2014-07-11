@@ -47,8 +47,8 @@ def create_communication_channel(request_ctx, user_id, communication_channel_add
 
     """
 
-    type_types = ('email', 'sms', 'push')
-    utils.validate_attr_is_acceptable(type, type_types)
+    communication_channel_type_types = ('email', 'sms', 'push')
+    utils.validate_attr_is_acceptable(communication_channel_type, communication_channel_type_types)
     path = '/v1/users/{user_id}/communication_channels'
     payload = {
         'communication_channel[address]' : communication_channel_address,

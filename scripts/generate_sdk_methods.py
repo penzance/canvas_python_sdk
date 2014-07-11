@@ -55,45 +55,15 @@ def flatten_param(param):
     """
     Turn a parameter that looks like this param[name_one][name_two][name_three] 
     into this param_name_one_name_two_name_three
-
-    Regex patterns used:
-    '(\w+)\['          matches "word[param]"
-    '^\[(\w+)\]'       matches "[param]"
-    '\[(\w+|\<\w\>)\]' matches "[param]" or "[<param>]"
-
     """
-    param_list = []
-    param_match = re.search(r'(\w+)\[', param)
-    bracket_match = re.search(r'^\[(\w+)\]', param)
-    param_string = ''
-    if param_match:
-        """
-        matching pattern "name[param_name]"
-        """
-        param_string = param_match.group(1)
-        param_list.append(param_string)
-        for name in re.findall(r'\[(\w+|\<\w\>)\]', param):
-            """
-            matching multiple [param1][param2]...[paramN] if they exist
-            and removing '<' and '>' if they exist
-            """
-            name = clean_param(name)
-            param_list.append(name)
-    elif bracket_match:
-        """
-        matching pattern "[param_name]"
-        """
-        param_string = bracket_match.group(1)
-        param_list.append(param_string)
-    else:
-        """
-        param is just a string "param"
-        """
-        param_list.append(param)
 
-    return '_'.join(param_list)
+    param = param.replace(']', '').replace('[', '_').replace('<','').replace('>','')
+    if param.startswith('_'):
+        param = param.replace('_', '', 1)
 
+    return param
 
+ 
 def build_payload(parameters):
     """
     build_payload creates a list of parameters to be used in the payload of 
@@ -151,12 +121,7 @@ def get_parameter_descriptions(parameters):
     lines = []
     opt_lines = []
     for param in parameters:
-        param_match = re.search(r'(\w+)\[(\w+)\]', param['name'])
-        if param_match:
-            param_name = param_match.group(1) + '_' + param_match.group(2)
-        else:
-            param_name = param['name']
-
+        param_name = flatten_param(param['name'])
         if param['required']:
             required = 'required'
             lines.append(':param {0}: ({1}) {2}'.format(param_name, required, 
@@ -185,19 +150,6 @@ def get_path_parameters(parameters):
     return param_list
 
 
-def get_param_name(param):
-    """
-    extract the param name from a form parameter. 
-    Ex.  'course[name]' will return 'name'
-    """
-    
-    match_name = re.search(r'\[(\w+)\]', param)
-    if match_name:
-        return match_name.group(1)
-    else:
-        return param
-
-
 def check_for_enums(parameters):
     """
     Check for the existance of enums in the parameter list. 
@@ -215,7 +167,7 @@ def check_for_enums(parameters):
     validate_enums = []
     for param in parameters:
         if 'enum' in param:
-            param_name = get_param_name(param['name'])
+            param_name = flatten_param(param['name'])
             param_enum = param['enum']
             enum_line = param_name + '_types = ('
             enums = ", ".join("'{0}'".format(p) for p in param_enum)
@@ -306,11 +258,10 @@ def build_method(method_name, description, parameters, api_path, http_method, su
         content += line_format('per_page = request_ctx.per_page', EIGHT)
 
     """
-    Add any enums if they exist
+    Add any enums if they exist.
     """
-    if enums: 
-        for enum in enums:
-            content += line_format(enum, FOUR)
+    for enum in enums:
+        content += line_format(enum, FOUR)
     
     """
     Add the api path
@@ -440,8 +391,9 @@ def main(argv=None):
     for api in apis:
         path = api['path']
         url = base_api_url + path
-        match = re.match(r'\/(\w+)\.json', path)
-        file_name = match.group(1)
+        #match = re.match(r'\/(\w+)\.json', path)
+        #file_name = match.group(1)
+        file_name, ext = path.split('.')
         python_file_name = file_name + '.py'
         python_file = open(METHODS_DIR + '/' + python_file_name, 'w')
         print 'Creating '+METHODS_DIR + '/' + python_file_name + '...'

@@ -67,12 +67,12 @@ def create_calendar_event(request_ctx, calendar_event_context_code, calendar_eve
         :type calendar_event_location_address: string or None
         :param calendar_event_time_zone_edited: (optional) Time zone of the user editing the event. Allowed time zones are {http://www.iana.org/time-zones IANA time zones} or friendlier {http://api.rubyonrails.org/classes/ActiveSupport/TimeZone.html Ruby on Rails time zones}.
         :type calendar_event_time_zone_edited: string or None
-        :param calendar_event_child_event_data: (optional) Section-level start time(s) if this is a course event. X can be any identifier, provided that it is consistent across the start_at, end_at and context_code
-        :type calendar_event_child_event_data: datetime or None
-        :param calendar_event_child_event_data: (optional) Section-level end time(s) if this is a course event.
-        :type calendar_event_child_event_data: datetime or None
-        :param calendar_event_child_event_data: (optional) Context code(s) corresponding to the section-level start and end time(s).
-        :type calendar_event_child_event_data: string or None
+        :param calendar_event_child_event_data_X_start_at: (optional) Section-level start time(s) if this is a course event. X can be any identifier, provided that it is consistent across the start_at, end_at and context_code
+        :type calendar_event_child_event_data_X_start_at: datetime or None
+        :param calendar_event_child_event_data_X_end_at: (optional) Section-level end time(s) if this is a course event.
+        :type calendar_event_child_event_data_X_end_at: datetime or None
+        :param calendar_event_child_event_data_X_context_code: (optional) Context code(s) corresponding to the section-level start and end time(s).
+        :type calendar_event_child_event_data_X_context_code: string or None
         :return: Create a calendar event
         :rtype: requests.Response (with void data)
 
@@ -196,12 +196,12 @@ def update_calendar_event(request_ctx, id, calendar_event_context_code, calendar
         :type calendar_event_location_address: string or None
         :param calendar_event_time_zone_edited: (optional) Time zone of the user editing the event. Allowed time zones are {http://www.iana.org/time-zones IANA time zones} or friendlier {http://api.rubyonrails.org/classes/ActiveSupport/TimeZone.html Ruby on Rails time zones}.
         :type calendar_event_time_zone_edited: string or None
-        :param calendar_event_child_event_data: (optional) Section-level start time(s) if this is a course event. X can be any identifier, provided that it is consistent across the start_at, end_at and context_code
-        :type calendar_event_child_event_data: datetime or None
-        :param calendar_event_child_event_data: (optional) Section-level end time(s) if this is a course event.
-        :type calendar_event_child_event_data: datetime or None
-        :param calendar_event_child_event_data: (optional) Context code(s) corresponding to the section-level start and end time(s).
-        :type calendar_event_child_event_data: string or None
+        :param calendar_event_child_event_data_X_start_at: (optional) Section-level start time(s) if this is a course event. X can be any identifier, provided that it is consistent across the start_at, end_at and context_code
+        :type calendar_event_child_event_data_X_start_at: datetime or None
+        :param calendar_event_child_event_data_X_end_at: (optional) Section-level end time(s) if this is a course event.
+        :type calendar_event_child_event_data_X_end_at: datetime or None
+        :param calendar_event_child_event_data_X_context_code: (optional) Context code(s) corresponding to the section-level start and end time(s).
+        :type calendar_event_child_event_data_X_context_code: string or None
         :return: Update a calendar event
         :rtype: requests.Response (with void data)
 

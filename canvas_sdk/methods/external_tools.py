@@ -251,9 +251,9 @@ def create_external_tool_courses(request_ctx, course_id, name, privacy_level, co
     """
 
     privacy_level_types = ('anonymous', 'name_only', 'public')
-    visibility_types = ('admins', 'members')
+    course_navigation_visibility_types = ('admins', 'members')
     utils.validate_attr_is_acceptable(privacy_level, privacy_level_types)
-    utils.validate_attr_is_acceptable(visibility, visibility_types)
+    utils.validate_attr_is_acceptable(course_navigation_visibility, course_navigation_visibility_types)
     path = '/v1/courses/{course_id}/external_tools'
     payload = {
         'name' : name,
@@ -380,9 +380,9 @@ def create_external_tool_accounts(request_ctx, account_id, name, privacy_level, 
     """
 
     privacy_level_types = ('anonymous', 'name_only', 'public')
-    visibility_types = ('admins', 'members')
+    course_navigation_visibility_types = ('admins', 'members')
     utils.validate_attr_is_acceptable(privacy_level, privacy_level_types)
-    utils.validate_attr_is_acceptable(visibility, visibility_types)
+    utils.validate_attr_is_acceptable(course_navigation_visibility, course_navigation_visibility_types)
     path = '/v1/accounts/{account_id}/external_tools'
     payload = {
         'name' : name,

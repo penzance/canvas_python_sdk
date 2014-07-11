@@ -55,9 +55,9 @@ def create_quiz_report(request_ctx, course_id, quiz_id, quiz_report_report_type,
 
     """
 
-    report_type_types = ('student_analysis', 'item_analysis')
+    quiz_report_report_type_types = ('student_analysis', 'item_analysis')
     include_types = ('file', 'progress')
-    utils.validate_attr_is_acceptable(report_type, report_type_types)
+    utils.validate_attr_is_acceptable(quiz_report_report_type, quiz_report_report_type_types)
     utils.validate_attr_is_acceptable(include, include_types)
     path = '/v1/courses/{course_id}/quizzes/{quiz_id}/reports'
     payload = {

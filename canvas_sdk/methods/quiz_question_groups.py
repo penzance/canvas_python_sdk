@@ -122,8 +122,8 @@ def reorder_question_groups(request_ctx, course_id, quiz_id, id, order_id, order
 
     """
 
-    type_types = ('question')
-    utils.validate_attr_is_acceptable(type, type_types)
+    order_type_types = ('question')
+    utils.validate_attr_is_acceptable(order_type, order_type_types)
     path = '/v1/courses/{course_id}/quizzes/{quiz_id}/groups/{id}/reorder'
     payload = {
         'order[id]' : order_id,
