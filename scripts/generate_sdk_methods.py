@@ -17,7 +17,7 @@ EIGHT = 8
 TWELVE = 12
 
 """
-Current working directory
+Current working directory 
 """
 BASE_DIR = os.path.dirname(os.getcwd())
 
