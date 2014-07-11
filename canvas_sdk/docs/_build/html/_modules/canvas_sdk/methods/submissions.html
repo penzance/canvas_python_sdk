@@ -1,0 +1,564 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>canvas_sdk.methods.submissions &mdash; Canvas_SDK 0.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="top" title="Canvas_SDK 0.0.1 documentation" href="../../../index.html" />
+    <link rel="up" title="Module code" href="../../index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../../index.html">Canvas_SDK 0.0.1 documentation</a> &raquo;</li>
+          <li><a href="../../index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for canvas_sdk.methods.submissions</h1><div class="highlight"><pre>
+<span class="kn">from</span> <span class="nn">canvas_sdk</span> <span class="kn">import</span> <span class="n">client</span><span class="p">,</span> <span class="n">utils</span>
+
+<div class="viewcode-block" id="submit_assignment_courses"><a class="viewcode-back" href="../../../canvas_sdk.methods.submissions.html#canvas_sdk.methods.submissions.submit_assignment_courses">[docs]</a><span class="k">def</span> <span class="nf">submit_assignment_courses</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">course_id</span><span class="p">,</span> <span class="n">assignment_id</span><span class="p">,</span> <span class="n">comment_text_comment</span><span class="p">,</span> <span class="n">submission_submission_type</span><span class="p">,</span> <span class="n">submission_body</span><span class="p">,</span> <span class="n">submission_url</span><span class="p">,</span> <span class="n">submission_file_ids</span><span class="p">,</span> <span class="n">submission_media_comment_id</span><span class="p">,</span> <span class="n">submission_media_comment_type</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Make a submission for an assignment. You must be enrolled as a student in</span>
+<span class="sd">    the course/section to do this.</span>
+<span class="sd">    </span>
+<span class="sd">    All online turn-in submission types are supported in this API. However,</span>
+<span class="sd">    there are a few things that are not yet supported:</span>
+<span class="sd">    </span>
+<span class="sd">    * Files can be submitted based on a file ID of a user or group file. However, there is no API yet for listing the user and group files, or uploading new files via the API. A file upload API is coming soon.</span>
+<span class="sd">    * Media comments can be submitted, however, there is no API yet for creating a media comment to submit.</span>
+<span class="sd">    * Integration with Google Docs is not yet supported.</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param course_id: (required) ID</span>
+<span class="sd">        :type course_id: string</span>
+<span class="sd">        :param assignment_id: (required) ID</span>
+<span class="sd">        :type assignment_id: string</span>
+<span class="sd">        :param comment_text_comment: (required) Include a textual comment with the submission.</span>
+<span class="sd">        :type comment_text_comment: string</span>
+<span class="sd">        :param submission_submission_type: (required) The type of submission being made. The assignment submission_types must include this submission type as an allowed option, or the submission will be rejected with a 400 error. The submission_type given determines which of the following parameters is used. For instance, to submit a URL, submission[submission_type] must be set to &quot;online_url&quot;, otherwise the submission[url] parameter will be ignored.</span>
+<span class="sd">        :type submission_submission_type: string</span>
+<span class="sd">        :param submission_body: (required) Submit the assignment as an HTML document snippet. Note this HTML snippet will be sanitized using the same ruleset as a submission made from the Canvas web UI. The sanitized HTML will be returned in the response as the submission body. Requires a submission_type of &quot;online_text_entry&quot;.</span>
+<span class="sd">        :type submission_body: string</span>
+<span class="sd">        :param submission_url: (required) Submit the assignment as a URL. The URL scheme must be &quot;http&quot; or &quot;https&quot;, no &quot;ftp&quot; or other URL schemes are allowed. If no scheme is given (e.g. &quot;www.example.com&quot;) then &quot;http&quot; will be assumed. Requires a submission_type of &quot;online_url&quot;.</span>
+<span class="sd">        :type submission_url: string</span>
+<span class="sd">        :param submission_file_ids: (required) Submit the assignment as a set of one or more previously uploaded files residing in the submitting user&#39;s files section (or the group&#39;s files section, for group assignments). To upload a new file to submit, see the submissions {api:SubmissionsApiController#create_file Upload a file API}. Requires a submission_type of &quot;online_upload&quot;.</span>
+<span class="sd">        :type submission_file_ids: integer</span>
+<span class="sd">        :param submission_media_comment_id: (required) The media comment id to submit. Media comment ids can be submitted via this API, however, note that there is not yet an API to generate or list existing media comments, so this functionality is currently of limited use. Requires a submission_type of &quot;media_recording&quot;.</span>
+<span class="sd">        :type submission_media_comment_id: integer</span>
+<span class="sd">        :param submission_media_comment_type: (required) The type of media comment being submitted.</span>
+<span class="sd">        :type submission_media_comment_type: string</span>
+<span class="sd">        :return: Submit an assignment</span>
+<span class="sd">        :rtype: requests.Response (with void data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">submission_type_types</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;online_text_entry&#39;</span><span class="p">,</span> <span class="s">&#39;online_url&#39;</span><span class="p">,</span> <span class="s">&#39;online_upload&#39;</span><span class="p">,</span> <span class="s">&#39;media_recording&#39;</span><span class="p">)</span>
+    <span class="n">media_comment_type_types</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;audio&#39;</span><span class="p">,</span> <span class="s">&#39;video&#39;</span><span class="p">)</span>
+    <span class="n">utils</span><span class="o">.</span><span class="n">validate_attr_is_acceptable</span><span class="p">(</span><span class="n">submission_type</span><span class="p">,</span> <span class="n">submission_type_types</span><span class="p">)</span>
+    <span class="n">utils</span><span class="o">.</span><span class="n">validate_attr_is_acceptable</span><span class="p">(</span><span class="n">media_comment_type</span><span class="p">,</span> <span class="n">media_comment_type_types</span><span class="p">)</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/courses/{course_id}/assignments/{assignment_id}/submissions&#39;</span>
+    <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s">&#39;comment[text_comment]&#39;</span> <span class="p">:</span> <span class="n">comment_text_comment</span><span class="p">,</span>
+        <span class="s">&#39;submission[submission_type]&#39;</span> <span class="p">:</span> <span class="n">submission_submission_type</span><span class="p">,</span>
+        <span class="s">&#39;submission[body]&#39;</span> <span class="p">:</span> <span class="n">submission_body</span><span class="p">,</span>
+        <span class="s">&#39;submission[url]&#39;</span> <span class="p">:</span> <span class="n">submission_url</span><span class="p">,</span>
+        <span class="s">&#39;submission[file_ids]&#39;</span> <span class="p">:</span> <span class="n">submission_file_ids</span><span class="p">,</span>
+        <span class="s">&#39;submission[media_comment_id]&#39;</span> <span class="p">:</span> <span class="n">submission_media_comment_id</span><span class="p">,</span>
+        <span class="s">&#39;submission[media_comment_type]&#39;</span> <span class="p">:</span> <span class="n">submission_media_comment_type</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">course_id</span><span class="o">=</span><span class="n">course_id</span><span class="p">,</span> <span class="n">assignment_id</span><span class="o">=</span><span class="n">assignment_id</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="n">payload</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+
+</div>
+<div class="viewcode-block" id="submit_assignment_sections"><a class="viewcode-back" href="../../../canvas_sdk.methods.submissions.html#canvas_sdk.methods.submissions.submit_assignment_sections">[docs]</a><span class="k">def</span> <span class="nf">submit_assignment_sections</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">section_id</span><span class="p">,</span> <span class="n">assignment_id</span><span class="p">,</span> <span class="n">comment_text_comment</span><span class="p">,</span> <span class="n">submission_submission_type</span><span class="p">,</span> <span class="n">submission_body</span><span class="p">,</span> <span class="n">submission_url</span><span class="p">,</span> <span class="n">submission_file_ids</span><span class="p">,</span> <span class="n">submission_media_comment_id</span><span class="p">,</span> <span class="n">submission_media_comment_type</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Make a submission for an assignment. You must be enrolled as a student in</span>
+<span class="sd">    the course/section to do this.</span>
+<span class="sd">    </span>
+<span class="sd">    All online turn-in submission types are supported in this API. However,</span>
+<span class="sd">    there are a few things that are not yet supported:</span>
+<span class="sd">    </span>
+<span class="sd">    * Files can be submitted based on a file ID of a user or group file. However, there is no API yet for listing the user and group files, or uploading new files via the API. A file upload API is coming soon.</span>
+<span class="sd">    * Media comments can be submitted, however, there is no API yet for creating a media comment to submit.</span>
+<span class="sd">    * Integration with Google Docs is not yet supported.</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param section_id: (required) ID</span>
+<span class="sd">        :type section_id: string</span>
+<span class="sd">        :param assignment_id: (required) ID</span>
+<span class="sd">        :type assignment_id: string</span>
+<span class="sd">        :param comment_text_comment: (required) Include a textual comment with the submission.</span>
+<span class="sd">        :type comment_text_comment: string</span>
+<span class="sd">        :param submission_submission_type: (required) The type of submission being made. The assignment submission_types must include this submission type as an allowed option, or the submission will be rejected with a 400 error. The submission_type given determines which of the following parameters is used. For instance, to submit a URL, submission[submission_type] must be set to &quot;online_url&quot;, otherwise the submission[url] parameter will be ignored.</span>
+<span class="sd">        :type submission_submission_type: string</span>
+<span class="sd">        :param submission_body: (required) Submit the assignment as an HTML document snippet. Note this HTML snippet will be sanitized using the same ruleset as a submission made from the Canvas web UI. The sanitized HTML will be returned in the response as the submission body. Requires a submission_type of &quot;online_text_entry&quot;.</span>
+<span class="sd">        :type submission_body: string</span>
+<span class="sd">        :param submission_url: (required) Submit the assignment as a URL. The URL scheme must be &quot;http&quot; or &quot;https&quot;, no &quot;ftp&quot; or other URL schemes are allowed. If no scheme is given (e.g. &quot;www.example.com&quot;) then &quot;http&quot; will be assumed. Requires a submission_type of &quot;online_url&quot;.</span>
+<span class="sd">        :type submission_url: string</span>
+<span class="sd">        :param submission_file_ids: (required) Submit the assignment as a set of one or more previously uploaded files residing in the submitting user&#39;s files section (or the group&#39;s files section, for group assignments). To upload a new file to submit, see the submissions {api:SubmissionsApiController#create_file Upload a file API}. Requires a submission_type of &quot;online_upload&quot;.</span>
+<span class="sd">        :type submission_file_ids: integer</span>
+<span class="sd">        :param submission_media_comment_id: (required) The media comment id to submit. Media comment ids can be submitted via this API, however, note that there is not yet an API to generate or list existing media comments, so this functionality is currently of limited use. Requires a submission_type of &quot;media_recording&quot;.</span>
+<span class="sd">        :type submission_media_comment_id: integer</span>
+<span class="sd">        :param submission_media_comment_type: (required) The type of media comment being submitted.</span>
+<span class="sd">        :type submission_media_comment_type: string</span>
+<span class="sd">        :return: Submit an assignment</span>
+<span class="sd">        :rtype: requests.Response (with void data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">submission_type_types</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;online_text_entry&#39;</span><span class="p">,</span> <span class="s">&#39;online_url&#39;</span><span class="p">,</span> <span class="s">&#39;online_upload&#39;</span><span class="p">,</span> <span class="s">&#39;media_recording&#39;</span><span class="p">)</span>
+    <span class="n">media_comment_type_types</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;audio&#39;</span><span class="p">,</span> <span class="s">&#39;video&#39;</span><span class="p">)</span>
+    <span class="n">utils</span><span class="o">.</span><span class="n">validate_attr_is_acceptable</span><span class="p">(</span><span class="n">submission_type</span><span class="p">,</span> <span class="n">submission_type_types</span><span class="p">)</span>
+    <span class="n">utils</span><span class="o">.</span><span class="n">validate_attr_is_acceptable</span><span class="p">(</span><span class="n">media_comment_type</span><span class="p">,</span> <span class="n">media_comment_type_types</span><span class="p">)</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/sections/{section_id}/assignments/{assignment_id}/submissions&#39;</span>
+    <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s">&#39;comment[text_comment]&#39;</span> <span class="p">:</span> <span class="n">comment_text_comment</span><span class="p">,</span>
+        <span class="s">&#39;submission[submission_type]&#39;</span> <span class="p">:</span> <span class="n">submission_submission_type</span><span class="p">,</span>
+        <span class="s">&#39;submission[body]&#39;</span> <span class="p">:</span> <span class="n">submission_body</span><span class="p">,</span>
+        <span class="s">&#39;submission[url]&#39;</span> <span class="p">:</span> <span class="n">submission_url</span><span class="p">,</span>
+        <span class="s">&#39;submission[file_ids]&#39;</span> <span class="p">:</span> <span class="n">submission_file_ids</span><span class="p">,</span>
+        <span class="s">&#39;submission[media_comment_id]&#39;</span> <span class="p">:</span> <span class="n">submission_media_comment_id</span><span class="p">,</span>
+        <span class="s">&#39;submission[media_comment_type]&#39;</span> <span class="p">:</span> <span class="n">submission_media_comment_type</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">section_id</span><span class="o">=</span><span class="n">section_id</span><span class="p">,</span> <span class="n">assignment_id</span><span class="o">=</span><span class="n">assignment_id</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="n">payload</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+
+</div>
+<div class="viewcode-block" id="list_assignment_submissions_courses"><a class="viewcode-back" href="../../../canvas_sdk.methods.submissions.html#canvas_sdk.methods.submissions.list_assignment_submissions_courses">[docs]</a><span class="k">def</span> <span class="nf">list_assignment_submissions_courses</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">course_id</span><span class="p">,</span> <span class="n">assignment_id</span><span class="p">,</span> <span class="n">include</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Get all existing submissions for an assignment.</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param course_id: (required) ID</span>
+<span class="sd">        :type course_id: string</span>
+<span class="sd">        :param assignment_id: (required) ID</span>
+<span class="sd">        :type assignment_id: string</span>
+<span class="sd">        :param include: (required) Associations to include with the group.</span>
+<span class="sd">        :type include: string</span>
+<span class="sd">        :return: List assignment submissions</span>
+<span class="sd">        :rtype: requests.Response (with void data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">include_types</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;submission_history&#39;</span><span class="p">,</span> <span class="s">&#39;submission_comments&#39;</span><span class="p">,</span> <span class="s">&#39;rubric_assessment&#39;</span><span class="p">,</span> <span class="s">&#39;assignment&#39;</span><span class="p">)</span>
+    <span class="n">utils</span><span class="o">.</span><span class="n">validate_attr_is_acceptable</span><span class="p">(</span><span class="n">include</span><span class="p">,</span> <span class="n">include_types</span><span class="p">)</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/courses/{course_id}/assignments/{assignment_id}/submissions&#39;</span>
+    <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s">&#39;include&#39;</span> <span class="p">:</span> <span class="n">include</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">course_id</span><span class="o">=</span><span class="n">course_id</span><span class="p">,</span> <span class="n">assignment_id</span><span class="o">=</span><span class="n">assignment_id</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="n">payload</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+
+</div>
+<div class="viewcode-block" id="list_assignment_submissions_sections"><a class="viewcode-back" href="../../../canvas_sdk.methods.submissions.html#canvas_sdk.methods.submissions.list_assignment_submissions_sections">[docs]</a><span class="k">def</span> <span class="nf">list_assignment_submissions_sections</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">section_id</span><span class="p">,</span> <span class="n">assignment_id</span><span class="p">,</span> <span class="n">include</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Get all existing submissions for an assignment.</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param section_id: (required) ID</span>
+<span class="sd">        :type section_id: string</span>
+<span class="sd">        :param assignment_id: (required) ID</span>
+<span class="sd">        :type assignment_id: string</span>
+<span class="sd">        :param include: (required) Associations to include with the group.</span>
+<span class="sd">        :type include: string</span>
+<span class="sd">        :return: List assignment submissions</span>
+<span class="sd">        :rtype: requests.Response (with void data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">include_types</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;submission_history&#39;</span><span class="p">,</span> <span class="s">&#39;submission_comments&#39;</span><span class="p">,</span> <span class="s">&#39;rubric_assessment&#39;</span><span class="p">,</span> <span class="s">&#39;assignment&#39;</span><span class="p">)</span>
+    <span class="n">utils</span><span class="o">.</span><span class="n">validate_attr_is_acceptable</span><span class="p">(</span><span class="n">include</span><span class="p">,</span> <span class="n">include_types</span><span class="p">)</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/sections/{section_id}/assignments/{assignment_id}/submissions&#39;</span>
+    <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s">&#39;include&#39;</span> <span class="p">:</span> <span class="n">include</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">section_id</span><span class="o">=</span><span class="n">section_id</span><span class="p">,</span> <span class="n">assignment_id</span><span class="o">=</span><span class="n">assignment_id</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="n">payload</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+
+</div>
+<div class="viewcode-block" id="list_submissions_for_multiple_assignments_courses"><a class="viewcode-back" href="../../../canvas_sdk.methods.submissions.html#canvas_sdk.methods.submissions.list_submissions_for_multiple_assignments_courses">[docs]</a><span class="k">def</span> <span class="nf">list_submissions_for_multiple_assignments_courses</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">course_id</span><span class="p">,</span> <span class="n">student_ids</span><span class="p">,</span> <span class="n">assignment_ids</span><span class="p">,</span> <span class="n">grouped</span><span class="p">,</span> <span class="n">include</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Get all existing submissions for a given set of students and assignments.</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param course_id: (required) ID</span>
+<span class="sd">        :type course_id: string</span>
+<span class="sd">        :param student_ids: (required) List of student ids to return submissions for. If this argument is omitted, return submissions for the calling user. Students may only list their own submissions. Observers may only list those of associated students. The special id &quot;all&quot; will return submissions for all students in the course/section as appropriate.</span>
+<span class="sd">        :type student_ids: string</span>
+<span class="sd">        :param assignment_ids: (required) List of assignments to return submissions for. If none are given, submissions for all assignments are returned.</span>
+<span class="sd">        :type assignment_ids: string</span>
+<span class="sd">        :param grouped: (required) If this argument is present, the response will be grouped by student, rather than a flat array of submissions.</span>
+<span class="sd">        :type grouped: boolean</span>
+<span class="sd">        :param include: (required) Associations to include with the group. `total_scores` requires the `grouped` argument.</span>
+<span class="sd">        :type include: string</span>
+<span class="sd">        :return: List submissions for multiple assignments</span>
+<span class="sd">        :rtype: requests.Response (with void data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">include_types</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;submission_history&#39;</span><span class="p">,</span> <span class="s">&#39;submission_comments&#39;</span><span class="p">,</span> <span class="s">&#39;rubric_assessment&#39;</span><span class="p">,</span> <span class="s">&#39;assignment&#39;</span><span class="p">,</span> <span class="s">&#39;total_scores&#39;</span><span class="p">)</span>
+    <span class="n">utils</span><span class="o">.</span><span class="n">validate_attr_is_acceptable</span><span class="p">(</span><span class="n">include</span><span class="p">,</span> <span class="n">include_types</span><span class="p">)</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/courses/{course_id}/students/submissions&#39;</span>
+    <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s">&#39;student_ids&#39;</span> <span class="p">:</span> <span class="n">student_ids</span><span class="p">,</span>
+        <span class="s">&#39;assignment_ids&#39;</span> <span class="p">:</span> <span class="n">assignment_ids</span><span class="p">,</span>
+        <span class="s">&#39;grouped&#39;</span> <span class="p">:</span> <span class="n">grouped</span><span class="p">,</span>
+        <span class="s">&#39;include&#39;</span> <span class="p">:</span> <span class="n">include</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">course_id</span><span class="o">=</span><span class="n">course_id</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="n">payload</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+
+</div>
+<div class="viewcode-block" id="list_submissions_for_multiple_assignments_sections"><a class="viewcode-back" href="../../../canvas_sdk.methods.submissions.html#canvas_sdk.methods.submissions.list_submissions_for_multiple_assignments_sections">[docs]</a><span class="k">def</span> <span class="nf">list_submissions_for_multiple_assignments_sections</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">section_id</span><span class="p">,</span> <span class="n">student_ids</span><span class="p">,</span> <span class="n">assignment_ids</span><span class="p">,</span> <span class="n">grouped</span><span class="p">,</span> <span class="n">include</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Get all existing submissions for a given set of students and assignments.</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param section_id: (required) ID</span>
+<span class="sd">        :type section_id: string</span>
+<span class="sd">        :param student_ids: (required) List of student ids to return submissions for. If this argument is omitted, return submissions for the calling user. Students may only list their own submissions. Observers may only list those of associated students. The special id &quot;all&quot; will return submissions for all students in the course/section as appropriate.</span>
+<span class="sd">        :type student_ids: string</span>
+<span class="sd">        :param assignment_ids: (required) List of assignments to return submissions for. If none are given, submissions for all assignments are returned.</span>
+<span class="sd">        :type assignment_ids: string</span>
+<span class="sd">        :param grouped: (required) If this argument is present, the response will be grouped by student, rather than a flat array of submissions.</span>
+<span class="sd">        :type grouped: boolean</span>
+<span class="sd">        :param include: (required) Associations to include with the group. `total_scores` requires the `grouped` argument.</span>
+<span class="sd">        :type include: string</span>
+<span class="sd">        :return: List submissions for multiple assignments</span>
+<span class="sd">        :rtype: requests.Response (with void data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">include_types</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;submission_history&#39;</span><span class="p">,</span> <span class="s">&#39;submission_comments&#39;</span><span class="p">,</span> <span class="s">&#39;rubric_assessment&#39;</span><span class="p">,</span> <span class="s">&#39;assignment&#39;</span><span class="p">,</span> <span class="s">&#39;total_scores&#39;</span><span class="p">)</span>
+    <span class="n">utils</span><span class="o">.</span><span class="n">validate_attr_is_acceptable</span><span class="p">(</span><span class="n">include</span><span class="p">,</span> <span class="n">include_types</span><span class="p">)</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/sections/{section_id}/students/submissions&#39;</span>
+    <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s">&#39;student_ids&#39;</span> <span class="p">:</span> <span class="n">student_ids</span><span class="p">,</span>
+        <span class="s">&#39;assignment_ids&#39;</span> <span class="p">:</span> <span class="n">assignment_ids</span><span class="p">,</span>
+        <span class="s">&#39;grouped&#39;</span> <span class="p">:</span> <span class="n">grouped</span><span class="p">,</span>
+        <span class="s">&#39;include&#39;</span> <span class="p">:</span> <span class="n">include</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">section_id</span><span class="o">=</span><span class="n">section_id</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="n">payload</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+
+</div>
+<div class="viewcode-block" id="get_single_submission_courses"><a class="viewcode-back" href="../../../canvas_sdk.methods.submissions.html#canvas_sdk.methods.submissions.get_single_submission_courses">[docs]</a><span class="k">def</span> <span class="nf">get_single_submission_courses</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">course_id</span><span class="p">,</span> <span class="n">assignment_id</span><span class="p">,</span> <span class="n">user_id</span><span class="p">,</span> <span class="n">include</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Get a single submission, based on user id.</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param course_id: (required) ID</span>
+<span class="sd">        :type course_id: string</span>
+<span class="sd">        :param assignment_id: (required) ID</span>
+<span class="sd">        :type assignment_id: string</span>
+<span class="sd">        :param user_id: (required) ID</span>
+<span class="sd">        :type user_id: string</span>
+<span class="sd">        :param include: (required) Associations to include with the group.</span>
+<span class="sd">        :type include: string</span>
+<span class="sd">        :return: Get a single submission</span>
+<span class="sd">        :rtype: requests.Response (with void data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">include_types</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;submission_history&#39;</span><span class="p">,</span> <span class="s">&#39;submission_comments&#39;</span><span class="p">,</span> <span class="s">&#39;rubric_assessment&#39;</span><span class="p">)</span>
+    <span class="n">utils</span><span class="o">.</span><span class="n">validate_attr_is_acceptable</span><span class="p">(</span><span class="n">include</span><span class="p">,</span> <span class="n">include_types</span><span class="p">)</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/courses/{course_id}/assignments/{assignment_id}/submissions/{user_id}&#39;</span>
+    <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s">&#39;include&#39;</span> <span class="p">:</span> <span class="n">include</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">course_id</span><span class="o">=</span><span class="n">course_id</span><span class="p">,</span> <span class="n">assignment_id</span><span class="o">=</span><span class="n">assignment_id</span><span class="p">,</span> <span class="n">user_id</span><span class="o">=</span><span class="n">user_id</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="n">payload</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+
+</div>
+<div class="viewcode-block" id="get_single_submission_sections"><a class="viewcode-back" href="../../../canvas_sdk.methods.submissions.html#canvas_sdk.methods.submissions.get_single_submission_sections">[docs]</a><span class="k">def</span> <span class="nf">get_single_submission_sections</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">section_id</span><span class="p">,</span> <span class="n">assignment_id</span><span class="p">,</span> <span class="n">user_id</span><span class="p">,</span> <span class="n">include</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Get a single submission, based on user id.</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param section_id: (required) ID</span>
+<span class="sd">        :type section_id: string</span>
+<span class="sd">        :param assignment_id: (required) ID</span>
+<span class="sd">        :type assignment_id: string</span>
+<span class="sd">        :param user_id: (required) ID</span>
+<span class="sd">        :type user_id: string</span>
+<span class="sd">        :param include: (required) Associations to include with the group.</span>
+<span class="sd">        :type include: string</span>
+<span class="sd">        :return: Get a single submission</span>
+<span class="sd">        :rtype: requests.Response (with void data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">include_types</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;submission_history&#39;</span><span class="p">,</span> <span class="s">&#39;submission_comments&#39;</span><span class="p">,</span> <span class="s">&#39;rubric_assessment&#39;</span><span class="p">)</span>
+    <span class="n">utils</span><span class="o">.</span><span class="n">validate_attr_is_acceptable</span><span class="p">(</span><span class="n">include</span><span class="p">,</span> <span class="n">include_types</span><span class="p">)</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/sections/{section_id}/assignments/{assignment_id}/submissions/{user_id}&#39;</span>
+    <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s">&#39;include&#39;</span> <span class="p">:</span> <span class="n">include</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">section_id</span><span class="o">=</span><span class="n">section_id</span><span class="p">,</span> <span class="n">assignment_id</span><span class="o">=</span><span class="n">assignment_id</span><span class="p">,</span> <span class="n">user_id</span><span class="o">=</span><span class="n">user_id</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="n">payload</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+
+</div>
+<div class="viewcode-block" id="upload_file_courses"><a class="viewcode-back" href="../../../canvas_sdk.methods.submissions.html#canvas_sdk.methods.submissions.upload_file_courses">[docs]</a><span class="k">def</span> <span class="nf">upload_file_courses</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">course_id</span><span class="p">,</span> <span class="n">assignment_id</span><span class="p">,</span> <span class="n">user_id</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Upload a file to a submission.</span>
+<span class="sd">    </span>
+<span class="sd">    This API endpoint is the first step in uploading a file to a submission as a student.</span>
+<span class="sd">    See the {file:file_uploads.html File Upload Documentation} for details on the file upload workflow.</span>
+<span class="sd">    </span>
+<span class="sd">    The final step of the file upload workflow will return the attachment data,</span>
+<span class="sd">    including the new file id. The caller can then POST to submit the</span>
+<span class="sd">    +online_upload+ assignment with these file ids.</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param course_id: (required) ID</span>
+<span class="sd">        :type course_id: string</span>
+<span class="sd">        :param assignment_id: (required) ID</span>
+<span class="sd">        :type assignment_id: string</span>
+<span class="sd">        :param user_id: (required) ID</span>
+<span class="sd">        :type user_id: string</span>
+<span class="sd">        :return: Upload a file</span>
+<span class="sd">        :rtype: requests.Response (with void data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/courses/{course_id}/assignments/{assignment_id}/submissions/{user_id}/files&#39;</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">course_id</span><span class="o">=</span><span class="n">course_id</span><span class="p">,</span> <span class="n">assignment_id</span><span class="o">=</span><span class="n">assignment_id</span><span class="p">,</span> <span class="n">user_id</span><span class="o">=</span><span class="n">user_id</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+
+</div>
+<div class="viewcode-block" id="upload_file_sections"><a class="viewcode-back" href="../../../canvas_sdk.methods.submissions.html#canvas_sdk.methods.submissions.upload_file_sections">[docs]</a><span class="k">def</span> <span class="nf">upload_file_sections</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">section_id</span><span class="p">,</span> <span class="n">assignment_id</span><span class="p">,</span> <span class="n">user_id</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Upload a file to a submission.</span>
+<span class="sd">    </span>
+<span class="sd">    This API endpoint is the first step in uploading a file to a submission as a student.</span>
+<span class="sd">    See the {file:file_uploads.html File Upload Documentation} for details on the file upload workflow.</span>
+<span class="sd">    </span>
+<span class="sd">    The final step of the file upload workflow will return the attachment data,</span>
+<span class="sd">    including the new file id. The caller can then POST to submit the</span>
+<span class="sd">    +online_upload+ assignment with these file ids.</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param section_id: (required) ID</span>
+<span class="sd">        :type section_id: string</span>
+<span class="sd">        :param assignment_id: (required) ID</span>
+<span class="sd">        :type assignment_id: string</span>
+<span class="sd">        :param user_id: (required) ID</span>
+<span class="sd">        :type user_id: string</span>
+<span class="sd">        :return: Upload a file</span>
+<span class="sd">        :rtype: requests.Response (with void data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/sections/{section_id}/assignments/{assignment_id}/submissions/{user_id}/files&#39;</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">section_id</span><span class="o">=</span><span class="n">section_id</span><span class="p">,</span> <span class="n">assignment_id</span><span class="o">=</span><span class="n">assignment_id</span><span class="p">,</span> <span class="n">user_id</span><span class="o">=</span><span class="n">user_id</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+
+</div>
+<div class="viewcode-block" id="grade_or_comment_on_submission_courses"><a class="viewcode-back" href="../../../canvas_sdk.methods.submissions.html#canvas_sdk.methods.submissions.grade_or_comment_on_submission_courses">[docs]</a><span class="k">def</span> <span class="nf">grade_or_comment_on_submission_courses</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">course_id</span><span class="p">,</span> <span class="n">assignment_id</span><span class="p">,</span> <span class="n">user_id</span><span class="p">,</span> <span class="n">comment_text_comment</span><span class="p">,</span> <span class="n">comment_media_comment_id</span><span class="p">,</span> <span class="n">comment_media_comment_type</span><span class="p">,</span> <span class="n">submission_posted_grade</span><span class="p">,</span> <span class="n">rubric_assessment</span><span class="p">,</span> <span class="n">comment_group_comment</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">comment_file_ids</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Comment on and/or update the grading for a student&#39;s assignment submission.</span>
+<span class="sd">    If any submission or rubric_assessment arguments are provided, the user</span>
+<span class="sd">    must have permission to manage grades in the appropriate context (course or</span>
+<span class="sd">    section).</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param course_id: (required) ID</span>
+<span class="sd">        :type course_id: string</span>
+<span class="sd">        :param assignment_id: (required) ID</span>
+<span class="sd">        :type assignment_id: string</span>
+<span class="sd">        :param user_id: (required) ID</span>
+<span class="sd">        :type user_id: string</span>
+<span class="sd">        :param comment_text_comment: (required) Add a textual comment to the submission.</span>
+<span class="sd">        :type comment_text_comment: string</span>
+<span class="sd">        :param comment_media_comment_id: (required) Add an audio/video comment to the submission. Media comments can be added via this API, however, note that there is not yet an API to generate or list existing media comments, so this functionality is currently of limited use.</span>
+<span class="sd">        :type comment_media_comment_id: integer</span>
+<span class="sd">        :param comment_media_comment_type: (required) The type of media comment being added.</span>
+<span class="sd">        :type comment_media_comment_type: string</span>
+<span class="sd">        :param submission_posted_grade: (required) Assign a score to the submission, updating both the &quot;score&quot; and &quot;grade&quot; fields on the submission record. This parameter can be passed in a few different formats: points:: A floating point or integral value, such as &quot;13.5&quot;. The grade will be interpreted directly as the score of the assignment. Values above assignment.points_possible are allowed, for awarding extra credit. percentage:: A floating point value appended with a percent sign, such as &quot;40%&quot;. The grade will be interpreted as a percentage score on the assignment, where 100% == assignment.points_possible. Values above 100% are allowed, for awarding extra credit. letter grade:: A letter grade, following the assignment&#39;s defined letter grading scheme. For example, &quot;A-&quot;. The resulting score will be the high end of the defined range for the letter grade. For instance, if &quot;B&quot; is defined as 86% to 84%, a letter grade of &quot;B&quot; will be worth 86%. The letter grade will be rejected if the assignment does not have a defined letter grading scheme. For more fine-grained control of scores, pass in points or percentage rather than the letter grade. &quot;pass/complete/fail/incomplete&quot;:: A string value of &quot;pass&quot; or &quot;complete&quot; will give a score of 100%. &quot;fail&quot; or &quot;incomplete&quot; will give a score of 0. Note that assignments with grading_type of &quot;pass_fail&quot; can only be assigned a score of 0 or assignment.points_possible, nothing inbetween. If a posted_grade in the &quot;points&quot; or &quot;percentage&quot; format is sent, the grade will only be accepted if the grade equals one of those two values.</span>
+<span class="sd">        :type submission_posted_grade: string</span>
+<span class="sd">        :param rubric_assessment: (required) Assign a rubric assessment to this assignment submission. The sub-parameters here depend on the rubric for the assignment. The general format is, for each row in the rubric: rubric_assessment[criterion_id][points]:: The points awarded for this row. rubric_assessment[criterion_id][comments]:: Comments to add for this row. For example, if the assignment rubric is (in JSON format): !!!javascript [ { &#39;id&#39;: &#39;crit1&#39;, &#39;points&#39;: 10, &#39;description&#39;: &#39;Criterion 1&#39;, &#39;ratings&#39;: [ { &#39;description&#39;: &#39;Good&#39;, &#39;points&#39;: 10 }, { &#39;description&#39;: &#39;Poor&#39;, &#39;points&#39;: 3 } ] }, { &#39;id&#39;: &#39;crit2&#39;, &#39;points&#39;: 5, &#39;description&#39;: &#39;Criterion 2&#39;, &#39;ratings&#39;: [ { &#39;description&#39;: &#39;Complete&#39;, &#39;points&#39;: 5 }, { &#39;description&#39;: &#39;Incomplete&#39;, &#39;points&#39;: 0 } ] } ] Then a possible set of values for rubric_assessment would be: rubric_assessment[crit1][points]=3&amp;rubric_assessment[crit2][points]=5&amp;rubric_assessment[crit2][comments]=Well%20Done.</span>
+<span class="sd">        :type rubric_assessment: rubricassessment</span>
+<span class="sd">        :param comment_group_comment: (optional) Whether or not this comment should be sent to the entire group (defaults to false). Ignored if this is not a group assignment or if no text_comment is provided.</span>
+<span class="sd">        :type comment_group_comment: boolean or None</span>
+<span class="sd">        :param comment_file_ids: (optional) Attach files to this comment that were previously uploaded using the Submission Comment API&#39;s files action</span>
+<span class="sd">        :type comment_file_ids: integer or None</span>
+<span class="sd">        :return: Grade or comment on a submission</span>
+<span class="sd">        :rtype: requests.Response (with void data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">media_comment_type_types</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;audio&#39;</span><span class="p">,</span> <span class="s">&#39;video&#39;</span><span class="p">)</span>
+    <span class="n">utils</span><span class="o">.</span><span class="n">validate_attr_is_acceptable</span><span class="p">(</span><span class="n">media_comment_type</span><span class="p">,</span> <span class="n">media_comment_type_types</span><span class="p">)</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/courses/{course_id}/assignments/{assignment_id}/submissions/{user_id}&#39;</span>
+    <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s">&#39;comment[text_comment]&#39;</span> <span class="p">:</span> <span class="n">comment_text_comment</span><span class="p">,</span>
+        <span class="s">&#39;comment[group_comment]&#39;</span> <span class="p">:</span> <span class="n">comment_group_comment</span><span class="p">,</span>
+        <span class="s">&#39;comment[media_comment_id]&#39;</span> <span class="p">:</span> <span class="n">comment_media_comment_id</span><span class="p">,</span>
+        <span class="s">&#39;comment[media_comment_type]&#39;</span> <span class="p">:</span> <span class="n">comment_media_comment_type</span><span class="p">,</span>
+        <span class="s">&#39;comment[file_ids]&#39;</span> <span class="p">:</span> <span class="n">comment_file_ids</span><span class="p">,</span>
+        <span class="s">&#39;submission[posted_grade]&#39;</span> <span class="p">:</span> <span class="n">submission_posted_grade</span><span class="p">,</span>
+        <span class="s">&#39;rubric_assessment&#39;</span> <span class="p">:</span> <span class="n">rubric_assessment</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">course_id</span><span class="o">=</span><span class="n">course_id</span><span class="p">,</span> <span class="n">assignment_id</span><span class="o">=</span><span class="n">assignment_id</span><span class="p">,</span> <span class="n">user_id</span><span class="o">=</span><span class="n">user_id</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="n">payload</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+
+</div>
+<div class="viewcode-block" id="grade_or_comment_on_submission_sections"><a class="viewcode-back" href="../../../canvas_sdk.methods.submissions.html#canvas_sdk.methods.submissions.grade_or_comment_on_submission_sections">[docs]</a><span class="k">def</span> <span class="nf">grade_or_comment_on_submission_sections</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">section_id</span><span class="p">,</span> <span class="n">assignment_id</span><span class="p">,</span> <span class="n">user_id</span><span class="p">,</span> <span class="n">comment_text_comment</span><span class="p">,</span> <span class="n">comment_media_comment_id</span><span class="p">,</span> <span class="n">comment_media_comment_type</span><span class="p">,</span> <span class="n">submission_posted_grade</span><span class="p">,</span> <span class="n">rubric_assessment</span><span class="p">,</span> <span class="n">comment_group_comment</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">comment_file_ids</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Comment on and/or update the grading for a student&#39;s assignment submission.</span>
+<span class="sd">    If any submission or rubric_assessment arguments are provided, the user</span>
+<span class="sd">    must have permission to manage grades in the appropriate context (course or</span>
+<span class="sd">    section).</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param section_id: (required) ID</span>
+<span class="sd">        :type section_id: string</span>
+<span class="sd">        :param assignment_id: (required) ID</span>
+<span class="sd">        :type assignment_id: string</span>
+<span class="sd">        :param user_id: (required) ID</span>
+<span class="sd">        :type user_id: string</span>
+<span class="sd">        :param comment_text_comment: (required) Add a textual comment to the submission.</span>
+<span class="sd">        :type comment_text_comment: string</span>
+<span class="sd">        :param comment_media_comment_id: (required) Add an audio/video comment to the submission. Media comments can be added via this API, however, note that there is not yet an API to generate or list existing media comments, so this functionality is currently of limited use.</span>
+<span class="sd">        :type comment_media_comment_id: integer</span>
+<span class="sd">        :param comment_media_comment_type: (required) The type of media comment being added.</span>
+<span class="sd">        :type comment_media_comment_type: string</span>
+<span class="sd">        :param submission_posted_grade: (required) Assign a score to the submission, updating both the &quot;score&quot; and &quot;grade&quot; fields on the submission record. This parameter can be passed in a few different formats: points:: A floating point or integral value, such as &quot;13.5&quot;. The grade will be interpreted directly as the score of the assignment. Values above assignment.points_possible are allowed, for awarding extra credit. percentage:: A floating point value appended with a percent sign, such as &quot;40%&quot;. The grade will be interpreted as a percentage score on the assignment, where 100% == assignment.points_possible. Values above 100% are allowed, for awarding extra credit. letter grade:: A letter grade, following the assignment&#39;s defined letter grading scheme. For example, &quot;A-&quot;. The resulting score will be the high end of the defined range for the letter grade. For instance, if &quot;B&quot; is defined as 86% to 84%, a letter grade of &quot;B&quot; will be worth 86%. The letter grade will be rejected if the assignment does not have a defined letter grading scheme. For more fine-grained control of scores, pass in points or percentage rather than the letter grade. &quot;pass/complete/fail/incomplete&quot;:: A string value of &quot;pass&quot; or &quot;complete&quot; will give a score of 100%. &quot;fail&quot; or &quot;incomplete&quot; will give a score of 0. Note that assignments with grading_type of &quot;pass_fail&quot; can only be assigned a score of 0 or assignment.points_possible, nothing inbetween. If a posted_grade in the &quot;points&quot; or &quot;percentage&quot; format is sent, the grade will only be accepted if the grade equals one of those two values.</span>
+<span class="sd">        :type submission_posted_grade: string</span>
+<span class="sd">        :param rubric_assessment: (required) Assign a rubric assessment to this assignment submission. The sub-parameters here depend on the rubric for the assignment. The general format is, for each row in the rubric: rubric_assessment[criterion_id][points]:: The points awarded for this row. rubric_assessment[criterion_id][comments]:: Comments to add for this row. For example, if the assignment rubric is (in JSON format): !!!javascript [ { &#39;id&#39;: &#39;crit1&#39;, &#39;points&#39;: 10, &#39;description&#39;: &#39;Criterion 1&#39;, &#39;ratings&#39;: [ { &#39;description&#39;: &#39;Good&#39;, &#39;points&#39;: 10 }, { &#39;description&#39;: &#39;Poor&#39;, &#39;points&#39;: 3 } ] }, { &#39;id&#39;: &#39;crit2&#39;, &#39;points&#39;: 5, &#39;description&#39;: &#39;Criterion 2&#39;, &#39;ratings&#39;: [ { &#39;description&#39;: &#39;Complete&#39;, &#39;points&#39;: 5 }, { &#39;description&#39;: &#39;Incomplete&#39;, &#39;points&#39;: 0 } ] } ] Then a possible set of values for rubric_assessment would be: rubric_assessment[crit1][points]=3&amp;rubric_assessment[crit2][points]=5&amp;rubric_assessment[crit2][comments]=Well%20Done.</span>
+<span class="sd">        :type rubric_assessment: rubricassessment</span>
+<span class="sd">        :param comment_group_comment: (optional) Whether or not this comment should be sent to the entire group (defaults to false). Ignored if this is not a group assignment or if no text_comment is provided.</span>
+<span class="sd">        :type comment_group_comment: boolean or None</span>
+<span class="sd">        :param comment_file_ids: (optional) Attach files to this comment that were previously uploaded using the Submission Comment API&#39;s files action</span>
+<span class="sd">        :type comment_file_ids: integer or None</span>
+<span class="sd">        :return: Grade or comment on a submission</span>
+<span class="sd">        :rtype: requests.Response (with void data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">media_comment_type_types</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;audio&#39;</span><span class="p">,</span> <span class="s">&#39;video&#39;</span><span class="p">)</span>
+    <span class="n">utils</span><span class="o">.</span><span class="n">validate_attr_is_acceptable</span><span class="p">(</span><span class="n">media_comment_type</span><span class="p">,</span> <span class="n">media_comment_type_types</span><span class="p">)</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/sections/{section_id}/assignments/{assignment_id}/submissions/{user_id}&#39;</span>
+    <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s">&#39;comment[text_comment]&#39;</span> <span class="p">:</span> <span class="n">comment_text_comment</span><span class="p">,</span>
+        <span class="s">&#39;comment[group_comment]&#39;</span> <span class="p">:</span> <span class="n">comment_group_comment</span><span class="p">,</span>
+        <span class="s">&#39;comment[media_comment_id]&#39;</span> <span class="p">:</span> <span class="n">comment_media_comment_id</span><span class="p">,</span>
+        <span class="s">&#39;comment[media_comment_type]&#39;</span> <span class="p">:</span> <span class="n">comment_media_comment_type</span><span class="p">,</span>
+        <span class="s">&#39;comment[file_ids]&#39;</span> <span class="p">:</span> <span class="n">comment_file_ids</span><span class="p">,</span>
+        <span class="s">&#39;submission[posted_grade]&#39;</span> <span class="p">:</span> <span class="n">submission_posted_grade</span><span class="p">,</span>
+        <span class="s">&#39;rubric_assessment&#39;</span> <span class="p">:</span> <span class="n">rubric_assessment</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">section_id</span><span class="o">=</span><span class="n">section_id</span><span class="p">,</span> <span class="n">assignment_id</span><span class="o">=</span><span class="n">assignment_id</span><span class="p">,</span> <span class="n">user_id</span><span class="o">=</span><span class="n">user_id</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="n">payload</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+</pre></div></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../../index.html">Canvas_SDK 0.0.1 documentation</a> &raquo;</li>
+          <li><a href="../../index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, Harvard.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,477 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>canvas_sdk.methods.enrollments module &mdash; Canvas_SDK 0.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Canvas_SDK 0.0.1 documentation" href="index.html" />
+    <link rel="up" title="canvas_sdk.methods package" href="canvas_sdk.methods.html" />
+    <link rel="next" title="canvas_sdk.methods.external_tools module" href="canvas_sdk.methods.external_tools.html" />
+    <link rel="prev" title="canvas_sdk.methods.enrollment_terms module" href="canvas_sdk.methods.enrollment_terms.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="canvas_sdk.methods.external_tools.html" title="canvas_sdk.methods.external_tools module"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="canvas_sdk.methods.enrollment_terms.html" title="canvas_sdk.methods.enrollment_terms module"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Canvas_SDK 0.0.1 documentation</a> &raquo;</li>
+          <li><a href="canvas_sdk.html" >canvas_sdk package</a> &raquo;</li>
+          <li><a href="canvas_sdk.methods.html" accesskey="U">canvas_sdk.methods package</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-canvas_sdk.methods.enrollments">
+<span id="canvas-sdk-methods-enrollments-module"></span><h1>canvas_sdk.methods.enrollments module<a class="headerlink" href="#module-canvas_sdk.methods.enrollments" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="canvas_sdk.methods.enrollments.conclude_enrollment">
+<tt class="descclassname">canvas_sdk.methods.enrollments.</tt><tt class="descname">conclude_enrollment</tt><big>(</big><em>request_ctx</em>, <em>course_id</em>, <em>id</em>, <em>task</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/enrollments.html#conclude_enrollment"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.enrollments.conclude_enrollment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete or conclude an enrollment.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param course_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type course_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param task:</th><td class="field-body">(required) The action to take on the enrollment.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type task:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Conclude an enrollment</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with Enrollment data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.enrollments.enroll_user_courses">
+<tt class="descclassname">canvas_sdk.methods.enrollments.</tt><tt class="descname">enroll_user_courses</tt><big>(</big><em>request_ctx</em>, <em>course_id</em>, <em>enrollment_user_id</em>, <em>enrollment_type</em>, <em>enrollment_role=None</em>, <em>enrollment_enrollment_state=None</em>, <em>enrollment_course_section_id=None</em>, <em>enrollment_limit_privileges_to_course_section=None</em>, <em>enrollment_notify=None</em>, <em>enrollment_self_enrollment_code=None</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/enrollments.html#enroll_user_courses"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.enrollments.enroll_user_courses" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a new user enrollment for a course or section.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param course_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type course_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param enrollment_user_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) The ID of the user to be enrolled in the course.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type enrollment_user_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param enrollment_type:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) Enroll the user as a student, teacher, TA, observer, or designer. If no value is given, the type will be inferred by enrollment[role] if supplied, otherwise &#8216;StudentEnrollment&#8217; will be used.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type enrollment_type:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param enrollment_role:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) Assigns a custom course-level role to the user.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type enrollment_role:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param enrollment_enrollment_state:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) If set to &#8216;active,&#8217; student will be immediately enrolled in the course. Otherwise they will be required to accept a course invitation. Default is &#8216;invited.&#8217;</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type enrollment_enrollment_state:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param enrollment_course_section_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) The ID of the course section to enroll the student in. If the section-specific URL is used, this argument is redundant and will be ignored.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type enrollment_course_section_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">integer or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param enrollment_limit_privileges_to_course_section:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) If a teacher or TA enrollment, teacher/TA will be restricted to the section given by course_section_id.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type enrollment_limit_privileges_to_course_section:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">boolean or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param enrollment_notify:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) If true, a notification will be sent to the enrolled user. Notifications are not sent by default.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type enrollment_notify:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">boolean or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param enrollment_self_enrollment_code:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) If the current user is not allowed to manage enrollments in this course, but the course allows self-enrollment, the user can self- enroll as a student in the default section by passing in a valid code. When self-enrolling, the user_id must be &#8216;self&#8217;. The enrollment_state will be set to &#8216;active&#8217; and all other arguments will be ignored.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type enrollment_self_enrollment_code:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Enroll a user</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with Enrollment data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.enrollments.enroll_user_sections">
+<tt class="descclassname">canvas_sdk.methods.enrollments.</tt><tt class="descname">enroll_user_sections</tt><big>(</big><em>request_ctx</em>, <em>section_id</em>, <em>enrollment_user_id</em>, <em>enrollment_type</em>, <em>enrollment_role=None</em>, <em>enrollment_enrollment_state=None</em>, <em>enrollment_course_section_id=None</em>, <em>enrollment_limit_privileges_to_course_section=None</em>, <em>enrollment_notify=None</em>, <em>enrollment_self_enrollment_code=None</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/enrollments.html#enroll_user_sections"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.enrollments.enroll_user_sections" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a new user enrollment for a course or section.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param section_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type section_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param enrollment_user_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) The ID of the user to be enrolled in the course.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type enrollment_user_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param enrollment_type:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) Enroll the user as a student, teacher, TA, observer, or designer. If no value is given, the type will be inferred by enrollment[role] if supplied, otherwise &#8216;StudentEnrollment&#8217; will be used.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type enrollment_type:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param enrollment_role:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) Assigns a custom course-level role to the user.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type enrollment_role:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param enrollment_enrollment_state:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) If set to &#8216;active,&#8217; student will be immediately enrolled in the course. Otherwise they will be required to accept a course invitation. Default is &#8216;invited.&#8217;</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type enrollment_enrollment_state:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param enrollment_course_section_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) The ID of the course section to enroll the student in. If the section-specific URL is used, this argument is redundant and will be ignored.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type enrollment_course_section_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">integer or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param enrollment_limit_privileges_to_course_section:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) If a teacher or TA enrollment, teacher/TA will be restricted to the section given by course_section_id.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type enrollment_limit_privileges_to_course_section:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">boolean or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param enrollment_notify:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) If true, a notification will be sent to the enrolled user. Notifications are not sent by default.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type enrollment_notify:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">boolean or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param enrollment_self_enrollment_code:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) If the current user is not allowed to manage enrollments in this course, but the course allows self-enrollment, the user can self- enroll as a student in the default section by passing in a valid code. When self-enrolling, the user_id must be &#8216;self&#8217;. The enrollment_state will be set to &#8216;active&#8217; and all other arguments will be ignored.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type enrollment_self_enrollment_code:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Enroll a user</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with Enrollment data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.enrollments.list_enrollments_courses">
+<tt class="descclassname">canvas_sdk.methods.enrollments.</tt><tt class="descname">list_enrollments_courses</tt><big>(</big><em>request_ctx</em>, <em>course_id</em>, <em>type</em>, <em>role</em>, <em>state</em>, <em>user_id</em>, <em>per_page=None</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/enrollments.html#list_enrollments_courses"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.enrollments.list_enrollments_courses" title="Permalink to this definition">¶</a></dt>
+<dd><p>Depending on the URL given, return either (1) all of the enrollments in
+a course, (2) all of the enrollments in a section or (3) all of a user&#8217;s
+enrollments. This includes student, teacher, TA, and observer enrollments.</p>
+<p>If a user has multiple enrollments in a context (e.g. as a teacher
+and a student or in multiple course sections), each enrollment will be
+listed separately.</p>
+<p>note: Currently, only an admin user can return other users&#8217; enrollments. A
+user can, however, return his/her own enrollments.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param course_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type course_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param type:</th><td class="field-body">(required) A list of enrollment types to return. Accepted values are &#8216;StudentEnrollment&#8217;, &#8216;TeacherEnrollment&#8217;, &#8216;TaEnrollment&#8217;, &#8216;DesignerEnrollment&#8217;, and &#8216;ObserverEnrollment.&#8217; If omitted, all enrollment types are returned. This argument is ignored if <cite>role</cite> is given.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type type:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param role:</th><td class="field-body">(required) A list of enrollment roles to return. Accepted values include course-level roles created by the {api:RoleOverridesController#add_role Add Role API} as well as the base enrollment types accepted by the <cite>type</cite> argument above.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type role:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param state:</th><td class="field-body">(required) Filter by enrollment state. If omitted, &#8216;active&#8217; and &#8216;invited&#8217; enrollments are returned. When querying a user&#8217;s enrollments (either via user_id argument or via user enrollments endpoint), the following additional synthetic states are supported: &#8220;current_and_invited&#8221;|&#8221;current_and_future&#8221;|&#8221;current_and_concluded&#8221;</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type state:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param user_id:</th><td class="field-body">(required) Filter by user_id (only valid for course or section enrollment queries). If set to the current user&#8217;s id, this is a way to determine if the user has any enrollments in the course or section, independent of whether the user has permission to view other people on the roster.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type user_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param per_page:</th><td class="field-body">(optional) Set how many results canvas should return, defaults to config.LIMIT_PER_PAGE</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type per_page:</th><td class="field-body">integer or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">List enrollments</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with array data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.enrollments.list_enrollments_sections">
+<tt class="descclassname">canvas_sdk.methods.enrollments.</tt><tt class="descname">list_enrollments_sections</tt><big>(</big><em>request_ctx</em>, <em>section_id</em>, <em>type</em>, <em>role</em>, <em>state</em>, <em>user_id</em>, <em>per_page=None</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/enrollments.html#list_enrollments_sections"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.enrollments.list_enrollments_sections" title="Permalink to this definition">¶</a></dt>
+<dd><p>Depending on the URL given, return either (1) all of the enrollments in
+a course, (2) all of the enrollments in a section or (3) all of a user&#8217;s
+enrollments. This includes student, teacher, TA, and observer enrollments.</p>
+<p>If a user has multiple enrollments in a context (e.g. as a teacher
+and a student or in multiple course sections), each enrollment will be
+listed separately.</p>
+<p>note: Currently, only an admin user can return other users&#8217; enrollments. A
+user can, however, return his/her own enrollments.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param section_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type section_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param type:</th><td class="field-body">(required) A list of enrollment types to return. Accepted values are &#8216;StudentEnrollment&#8217;, &#8216;TeacherEnrollment&#8217;, &#8216;TaEnrollment&#8217;, &#8216;DesignerEnrollment&#8217;, and &#8216;ObserverEnrollment.&#8217; If omitted, all enrollment types are returned. This argument is ignored if <cite>role</cite> is given.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type type:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param role:</th><td class="field-body">(required) A list of enrollment roles to return. Accepted values include course-level roles created by the {api:RoleOverridesController#add_role Add Role API} as well as the base enrollment types accepted by the <cite>type</cite> argument above.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type role:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param state:</th><td class="field-body">(required) Filter by enrollment state. If omitted, &#8216;active&#8217; and &#8216;invited&#8217; enrollments are returned. When querying a user&#8217;s enrollments (either via user_id argument or via user enrollments endpoint), the following additional synthetic states are supported: &#8220;current_and_invited&#8221;|&#8221;current_and_future&#8221;|&#8221;current_and_concluded&#8221;</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type state:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param user_id:</th><td class="field-body">(required) Filter by user_id (only valid for course or section enrollment queries). If set to the current user&#8217;s id, this is a way to determine if the user has any enrollments in the course or section, independent of whether the user has permission to view other people on the roster.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type user_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param per_page:</th><td class="field-body">(optional) Set how many results canvas should return, defaults to config.LIMIT_PER_PAGE</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type per_page:</th><td class="field-body">integer or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">List enrollments</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with array data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.enrollments.list_enrollments_users">
+<tt class="descclassname">canvas_sdk.methods.enrollments.</tt><tt class="descname">list_enrollments_users</tt><big>(</big><em>request_ctx</em>, <em>type</em>, <em>role</em>, <em>state</em>, <em>user_id</em>, <em>per_page=None</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/enrollments.html#list_enrollments_users"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.enrollments.list_enrollments_users" title="Permalink to this definition">¶</a></dt>
+<dd><p>Depending on the URL given, return either (1) all of the enrollments in
+a course, (2) all of the enrollments in a section or (3) all of a user&#8217;s
+enrollments. This includes student, teacher, TA, and observer enrollments.</p>
+<p>If a user has multiple enrollments in a context (e.g. as a teacher
+and a student or in multiple course sections), each enrollment will be
+listed separately.</p>
+<p>note: Currently, only an admin user can return other users&#8217; enrollments. A
+user can, however, return his/her own enrollments.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param type:</th><td class="field-body">(required) A list of enrollment types to return. Accepted values are &#8216;StudentEnrollment&#8217;, &#8216;TeacherEnrollment&#8217;, &#8216;TaEnrollment&#8217;, &#8216;DesignerEnrollment&#8217;, and &#8216;ObserverEnrollment.&#8217; If omitted, all enrollment types are returned. This argument is ignored if <cite>role</cite> is given.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type type:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param role:</th><td class="field-body">(required) A list of enrollment roles to return. Accepted values include course-level roles created by the {api:RoleOverridesController#add_role Add Role API} as well as the base enrollment types accepted by the <cite>type</cite> argument above.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type role:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param state:</th><td class="field-body">(required) Filter by enrollment state. If omitted, &#8216;active&#8217; and &#8216;invited&#8217; enrollments are returned. When querying a user&#8217;s enrollments (either via user_id argument or via user enrollments endpoint), the following additional synthetic states are supported: &#8220;current_and_invited&#8221;|&#8221;current_and_future&#8221;|&#8221;current_and_concluded&#8221;</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type state:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param user_id:</th><td class="field-body">(required) Filter by user_id (only valid for course or section enrollment queries). If set to the current user&#8217;s id, this is a way to determine if the user has any enrollments in the course or section, independent of whether the user has permission to view other people on the roster.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type user_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param per_page:</th><td class="field-body">(optional) Set how many results canvas should return, defaults to config.LIMIT_PER_PAGE</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type per_page:</th><td class="field-body">integer or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">List enrollments</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with array data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="canvas_sdk.methods.enrollment_terms.html"
+                        title="previous chapter">canvas_sdk.methods.enrollment_terms module</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="canvas_sdk.methods.external_tools.html"
+                        title="next chapter">canvas_sdk.methods.external_tools module</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/canvas_sdk.methods.enrollments.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="canvas_sdk.methods.external_tools.html" title="canvas_sdk.methods.external_tools module"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="canvas_sdk.methods.enrollment_terms.html" title="canvas_sdk.methods.enrollment_terms module"
+             >previous</a> |</li>
+        <li><a href="index.html">Canvas_SDK 0.0.1 documentation</a> &raquo;</li>
+          <li><a href="canvas_sdk.html" >canvas_sdk package</a> &raquo;</li>
+          <li><a href="canvas_sdk.methods.html" >canvas_sdk.methods package</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, Harvard.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

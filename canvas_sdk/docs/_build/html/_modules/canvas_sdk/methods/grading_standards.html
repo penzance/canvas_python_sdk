@@ -1,0 +1,184 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>canvas_sdk.methods.grading_standards &mdash; Canvas_SDK 0.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="top" title="Canvas_SDK 0.0.1 documentation" href="../../../index.html" />
+    <link rel="up" title="Module code" href="../../index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../../index.html">Canvas_SDK 0.0.1 documentation</a> &raquo;</li>
+          <li><a href="../../index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for canvas_sdk.methods.grading_standards</h1><div class="highlight"><pre>
+<span class="kn">from</span> <span class="nn">canvas_sdk</span> <span class="kn">import</span> <span class="n">client</span><span class="p">,</span> <span class="n">utils</span>
+
+<div class="viewcode-block" id="create_new_grading_standard_accounts"><a class="viewcode-back" href="../../../canvas_sdk.methods.grading_standards.html#canvas_sdk.methods.grading_standards.create_new_grading_standard_accounts">[docs]</a><span class="k">def</span> <span class="nf">create_new_grading_standard_accounts</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">account_id</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">grading_scheme_entry_name</span><span class="p">,</span> <span class="n">grading_scheme_entry_value</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Create a new grading standard</span>
+<span class="sd">    </span>
+<span class="sd">    If grading_scheme_entry arguments are omitted, then a default grading scheme</span>
+<span class="sd">    will be set. The default scheme is as follows:</span>
+<span class="sd">         &quot;A&quot; : 94,</span>
+<span class="sd">         &quot;A-&quot; : 90,</span>
+<span class="sd">         &quot;B+&quot; : 87,</span>
+<span class="sd">         &quot;B&quot; : 84,</span>
+<span class="sd">         &quot;B-&quot; : 80,</span>
+<span class="sd">         &quot;C+&quot; : 77,</span>
+<span class="sd">         &quot;C&quot; : 74,</span>
+<span class="sd">         &quot;C-&quot; : 70,</span>
+<span class="sd">         &quot;D+&quot; : 67,</span>
+<span class="sd">         &quot;D&quot; : 64,</span>
+<span class="sd">         &quot;D-&quot; : 61,</span>
+<span class="sd">         &quot;F&quot; : 0,</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param account_id: (required) ID</span>
+<span class="sd">        :type account_id: string</span>
+<span class="sd">        :param title: (required) The title for the Grading Standard.</span>
+<span class="sd">        :type title: string</span>
+<span class="sd">        :param grading_scheme_entry_name: (required) The name for an entry value within a GradingStandard that describes the range of the value e.g. A-</span>
+<span class="sd">        :type grading_scheme_entry_name: string</span>
+<span class="sd">        :param grading_scheme_entry_value: (required) The value for the name of the entry within a GradingStandard. The entry represents the lower bound of the range for the entry. This range includes the value up to the next entry in the GradingStandard, or 100 if there is no upper bound. The lowest value will have a lower bound range of 0. e.g. 93</span>
+<span class="sd">        :type grading_scheme_entry_value: integer</span>
+<span class="sd">        :return: Create a new grading standard</span>
+<span class="sd">        :rtype: requests.Response (with GradingStandard data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/accounts/{account_id}/grading_standards&#39;</span>
+    <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s">&#39;title&#39;</span> <span class="p">:</span> <span class="n">title</span><span class="p">,</span>
+        <span class="s">&#39;grading_scheme_entry[name]&#39;</span> <span class="p">:</span> <span class="n">grading_scheme_entry_name</span><span class="p">,</span>
+        <span class="s">&#39;grading_scheme_entry[value]&#39;</span> <span class="p">:</span> <span class="n">grading_scheme_entry_value</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">account_id</span><span class="o">=</span><span class="n">account_id</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="n">payload</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+
+</div>
+<div class="viewcode-block" id="create_new_grading_standard_courses"><a class="viewcode-back" href="../../../canvas_sdk.methods.grading_standards.html#canvas_sdk.methods.grading_standards.create_new_grading_standard_courses">[docs]</a><span class="k">def</span> <span class="nf">create_new_grading_standard_courses</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">course_id</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">grading_scheme_entry_name</span><span class="p">,</span> <span class="n">grading_scheme_entry_value</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Create a new grading standard</span>
+<span class="sd">    </span>
+<span class="sd">    If grading_scheme_entry arguments are omitted, then a default grading scheme</span>
+<span class="sd">    will be set. The default scheme is as follows:</span>
+<span class="sd">         &quot;A&quot; : 94,</span>
+<span class="sd">         &quot;A-&quot; : 90,</span>
+<span class="sd">         &quot;B+&quot; : 87,</span>
+<span class="sd">         &quot;B&quot; : 84,</span>
+<span class="sd">         &quot;B-&quot; : 80,</span>
+<span class="sd">         &quot;C+&quot; : 77,</span>
+<span class="sd">         &quot;C&quot; : 74,</span>
+<span class="sd">         &quot;C-&quot; : 70,</span>
+<span class="sd">         &quot;D+&quot; : 67,</span>
+<span class="sd">         &quot;D&quot; : 64,</span>
+<span class="sd">         &quot;D-&quot; : 61,</span>
+<span class="sd">         &quot;F&quot; : 0,</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param course_id: (required) ID</span>
+<span class="sd">        :type course_id: string</span>
+<span class="sd">        :param title: (required) The title for the Grading Standard.</span>
+<span class="sd">        :type title: string</span>
+<span class="sd">        :param grading_scheme_entry_name: (required) The name for an entry value within a GradingStandard that describes the range of the value e.g. A-</span>
+<span class="sd">        :type grading_scheme_entry_name: string</span>
+<span class="sd">        :param grading_scheme_entry_value: (required) The value for the name of the entry within a GradingStandard. The entry represents the lower bound of the range for the entry. This range includes the value up to the next entry in the GradingStandard, or 100 if there is no upper bound. The lowest value will have a lower bound range of 0. e.g. 93</span>
+<span class="sd">        :type grading_scheme_entry_value: integer</span>
+<span class="sd">        :return: Create a new grading standard</span>
+<span class="sd">        :rtype: requests.Response (with GradingStandard data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/courses/{course_id}/grading_standards&#39;</span>
+    <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s">&#39;title&#39;</span> <span class="p">:</span> <span class="n">title</span><span class="p">,</span>
+        <span class="s">&#39;grading_scheme_entry[name]&#39;</span> <span class="p">:</span> <span class="n">grading_scheme_entry_name</span><span class="p">,</span>
+        <span class="s">&#39;grading_scheme_entry[value]&#39;</span> <span class="p">:</span> <span class="n">grading_scheme_entry_value</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">course_id</span><span class="o">=</span><span class="n">course_id</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="n">payload</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+</pre></div></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../../index.html">Canvas_SDK 0.0.1 documentation</a> &raquo;</li>
+          <li><a href="../../index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, Harvard.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

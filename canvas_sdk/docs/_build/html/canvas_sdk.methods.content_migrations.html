@@ -1,0 +1,1725 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>canvas_sdk.methods.content_migrations module &mdash; Canvas_SDK 0.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Canvas_SDK 0.0.1 documentation" href="index.html" />
+    <link rel="up" title="canvas_sdk.methods package" href="canvas_sdk.methods.html" />
+    <link rel="next" title="canvas_sdk.methods.conversations module" href="canvas_sdk.methods.conversations.html" />
+    <link rel="prev" title="canvas_sdk.methods.content_exports module" href="canvas_sdk.methods.content_exports.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="canvas_sdk.methods.conversations.html" title="canvas_sdk.methods.conversations module"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="canvas_sdk.methods.content_exports.html" title="canvas_sdk.methods.content_exports module"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Canvas_SDK 0.0.1 documentation</a> &raquo;</li>
+          <li><a href="canvas_sdk.html" >canvas_sdk package</a> &raquo;</li>
+          <li><a href="canvas_sdk.methods.html" accesskey="U">canvas_sdk.methods package</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-canvas_sdk.methods.content_migrations">
+<span id="canvas-sdk-methods-content-migrations-module"></span><h1>canvas_sdk.methods.content_migrations module<a class="headerlink" href="#module-canvas_sdk.methods.content_migrations" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="canvas_sdk.methods.content_migrations.create_content_migration_accounts">
+<tt class="descclassname">canvas_sdk.methods.content_migrations.</tt><tt class="descname">create_content_migration_accounts</tt><big>(</big><em>request_ctx</em>, <em>account_id</em>, <em>migration_type</em>, <em>pre_attachment_name</em>, <em>settings_file_url</em>, <em>pre_attachment=None</em>, <em>settings_source_course_id=None</em>, <em>settings_folder_id=None</em>, <em>settings_overwrite_quizzes=None</em>, <em>settings_question_bank_id=None</em>, <em>settings_question_bank_name=None</em>, <em>date_shift_options_shift_dates=None</em>, <em>date_shift_options_old_start_date=None</em>, <em>date_shift_options_old_end_date=None</em>, <em>date_shift_options_new_start_date=None</em>, <em>date_shift_options_new_end_date=None</em>, <em>date_shift_options_day_substitutions_X=None</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/content_migrations.html#create_content_migration_accounts"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.content_migrations.create_content_migration_accounts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a content migration. If the migration requires a file to be uploaded
+the actual processing of the file will start once the file upload process is completed.
+File uploading works as described in the {<a class="reference external" href="file:file_uploads.html">file:file_uploads.html</a> File Upload Documentation}
+except that the values are set on a <em>pre_attachment</em> sub-hash.</p>
+<p>For migrations that don&#8217;t require a file to be uploaded, like course copy, the
+processing will begin as soon as the migration is created.</p>
+<p>You can use the <a class="reference external" href="https://github.com/instructure/canvas-lms/blob/master/app/controllers/progress_controller.rb">ProgressController#show</a> to track the
+progress of the migration. The migration&#8217;s progress is linked to with the
+_progress_url_ value.</p>
+<p>The two general workflows are:</p>
+<p>If no file upload is needed:</p>
+<ol class="arabic simple">
+<li>POST to create</li>
+<li>Use the <a class="reference external" href="https://github.com/instructure/canvas-lms/blob/master/app/controllers/progress_controller.rb">ProgressController#show</a> specified in _progress_url_ to monitor progress</li>
+</ol>
+<p>For file uploading:</p>
+<ol class="arabic simple">
+<li>POST to create with file info in <em>pre_attachment</em></li>
+<li>Do {<a class="reference external" href="file:file_uploads.html">file:file_uploads.html</a> file upload processing} using the data in the <em>pre_attachment</em> data</li>
+<li><a class="reference external" href="https://github.com/instructure/canvas-lms/blob/master/app/controllers/content_migrations_controller.rb">ContentMigrationsController#show</a> the ContentMigration</li>
+<li>Use the <a class="reference external" href="https://github.com/instructure/canvas-lms/blob/master/app/controllers/progress_controller.rb">ProgressController#show</a> specified in _progress_url_ to monitor progress</li>
+</ol>
+<blockquote>
+<div><p>(required if doing .zip file upload)</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param account_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type account_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param migration_type:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) The type of the migration. Use the {api:ContentMigrationsController#available_migrators Migrator} endpoint to see all available migrators. Default allowed values: canvas_cartridge_importer, common_cartridge_importer, course_copy_importer, zip_file_importer, qti_converter, moodle_converter</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type migration_type:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param pre_attachment_name:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) Required if uploading a file. This is the first step in uploading a file to the content migration. See the {<a class="reference external" href="file:file_uploads.html">file:file_uploads.html</a> File Upload Documentation} for details on the file upload workflow.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type pre_attachment_name:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param settings_file_url:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) (optional) A URL to download the file from. Must not require authentication.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type settings_file_url:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param pre_attachment[*]:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) Other file upload properties, See {<a class="reference external" href="file:file_uploads.html">file:file_uploads.html</a> File Upload Documentation}</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type pre_attachment[*]:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param settings_source_course_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) The course to copy from for a course copy migration. (required if doing course copy)</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type settings_source_course_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param settings_folder_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) The folder to unzip the .zip file into for a zip_file_import.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type settings_folder_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param settings_overwrite_quizzes:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) Whether to overwrite quizzes with the same identifiers between content packages.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type settings_overwrite_quizzes:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">boolean or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param settings_question_bank_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) The existing question bank ID to import questions into if not specified in the content package.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type settings_question_bank_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">integer or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param settings_question_bank_name:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) The question bank to import questions into if not specified in the content package, if both bank id and name are set, id will take precedence.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type settings_question_bank_name:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param date_shift_options_shift_dates:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) Whether to shift dates</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type date_shift_options_shift_dates:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">boolean or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param date_shift_options_old_start_date:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) The original start date of the source content/course</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type date_shift_options_old_start_date:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">date or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param date_shift_options_old_end_date:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) The original end date of the source content/course</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type date_shift_options_old_end_date:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">date or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param date_shift_options_new_start_date:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) The new start date for the content/course</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type date_shift_options_new_start_date:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">date or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param date_shift_options_new_end_date:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) The new end date for the source content/course</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type date_shift_options_new_end_date:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">date or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param date_shift_options_day_substitutions:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) Move anything scheduled for day &#8216;X&#8217; to the specified day. (0-Sunday, 1-Monday, 2-Tuesday, 3-Wednesday, 4-Thursday, 5-Friday, 6-Saturday)</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type date_shift_options_day_substitutions:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">integer or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Create a content migration</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with ContentMigration data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.content_migrations.create_content_migration_courses">
+<tt class="descclassname">canvas_sdk.methods.content_migrations.</tt><tt class="descname">create_content_migration_courses</tt><big>(</big><em>request_ctx</em>, <em>course_id</em>, <em>migration_type</em>, <em>pre_attachment_name</em>, <em>settings_file_url</em>, <em>pre_attachment=None</em>, <em>settings_source_course_id=None</em>, <em>settings_folder_id=None</em>, <em>settings_overwrite_quizzes=None</em>, <em>settings_question_bank_id=None</em>, <em>settings_question_bank_name=None</em>, <em>date_shift_options_shift_dates=None</em>, <em>date_shift_options_old_start_date=None</em>, <em>date_shift_options_old_end_date=None</em>, <em>date_shift_options_new_start_date=None</em>, <em>date_shift_options_new_end_date=None</em>, <em>date_shift_options_day_substitutions_X=None</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/content_migrations.html#create_content_migration_courses"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.content_migrations.create_content_migration_courses" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a content migration. If the migration requires a file to be uploaded
+the actual processing of the file will start once the file upload process is completed.
+File uploading works as described in the {<a class="reference external" href="file:file_uploads.html">file:file_uploads.html</a> File Upload Documentation}
+except that the values are set on a <em>pre_attachment</em> sub-hash.</p>
+<p>For migrations that don&#8217;t require a file to be uploaded, like course copy, the
+processing will begin as soon as the migration is created.</p>
+<p>You can use the <a class="reference external" href="https://github.com/instructure/canvas-lms/blob/master/app/controllers/progress_controller.rb">ProgressController#show</a> to track the
+progress of the migration. The migration&#8217;s progress is linked to with the
+_progress_url_ value.</p>
+<p>The two general workflows are:</p>
+<p>If no file upload is needed:</p>
+<ol class="arabic simple">
+<li>POST to create</li>
+<li>Use the <a class="reference external" href="https://github.com/instructure/canvas-lms/blob/master/app/controllers/progress_controller.rb">ProgressController#show</a> specified in _progress_url_ to monitor progress</li>
+</ol>
+<p>For file uploading:</p>
+<ol class="arabic simple">
+<li>POST to create with file info in <em>pre_attachment</em></li>
+<li>Do {<a class="reference external" href="file:file_uploads.html">file:file_uploads.html</a> file upload processing} using the data in the <em>pre_attachment</em> data</li>
+<li><a class="reference external" href="https://github.com/instructure/canvas-lms/blob/master/app/controllers/content_migrations_controller.rb">ContentMigrationsController#show</a> the ContentMigration</li>
+<li>Use the <a class="reference external" href="https://github.com/instructure/canvas-lms/blob/master/app/controllers/progress_controller.rb">ProgressController#show</a> specified in _progress_url_ to monitor progress</li>
+</ol>
+<blockquote>
+<div><p>(required if doing .zip file upload)</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param course_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type course_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param migration_type:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) The type of the migration. Use the {api:ContentMigrationsController#available_migrators Migrator} endpoint to see all available migrators. Default allowed values: canvas_cartridge_importer, common_cartridge_importer, course_copy_importer, zip_file_importer, qti_converter, moodle_converter</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type migration_type:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param pre_attachment_name:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) Required if uploading a file. This is the first step in uploading a file to the content migration. See the {<a class="reference external" href="file:file_uploads.html">file:file_uploads.html</a> File Upload Documentation} for details on the file upload workflow.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type pre_attachment_name:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param settings_file_url:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) (optional) A URL to download the file from. Must not require authentication.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type settings_file_url:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param pre_attachment[*]:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) Other file upload properties, See {<a class="reference external" href="file:file_uploads.html">file:file_uploads.html</a> File Upload Documentation}</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type pre_attachment[*]:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param settings_source_course_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) The course to copy from for a course copy migration. (required if doing course copy)</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type settings_source_course_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param settings_folder_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) The folder to unzip the .zip file into for a zip_file_import.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type settings_folder_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param settings_overwrite_quizzes:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) Whether to overwrite quizzes with the same identifiers between content packages.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type settings_overwrite_quizzes:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">boolean or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param settings_question_bank_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) The existing question bank ID to import questions into if not specified in the content package.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type settings_question_bank_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">integer or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param settings_question_bank_name:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) The question bank to import questions into if not specified in the content package, if both bank id and name are set, id will take precedence.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type settings_question_bank_name:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param date_shift_options_shift_dates:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) Whether to shift dates</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type date_shift_options_shift_dates:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">boolean or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param date_shift_options_old_start_date:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) The original start date of the source content/course</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type date_shift_options_old_start_date:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">date or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param date_shift_options_old_end_date:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) The original end date of the source content/course</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type date_shift_options_old_end_date:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">date or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param date_shift_options_new_start_date:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) The new start date for the content/course</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type date_shift_options_new_start_date:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">date or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param date_shift_options_new_end_date:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) The new end date for the source content/course</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type date_shift_options_new_end_date:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">date or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param date_shift_options_day_substitutions:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) Move anything scheduled for day &#8216;X&#8217; to the specified day. (0-Sunday, 1-Monday, 2-Tuesday, 3-Wednesday, 4-Thursday, 5-Friday, 6-Saturday)</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type date_shift_options_day_substitutions:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">integer or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Create a content migration</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with ContentMigration data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.content_migrations.create_content_migration_groups">
+<tt class="descclassname">canvas_sdk.methods.content_migrations.</tt><tt class="descname">create_content_migration_groups</tt><big>(</big><em>request_ctx</em>, <em>group_id</em>, <em>migration_type</em>, <em>pre_attachment_name</em>, <em>settings_file_url</em>, <em>pre_attachment=None</em>, <em>settings_source_course_id=None</em>, <em>settings_folder_id=None</em>, <em>settings_overwrite_quizzes=None</em>, <em>settings_question_bank_id=None</em>, <em>settings_question_bank_name=None</em>, <em>date_shift_options_shift_dates=None</em>, <em>date_shift_options_old_start_date=None</em>, <em>date_shift_options_old_end_date=None</em>, <em>date_shift_options_new_start_date=None</em>, <em>date_shift_options_new_end_date=None</em>, <em>date_shift_options_day_substitutions_X=None</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/content_migrations.html#create_content_migration_groups"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.content_migrations.create_content_migration_groups" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a content migration. If the migration requires a file to be uploaded
+the actual processing of the file will start once the file upload process is completed.
+File uploading works as described in the {<a class="reference external" href="file:file_uploads.html">file:file_uploads.html</a> File Upload Documentation}
+except that the values are set on a <em>pre_attachment</em> sub-hash.</p>
+<p>For migrations that don&#8217;t require a file to be uploaded, like course copy, the
+processing will begin as soon as the migration is created.</p>
+<p>You can use the <a class="reference external" href="https://github.com/instructure/canvas-lms/blob/master/app/controllers/progress_controller.rb">ProgressController#show</a> to track the
+progress of the migration. The migration&#8217;s progress is linked to with the
+_progress_url_ value.</p>
+<p>The two general workflows are:</p>
+<p>If no file upload is needed:</p>
+<ol class="arabic simple">
+<li>POST to create</li>
+<li>Use the <a class="reference external" href="https://github.com/instructure/canvas-lms/blob/master/app/controllers/progress_controller.rb">ProgressController#show</a> specified in _progress_url_ to monitor progress</li>
+</ol>
+<p>For file uploading:</p>
+<ol class="arabic simple">
+<li>POST to create with file info in <em>pre_attachment</em></li>
+<li>Do {<a class="reference external" href="file:file_uploads.html">file:file_uploads.html</a> file upload processing} using the data in the <em>pre_attachment</em> data</li>
+<li><a class="reference external" href="https://github.com/instructure/canvas-lms/blob/master/app/controllers/content_migrations_controller.rb">ContentMigrationsController#show</a> the ContentMigration</li>
+<li>Use the <a class="reference external" href="https://github.com/instructure/canvas-lms/blob/master/app/controllers/progress_controller.rb">ProgressController#show</a> specified in _progress_url_ to monitor progress</li>
+</ol>
+<blockquote>
+<div><p>(required if doing .zip file upload)</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param group_id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type group_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param migration_type:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) The type of the migration. Use the {api:ContentMigrationsController#available_migrators Migrator} endpoint to see all available migrators. Default allowed values: canvas_cartridge_importer, common_cartridge_importer, course_copy_importer, zip_file_importer, qti_converter, moodle_converter</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type migration_type:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param pre_attachment_name:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) Required if uploading a file. This is the first step in uploading a file to the content migration. See the {<a class="reference external" href="file:file_uploads.html">file:file_uploads.html</a> File Upload Documentation} for details on the file upload workflow.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type pre_attachment_name:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param settings_file_url:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) (optional) A URL to download the file from. Must not require authentication.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type settings_file_url:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param pre_attachment[*]:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) Other file upload properties, See {<a class="reference external" href="file:file_uploads.html">file:file_uploads.html</a> File Upload Documentation}</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type pre_attachment[*]:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param settings_source_course_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) The course to copy from for a course copy migration. (required if doing course copy)</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type settings_source_course_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param settings_folder_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) The folder to unzip the .zip file into for a zip_file_import.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type settings_folder_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param settings_overwrite_quizzes:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) Whether to overwrite quizzes with the same identifiers between content packages.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type settings_overwrite_quizzes:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">boolean or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param settings_question_bank_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) The existing question bank ID to import questions into if not specified in the content package.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type settings_question_bank_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">integer or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param settings_question_bank_name:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) The question bank to import questions into if not specified in the content package, if both bank id and name are set, id will take precedence.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type settings_question_bank_name:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param date_shift_options_shift_dates:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) Whether to shift dates</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type date_shift_options_shift_dates:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">boolean or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param date_shift_options_old_start_date:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) The original start date of the source content/course</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type date_shift_options_old_start_date:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">date or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param date_shift_options_old_end_date:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) The original end date of the source content/course</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type date_shift_options_old_end_date:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">date or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param date_shift_options_new_start_date:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) The new start date for the content/course</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type date_shift_options_new_start_date:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">date or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param date_shift_options_new_end_date:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) The new end date for the source content/course</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type date_shift_options_new_end_date:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">date or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param date_shift_options_day_substitutions:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) Move anything scheduled for day &#8216;X&#8217; to the specified day. (0-Sunday, 1-Monday, 2-Tuesday, 3-Wednesday, 4-Thursday, 5-Friday, 6-Saturday)</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type date_shift_options_day_substitutions:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">integer or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Create a content migration</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with ContentMigration data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.content_migrations.create_content_migration_users">
+<tt class="descclassname">canvas_sdk.methods.content_migrations.</tt><tt class="descname">create_content_migration_users</tt><big>(</big><em>request_ctx</em>, <em>user_id</em>, <em>migration_type</em>, <em>pre_attachment_name</em>, <em>settings_file_url</em>, <em>pre_attachment=None</em>, <em>settings_source_course_id=None</em>, <em>settings_folder_id=None</em>, <em>settings_overwrite_quizzes=None</em>, <em>settings_question_bank_id=None</em>, <em>settings_question_bank_name=None</em>, <em>date_shift_options_shift_dates=None</em>, <em>date_shift_options_old_start_date=None</em>, <em>date_shift_options_old_end_date=None</em>, <em>date_shift_options_new_start_date=None</em>, <em>date_shift_options_new_end_date=None</em>, <em>date_shift_options_day_substitutions_X=None</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/content_migrations.html#create_content_migration_users"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.content_migrations.create_content_migration_users" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a content migration. If the migration requires a file to be uploaded
+the actual processing of the file will start once the file upload process is completed.
+File uploading works as described in the {<a class="reference external" href="file:file_uploads.html">file:file_uploads.html</a> File Upload Documentation}
+except that the values are set on a <em>pre_attachment</em> sub-hash.</p>
+<p>For migrations that don&#8217;t require a file to be uploaded, like course copy, the
+processing will begin as soon as the migration is created.</p>
+<p>You can use the <a class="reference external" href="https://github.com/instructure/canvas-lms/blob/master/app/controllers/progress_controller.rb">ProgressController#show</a> to track the
+progress of the migration. The migration&#8217;s progress is linked to with the
+_progress_url_ value.</p>
+<p>The two general workflows are:</p>
+<p>If no file upload is needed:</p>
+<ol class="arabic simple">
+<li>POST to create</li>
+<li>Use the <a class="reference external" href="https://github.com/instructure/canvas-lms/blob/master/app/controllers/progress_controller.rb">ProgressController#show</a> specified in _progress_url_ to monitor progress</li>
+</ol>
+<p>For file uploading:</p>
+<ol class="arabic simple">
+<li>POST to create with file info in <em>pre_attachment</em></li>
+<li>Do {<a class="reference external" href="file:file_uploads.html">file:file_uploads.html</a> file upload processing} using the data in the <em>pre_attachment</em> data</li>
+<li><a class="reference external" href="https://github.com/instructure/canvas-lms/blob/master/app/controllers/content_migrations_controller.rb">ContentMigrationsController#show</a> the ContentMigration</li>
+<li>Use the <a class="reference external" href="https://github.com/instructure/canvas-lms/blob/master/app/controllers/progress_controller.rb">ProgressController#show</a> specified in _progress_url_ to monitor progress</li>
+</ol>
+<blockquote>
+<div><p>(required if doing .zip file upload)</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param user_id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type user_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param migration_type:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) The type of the migration. Use the {api:ContentMigrationsController#available_migrators Migrator} endpoint to see all available migrators. Default allowed values: canvas_cartridge_importer, common_cartridge_importer, course_copy_importer, zip_file_importer, qti_converter, moodle_converter</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type migration_type:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param pre_attachment_name:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) Required if uploading a file. This is the first step in uploading a file to the content migration. See the {<a class="reference external" href="file:file_uploads.html">file:file_uploads.html</a> File Upload Documentation} for details on the file upload workflow.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type pre_attachment_name:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param settings_file_url:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) (optional) A URL to download the file from. Must not require authentication.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type settings_file_url:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param pre_attachment[*]:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) Other file upload properties, See {<a class="reference external" href="file:file_uploads.html">file:file_uploads.html</a> File Upload Documentation}</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type pre_attachment[*]:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param settings_source_course_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) The course to copy from for a course copy migration. (required if doing course copy)</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type settings_source_course_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param settings_folder_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) The folder to unzip the .zip file into for a zip_file_import.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type settings_folder_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param settings_overwrite_quizzes:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) Whether to overwrite quizzes with the same identifiers between content packages.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type settings_overwrite_quizzes:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">boolean or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param settings_question_bank_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) The existing question bank ID to import questions into if not specified in the content package.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type settings_question_bank_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">integer or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param settings_question_bank_name:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) The question bank to import questions into if not specified in the content package, if both bank id and name are set, id will take precedence.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type settings_question_bank_name:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param date_shift_options_shift_dates:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) Whether to shift dates</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type date_shift_options_shift_dates:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">boolean or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param date_shift_options_old_start_date:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) The original start date of the source content/course</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type date_shift_options_old_start_date:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">date or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param date_shift_options_old_end_date:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) The original end date of the source content/course</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type date_shift_options_old_end_date:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">date or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param date_shift_options_new_start_date:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) The new start date for the content/course</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type date_shift_options_new_start_date:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">date or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param date_shift_options_new_end_date:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) The new end date for the source content/course</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type date_shift_options_new_end_date:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">date or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param date_shift_options_day_substitutions:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) Move anything scheduled for day &#8216;X&#8217; to the specified day. (0-Sunday, 1-Monday, 2-Tuesday, 3-Wednesday, 4-Thursday, 5-Friday, 6-Saturday)</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type date_shift_options_day_substitutions:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">integer or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Create a content migration</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with ContentMigration data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.content_migrations.get_content_migration_accounts">
+<tt class="descclassname">canvas_sdk.methods.content_migrations.</tt><tt class="descname">get_content_migration_accounts</tt><big>(</big><em>request_ctx</em>, <em>account_id</em>, <em>id</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/content_migrations.html#get_content_migration_accounts"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.content_migrations.get_content_migration_accounts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns data on an individual content migration</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param account_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type account_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Get a content migration</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with ContentMigration data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.content_migrations.get_content_migration_courses">
+<tt class="descclassname">canvas_sdk.methods.content_migrations.</tt><tt class="descname">get_content_migration_courses</tt><big>(</big><em>request_ctx</em>, <em>course_id</em>, <em>id</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/content_migrations.html#get_content_migration_courses"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.content_migrations.get_content_migration_courses" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns data on an individual content migration</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param course_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type course_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Get a content migration</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with ContentMigration data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.content_migrations.get_content_migration_groups">
+<tt class="descclassname">canvas_sdk.methods.content_migrations.</tt><tt class="descname">get_content_migration_groups</tt><big>(</big><em>request_ctx</em>, <em>group_id</em>, <em>id</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/content_migrations.html#get_content_migration_groups"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.content_migrations.get_content_migration_groups" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns data on an individual content migration</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param group_id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type group_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Get a content migration</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with ContentMigration data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.content_migrations.get_content_migration_users">
+<tt class="descclassname">canvas_sdk.methods.content_migrations.</tt><tt class="descname">get_content_migration_users</tt><big>(</big><em>request_ctx</em>, <em>user_id</em>, <em>id</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/content_migrations.html#get_content_migration_users"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.content_migrations.get_content_migration_users" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns data on an individual content migration</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param user_id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type user_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Get a content migration</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with ContentMigration data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.content_migrations.get_migration_issue_accounts">
+<tt class="descclassname">canvas_sdk.methods.content_migrations.</tt><tt class="descname">get_migration_issue_accounts</tt><big>(</big><em>request_ctx</em>, <em>account_id</em>, <em>content_migration_id</em>, <em>id</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/content_migrations.html#get_migration_issue_accounts"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.content_migrations.get_migration_issue_accounts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns data on an individual migration issue</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param account_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type account_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param content_migration_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type content_migration_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Get a migration issue</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with MigrationIssue data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.content_migrations.get_migration_issue_courses">
+<tt class="descclassname">canvas_sdk.methods.content_migrations.</tt><tt class="descname">get_migration_issue_courses</tt><big>(</big><em>request_ctx</em>, <em>course_id</em>, <em>content_migration_id</em>, <em>id</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/content_migrations.html#get_migration_issue_courses"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.content_migrations.get_migration_issue_courses" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns data on an individual migration issue</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param course_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type course_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param content_migration_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type content_migration_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Get a migration issue</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with MigrationIssue data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.content_migrations.get_migration_issue_groups">
+<tt class="descclassname">canvas_sdk.methods.content_migrations.</tt><tt class="descname">get_migration_issue_groups</tt><big>(</big><em>request_ctx</em>, <em>group_id</em>, <em>content_migration_id</em>, <em>id</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/content_migrations.html#get_migration_issue_groups"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.content_migrations.get_migration_issue_groups" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns data on an individual migration issue</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param group_id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type group_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param content_migration_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type content_migration_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Get a migration issue</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with MigrationIssue data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.content_migrations.get_migration_issue_users">
+<tt class="descclassname">canvas_sdk.methods.content_migrations.</tt><tt class="descname">get_migration_issue_users</tt><big>(</big><em>request_ctx</em>, <em>user_id</em>, <em>content_migration_id</em>, <em>id</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/content_migrations.html#get_migration_issue_users"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.content_migrations.get_migration_issue_users" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns data on an individual migration issue</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param user_id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type user_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param content_migration_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type content_migration_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Get a migration issue</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with MigrationIssue data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.content_migrations.list_content_migrations_accounts">
+<tt class="descclassname">canvas_sdk.methods.content_migrations.</tt><tt class="descname">list_content_migrations_accounts</tt><big>(</big><em>request_ctx</em>, <em>account_id</em>, <em>per_page=None</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/content_migrations.html#list_content_migrations_accounts"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.content_migrations.list_content_migrations_accounts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns paginated content migrations</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param account_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type account_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param per_page:</th><td class="field-body">(optional) Set how many results canvas should return, defaults to config.LIMIT_PER_PAGE</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type per_page:</th><td class="field-body">integer or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">List content migrations</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with array data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.content_migrations.list_content_migrations_courses">
+<tt class="descclassname">canvas_sdk.methods.content_migrations.</tt><tt class="descname">list_content_migrations_courses</tt><big>(</big><em>request_ctx</em>, <em>course_id</em>, <em>per_page=None</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/content_migrations.html#list_content_migrations_courses"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.content_migrations.list_content_migrations_courses" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns paginated content migrations</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param course_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type course_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param per_page:</th><td class="field-body">(optional) Set how many results canvas should return, defaults to config.LIMIT_PER_PAGE</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type per_page:</th><td class="field-body">integer or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">List content migrations</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with array data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.content_migrations.list_content_migrations_groups">
+<tt class="descclassname">canvas_sdk.methods.content_migrations.</tt><tt class="descname">list_content_migrations_groups</tt><big>(</big><em>request_ctx</em>, <em>group_id</em>, <em>per_page=None</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/content_migrations.html#list_content_migrations_groups"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.content_migrations.list_content_migrations_groups" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns paginated content migrations</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param group_id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type group_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param per_page:</th><td class="field-body">(optional) Set how many results canvas should return, defaults to config.LIMIT_PER_PAGE</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type per_page:</th><td class="field-body">integer or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">List content migrations</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with array data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.content_migrations.list_content_migrations_users">
+<tt class="descclassname">canvas_sdk.methods.content_migrations.</tt><tt class="descname">list_content_migrations_users</tt><big>(</big><em>request_ctx</em>, <em>user_id</em>, <em>per_page=None</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/content_migrations.html#list_content_migrations_users"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.content_migrations.list_content_migrations_users" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns paginated content migrations</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param user_id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type user_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param per_page:</th><td class="field-body">(optional) Set how many results canvas should return, defaults to config.LIMIT_PER_PAGE</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type per_page:</th><td class="field-body">integer or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">List content migrations</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with array data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.content_migrations.list_migration_issues_accounts">
+<tt class="descclassname">canvas_sdk.methods.content_migrations.</tt><tt class="descname">list_migration_issues_accounts</tt><big>(</big><em>request_ctx</em>, <em>account_id</em>, <em>content_migration_id</em>, <em>per_page=None</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/content_migrations.html#list_migration_issues_accounts"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.content_migrations.list_migration_issues_accounts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns paginated migration issues</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param account_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type account_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param content_migration_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type content_migration_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param per_page:</th><td class="field-body">(optional) Set how many results canvas should return, defaults to config.LIMIT_PER_PAGE</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type per_page:</th><td class="field-body">integer or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">List migration issues</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with array data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.content_migrations.list_migration_issues_courses">
+<tt class="descclassname">canvas_sdk.methods.content_migrations.</tt><tt class="descname">list_migration_issues_courses</tt><big>(</big><em>request_ctx</em>, <em>course_id</em>, <em>content_migration_id</em>, <em>per_page=None</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/content_migrations.html#list_migration_issues_courses"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.content_migrations.list_migration_issues_courses" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns paginated migration issues</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param course_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type course_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param content_migration_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type content_migration_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param per_page:</th><td class="field-body">(optional) Set how many results canvas should return, defaults to config.LIMIT_PER_PAGE</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type per_page:</th><td class="field-body">integer or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">List migration issues</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with array data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.content_migrations.list_migration_issues_groups">
+<tt class="descclassname">canvas_sdk.methods.content_migrations.</tt><tt class="descname">list_migration_issues_groups</tt><big>(</big><em>request_ctx</em>, <em>group_id</em>, <em>content_migration_id</em>, <em>per_page=None</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/content_migrations.html#list_migration_issues_groups"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.content_migrations.list_migration_issues_groups" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns paginated migration issues</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param group_id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type group_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param content_migration_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type content_migration_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param per_page:</th><td class="field-body">(optional) Set how many results canvas should return, defaults to config.LIMIT_PER_PAGE</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type per_page:</th><td class="field-body">integer or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">List migration issues</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with array data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.content_migrations.list_migration_issues_users">
+<tt class="descclassname">canvas_sdk.methods.content_migrations.</tt><tt class="descname">list_migration_issues_users</tt><big>(</big><em>request_ctx</em>, <em>user_id</em>, <em>content_migration_id</em>, <em>per_page=None</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/content_migrations.html#list_migration_issues_users"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.content_migrations.list_migration_issues_users" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns paginated migration issues</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param user_id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type user_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param content_migration_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type content_migration_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param per_page:</th><td class="field-body">(optional) Set how many results canvas should return, defaults to config.LIMIT_PER_PAGE</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type per_page:</th><td class="field-body">integer or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">List migration issues</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with array data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.content_migrations.list_migration_systems_accounts">
+<tt class="descclassname">canvas_sdk.methods.content_migrations.</tt><tt class="descname">list_migration_systems_accounts</tt><big>(</big><em>request_ctx</em>, <em>account_id</em>, <em>per_page=None</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/content_migrations.html#list_migration_systems_accounts"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.content_migrations.list_migration_systems_accounts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Lists the currently available migration types. These values may change.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param account_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type account_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param per_page:</th><td class="field-body">(optional) Set how many results canvas should return, defaults to config.LIMIT_PER_PAGE</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type per_page:</th><td class="field-body">integer or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">List Migration Systems</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with array data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.content_migrations.list_migration_systems_courses">
+<tt class="descclassname">canvas_sdk.methods.content_migrations.</tt><tt class="descname">list_migration_systems_courses</tt><big>(</big><em>request_ctx</em>, <em>course_id</em>, <em>per_page=None</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/content_migrations.html#list_migration_systems_courses"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.content_migrations.list_migration_systems_courses" title="Permalink to this definition">¶</a></dt>
+<dd><p>Lists the currently available migration types. These values may change.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param course_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type course_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param per_page:</th><td class="field-body">(optional) Set how many results canvas should return, defaults to config.LIMIT_PER_PAGE</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type per_page:</th><td class="field-body">integer or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">List Migration Systems</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with array data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.content_migrations.list_migration_systems_groups">
+<tt class="descclassname">canvas_sdk.methods.content_migrations.</tt><tt class="descname">list_migration_systems_groups</tt><big>(</big><em>request_ctx</em>, <em>group_id</em>, <em>per_page=None</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/content_migrations.html#list_migration_systems_groups"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.content_migrations.list_migration_systems_groups" title="Permalink to this definition">¶</a></dt>
+<dd><p>Lists the currently available migration types. These values may change.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param group_id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type group_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param per_page:</th><td class="field-body">(optional) Set how many results canvas should return, defaults to config.LIMIT_PER_PAGE</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type per_page:</th><td class="field-body">integer or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">List Migration Systems</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with array data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.content_migrations.list_migration_systems_users">
+<tt class="descclassname">canvas_sdk.methods.content_migrations.</tt><tt class="descname">list_migration_systems_users</tt><big>(</big><em>request_ctx</em>, <em>user_id</em>, <em>per_page=None</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/content_migrations.html#list_migration_systems_users"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.content_migrations.list_migration_systems_users" title="Permalink to this definition">¶</a></dt>
+<dd><p>Lists the currently available migration types. These values may change.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param user_id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type user_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param per_page:</th><td class="field-body">(optional) Set how many results canvas should return, defaults to config.LIMIT_PER_PAGE</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type per_page:</th><td class="field-body">integer or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">List Migration Systems</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with array data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.content_migrations.update_content_migration_accounts">
+<tt class="descclassname">canvas_sdk.methods.content_migrations.</tt><tt class="descname">update_content_migration_accounts</tt><big>(</big><em>request_ctx</em>, <em>account_id</em>, <em>id</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/content_migrations.html#update_content_migration_accounts"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.content_migrations.update_content_migration_accounts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update a content migration. Takes same arguments as create except that you
+can&#8217;t change the migration type. However, changing most settings after the
+migration process has started will not do anything. Generally updating the
+content migration will be used when there is a file upload problem. If the
+first upload has a problem you can supply new _pre_attachment_ values to
+start the process again.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param account_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type account_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Update a content migration</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with ContentMigration data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.content_migrations.update_content_migration_courses">
+<tt class="descclassname">canvas_sdk.methods.content_migrations.</tt><tt class="descname">update_content_migration_courses</tt><big>(</big><em>request_ctx</em>, <em>course_id</em>, <em>id</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/content_migrations.html#update_content_migration_courses"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.content_migrations.update_content_migration_courses" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update a content migration. Takes same arguments as create except that you
+can&#8217;t change the migration type. However, changing most settings after the
+migration process has started will not do anything. Generally updating the
+content migration will be used when there is a file upload problem. If the
+first upload has a problem you can supply new _pre_attachment_ values to
+start the process again.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param course_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type course_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Update a content migration</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with ContentMigration data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.content_migrations.update_content_migration_groups">
+<tt class="descclassname">canvas_sdk.methods.content_migrations.</tt><tt class="descname">update_content_migration_groups</tt><big>(</big><em>request_ctx</em>, <em>group_id</em>, <em>id</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/content_migrations.html#update_content_migration_groups"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.content_migrations.update_content_migration_groups" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update a content migration. Takes same arguments as create except that you
+can&#8217;t change the migration type. However, changing most settings after the
+migration process has started will not do anything. Generally updating the
+content migration will be used when there is a file upload problem. If the
+first upload has a problem you can supply new _pre_attachment_ values to
+start the process again.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param group_id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type group_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Update a content migration</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with ContentMigration data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.content_migrations.update_content_migration_users">
+<tt class="descclassname">canvas_sdk.methods.content_migrations.</tt><tt class="descname">update_content_migration_users</tt><big>(</big><em>request_ctx</em>, <em>user_id</em>, <em>id</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/content_migrations.html#update_content_migration_users"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.content_migrations.update_content_migration_users" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update a content migration. Takes same arguments as create except that you
+can&#8217;t change the migration type. However, changing most settings after the
+migration process has started will not do anything. Generally updating the
+content migration will be used when there is a file upload problem. If the
+first upload has a problem you can supply new _pre_attachment_ values to
+start the process again.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param user_id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type user_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Update a content migration</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with ContentMigration data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.content_migrations.update_migration_issue_accounts">
+<tt class="descclassname">canvas_sdk.methods.content_migrations.</tt><tt class="descname">update_migration_issue_accounts</tt><big>(</big><em>request_ctx</em>, <em>account_id</em>, <em>content_migration_id</em>, <em>id</em>, <em>workflow_state</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/content_migrations.html#update_migration_issue_accounts"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.content_migrations.update_migration_issue_accounts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update the workflow_state of a migration issue</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param account_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type account_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param content_migration_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type content_migration_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param workflow_state:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) Set the workflow_state of the issue.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type workflow_state:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Update a migration issue</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with MigrationIssue data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.content_migrations.update_migration_issue_courses">
+<tt class="descclassname">canvas_sdk.methods.content_migrations.</tt><tt class="descname">update_migration_issue_courses</tt><big>(</big><em>request_ctx</em>, <em>course_id</em>, <em>content_migration_id</em>, <em>id</em>, <em>workflow_state</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/content_migrations.html#update_migration_issue_courses"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.content_migrations.update_migration_issue_courses" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update the workflow_state of a migration issue</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param course_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type course_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param content_migration_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type content_migration_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param workflow_state:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) Set the workflow_state of the issue.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type workflow_state:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Update a migration issue</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with MigrationIssue data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.content_migrations.update_migration_issue_groups">
+<tt class="descclassname">canvas_sdk.methods.content_migrations.</tt><tt class="descname">update_migration_issue_groups</tt><big>(</big><em>request_ctx</em>, <em>group_id</em>, <em>content_migration_id</em>, <em>id</em>, <em>workflow_state</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/content_migrations.html#update_migration_issue_groups"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.content_migrations.update_migration_issue_groups" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update the workflow_state of a migration issue</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param group_id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type group_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param content_migration_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type content_migration_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param workflow_state:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) Set the workflow_state of the issue.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type workflow_state:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Update a migration issue</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with MigrationIssue data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.content_migrations.update_migration_issue_users">
+<tt class="descclassname">canvas_sdk.methods.content_migrations.</tt><tt class="descname">update_migration_issue_users</tt><big>(</big><em>request_ctx</em>, <em>user_id</em>, <em>content_migration_id</em>, <em>id</em>, <em>workflow_state</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/content_migrations.html#update_migration_issue_users"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.content_migrations.update_migration_issue_users" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update the workflow_state of a migration issue</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param user_id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type user_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param content_migration_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type content_migration_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param workflow_state:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) Set the workflow_state of the issue.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type workflow_state:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Update a migration issue</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with MigrationIssue data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="canvas_sdk.methods.content_exports.html"
+                        title="previous chapter">canvas_sdk.methods.content_exports module</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="canvas_sdk.methods.conversations.html"
+                        title="next chapter">canvas_sdk.methods.conversations module</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/canvas_sdk.methods.content_migrations.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="canvas_sdk.methods.conversations.html" title="canvas_sdk.methods.conversations module"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="canvas_sdk.methods.content_exports.html" title="canvas_sdk.methods.content_exports module"
+             >previous</a> |</li>
+        <li><a href="index.html">Canvas_SDK 0.0.1 documentation</a> &raquo;</li>
+          <li><a href="canvas_sdk.html" >canvas_sdk package</a> &raquo;</li>
+          <li><a href="canvas_sdk.methods.html" >canvas_sdk.methods package</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, Harvard.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,279 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>canvas_sdk.methods.sis_imports module &mdash; Canvas_SDK 0.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Canvas_SDK 0.0.1 documentation" href="index.html" />
+    <link rel="up" title="canvas_sdk.methods package" href="canvas_sdk.methods.html" />
+    <link rel="next" title="canvas_sdk.methods.submission_comments module" href="canvas_sdk.methods.submission_comments.html" />
+    <link rel="prev" title="canvas_sdk.methods.services module" href="canvas_sdk.methods.services.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="canvas_sdk.methods.submission_comments.html" title="canvas_sdk.methods.submission_comments module"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="canvas_sdk.methods.services.html" title="canvas_sdk.methods.services module"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Canvas_SDK 0.0.1 documentation</a> &raquo;</li>
+          <li><a href="canvas_sdk.html" >canvas_sdk package</a> &raquo;</li>
+          <li><a href="canvas_sdk.methods.html" accesskey="U">canvas_sdk.methods package</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-canvas_sdk.methods.sis_imports">
+<span id="canvas-sdk-methods-sis-imports-module"></span><h1>canvas_sdk.methods.sis_imports module<a class="headerlink" href="#module-canvas_sdk.methods.sis_imports" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="canvas_sdk.methods.sis_imports.get_sis_import_list">
+<tt class="descclassname">canvas_sdk.methods.sis_imports.</tt><tt class="descname">get_sis_import_list</tt><big>(</big><em>request_ctx</em>, <em>account_id</em>, <em>per_page=None</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/sis_imports.html#get_sis_import_list"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.sis_imports.get_sis_import_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the list of SIS imports for an account</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>Examples:</dt>
+<dd><p class="first">curl &#8216;<a class="reference external" href="https:/">https:/</a>/&lt;canvas&gt;/api/v1/accounts/&lt;account_id&gt;/sis_imports&#8217;             -H &#8220;Authorization: Bearer &lt;token&gt;&#8221;</p>
+<table class="last docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param account_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type account_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param per_page:</th><td class="field-body">(optional) Set how many results canvas should return, defaults to config.LIMIT_PER_PAGE</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type per_page:</th><td class="field-body">integer or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Get SIS import list</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with array data)</td>
+</tr>
+</tbody>
+</table>
+</dd>
+</dl>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.sis_imports.get_sis_import_status">
+<tt class="descclassname">canvas_sdk.methods.sis_imports.</tt><tt class="descname">get_sis_import_status</tt><big>(</big><em>request_ctx</em>, <em>account_id</em>, <em>id</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/sis_imports.html#get_sis_import_status"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.sis_imports.get_sis_import_status" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the status of an already created SIS import.</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>Examples:</dt>
+<dd><p class="first">curl &#8216;<a class="reference external" href="https:/">https:/</a>/&lt;canvas&gt;/api/v1/accounts/&lt;account_id&gt;/sis_imports/&lt;sis_import_id&gt;&#8217;             -H &#8220;Authorization: Bearer &lt;token&gt;&#8221;</p>
+<table class="last docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param account_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type account_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Get SIS import status</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with SisImport data)</td>
+</tr>
+</tbody>
+</table>
+</dd>
+</dl>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.sis_imports.import_sis_data">
+<tt class="descclassname">canvas_sdk.methods.sis_imports.</tt><tt class="descname">import_sis_data</tt><big>(</big><em>request_ctx</em>, <em>account_id</em>, <em>attachment</em>, <em>import_type=None</em>, <em>extension=None</em>, <em>batch_mode=None</em>, <em>batch_mode_term_id=None</em>, <em>override_sis_stickiness=None</em>, <em>add_sis_stickiness=None</em>, <em>clear_sis_stickiness=None</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/sis_imports.html#import_sis_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.sis_imports.import_sis_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Import SIS data into Canvas. Must be on a root account with SIS imports
+enabled.</p>
+<p>For more information on the format that&#8217;s expected here, please see the
+&#8220;SIS CSV&#8221; section in the API docs.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param account_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type account_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param attachment:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) There are two ways to post SIS import data - either via a multipart/form-data form-field-style attachment, or via a non-multipart raw post request. &#8216;attachment&#8217; is required for multipart/form-data style posts. Assumed to be SIS data from a file upload form field named &#8216;attachment&#8217;. Examples: curl -F attachment=&#64;&lt;filename&gt; -H &#8220;Authorization: Bearer &lt;token&gt;&#8221; &#8216;<a class="reference external" href="https:/">https:/</a>/&lt;canvas&gt;/api/v1/accounts/&lt;account_id&gt;/sis_imports.json?import_type=instructure_csv&#8217; If you decide to do a raw post, you can skip the &#8216;attachment&#8217; argument, but you will then be required to provide a suitable Content-Type header. You are encouraged to also provide the &#8216;extension&#8217; argument. Examples: curl -H &#8216;Content-Type: application/octet-stream&#8217; &#8211;data-binary &#64;&lt;filename&gt;.zip -H &#8220;Authorization: Bearer &lt;token&gt;&#8221; &#8216;<a class="reference external" href="https:/">https:/</a>/&lt;canvas&gt;/api/v1/accounts/&lt;account_id&gt;/sis_imports.json?import_type=instructure_csv&amp;extension=zip&#8217; curl -H &#8216;Content-Type: application/zip&#8217; &#8211;data-binary &#64;&lt;filename&gt;.zip -H &#8220;Authorization: Bearer &lt;token&gt;&#8221; &#8216;<a class="reference external" href="https:/">https:/</a>/&lt;canvas&gt;/api/v1/accounts/&lt;account_id&gt;/sis_imports.json?import_type=instructure_csv&#8217; curl -H &#8216;Content-Type: text/csv&#8217; &#8211;data-binary &#64;&lt;filename&gt;.csv -H &#8220;Authorization: Bearer &lt;token&gt;&#8221; &#8216;<a class="reference external" href="https:/">https:/</a>/&lt;canvas&gt;/api/v1/accounts/&lt;account_id&gt;/sis_imports.json?import_type=instructure_csv&#8217; curl -H &#8216;Content-Type: text/csv&#8217; &#8211;data-binary &#64;&lt;filename&gt;.csv -H &#8220;Authorization: Bearer &lt;token&gt;&#8221; &#8216;<a class="reference external" href="https:/">https:/</a>/&lt;canvas&gt;/api/v1/accounts/&lt;account_id&gt;/sis_imports.json?import_type=instructure_csv&amp;batch_mode=1&amp;batch_mode_term_id=15&#8217;</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type attachment:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param import_type:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) Choose the data format for reading SIS data. With a standard Canvas install, this option can only be &#8216;instructure_csv&#8217;, and if unprovided, will be assumed to be so. Can be part of the query string.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type import_type:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param extension:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) Recommended for raw post request style imports. This field will be used to distinguish between zip, xml, csv, and other file format extensions that would usually be provided with the filename in the multipart post request scenario. If not provided, this value will be inferred from the Content-Type, falling back to zip-file format if all else fails.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type extension:</th><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param batch_mode:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) If set, this SIS import will be run in batch mode, deleting any data previously imported via SIS that is not present in this latest import. See the SIS CSV Format page for details.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type batch_mode:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">boolean or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param batch_mode_term_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) Limit deletions to only this term. Required if batch mode is enabled.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type batch_mode_term_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param override_sis_stickiness:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) Many fields on records in Canvas can be marked &#8220;sticky,&#8221; which means that when something changes in the UI apart from the SIS, that field gets &#8220;stuck.&#8221; In this way, by default, SIS imports do not override UI changes. If this field is present, however, it will tell the SIS import to ignore &#8220;stickiness&#8221; and override all fields.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type override_sis_stickiness:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">boolean or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param add_sis_stickiness:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) This option, if present, will process all changes as if they were UI changes. This means that &#8220;stickiness&#8221; will be added to changed fields. This option is only processed if &#8216;override_sis_stickiness&#8217; is also provided.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type add_sis_stickiness:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">boolean or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param clear_sis_stickiness:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) This option, if present, will clear &#8220;stickiness&#8221; from all fields touched by this import. Requires that &#8216;override_sis_stickiness&#8217; is also provided. If &#8216;add_sis_stickiness&#8217; is also provided, &#8216;clear_sis_stickiness&#8217; will overrule the behavior of &#8216;add_sis_stickiness&#8217;</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type clear_sis_stickiness:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">boolean or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Import SIS data</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with SisImport data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="canvas_sdk.methods.services.html"
+                        title="previous chapter">canvas_sdk.methods.services module</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="canvas_sdk.methods.submission_comments.html"
+                        title="next chapter">canvas_sdk.methods.submission_comments module</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/canvas_sdk.methods.sis_imports.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="canvas_sdk.methods.submission_comments.html" title="canvas_sdk.methods.submission_comments module"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="canvas_sdk.methods.services.html" title="canvas_sdk.methods.services module"
+             >previous</a> |</li>
+        <li><a href="index.html">Canvas_SDK 0.0.1 documentation</a> &raquo;</li>
+          <li><a href="canvas_sdk.html" >canvas_sdk package</a> &raquo;</li>
+          <li><a href="canvas_sdk.methods.html" >canvas_sdk.methods package</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, Harvard.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

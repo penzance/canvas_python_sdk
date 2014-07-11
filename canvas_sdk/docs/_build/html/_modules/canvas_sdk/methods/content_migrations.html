@@ -1,0 +1,1212 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>canvas_sdk.methods.content_migrations &mdash; Canvas_SDK 0.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="top" title="Canvas_SDK 0.0.1 documentation" href="../../../index.html" />
+    <link rel="up" title="Module code" href="../../index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../../index.html">Canvas_SDK 0.0.1 documentation</a> &raquo;</li>
+          <li><a href="../../index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for canvas_sdk.methods.content_migrations</h1><div class="highlight"><pre>
+<span class="kn">from</span> <span class="nn">canvas_sdk</span> <span class="kn">import</span> <span class="n">client</span><span class="p">,</span> <span class="n">utils</span>
+
+<div class="viewcode-block" id="list_migration_issues_accounts"><a class="viewcode-back" href="../../../canvas_sdk.methods.content_migrations.html#canvas_sdk.methods.content_migrations.list_migration_issues_accounts">[docs]</a><span class="k">def</span> <span class="nf">list_migration_issues_accounts</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">account_id</span><span class="p">,</span> <span class="n">content_migration_id</span><span class="p">,</span> <span class="n">per_page</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns paginated migration issues</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param account_id: (required) ID</span>
+<span class="sd">        :type account_id: string</span>
+<span class="sd">        :param content_migration_id: (required) ID</span>
+<span class="sd">        :type content_migration_id: string</span>
+<span class="sd">        :param per_page: (optional) Set how many results canvas should return, defaults to config.LIMIT_PER_PAGE</span>
+<span class="sd">        :type per_page: integer or None</span>
+<span class="sd">        :return: List migration issues</span>
+<span class="sd">        :rtype: requests.Response (with array data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">per_page</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="n">per_page</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">per_page</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/accounts/{account_id}/content_migrations/{content_migration_id}/migration_issues&#39;</span>
+    <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s">&#39;per_page&#39;</span> <span class="p">:</span> <span class="n">per_page</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">account_id</span><span class="o">=</span><span class="n">account_id</span><span class="p">,</span> <span class="n">content_migration_id</span><span class="o">=</span><span class="n">content_migration_id</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="n">payload</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+
+</div>
+<div class="viewcode-block" id="list_migration_issues_courses"><a class="viewcode-back" href="../../../canvas_sdk.methods.content_migrations.html#canvas_sdk.methods.content_migrations.list_migration_issues_courses">[docs]</a><span class="k">def</span> <span class="nf">list_migration_issues_courses</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">course_id</span><span class="p">,</span> <span class="n">content_migration_id</span><span class="p">,</span> <span class="n">per_page</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns paginated migration issues</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param course_id: (required) ID</span>
+<span class="sd">        :type course_id: string</span>
+<span class="sd">        :param content_migration_id: (required) ID</span>
+<span class="sd">        :type content_migration_id: string</span>
+<span class="sd">        :param per_page: (optional) Set how many results canvas should return, defaults to config.LIMIT_PER_PAGE</span>
+<span class="sd">        :type per_page: integer or None</span>
+<span class="sd">        :return: List migration issues</span>
+<span class="sd">        :rtype: requests.Response (with array data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">per_page</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="n">per_page</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">per_page</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/courses/{course_id}/content_migrations/{content_migration_id}/migration_issues&#39;</span>
+    <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s">&#39;per_page&#39;</span> <span class="p">:</span> <span class="n">per_page</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">course_id</span><span class="o">=</span><span class="n">course_id</span><span class="p">,</span> <span class="n">content_migration_id</span><span class="o">=</span><span class="n">content_migration_id</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="n">payload</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+
+</div>
+<div class="viewcode-block" id="list_migration_issues_groups"><a class="viewcode-back" href="../../../canvas_sdk.methods.content_migrations.html#canvas_sdk.methods.content_migrations.list_migration_issues_groups">[docs]</a><span class="k">def</span> <span class="nf">list_migration_issues_groups</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">group_id</span><span class="p">,</span> <span class="n">content_migration_id</span><span class="p">,</span> <span class="n">per_page</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns paginated migration issues</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param group_id: (required) ID</span>
+<span class="sd">        :type group_id: string</span>
+<span class="sd">        :param content_migration_id: (required) ID</span>
+<span class="sd">        :type content_migration_id: string</span>
+<span class="sd">        :param per_page: (optional) Set how many results canvas should return, defaults to config.LIMIT_PER_PAGE</span>
+<span class="sd">        :type per_page: integer or None</span>
+<span class="sd">        :return: List migration issues</span>
+<span class="sd">        :rtype: requests.Response (with array data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">per_page</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="n">per_page</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">per_page</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/groups/{group_id}/content_migrations/{content_migration_id}/migration_issues&#39;</span>
+    <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s">&#39;per_page&#39;</span> <span class="p">:</span> <span class="n">per_page</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">group_id</span><span class="o">=</span><span class="n">group_id</span><span class="p">,</span> <span class="n">content_migration_id</span><span class="o">=</span><span class="n">content_migration_id</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="n">payload</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+
+</div>
+<div class="viewcode-block" id="list_migration_issues_users"><a class="viewcode-back" href="../../../canvas_sdk.methods.content_migrations.html#canvas_sdk.methods.content_migrations.list_migration_issues_users">[docs]</a><span class="k">def</span> <span class="nf">list_migration_issues_users</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">user_id</span><span class="p">,</span> <span class="n">content_migration_id</span><span class="p">,</span> <span class="n">per_page</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns paginated migration issues</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param user_id: (required) ID</span>
+<span class="sd">        :type user_id: string</span>
+<span class="sd">        :param content_migration_id: (required) ID</span>
+<span class="sd">        :type content_migration_id: string</span>
+<span class="sd">        :param per_page: (optional) Set how many results canvas should return, defaults to config.LIMIT_PER_PAGE</span>
+<span class="sd">        :type per_page: integer or None</span>
+<span class="sd">        :return: List migration issues</span>
+<span class="sd">        :rtype: requests.Response (with array data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">per_page</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="n">per_page</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">per_page</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/users/{user_id}/content_migrations/{content_migration_id}/migration_issues&#39;</span>
+    <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s">&#39;per_page&#39;</span> <span class="p">:</span> <span class="n">per_page</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">user_id</span><span class="o">=</span><span class="n">user_id</span><span class="p">,</span> <span class="n">content_migration_id</span><span class="o">=</span><span class="n">content_migration_id</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="n">payload</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+
+</div>
+<div class="viewcode-block" id="get_migration_issue_accounts"><a class="viewcode-back" href="../../../canvas_sdk.methods.content_migrations.html#canvas_sdk.methods.content_migrations.get_migration_issue_accounts">[docs]</a><span class="k">def</span> <span class="nf">get_migration_issue_accounts</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">account_id</span><span class="p">,</span> <span class="n">content_migration_id</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns data on an individual migration issue</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param account_id: (required) ID</span>
+<span class="sd">        :type account_id: string</span>
+<span class="sd">        :param content_migration_id: (required) ID</span>
+<span class="sd">        :type content_migration_id: string</span>
+<span class="sd">        :param id: (required) ID</span>
+<span class="sd">        :type id: string</span>
+<span class="sd">        :return: Get a migration issue</span>
+<span class="sd">        :rtype: requests.Response (with MigrationIssue data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/accounts/{account_id}/content_migrations/{content_migration_id}/migration_issues/{id}&#39;</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">account_id</span><span class="o">=</span><span class="n">account_id</span><span class="p">,</span> <span class="n">content_migration_id</span><span class="o">=</span><span class="n">content_migration_id</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="nb">id</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+
+</div>
+<div class="viewcode-block" id="get_migration_issue_courses"><a class="viewcode-back" href="../../../canvas_sdk.methods.content_migrations.html#canvas_sdk.methods.content_migrations.get_migration_issue_courses">[docs]</a><span class="k">def</span> <span class="nf">get_migration_issue_courses</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">course_id</span><span class="p">,</span> <span class="n">content_migration_id</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns data on an individual migration issue</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param course_id: (required) ID</span>
+<span class="sd">        :type course_id: string</span>
+<span class="sd">        :param content_migration_id: (required) ID</span>
+<span class="sd">        :type content_migration_id: string</span>
+<span class="sd">        :param id: (required) ID</span>
+<span class="sd">        :type id: string</span>
+<span class="sd">        :return: Get a migration issue</span>
+<span class="sd">        :rtype: requests.Response (with MigrationIssue data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/courses/{course_id}/content_migrations/{content_migration_id}/migration_issues/{id}&#39;</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">course_id</span><span class="o">=</span><span class="n">course_id</span><span class="p">,</span> <span class="n">content_migration_id</span><span class="o">=</span><span class="n">content_migration_id</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="nb">id</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+
+</div>
+<div class="viewcode-block" id="get_migration_issue_groups"><a class="viewcode-back" href="../../../canvas_sdk.methods.content_migrations.html#canvas_sdk.methods.content_migrations.get_migration_issue_groups">[docs]</a><span class="k">def</span> <span class="nf">get_migration_issue_groups</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">group_id</span><span class="p">,</span> <span class="n">content_migration_id</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns data on an individual migration issue</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param group_id: (required) ID</span>
+<span class="sd">        :type group_id: string</span>
+<span class="sd">        :param content_migration_id: (required) ID</span>
+<span class="sd">        :type content_migration_id: string</span>
+<span class="sd">        :param id: (required) ID</span>
+<span class="sd">        :type id: string</span>
+<span class="sd">        :return: Get a migration issue</span>
+<span class="sd">        :rtype: requests.Response (with MigrationIssue data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/groups/{group_id}/content_migrations/{content_migration_id}/migration_issues/{id}&#39;</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">group_id</span><span class="o">=</span><span class="n">group_id</span><span class="p">,</span> <span class="n">content_migration_id</span><span class="o">=</span><span class="n">content_migration_id</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="nb">id</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+
+</div>
+<div class="viewcode-block" id="get_migration_issue_users"><a class="viewcode-back" href="../../../canvas_sdk.methods.content_migrations.html#canvas_sdk.methods.content_migrations.get_migration_issue_users">[docs]</a><span class="k">def</span> <span class="nf">get_migration_issue_users</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">user_id</span><span class="p">,</span> <span class="n">content_migration_id</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns data on an individual migration issue</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param user_id: (required) ID</span>
+<span class="sd">        :type user_id: string</span>
+<span class="sd">        :param content_migration_id: (required) ID</span>
+<span class="sd">        :type content_migration_id: string</span>
+<span class="sd">        :param id: (required) ID</span>
+<span class="sd">        :type id: string</span>
+<span class="sd">        :return: Get a migration issue</span>
+<span class="sd">        :rtype: requests.Response (with MigrationIssue data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/users/{user_id}/content_migrations/{content_migration_id}/migration_issues/{id}&#39;</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">user_id</span><span class="o">=</span><span class="n">user_id</span><span class="p">,</span> <span class="n">content_migration_id</span><span class="o">=</span><span class="n">content_migration_id</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="nb">id</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+
+</div>
+<div class="viewcode-block" id="update_migration_issue_accounts"><a class="viewcode-back" href="../../../canvas_sdk.methods.content_migrations.html#canvas_sdk.methods.content_migrations.update_migration_issue_accounts">[docs]</a><span class="k">def</span> <span class="nf">update_migration_issue_accounts</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">account_id</span><span class="p">,</span> <span class="n">content_migration_id</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="n">workflow_state</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Update the workflow_state of a migration issue</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param account_id: (required) ID</span>
+<span class="sd">        :type account_id: string</span>
+<span class="sd">        :param content_migration_id: (required) ID</span>
+<span class="sd">        :type content_migration_id: string</span>
+<span class="sd">        :param id: (required) ID</span>
+<span class="sd">        :type id: string</span>
+<span class="sd">        :param workflow_state: (required) Set the workflow_state of the issue.</span>
+<span class="sd">        :type workflow_state: string</span>
+<span class="sd">        :return: Update a migration issue</span>
+<span class="sd">        :rtype: requests.Response (with MigrationIssue data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">workflow_state_types</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;active&#39;</span><span class="p">,</span> <span class="s">&#39;resolved&#39;</span><span class="p">)</span>
+    <span class="n">utils</span><span class="o">.</span><span class="n">validate_attr_is_acceptable</span><span class="p">(</span><span class="n">workflow_state</span><span class="p">,</span> <span class="n">workflow_state_types</span><span class="p">)</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/accounts/{account_id}/content_migrations/{content_migration_id}/migration_issues/{id}&#39;</span>
+    <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s">&#39;workflow_state&#39;</span> <span class="p">:</span> <span class="n">workflow_state</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">account_id</span><span class="o">=</span><span class="n">account_id</span><span class="p">,</span> <span class="n">content_migration_id</span><span class="o">=</span><span class="n">content_migration_id</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="nb">id</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="n">payload</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+
+</div>
+<div class="viewcode-block" id="update_migration_issue_courses"><a class="viewcode-back" href="../../../canvas_sdk.methods.content_migrations.html#canvas_sdk.methods.content_migrations.update_migration_issue_courses">[docs]</a><span class="k">def</span> <span class="nf">update_migration_issue_courses</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">course_id</span><span class="p">,</span> <span class="n">content_migration_id</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="n">workflow_state</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Update the workflow_state of a migration issue</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param course_id: (required) ID</span>
+<span class="sd">        :type course_id: string</span>
+<span class="sd">        :param content_migration_id: (required) ID</span>
+<span class="sd">        :type content_migration_id: string</span>
+<span class="sd">        :param id: (required) ID</span>
+<span class="sd">        :type id: string</span>
+<span class="sd">        :param workflow_state: (required) Set the workflow_state of the issue.</span>
+<span class="sd">        :type workflow_state: string</span>
+<span class="sd">        :return: Update a migration issue</span>
+<span class="sd">        :rtype: requests.Response (with MigrationIssue data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">workflow_state_types</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;active&#39;</span><span class="p">,</span> <span class="s">&#39;resolved&#39;</span><span class="p">)</span>
+    <span class="n">utils</span><span class="o">.</span><span class="n">validate_attr_is_acceptable</span><span class="p">(</span><span class="n">workflow_state</span><span class="p">,</span> <span class="n">workflow_state_types</span><span class="p">)</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/courses/{course_id}/content_migrations/{content_migration_id}/migration_issues/{id}&#39;</span>
+    <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s">&#39;workflow_state&#39;</span> <span class="p">:</span> <span class="n">workflow_state</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">course_id</span><span class="o">=</span><span class="n">course_id</span><span class="p">,</span> <span class="n">content_migration_id</span><span class="o">=</span><span class="n">content_migration_id</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="nb">id</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="n">payload</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+
+</div>
+<div class="viewcode-block" id="update_migration_issue_groups"><a class="viewcode-back" href="../../../canvas_sdk.methods.content_migrations.html#canvas_sdk.methods.content_migrations.update_migration_issue_groups">[docs]</a><span class="k">def</span> <span class="nf">update_migration_issue_groups</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">group_id</span><span class="p">,</span> <span class="n">content_migration_id</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="n">workflow_state</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Update the workflow_state of a migration issue</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param group_id: (required) ID</span>
+<span class="sd">        :type group_id: string</span>
+<span class="sd">        :param content_migration_id: (required) ID</span>
+<span class="sd">        :type content_migration_id: string</span>
+<span class="sd">        :param id: (required) ID</span>
+<span class="sd">        :type id: string</span>
+<span class="sd">        :param workflow_state: (required) Set the workflow_state of the issue.</span>
+<span class="sd">        :type workflow_state: string</span>
+<span class="sd">        :return: Update a migration issue</span>
+<span class="sd">        :rtype: requests.Response (with MigrationIssue data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">workflow_state_types</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;active&#39;</span><span class="p">,</span> <span class="s">&#39;resolved&#39;</span><span class="p">)</span>
+    <span class="n">utils</span><span class="o">.</span><span class="n">validate_attr_is_acceptable</span><span class="p">(</span><span class="n">workflow_state</span><span class="p">,</span> <span class="n">workflow_state_types</span><span class="p">)</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/groups/{group_id}/content_migrations/{content_migration_id}/migration_issues/{id}&#39;</span>
+    <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s">&#39;workflow_state&#39;</span> <span class="p">:</span> <span class="n">workflow_state</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">group_id</span><span class="o">=</span><span class="n">group_id</span><span class="p">,</span> <span class="n">content_migration_id</span><span class="o">=</span><span class="n">content_migration_id</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="nb">id</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="n">payload</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+
+</div>
+<div class="viewcode-block" id="update_migration_issue_users"><a class="viewcode-back" href="../../../canvas_sdk.methods.content_migrations.html#canvas_sdk.methods.content_migrations.update_migration_issue_users">[docs]</a><span class="k">def</span> <span class="nf">update_migration_issue_users</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">user_id</span><span class="p">,</span> <span class="n">content_migration_id</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="n">workflow_state</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Update the workflow_state of a migration issue</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param user_id: (required) ID</span>
+<span class="sd">        :type user_id: string</span>
+<span class="sd">        :param content_migration_id: (required) ID</span>
+<span class="sd">        :type content_migration_id: string</span>
+<span class="sd">        :param id: (required) ID</span>
+<span class="sd">        :type id: string</span>
+<span class="sd">        :param workflow_state: (required) Set the workflow_state of the issue.</span>
+<span class="sd">        :type workflow_state: string</span>
+<span class="sd">        :return: Update a migration issue</span>
+<span class="sd">        :rtype: requests.Response (with MigrationIssue data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">workflow_state_types</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;active&#39;</span><span class="p">,</span> <span class="s">&#39;resolved&#39;</span><span class="p">)</span>
+    <span class="n">utils</span><span class="o">.</span><span class="n">validate_attr_is_acceptable</span><span class="p">(</span><span class="n">workflow_state</span><span class="p">,</span> <span class="n">workflow_state_types</span><span class="p">)</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/users/{user_id}/content_migrations/{content_migration_id}/migration_issues/{id}&#39;</span>
+    <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s">&#39;workflow_state&#39;</span> <span class="p">:</span> <span class="n">workflow_state</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">user_id</span><span class="o">=</span><span class="n">user_id</span><span class="p">,</span> <span class="n">content_migration_id</span><span class="o">=</span><span class="n">content_migration_id</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="nb">id</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="n">payload</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+
+</div>
+<div class="viewcode-block" id="list_content_migrations_accounts"><a class="viewcode-back" href="../../../canvas_sdk.methods.content_migrations.html#canvas_sdk.methods.content_migrations.list_content_migrations_accounts">[docs]</a><span class="k">def</span> <span class="nf">list_content_migrations_accounts</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">account_id</span><span class="p">,</span> <span class="n">per_page</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns paginated content migrations</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param account_id: (required) ID</span>
+<span class="sd">        :type account_id: string</span>
+<span class="sd">        :param per_page: (optional) Set how many results canvas should return, defaults to config.LIMIT_PER_PAGE</span>
+<span class="sd">        :type per_page: integer or None</span>
+<span class="sd">        :return: List content migrations</span>
+<span class="sd">        :rtype: requests.Response (with array data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">per_page</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="n">per_page</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">per_page</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/accounts/{account_id}/content_migrations&#39;</span>
+    <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s">&#39;per_page&#39;</span> <span class="p">:</span> <span class="n">per_page</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">account_id</span><span class="o">=</span><span class="n">account_id</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="n">payload</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+
+</div>
+<div class="viewcode-block" id="list_content_migrations_courses"><a class="viewcode-back" href="../../../canvas_sdk.methods.content_migrations.html#canvas_sdk.methods.content_migrations.list_content_migrations_courses">[docs]</a><span class="k">def</span> <span class="nf">list_content_migrations_courses</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">course_id</span><span class="p">,</span> <span class="n">per_page</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns paginated content migrations</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param course_id: (required) ID</span>
+<span class="sd">        :type course_id: string</span>
+<span class="sd">        :param per_page: (optional) Set how many results canvas should return, defaults to config.LIMIT_PER_PAGE</span>
+<span class="sd">        :type per_page: integer or None</span>
+<span class="sd">        :return: List content migrations</span>
+<span class="sd">        :rtype: requests.Response (with array data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">per_page</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="n">per_page</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">per_page</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/courses/{course_id}/content_migrations&#39;</span>
+    <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s">&#39;per_page&#39;</span> <span class="p">:</span> <span class="n">per_page</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">course_id</span><span class="o">=</span><span class="n">course_id</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="n">payload</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+
+</div>
+<div class="viewcode-block" id="list_content_migrations_groups"><a class="viewcode-back" href="../../../canvas_sdk.methods.content_migrations.html#canvas_sdk.methods.content_migrations.list_content_migrations_groups">[docs]</a><span class="k">def</span> <span class="nf">list_content_migrations_groups</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">group_id</span><span class="p">,</span> <span class="n">per_page</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns paginated content migrations</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param group_id: (required) ID</span>
+<span class="sd">        :type group_id: string</span>
+<span class="sd">        :param per_page: (optional) Set how many results canvas should return, defaults to config.LIMIT_PER_PAGE</span>
+<span class="sd">        :type per_page: integer or None</span>
+<span class="sd">        :return: List content migrations</span>
+<span class="sd">        :rtype: requests.Response (with array data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">per_page</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="n">per_page</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">per_page</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/groups/{group_id}/content_migrations&#39;</span>
+    <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s">&#39;per_page&#39;</span> <span class="p">:</span> <span class="n">per_page</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">group_id</span><span class="o">=</span><span class="n">group_id</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="n">payload</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+
+</div>
+<div class="viewcode-block" id="list_content_migrations_users"><a class="viewcode-back" href="../../../canvas_sdk.methods.content_migrations.html#canvas_sdk.methods.content_migrations.list_content_migrations_users">[docs]</a><span class="k">def</span> <span class="nf">list_content_migrations_users</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">user_id</span><span class="p">,</span> <span class="n">per_page</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns paginated content migrations</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param user_id: (required) ID</span>
+<span class="sd">        :type user_id: string</span>
+<span class="sd">        :param per_page: (optional) Set how many results canvas should return, defaults to config.LIMIT_PER_PAGE</span>
+<span class="sd">        :type per_page: integer or None</span>
+<span class="sd">        :return: List content migrations</span>
+<span class="sd">        :rtype: requests.Response (with array data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">per_page</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="n">per_page</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">per_page</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/users/{user_id}/content_migrations&#39;</span>
+    <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s">&#39;per_page&#39;</span> <span class="p">:</span> <span class="n">per_page</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">user_id</span><span class="o">=</span><span class="n">user_id</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="n">payload</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+
+</div>
+<div class="viewcode-block" id="get_content_migration_accounts"><a class="viewcode-back" href="../../../canvas_sdk.methods.content_migrations.html#canvas_sdk.methods.content_migrations.get_content_migration_accounts">[docs]</a><span class="k">def</span> <span class="nf">get_content_migration_accounts</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">account_id</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns data on an individual content migration</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param account_id: (required) ID</span>
+<span class="sd">        :type account_id: string</span>
+<span class="sd">        :param id: (required) ID</span>
+<span class="sd">        :type id: string</span>
+<span class="sd">        :return: Get a content migration</span>
+<span class="sd">        :rtype: requests.Response (with ContentMigration data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/accounts/{account_id}/content_migrations/{id}&#39;</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">account_id</span><span class="o">=</span><span class="n">account_id</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="nb">id</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+
+</div>
+<div class="viewcode-block" id="get_content_migration_courses"><a class="viewcode-back" href="../../../canvas_sdk.methods.content_migrations.html#canvas_sdk.methods.content_migrations.get_content_migration_courses">[docs]</a><span class="k">def</span> <span class="nf">get_content_migration_courses</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">course_id</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns data on an individual content migration</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param course_id: (required) ID</span>
+<span class="sd">        :type course_id: string</span>
+<span class="sd">        :param id: (required) ID</span>
+<span class="sd">        :type id: string</span>
+<span class="sd">        :return: Get a content migration</span>
+<span class="sd">        :rtype: requests.Response (with ContentMigration data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/courses/{course_id}/content_migrations/{id}&#39;</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">course_id</span><span class="o">=</span><span class="n">course_id</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="nb">id</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+
+</div>
+<div class="viewcode-block" id="get_content_migration_groups"><a class="viewcode-back" href="../../../canvas_sdk.methods.content_migrations.html#canvas_sdk.methods.content_migrations.get_content_migration_groups">[docs]</a><span class="k">def</span> <span class="nf">get_content_migration_groups</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">group_id</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns data on an individual content migration</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param group_id: (required) ID</span>
+<span class="sd">        :type group_id: string</span>
+<span class="sd">        :param id: (required) ID</span>
+<span class="sd">        :type id: string</span>
+<span class="sd">        :return: Get a content migration</span>
+<span class="sd">        :rtype: requests.Response (with ContentMigration data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/groups/{group_id}/content_migrations/{id}&#39;</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">group_id</span><span class="o">=</span><span class="n">group_id</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="nb">id</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+
+</div>
+<div class="viewcode-block" id="get_content_migration_users"><a class="viewcode-back" href="../../../canvas_sdk.methods.content_migrations.html#canvas_sdk.methods.content_migrations.get_content_migration_users">[docs]</a><span class="k">def</span> <span class="nf">get_content_migration_users</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">user_id</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns data on an individual content migration</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param user_id: (required) ID</span>
+<span class="sd">        :type user_id: string</span>
+<span class="sd">        :param id: (required) ID</span>
+<span class="sd">        :type id: string</span>
+<span class="sd">        :return: Get a content migration</span>
+<span class="sd">        :rtype: requests.Response (with ContentMigration data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/users/{user_id}/content_migrations/{id}&#39;</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">user_id</span><span class="o">=</span><span class="n">user_id</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="nb">id</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+
+</div>
+<div class="viewcode-block" id="create_content_migration_accounts"><a class="viewcode-back" href="../../../canvas_sdk.methods.content_migrations.html#canvas_sdk.methods.content_migrations.create_content_migration_accounts">[docs]</a><span class="k">def</span> <span class="nf">create_content_migration_accounts</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">account_id</span><span class="p">,</span> <span class="n">migration_type</span><span class="p">,</span> <span class="n">pre_attachment_name</span><span class="p">,</span> <span class="n">settings_file_url</span><span class="p">,</span> <span class="n">pre_attachment</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">settings_source_course_id</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">settings_folder_id</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">settings_overwrite_quizzes</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">settings_question_bank_id</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">settings_question_bank_name</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">date_shift_options_shift_dates</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">date_shift_options_old_start_date</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">date_shift_options_old_end_date</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">date_shift_options_new_start_date</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">date_shift_options_new_end_date</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">date_shift_options_day_substitutions_X</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Create a content migration. If the migration requires a file to be uploaded</span>
+<span class="sd">    the actual processing of the file will start once the file upload process is completed.</span>
+<span class="sd">    File uploading works as described in the {file:file_uploads.html File Upload Documentation}</span>
+<span class="sd">    except that the values are set on a *pre_attachment* sub-hash.</span>
+<span class="sd">    </span>
+<span class="sd">    For migrations that don&#39;t require a file to be uploaded, like course copy, the</span>
+<span class="sd">    processing will begin as soon as the migration is created.</span>
+<span class="sd">    </span>
+<span class="sd">    You can use the `ProgressController#show &lt;https://github.com/instructure/canvas-lms/blob/master/app/controllers/progress_controller.rb&gt;`_ to track the</span>
+<span class="sd">    progress of the migration. The migration&#39;s progress is linked to with the</span>
+<span class="sd">    _progress_url_ value.</span>
+<span class="sd">    </span>
+<span class="sd">    The two general workflows are:</span>
+<span class="sd">    </span>
+<span class="sd">    If no file upload is needed:</span>
+<span class="sd">    </span>
+<span class="sd">    1. POST to create</span>
+<span class="sd">    2. Use the `ProgressController#show &lt;https://github.com/instructure/canvas-lms/blob/master/app/controllers/progress_controller.rb&gt;`_ specified in _progress_url_ to monitor progress</span>
+<span class="sd">    </span>
+<span class="sd">    For file uploading:</span>
+<span class="sd">    </span>
+<span class="sd">    1. POST to create with file info in *pre_attachment*</span>
+<span class="sd">    2. Do {file:file_uploads.html file upload processing} using the data in the *pre_attachment* data</span>
+<span class="sd">    3. `ContentMigrationsController#show &lt;https://github.com/instructure/canvas-lms/blob/master/app/controllers/content_migrations_controller.rb&gt;`_ the ContentMigration</span>
+<span class="sd">    4. Use the `ProgressController#show &lt;https://github.com/instructure/canvas-lms/blob/master/app/controllers/progress_controller.rb&gt;`_ specified in _progress_url_ to monitor progress</span>
+<span class="sd">    </span>
+<span class="sd">     (required if doing .zip file upload)</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param account_id: (required) ID</span>
+<span class="sd">        :type account_id: string</span>
+<span class="sd">        :param migration_type: (required) The type of the migration. Use the {api:ContentMigrationsController#available_migrators Migrator} endpoint to see all available migrators. Default allowed values: canvas_cartridge_importer, common_cartridge_importer, course_copy_importer, zip_file_importer, qti_converter, moodle_converter</span>
+<span class="sd">        :type migration_type: string</span>
+<span class="sd">        :param pre_attachment_name: (required) Required if uploading a file. This is the first step in uploading a file to the content migration. See the {file:file_uploads.html File Upload Documentation} for details on the file upload workflow.</span>
+<span class="sd">        :type pre_attachment_name: string</span>
+<span class="sd">        :param settings_file_url: (required) (optional) A URL to download the file from. Must not require authentication.</span>
+<span class="sd">        :type settings_file_url: string</span>
+<span class="sd">        :param pre_attachment[*]: (optional) Other file upload properties, See {file:file_uploads.html File Upload Documentation}</span>
+<span class="sd">        :type pre_attachment[*]: string or None</span>
+<span class="sd">        :param settings_source_course_id: (optional) The course to copy from for a course copy migration. (required if doing course copy)</span>
+<span class="sd">        :type settings_source_course_id: string or None</span>
+<span class="sd">        :param settings_folder_id: (optional) The folder to unzip the .zip file into for a zip_file_import.</span>
+<span class="sd">        :type settings_folder_id: string or None</span>
+<span class="sd">        :param settings_overwrite_quizzes: (optional) Whether to overwrite quizzes with the same identifiers between content packages.</span>
+<span class="sd">        :type settings_overwrite_quizzes: boolean or None</span>
+<span class="sd">        :param settings_question_bank_id: (optional) The existing question bank ID to import questions into if not specified in the content package.</span>
+<span class="sd">        :type settings_question_bank_id: integer or None</span>
+<span class="sd">        :param settings_question_bank_name: (optional) The question bank to import questions into if not specified in the content package, if both bank id and name are set, id will take precedence.</span>
+<span class="sd">        :type settings_question_bank_name: string or None</span>
+<span class="sd">        :param date_shift_options_shift_dates: (optional) Whether to shift dates</span>
+<span class="sd">        :type date_shift_options_shift_dates: boolean or None</span>
+<span class="sd">        :param date_shift_options_old_start_date: (optional) The original start date of the source content/course</span>
+<span class="sd">        :type date_shift_options_old_start_date: date or None</span>
+<span class="sd">        :param date_shift_options_old_end_date: (optional) The original end date of the source content/course</span>
+<span class="sd">        :type date_shift_options_old_end_date: date or None</span>
+<span class="sd">        :param date_shift_options_new_start_date: (optional) The new start date for the content/course</span>
+<span class="sd">        :type date_shift_options_new_start_date: date or None</span>
+<span class="sd">        :param date_shift_options_new_end_date: (optional) The new end date for the source content/course</span>
+<span class="sd">        :type date_shift_options_new_end_date: date or None</span>
+<span class="sd">        :param date_shift_options_day_substitutions: (optional) Move anything scheduled for day &#39;X&#39; to the specified day. (0-Sunday, 1-Monday, 2-Tuesday, 3-Wednesday, 4-Thursday, 5-Friday, 6-Saturday)</span>
+<span class="sd">        :type date_shift_options_day_substitutions: integer or None</span>
+<span class="sd">        :return: Create a content migration</span>
+<span class="sd">        :rtype: requests.Response (with ContentMigration data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/accounts/{account_id}/content_migrations&#39;</span>
+    <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s">&#39;migration_type&#39;</span> <span class="p">:</span> <span class="n">migration_type</span><span class="p">,</span>
+        <span class="s">&#39;pre_attachment[name]&#39;</span> <span class="p">:</span> <span class="n">pre_attachment_name</span><span class="p">,</span>
+        <span class="s">&#39;pre_attachment[*]&#39;</span> <span class="p">:</span> <span class="n">pre_attachment</span><span class="p">,</span>
+        <span class="s">&#39;settings[file_url]&#39;</span> <span class="p">:</span> <span class="n">settings_file_url</span><span class="p">,</span>
+        <span class="s">&#39;settings[source_course_id]&#39;</span> <span class="p">:</span> <span class="n">settings_source_course_id</span><span class="p">,</span>
+        <span class="s">&#39;settings[folder_id]&#39;</span> <span class="p">:</span> <span class="n">settings_folder_id</span><span class="p">,</span>
+        <span class="s">&#39;settings[overwrite_quizzes]&#39;</span> <span class="p">:</span> <span class="n">settings_overwrite_quizzes</span><span class="p">,</span>
+        <span class="s">&#39;settings[question_bank_id]&#39;</span> <span class="p">:</span> <span class="n">settings_question_bank_id</span><span class="p">,</span>
+        <span class="s">&#39;settings[question_bank_name]&#39;</span> <span class="p">:</span> <span class="n">settings_question_bank_name</span><span class="p">,</span>
+        <span class="s">&#39;date_shift_options[shift_dates]&#39;</span> <span class="p">:</span> <span class="n">date_shift_options_shift_dates</span><span class="p">,</span>
+        <span class="s">&#39;date_shift_options[old_start_date]&#39;</span> <span class="p">:</span> <span class="n">date_shift_options_old_start_date</span><span class="p">,</span>
+        <span class="s">&#39;date_shift_options[old_end_date]&#39;</span> <span class="p">:</span> <span class="n">date_shift_options_old_end_date</span><span class="p">,</span>
+        <span class="s">&#39;date_shift_options[new_start_date]&#39;</span> <span class="p">:</span> <span class="n">date_shift_options_new_start_date</span><span class="p">,</span>
+        <span class="s">&#39;date_shift_options[new_end_date]&#39;</span> <span class="p">:</span> <span class="n">date_shift_options_new_end_date</span><span class="p">,</span>
+        <span class="s">&#39;date_shift_options[day_substitutions][X]&#39;</span> <span class="p">:</span> <span class="n">date_shift_options_day_substitutions_X</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">account_id</span><span class="o">=</span><span class="n">account_id</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="n">payload</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+
+</div>
+<div class="viewcode-block" id="create_content_migration_courses"><a class="viewcode-back" href="../../../canvas_sdk.methods.content_migrations.html#canvas_sdk.methods.content_migrations.create_content_migration_courses">[docs]</a><span class="k">def</span> <span class="nf">create_content_migration_courses</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">course_id</span><span class="p">,</span> <span class="n">migration_type</span><span class="p">,</span> <span class="n">pre_attachment_name</span><span class="p">,</span> <span class="n">settings_file_url</span><span class="p">,</span> <span class="n">pre_attachment</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">settings_source_course_id</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">settings_folder_id</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">settings_overwrite_quizzes</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">settings_question_bank_id</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">settings_question_bank_name</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">date_shift_options_shift_dates</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">date_shift_options_old_start_date</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">date_shift_options_old_end_date</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">date_shift_options_new_start_date</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">date_shift_options_new_end_date</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">date_shift_options_day_substitutions_X</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Create a content migration. If the migration requires a file to be uploaded</span>
+<span class="sd">    the actual processing of the file will start once the file upload process is completed.</span>
+<span class="sd">    File uploading works as described in the {file:file_uploads.html File Upload Documentation}</span>
+<span class="sd">    except that the values are set on a *pre_attachment* sub-hash.</span>
+<span class="sd">    </span>
+<span class="sd">    For migrations that don&#39;t require a file to be uploaded, like course copy, the</span>
+<span class="sd">    processing will begin as soon as the migration is created.</span>
+<span class="sd">    </span>
+<span class="sd">    You can use the `ProgressController#show &lt;https://github.com/instructure/canvas-lms/blob/master/app/controllers/progress_controller.rb&gt;`_ to track the</span>
+<span class="sd">    progress of the migration. The migration&#39;s progress is linked to with the</span>
+<span class="sd">    _progress_url_ value.</span>
+<span class="sd">    </span>
+<span class="sd">    The two general workflows are:</span>
+<span class="sd">    </span>
+<span class="sd">    If no file upload is needed:</span>
+<span class="sd">    </span>
+<span class="sd">    1. POST to create</span>
+<span class="sd">    2. Use the `ProgressController#show &lt;https://github.com/instructure/canvas-lms/blob/master/app/controllers/progress_controller.rb&gt;`_ specified in _progress_url_ to monitor progress</span>
+<span class="sd">    </span>
+<span class="sd">    For file uploading:</span>
+<span class="sd">    </span>
+<span class="sd">    1. POST to create with file info in *pre_attachment*</span>
+<span class="sd">    2. Do {file:file_uploads.html file upload processing} using the data in the *pre_attachment* data</span>
+<span class="sd">    3. `ContentMigrationsController#show &lt;https://github.com/instructure/canvas-lms/blob/master/app/controllers/content_migrations_controller.rb&gt;`_ the ContentMigration</span>
+<span class="sd">    4. Use the `ProgressController#show &lt;https://github.com/instructure/canvas-lms/blob/master/app/controllers/progress_controller.rb&gt;`_ specified in _progress_url_ to monitor progress</span>
+<span class="sd">    </span>
+<span class="sd">     (required if doing .zip file upload)</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param course_id: (required) ID</span>
+<span class="sd">        :type course_id: string</span>
+<span class="sd">        :param migration_type: (required) The type of the migration. Use the {api:ContentMigrationsController#available_migrators Migrator} endpoint to see all available migrators. Default allowed values: canvas_cartridge_importer, common_cartridge_importer, course_copy_importer, zip_file_importer, qti_converter, moodle_converter</span>
+<span class="sd">        :type migration_type: string</span>
+<span class="sd">        :param pre_attachment_name: (required) Required if uploading a file. This is the first step in uploading a file to the content migration. See the {file:file_uploads.html File Upload Documentation} for details on the file upload workflow.</span>
+<span class="sd">        :type pre_attachment_name: string</span>
+<span class="sd">        :param settings_file_url: (required) (optional) A URL to download the file from. Must not require authentication.</span>
+<span class="sd">        :type settings_file_url: string</span>
+<span class="sd">        :param pre_attachment[*]: (optional) Other file upload properties, See {file:file_uploads.html File Upload Documentation}</span>
+<span class="sd">        :type pre_attachment[*]: string or None</span>
+<span class="sd">        :param settings_source_course_id: (optional) The course to copy from for a course copy migration. (required if doing course copy)</span>
+<span class="sd">        :type settings_source_course_id: string or None</span>
+<span class="sd">        :param settings_folder_id: (optional) The folder to unzip the .zip file into for a zip_file_import.</span>
+<span class="sd">        :type settings_folder_id: string or None</span>
+<span class="sd">        :param settings_overwrite_quizzes: (optional) Whether to overwrite quizzes with the same identifiers between content packages.</span>
+<span class="sd">        :type settings_overwrite_quizzes: boolean or None</span>
+<span class="sd">        :param settings_question_bank_id: (optional) The existing question bank ID to import questions into if not specified in the content package.</span>
+<span class="sd">        :type settings_question_bank_id: integer or None</span>
+<span class="sd">        :param settings_question_bank_name: (optional) The question bank to import questions into if not specified in the content package, if both bank id and name are set, id will take precedence.</span>
+<span class="sd">        :type settings_question_bank_name: string or None</span>
+<span class="sd">        :param date_shift_options_shift_dates: (optional) Whether to shift dates</span>
+<span class="sd">        :type date_shift_options_shift_dates: boolean or None</span>
+<span class="sd">        :param date_shift_options_old_start_date: (optional) The original start date of the source content/course</span>
+<span class="sd">        :type date_shift_options_old_start_date: date or None</span>
+<span class="sd">        :param date_shift_options_old_end_date: (optional) The original end date of the source content/course</span>
+<span class="sd">        :type date_shift_options_old_end_date: date or None</span>
+<span class="sd">        :param date_shift_options_new_start_date: (optional) The new start date for the content/course</span>
+<span class="sd">        :type date_shift_options_new_start_date: date or None</span>
+<span class="sd">        :param date_shift_options_new_end_date: (optional) The new end date for the source content/course</span>
+<span class="sd">        :type date_shift_options_new_end_date: date or None</span>
+<span class="sd">        :param date_shift_options_day_substitutions: (optional) Move anything scheduled for day &#39;X&#39; to the specified day. (0-Sunday, 1-Monday, 2-Tuesday, 3-Wednesday, 4-Thursday, 5-Friday, 6-Saturday)</span>
+<span class="sd">        :type date_shift_options_day_substitutions: integer or None</span>
+<span class="sd">        :return: Create a content migration</span>
+<span class="sd">        :rtype: requests.Response (with ContentMigration data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/courses/{course_id}/content_migrations&#39;</span>
+    <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s">&#39;migration_type&#39;</span> <span class="p">:</span> <span class="n">migration_type</span><span class="p">,</span>
+        <span class="s">&#39;pre_attachment[name]&#39;</span> <span class="p">:</span> <span class="n">pre_attachment_name</span><span class="p">,</span>
+        <span class="s">&#39;pre_attachment[*]&#39;</span> <span class="p">:</span> <span class="n">pre_attachment</span><span class="p">,</span>
+        <span class="s">&#39;settings[file_url]&#39;</span> <span class="p">:</span> <span class="n">settings_file_url</span><span class="p">,</span>
+        <span class="s">&#39;settings[source_course_id]&#39;</span> <span class="p">:</span> <span class="n">settings_source_course_id</span><span class="p">,</span>
+        <span class="s">&#39;settings[folder_id]&#39;</span> <span class="p">:</span> <span class="n">settings_folder_id</span><span class="p">,</span>
+        <span class="s">&#39;settings[overwrite_quizzes]&#39;</span> <span class="p">:</span> <span class="n">settings_overwrite_quizzes</span><span class="p">,</span>
+        <span class="s">&#39;settings[question_bank_id]&#39;</span> <span class="p">:</span> <span class="n">settings_question_bank_id</span><span class="p">,</span>
+        <span class="s">&#39;settings[question_bank_name]&#39;</span> <span class="p">:</span> <span class="n">settings_question_bank_name</span><span class="p">,</span>
+        <span class="s">&#39;date_shift_options[shift_dates]&#39;</span> <span class="p">:</span> <span class="n">date_shift_options_shift_dates</span><span class="p">,</span>
+        <span class="s">&#39;date_shift_options[old_start_date]&#39;</span> <span class="p">:</span> <span class="n">date_shift_options_old_start_date</span><span class="p">,</span>
+        <span class="s">&#39;date_shift_options[old_end_date]&#39;</span> <span class="p">:</span> <span class="n">date_shift_options_old_end_date</span><span class="p">,</span>
+        <span class="s">&#39;date_shift_options[new_start_date]&#39;</span> <span class="p">:</span> <span class="n">date_shift_options_new_start_date</span><span class="p">,</span>
+        <span class="s">&#39;date_shift_options[new_end_date]&#39;</span> <span class="p">:</span> <span class="n">date_shift_options_new_end_date</span><span class="p">,</span>
+        <span class="s">&#39;date_shift_options[day_substitutions][X]&#39;</span> <span class="p">:</span> <span class="n">date_shift_options_day_substitutions_X</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">course_id</span><span class="o">=</span><span class="n">course_id</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="n">payload</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+
+</div>
+<div class="viewcode-block" id="create_content_migration_groups"><a class="viewcode-back" href="../../../canvas_sdk.methods.content_migrations.html#canvas_sdk.methods.content_migrations.create_content_migration_groups">[docs]</a><span class="k">def</span> <span class="nf">create_content_migration_groups</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">group_id</span><span class="p">,</span> <span class="n">migration_type</span><span class="p">,</span> <span class="n">pre_attachment_name</span><span class="p">,</span> <span class="n">settings_file_url</span><span class="p">,</span> <span class="n">pre_attachment</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">settings_source_course_id</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">settings_folder_id</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">settings_overwrite_quizzes</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">settings_question_bank_id</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">settings_question_bank_name</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">date_shift_options_shift_dates</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">date_shift_options_old_start_date</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">date_shift_options_old_end_date</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">date_shift_options_new_start_date</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">date_shift_options_new_end_date</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">date_shift_options_day_substitutions_X</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Create a content migration. If the migration requires a file to be uploaded</span>
+<span class="sd">    the actual processing of the file will start once the file upload process is completed.</span>
+<span class="sd">    File uploading works as described in the {file:file_uploads.html File Upload Documentation}</span>
+<span class="sd">    except that the values are set on a *pre_attachment* sub-hash.</span>
+<span class="sd">    </span>
+<span class="sd">    For migrations that don&#39;t require a file to be uploaded, like course copy, the</span>
+<span class="sd">    processing will begin as soon as the migration is created.</span>
+<span class="sd">    </span>
+<span class="sd">    You can use the `ProgressController#show &lt;https://github.com/instructure/canvas-lms/blob/master/app/controllers/progress_controller.rb&gt;`_ to track the</span>
+<span class="sd">    progress of the migration. The migration&#39;s progress is linked to with the</span>
+<span class="sd">    _progress_url_ value.</span>
+<span class="sd">    </span>
+<span class="sd">    The two general workflows are:</span>
+<span class="sd">    </span>
+<span class="sd">    If no file upload is needed:</span>
+<span class="sd">    </span>
+<span class="sd">    1. POST to create</span>
+<span class="sd">    2. Use the `ProgressController#show &lt;https://github.com/instructure/canvas-lms/blob/master/app/controllers/progress_controller.rb&gt;`_ specified in _progress_url_ to monitor progress</span>
+<span class="sd">    </span>
+<span class="sd">    For file uploading:</span>
+<span class="sd">    </span>
+<span class="sd">    1. POST to create with file info in *pre_attachment*</span>
+<span class="sd">    2. Do {file:file_uploads.html file upload processing} using the data in the *pre_attachment* data</span>
+<span class="sd">    3. `ContentMigrationsController#show &lt;https://github.com/instructure/canvas-lms/blob/master/app/controllers/content_migrations_controller.rb&gt;`_ the ContentMigration</span>
+<span class="sd">    4. Use the `ProgressController#show &lt;https://github.com/instructure/canvas-lms/blob/master/app/controllers/progress_controller.rb&gt;`_ specified in _progress_url_ to monitor progress</span>
+<span class="sd">    </span>
+<span class="sd">     (required if doing .zip file upload)</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param group_id: (required) ID</span>
+<span class="sd">        :type group_id: string</span>
+<span class="sd">        :param migration_type: (required) The type of the migration. Use the {api:ContentMigrationsController#available_migrators Migrator} endpoint to see all available migrators. Default allowed values: canvas_cartridge_importer, common_cartridge_importer, course_copy_importer, zip_file_importer, qti_converter, moodle_converter</span>
+<span class="sd">        :type migration_type: string</span>
+<span class="sd">        :param pre_attachment_name: (required) Required if uploading a file. This is the first step in uploading a file to the content migration. See the {file:file_uploads.html File Upload Documentation} for details on the file upload workflow.</span>
+<span class="sd">        :type pre_attachment_name: string</span>
+<span class="sd">        :param settings_file_url: (required) (optional) A URL to download the file from. Must not require authentication.</span>
+<span class="sd">        :type settings_file_url: string</span>
+<span class="sd">        :param pre_attachment[*]: (optional) Other file upload properties, See {file:file_uploads.html File Upload Documentation}</span>
+<span class="sd">        :type pre_attachment[*]: string or None</span>
+<span class="sd">        :param settings_source_course_id: (optional) The course to copy from for a course copy migration. (required if doing course copy)</span>
+<span class="sd">        :type settings_source_course_id: string or None</span>
+<span class="sd">        :param settings_folder_id: (optional) The folder to unzip the .zip file into for a zip_file_import.</span>
+<span class="sd">        :type settings_folder_id: string or None</span>
+<span class="sd">        :param settings_overwrite_quizzes: (optional) Whether to overwrite quizzes with the same identifiers between content packages.</span>
+<span class="sd">        :type settings_overwrite_quizzes: boolean or None</span>
+<span class="sd">        :param settings_question_bank_id: (optional) The existing question bank ID to import questions into if not specified in the content package.</span>
+<span class="sd">        :type settings_question_bank_id: integer or None</span>
+<span class="sd">        :param settings_question_bank_name: (optional) The question bank to import questions into if not specified in the content package, if both bank id and name are set, id will take precedence.</span>
+<span class="sd">        :type settings_question_bank_name: string or None</span>
+<span class="sd">        :param date_shift_options_shift_dates: (optional) Whether to shift dates</span>
+<span class="sd">        :type date_shift_options_shift_dates: boolean or None</span>
+<span class="sd">        :param date_shift_options_old_start_date: (optional) The original start date of the source content/course</span>
+<span class="sd">        :type date_shift_options_old_start_date: date or None</span>
+<span class="sd">        :param date_shift_options_old_end_date: (optional) The original end date of the source content/course</span>
+<span class="sd">        :type date_shift_options_old_end_date: date or None</span>
+<span class="sd">        :param date_shift_options_new_start_date: (optional) The new start date for the content/course</span>
+<span class="sd">        :type date_shift_options_new_start_date: date or None</span>
+<span class="sd">        :param date_shift_options_new_end_date: (optional) The new end date for the source content/course</span>
+<span class="sd">        :type date_shift_options_new_end_date: date or None</span>
+<span class="sd">        :param date_shift_options_day_substitutions: (optional) Move anything scheduled for day &#39;X&#39; to the specified day. (0-Sunday, 1-Monday, 2-Tuesday, 3-Wednesday, 4-Thursday, 5-Friday, 6-Saturday)</span>
+<span class="sd">        :type date_shift_options_day_substitutions: integer or None</span>
+<span class="sd">        :return: Create a content migration</span>
+<span class="sd">        :rtype: requests.Response (with ContentMigration data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/groups/{group_id}/content_migrations&#39;</span>
+    <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s">&#39;migration_type&#39;</span> <span class="p">:</span> <span class="n">migration_type</span><span class="p">,</span>
+        <span class="s">&#39;pre_attachment[name]&#39;</span> <span class="p">:</span> <span class="n">pre_attachment_name</span><span class="p">,</span>
+        <span class="s">&#39;pre_attachment[*]&#39;</span> <span class="p">:</span> <span class="n">pre_attachment</span><span class="p">,</span>
+        <span class="s">&#39;settings[file_url]&#39;</span> <span class="p">:</span> <span class="n">settings_file_url</span><span class="p">,</span>
+        <span class="s">&#39;settings[source_course_id]&#39;</span> <span class="p">:</span> <span class="n">settings_source_course_id</span><span class="p">,</span>
+        <span class="s">&#39;settings[folder_id]&#39;</span> <span class="p">:</span> <span class="n">settings_folder_id</span><span class="p">,</span>
+        <span class="s">&#39;settings[overwrite_quizzes]&#39;</span> <span class="p">:</span> <span class="n">settings_overwrite_quizzes</span><span class="p">,</span>
+        <span class="s">&#39;settings[question_bank_id]&#39;</span> <span class="p">:</span> <span class="n">settings_question_bank_id</span><span class="p">,</span>
+        <span class="s">&#39;settings[question_bank_name]&#39;</span> <span class="p">:</span> <span class="n">settings_question_bank_name</span><span class="p">,</span>
+        <span class="s">&#39;date_shift_options[shift_dates]&#39;</span> <span class="p">:</span> <span class="n">date_shift_options_shift_dates</span><span class="p">,</span>
+        <span class="s">&#39;date_shift_options[old_start_date]&#39;</span> <span class="p">:</span> <span class="n">date_shift_options_old_start_date</span><span class="p">,</span>
+        <span class="s">&#39;date_shift_options[old_end_date]&#39;</span> <span class="p">:</span> <span class="n">date_shift_options_old_end_date</span><span class="p">,</span>
+        <span class="s">&#39;date_shift_options[new_start_date]&#39;</span> <span class="p">:</span> <span class="n">date_shift_options_new_start_date</span><span class="p">,</span>
+        <span class="s">&#39;date_shift_options[new_end_date]&#39;</span> <span class="p">:</span> <span class="n">date_shift_options_new_end_date</span><span class="p">,</span>
+        <span class="s">&#39;date_shift_options[day_substitutions][X]&#39;</span> <span class="p">:</span> <span class="n">date_shift_options_day_substitutions_X</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">group_id</span><span class="o">=</span><span class="n">group_id</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="n">payload</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+
+</div>
+<div class="viewcode-block" id="create_content_migration_users"><a class="viewcode-back" href="../../../canvas_sdk.methods.content_migrations.html#canvas_sdk.methods.content_migrations.create_content_migration_users">[docs]</a><span class="k">def</span> <span class="nf">create_content_migration_users</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">user_id</span><span class="p">,</span> <span class="n">migration_type</span><span class="p">,</span> <span class="n">pre_attachment_name</span><span class="p">,</span> <span class="n">settings_file_url</span><span class="p">,</span> <span class="n">pre_attachment</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">settings_source_course_id</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">settings_folder_id</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">settings_overwrite_quizzes</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">settings_question_bank_id</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">settings_question_bank_name</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">date_shift_options_shift_dates</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">date_shift_options_old_start_date</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">date_shift_options_old_end_date</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">date_shift_options_new_start_date</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">date_shift_options_new_end_date</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">date_shift_options_day_substitutions_X</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Create a content migration. If the migration requires a file to be uploaded</span>
+<span class="sd">    the actual processing of the file will start once the file upload process is completed.</span>
+<span class="sd">    File uploading works as described in the {file:file_uploads.html File Upload Documentation}</span>
+<span class="sd">    except that the values are set on a *pre_attachment* sub-hash.</span>
+<span class="sd">    </span>
+<span class="sd">    For migrations that don&#39;t require a file to be uploaded, like course copy, the</span>
+<span class="sd">    processing will begin as soon as the migration is created.</span>
+<span class="sd">    </span>
+<span class="sd">    You can use the `ProgressController#show &lt;https://github.com/instructure/canvas-lms/blob/master/app/controllers/progress_controller.rb&gt;`_ to track the</span>
+<span class="sd">    progress of the migration. The migration&#39;s progress is linked to with the</span>
+<span class="sd">    _progress_url_ value.</span>
+<span class="sd">    </span>
+<span class="sd">    The two general workflows are:</span>
+<span class="sd">    </span>
+<span class="sd">    If no file upload is needed:</span>
+<span class="sd">    </span>
+<span class="sd">    1. POST to create</span>
+<span class="sd">    2. Use the `ProgressController#show &lt;https://github.com/instructure/canvas-lms/blob/master/app/controllers/progress_controller.rb&gt;`_ specified in _progress_url_ to monitor progress</span>
+<span class="sd">    </span>
+<span class="sd">    For file uploading:</span>
+<span class="sd">    </span>
+<span class="sd">    1. POST to create with file info in *pre_attachment*</span>
+<span class="sd">    2. Do {file:file_uploads.html file upload processing} using the data in the *pre_attachment* data</span>
+<span class="sd">    3. `ContentMigrationsController#show &lt;https://github.com/instructure/canvas-lms/blob/master/app/controllers/content_migrations_controller.rb&gt;`_ the ContentMigration</span>
+<span class="sd">    4. Use the `ProgressController#show &lt;https://github.com/instructure/canvas-lms/blob/master/app/controllers/progress_controller.rb&gt;`_ specified in _progress_url_ to monitor progress</span>
+<span class="sd">    </span>
+<span class="sd">     (required if doing .zip file upload)</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param user_id: (required) ID</span>
+<span class="sd">        :type user_id: string</span>
+<span class="sd">        :param migration_type: (required) The type of the migration. Use the {api:ContentMigrationsController#available_migrators Migrator} endpoint to see all available migrators. Default allowed values: canvas_cartridge_importer, common_cartridge_importer, course_copy_importer, zip_file_importer, qti_converter, moodle_converter</span>
+<span class="sd">        :type migration_type: string</span>
+<span class="sd">        :param pre_attachment_name: (required) Required if uploading a file. This is the first step in uploading a file to the content migration. See the {file:file_uploads.html File Upload Documentation} for details on the file upload workflow.</span>
+<span class="sd">        :type pre_attachment_name: string</span>
+<span class="sd">        :param settings_file_url: (required) (optional) A URL to download the file from. Must not require authentication.</span>
+<span class="sd">        :type settings_file_url: string</span>
+<span class="sd">        :param pre_attachment[*]: (optional) Other file upload properties, See {file:file_uploads.html File Upload Documentation}</span>
+<span class="sd">        :type pre_attachment[*]: string or None</span>
+<span class="sd">        :param settings_source_course_id: (optional) The course to copy from for a course copy migration. (required if doing course copy)</span>
+<span class="sd">        :type settings_source_course_id: string or None</span>
+<span class="sd">        :param settings_folder_id: (optional) The folder to unzip the .zip file into for a zip_file_import.</span>
+<span class="sd">        :type settings_folder_id: string or None</span>
+<span class="sd">        :param settings_overwrite_quizzes: (optional) Whether to overwrite quizzes with the same identifiers between content packages.</span>
+<span class="sd">        :type settings_overwrite_quizzes: boolean or None</span>
+<span class="sd">        :param settings_question_bank_id: (optional) The existing question bank ID to import questions into if not specified in the content package.</span>
+<span class="sd">        :type settings_question_bank_id: integer or None</span>
+<span class="sd">        :param settings_question_bank_name: (optional) The question bank to import questions into if not specified in the content package, if both bank id and name are set, id will take precedence.</span>
+<span class="sd">        :type settings_question_bank_name: string or None</span>
+<span class="sd">        :param date_shift_options_shift_dates: (optional) Whether to shift dates</span>
+<span class="sd">        :type date_shift_options_shift_dates: boolean or None</span>
+<span class="sd">        :param date_shift_options_old_start_date: (optional) The original start date of the source content/course</span>
+<span class="sd">        :type date_shift_options_old_start_date: date or None</span>
+<span class="sd">        :param date_shift_options_old_end_date: (optional) The original end date of the source content/course</span>
+<span class="sd">        :type date_shift_options_old_end_date: date or None</span>
+<span class="sd">        :param date_shift_options_new_start_date: (optional) The new start date for the content/course</span>
+<span class="sd">        :type date_shift_options_new_start_date: date or None</span>
+<span class="sd">        :param date_shift_options_new_end_date: (optional) The new end date for the source content/course</span>
+<span class="sd">        :type date_shift_options_new_end_date: date or None</span>
+<span class="sd">        :param date_shift_options_day_substitutions: (optional) Move anything scheduled for day &#39;X&#39; to the specified day. (0-Sunday, 1-Monday, 2-Tuesday, 3-Wednesday, 4-Thursday, 5-Friday, 6-Saturday)</span>
+<span class="sd">        :type date_shift_options_day_substitutions: integer or None</span>
+<span class="sd">        :return: Create a content migration</span>
+<span class="sd">        :rtype: requests.Response (with ContentMigration data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/users/{user_id}/content_migrations&#39;</span>
+    <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s">&#39;migration_type&#39;</span> <span class="p">:</span> <span class="n">migration_type</span><span class="p">,</span>
+        <span class="s">&#39;pre_attachment[name]&#39;</span> <span class="p">:</span> <span class="n">pre_attachment_name</span><span class="p">,</span>
+        <span class="s">&#39;pre_attachment[*]&#39;</span> <span class="p">:</span> <span class="n">pre_attachment</span><span class="p">,</span>
+        <span class="s">&#39;settings[file_url]&#39;</span> <span class="p">:</span> <span class="n">settings_file_url</span><span class="p">,</span>
+        <span class="s">&#39;settings[source_course_id]&#39;</span> <span class="p">:</span> <span class="n">settings_source_course_id</span><span class="p">,</span>
+        <span class="s">&#39;settings[folder_id]&#39;</span> <span class="p">:</span> <span class="n">settings_folder_id</span><span class="p">,</span>
+        <span class="s">&#39;settings[overwrite_quizzes]&#39;</span> <span class="p">:</span> <span class="n">settings_overwrite_quizzes</span><span class="p">,</span>
+        <span class="s">&#39;settings[question_bank_id]&#39;</span> <span class="p">:</span> <span class="n">settings_question_bank_id</span><span class="p">,</span>
+        <span class="s">&#39;settings[question_bank_name]&#39;</span> <span class="p">:</span> <span class="n">settings_question_bank_name</span><span class="p">,</span>
+        <span class="s">&#39;date_shift_options[shift_dates]&#39;</span> <span class="p">:</span> <span class="n">date_shift_options_shift_dates</span><span class="p">,</span>
+        <span class="s">&#39;date_shift_options[old_start_date]&#39;</span> <span class="p">:</span> <span class="n">date_shift_options_old_start_date</span><span class="p">,</span>
+        <span class="s">&#39;date_shift_options[old_end_date]&#39;</span> <span class="p">:</span> <span class="n">date_shift_options_old_end_date</span><span class="p">,</span>
+        <span class="s">&#39;date_shift_options[new_start_date]&#39;</span> <span class="p">:</span> <span class="n">date_shift_options_new_start_date</span><span class="p">,</span>
+        <span class="s">&#39;date_shift_options[new_end_date]&#39;</span> <span class="p">:</span> <span class="n">date_shift_options_new_end_date</span><span class="p">,</span>
+        <span class="s">&#39;date_shift_options[day_substitutions][X]&#39;</span> <span class="p">:</span> <span class="n">date_shift_options_day_substitutions_X</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">user_id</span><span class="o">=</span><span class="n">user_id</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="n">payload</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+
+</div>
+<div class="viewcode-block" id="update_content_migration_accounts"><a class="viewcode-back" href="../../../canvas_sdk.methods.content_migrations.html#canvas_sdk.methods.content_migrations.update_content_migration_accounts">[docs]</a><span class="k">def</span> <span class="nf">update_content_migration_accounts</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">account_id</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Update a content migration. Takes same arguments as create except that you</span>
+<span class="sd">    can&#39;t change the migration type. However, changing most settings after the</span>
+<span class="sd">    migration process has started will not do anything. Generally updating the</span>
+<span class="sd">    content migration will be used when there is a file upload problem. If the</span>
+<span class="sd">    first upload has a problem you can supply new _pre_attachment_ values to</span>
+<span class="sd">    start the process again.</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param account_id: (required) ID</span>
+<span class="sd">        :type account_id: string</span>
+<span class="sd">        :param id: (required) ID</span>
+<span class="sd">        :type id: string</span>
+<span class="sd">        :return: Update a content migration</span>
+<span class="sd">        :rtype: requests.Response (with ContentMigration data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/accounts/{account_id}/content_migrations/{id}&#39;</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">account_id</span><span class="o">=</span><span class="n">account_id</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="nb">id</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+
+</div>
+<div class="viewcode-block" id="update_content_migration_courses"><a class="viewcode-back" href="../../../canvas_sdk.methods.content_migrations.html#canvas_sdk.methods.content_migrations.update_content_migration_courses">[docs]</a><span class="k">def</span> <span class="nf">update_content_migration_courses</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">course_id</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Update a content migration. Takes same arguments as create except that you</span>
+<span class="sd">    can&#39;t change the migration type. However, changing most settings after the</span>
+<span class="sd">    migration process has started will not do anything. Generally updating the</span>
+<span class="sd">    content migration will be used when there is a file upload problem. If the</span>
+<span class="sd">    first upload has a problem you can supply new _pre_attachment_ values to</span>
+<span class="sd">    start the process again.</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param course_id: (required) ID</span>
+<span class="sd">        :type course_id: string</span>
+<span class="sd">        :param id: (required) ID</span>
+<span class="sd">        :type id: string</span>
+<span class="sd">        :return: Update a content migration</span>
+<span class="sd">        :rtype: requests.Response (with ContentMigration data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/courses/{course_id}/content_migrations/{id}&#39;</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">course_id</span><span class="o">=</span><span class="n">course_id</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="nb">id</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+
+</div>
+<div class="viewcode-block" id="update_content_migration_groups"><a class="viewcode-back" href="../../../canvas_sdk.methods.content_migrations.html#canvas_sdk.methods.content_migrations.update_content_migration_groups">[docs]</a><span class="k">def</span> <span class="nf">update_content_migration_groups</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">group_id</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Update a content migration. Takes same arguments as create except that you</span>
+<span class="sd">    can&#39;t change the migration type. However, changing most settings after the</span>
+<span class="sd">    migration process has started will not do anything. Generally updating the</span>
+<span class="sd">    content migration will be used when there is a file upload problem. If the</span>
+<span class="sd">    first upload has a problem you can supply new _pre_attachment_ values to</span>
+<span class="sd">    start the process again.</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param group_id: (required) ID</span>
+<span class="sd">        :type group_id: string</span>
+<span class="sd">        :param id: (required) ID</span>
+<span class="sd">        :type id: string</span>
+<span class="sd">        :return: Update a content migration</span>
+<span class="sd">        :rtype: requests.Response (with ContentMigration data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/groups/{group_id}/content_migrations/{id}&#39;</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">group_id</span><span class="o">=</span><span class="n">group_id</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="nb">id</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+
+</div>
+<div class="viewcode-block" id="update_content_migration_users"><a class="viewcode-back" href="../../../canvas_sdk.methods.content_migrations.html#canvas_sdk.methods.content_migrations.update_content_migration_users">[docs]</a><span class="k">def</span> <span class="nf">update_content_migration_users</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">user_id</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Update a content migration. Takes same arguments as create except that you</span>
+<span class="sd">    can&#39;t change the migration type. However, changing most settings after the</span>
+<span class="sd">    migration process has started will not do anything. Generally updating the</span>
+<span class="sd">    content migration will be used when there is a file upload problem. If the</span>
+<span class="sd">    first upload has a problem you can supply new _pre_attachment_ values to</span>
+<span class="sd">    start the process again.</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param user_id: (required) ID</span>
+<span class="sd">        :type user_id: string</span>
+<span class="sd">        :param id: (required) ID</span>
+<span class="sd">        :type id: string</span>
+<span class="sd">        :return: Update a content migration</span>
+<span class="sd">        :rtype: requests.Response (with ContentMigration data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/users/{user_id}/content_migrations/{id}&#39;</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">user_id</span><span class="o">=</span><span class="n">user_id</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="nb">id</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+
+</div>
+<div class="viewcode-block" id="list_migration_systems_accounts"><a class="viewcode-back" href="../../../canvas_sdk.methods.content_migrations.html#canvas_sdk.methods.content_migrations.list_migration_systems_accounts">[docs]</a><span class="k">def</span> <span class="nf">list_migration_systems_accounts</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">account_id</span><span class="p">,</span> <span class="n">per_page</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Lists the currently available migration types. These values may change.</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param account_id: (required) ID</span>
+<span class="sd">        :type account_id: string</span>
+<span class="sd">        :param per_page: (optional) Set how many results canvas should return, defaults to config.LIMIT_PER_PAGE</span>
+<span class="sd">        :type per_page: integer or None</span>
+<span class="sd">        :return: List Migration Systems</span>
+<span class="sd">        :rtype: requests.Response (with array data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">per_page</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="n">per_page</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">per_page</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/accounts/{account_id}/content_migrations/migrators&#39;</span>
+    <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s">&#39;per_page&#39;</span> <span class="p">:</span> <span class="n">per_page</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">account_id</span><span class="o">=</span><span class="n">account_id</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="n">payload</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+
+</div>
+<div class="viewcode-block" id="list_migration_systems_courses"><a class="viewcode-back" href="../../../canvas_sdk.methods.content_migrations.html#canvas_sdk.methods.content_migrations.list_migration_systems_courses">[docs]</a><span class="k">def</span> <span class="nf">list_migration_systems_courses</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">course_id</span><span class="p">,</span> <span class="n">per_page</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Lists the currently available migration types. These values may change.</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param course_id: (required) ID</span>
+<span class="sd">        :type course_id: string</span>
+<span class="sd">        :param per_page: (optional) Set how many results canvas should return, defaults to config.LIMIT_PER_PAGE</span>
+<span class="sd">        :type per_page: integer or None</span>
+<span class="sd">        :return: List Migration Systems</span>
+<span class="sd">        :rtype: requests.Response (with array data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">per_page</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="n">per_page</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">per_page</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/courses/{course_id}/content_migrations/migrators&#39;</span>
+    <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s">&#39;per_page&#39;</span> <span class="p">:</span> <span class="n">per_page</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">course_id</span><span class="o">=</span><span class="n">course_id</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="n">payload</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+
+</div>
+<div class="viewcode-block" id="list_migration_systems_groups"><a class="viewcode-back" href="../../../canvas_sdk.methods.content_migrations.html#canvas_sdk.methods.content_migrations.list_migration_systems_groups">[docs]</a><span class="k">def</span> <span class="nf">list_migration_systems_groups</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">group_id</span><span class="p">,</span> <span class="n">per_page</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Lists the currently available migration types. These values may change.</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param group_id: (required) ID</span>
+<span class="sd">        :type group_id: string</span>
+<span class="sd">        :param per_page: (optional) Set how many results canvas should return, defaults to config.LIMIT_PER_PAGE</span>
+<span class="sd">        :type per_page: integer or None</span>
+<span class="sd">        :return: List Migration Systems</span>
+<span class="sd">        :rtype: requests.Response (with array data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">per_page</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="n">per_page</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">per_page</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/groups/{group_id}/content_migrations/migrators&#39;</span>
+    <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s">&#39;per_page&#39;</span> <span class="p">:</span> <span class="n">per_page</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">group_id</span><span class="o">=</span><span class="n">group_id</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="n">payload</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+
+</div>
+<div class="viewcode-block" id="list_migration_systems_users"><a class="viewcode-back" href="../../../canvas_sdk.methods.content_migrations.html#canvas_sdk.methods.content_migrations.list_migration_systems_users">[docs]</a><span class="k">def</span> <span class="nf">list_migration_systems_users</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">user_id</span><span class="p">,</span> <span class="n">per_page</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Lists the currently available migration types. These values may change.</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param user_id: (required) ID</span>
+<span class="sd">        :type user_id: string</span>
+<span class="sd">        :param per_page: (optional) Set how many results canvas should return, defaults to config.LIMIT_PER_PAGE</span>
+<span class="sd">        :type per_page: integer or None</span>
+<span class="sd">        :return: List Migration Systems</span>
+<span class="sd">        :rtype: requests.Response (with array data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">per_page</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="n">per_page</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">per_page</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/users/{user_id}/content_migrations/migrators&#39;</span>
+    <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s">&#39;per_page&#39;</span> <span class="p">:</span> <span class="n">per_page</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">user_id</span><span class="o">=</span><span class="n">user_id</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="n">payload</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+</pre></div></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../../index.html">Canvas_SDK 0.0.1 documentation</a> &raquo;</li>
+          <li><a href="../../index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, Harvard.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

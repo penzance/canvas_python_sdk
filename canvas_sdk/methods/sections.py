@@ -111,7 +111,7 @@ def de_cross_list_section(request_ctx, id, **request_kwargs):
 
 def edit_section(request_ctx, id, **request_kwargs):
     """
-    Modify an existing section.  See the documentation for {api:SectionsController#create create API action}.
+    Modify an existing section.  See the documentation for `SectionsController#create <https://github.com/instructure/canvas-lms/blob/master/app/controllers/sections_controller.rb>`_.
 
         :param request_ctx: The request context
         :type request_ctx: :class:RequestContext

@@ -117,7 +117,7 @@ def get_running_batches(request_ctx, **request_kwargs):
     """
     Returns any currently running conversation batches for the current user.
     Conversation batches are created when a bulk private message is sent
-    asynchronously (see the mode argument to the {api:ConversationsController#create create API action}).
+    asynchronously (see the mode argument to the `ConversationsController#create <https://github.com/instructure/canvas-lms/blob/master/app/controllers/conversations_controller.rb>`_).
 
         :param request_ctx: The request context
         :type request_ctx: :class:RequestContext
@@ -377,7 +377,7 @@ def delete_message(request_ctx, id, remove, **request_kwargs):
 
 def batch_update_conversations(request_ctx, conversation_ids, event, **request_kwargs):
     """
-    Perform a change on a set of conversations. Operates asynchronously; use the {api:ProgressController#show progress endpoint}
+    Perform a change on a set of conversations. Operates asynchronously; use the `ProgressController#show <https://github.com/instructure/canvas-lms/blob/master/app/controllers/progress_controller.rb>`_
     to query the status of an operation.
 
         :param request_ctx: The request context
@@ -406,7 +406,7 @@ def batch_update_conversations(request_ctx, conversation_ids, event, **request_k
 
 def find_recipients(request_ctx, **request_kwargs):
     """
-    Deprecated, see the {api:SearchController#recipients Find recipients endpoint} in the Search API
+    Deprecated, see the `SearchController#recipients <https://github.com/instructure/canvas-lms/blob/master/app/controllers/search_controller.rb>`_ in the Search API
 
         :param request_ctx: The request context
         :type request_ctx: :class:RequestContext

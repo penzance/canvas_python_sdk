@@ -1,0 +1,282 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>canvas_sdk.methods.custom_gradebook_columns &mdash; Canvas_SDK 0.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="top" title="Canvas_SDK 0.0.1 documentation" href="../../../index.html" />
+    <link rel="up" title="Module code" href="../../index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../../index.html">Canvas_SDK 0.0.1 documentation</a> &raquo;</li>
+          <li><a href="../../index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for canvas_sdk.methods.custom_gradebook_columns</h1><div class="highlight"><pre>
+<span class="kn">from</span> <span class="nn">canvas_sdk</span> <span class="kn">import</span> <span class="n">client</span><span class="p">,</span> <span class="n">utils</span>
+
+<div class="viewcode-block" id="list_custom_gradebook_columns"><a class="viewcode-back" href="../../../canvas_sdk.methods.custom_gradebook_columns.html#canvas_sdk.methods.custom_gradebook_columns.list_custom_gradebook_columns">[docs]</a><span class="k">def</span> <span class="nf">list_custom_gradebook_columns</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">course_id</span><span class="p">,</span> <span class="n">per_page</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    List all custom gradebook columns for a course</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param course_id: (required) ID</span>
+<span class="sd">        :type course_id: string</span>
+<span class="sd">        :param per_page: (optional) Set how many results canvas should return, defaults to config.LIMIT_PER_PAGE</span>
+<span class="sd">        :type per_page: integer or None</span>
+<span class="sd">        :return: List custom gradebook columns</span>
+<span class="sd">        :rtype: requests.Response (with array data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">per_page</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="n">per_page</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">per_page</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/courses/{course_id}/custom_gradebook_columns&#39;</span>
+    <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s">&#39;per_page&#39;</span> <span class="p">:</span> <span class="n">per_page</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">course_id</span><span class="o">=</span><span class="n">course_id</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="n">payload</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+
+</div>
+<div class="viewcode-block" id="create_custom_gradebook_column"><a class="viewcode-back" href="../../../canvas_sdk.methods.custom_gradebook_columns.html#canvas_sdk.methods.custom_gradebook_columns.create_custom_gradebook_column">[docs]</a><span class="k">def</span> <span class="nf">create_custom_gradebook_column</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">course_id</span><span class="p">,</span> <span class="n">column_title</span><span class="p">,</span> <span class="n">column_position</span><span class="p">,</span> <span class="n">column_hidden</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">column_teacher_notes</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Create a custom gradebook column</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param course_id: (required) ID</span>
+<span class="sd">        :type course_id: string</span>
+<span class="sd">        :param column_title: (required) no description</span>
+<span class="sd">        :type column_title: string</span>
+<span class="sd">        :param column_position: (required) The position of the column relative to other custom columns</span>
+<span class="sd">        :type column_position: int</span>
+<span class="sd">        :param column_hidden: (optional) Hidden columns are not displayed in the gradebook</span>
+<span class="sd">        :type column_hidden: boolean or None</span>
+<span class="sd">        :param column_teacher_notes: (optional) Set this if the column is created by a teacher. The gradebook only supports one teacher_notes column.</span>
+<span class="sd">        :type column_teacher_notes: boolean or None</span>
+<span class="sd">        :return: Create a custom gradebook column</span>
+<span class="sd">        :rtype: requests.Response (with CustomColumn data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/courses/{course_id}/custom_gradebook_columns&#39;</span>
+    <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s">&#39;column[title]&#39;</span> <span class="p">:</span> <span class="n">column_title</span><span class="p">,</span>
+        <span class="s">&#39;column[position]&#39;</span> <span class="p">:</span> <span class="n">column_position</span><span class="p">,</span>
+        <span class="s">&#39;column[hidden]&#39;</span> <span class="p">:</span> <span class="n">column_hidden</span><span class="p">,</span>
+        <span class="s">&#39;column[teacher_notes]&#39;</span> <span class="p">:</span> <span class="n">column_teacher_notes</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">course_id</span><span class="o">=</span><span class="n">course_id</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="n">payload</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+
+</div>
+<div class="viewcode-block" id="update_custom_gradebook_column"><a class="viewcode-back" href="../../../canvas_sdk.methods.custom_gradebook_columns.html#canvas_sdk.methods.custom_gradebook_columns.update_custom_gradebook_column">[docs]</a><span class="k">def</span> <span class="nf">update_custom_gradebook_column</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">course_id</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Accepts the same parameters as custom gradebook column creation</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param course_id: (required) ID</span>
+<span class="sd">        :type course_id: string</span>
+<span class="sd">        :param id: (required) ID</span>
+<span class="sd">        :type id: string</span>
+<span class="sd">        :return: Update a custom gradebook column</span>
+<span class="sd">        :rtype: requests.Response (with CustomColumn data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/courses/{course_id}/custom_gradebook_columns/{id}&#39;</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">course_id</span><span class="o">=</span><span class="n">course_id</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="nb">id</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+
+</div>
+<div class="viewcode-block" id="delete_custom_gradebook_column"><a class="viewcode-back" href="../../../canvas_sdk.methods.custom_gradebook_columns.html#canvas_sdk.methods.custom_gradebook_columns.delete_custom_gradebook_column">[docs]</a><span class="k">def</span> <span class="nf">delete_custom_gradebook_column</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">course_id</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Permanently deletes a custom column and its associated data</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param course_id: (required) ID</span>
+<span class="sd">        :type course_id: string</span>
+<span class="sd">        :param id: (required) ID</span>
+<span class="sd">        :type id: string</span>
+<span class="sd">        :return: Delete a custom gradebook column</span>
+<span class="sd">        :rtype: requests.Response (with CustomColumn data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/courses/{course_id}/custom_gradebook_columns/{id}&#39;</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">course_id</span><span class="o">=</span><span class="n">course_id</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="nb">id</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+
+</div>
+<div class="viewcode-block" id="reorder_custom_columns"><a class="viewcode-back" href="../../../canvas_sdk.methods.custom_gradebook_columns.html#canvas_sdk.methods.custom_gradebook_columns.reorder_custom_columns">[docs]</a><span class="k">def</span> <span class="nf">reorder_custom_columns</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">course_id</span><span class="p">,</span> <span class="n">order</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Puts the given columns in the specified order</span>
+<span class="sd">    </span>
+<span class="sd">    &lt;b&gt;200 OK&lt;/b&gt; is returned if successful</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param course_id: (required) ID</span>
+<span class="sd">        :type course_id: string</span>
+<span class="sd">        :param order: (required) no description</span>
+<span class="sd">        :type order: integer</span>
+<span class="sd">        :return: Reorder custom columns</span>
+<span class="sd">        :rtype: requests.Response (with void data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/courses/{course_id}/custom_gradebook_columns/reorder&#39;</span>
+    <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s">&#39;order&#39;</span> <span class="p">:</span> <span class="n">order</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">course_id</span><span class="o">=</span><span class="n">course_id</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="n">payload</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+
+</div>
+<div class="viewcode-block" id="list_entries_for_column"><a class="viewcode-back" href="../../../canvas_sdk.methods.custom_gradebook_columns.html#canvas_sdk.methods.custom_gradebook_columns.list_entries_for_column">[docs]</a><span class="k">def</span> <span class="nf">list_entries_for_column</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">course_id</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="n">per_page</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This does not list entries for students without associated data.</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param course_id: (required) ID</span>
+<span class="sd">        :type course_id: string</span>
+<span class="sd">        :param id: (required) ID</span>
+<span class="sd">        :type id: string</span>
+<span class="sd">        :param per_page: (optional) Set how many results canvas should return, defaults to config.LIMIT_PER_PAGE</span>
+<span class="sd">        :type per_page: integer or None</span>
+<span class="sd">        :return: List entries for a column</span>
+<span class="sd">        :rtype: requests.Response (with array data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">per_page</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="n">per_page</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">per_page</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/courses/{course_id}/custom_gradebook_columns/{id}/data&#39;</span>
+    <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s">&#39;per_page&#39;</span> <span class="p">:</span> <span class="n">per_page</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">course_id</span><span class="o">=</span><span class="n">course_id</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="nb">id</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="n">payload</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+
+</div>
+<div class="viewcode-block" id="update_column_data"><a class="viewcode-back" href="../../../canvas_sdk.methods.custom_gradebook_columns.html#canvas_sdk.methods.custom_gradebook_columns.update_column_data">[docs]</a><span class="k">def</span> <span class="nf">update_column_data</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">course_id</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="n">user_id</span><span class="p">,</span> <span class="n">column_data_content</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Set the content of a custom column</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param course_id: (required) ID</span>
+<span class="sd">        :type course_id: string</span>
+<span class="sd">        :param id: (required) ID</span>
+<span class="sd">        :type id: string</span>
+<span class="sd">        :param user_id: (required) ID</span>
+<span class="sd">        :type user_id: string</span>
+<span class="sd">        :param column_data_content: (required) Column content. Setting this to blank will delete the datum object.</span>
+<span class="sd">        :type column_data_content: string</span>
+<span class="sd">        :return: Update column data</span>
+<span class="sd">        :rtype: requests.Response (with ColumnDatum data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/courses/{course_id}/custom_gradebook_columns/{id}/data/{user_id}&#39;</span>
+    <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s">&#39;column_data[content]&#39;</span> <span class="p">:</span> <span class="n">column_data_content</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">course_id</span><span class="o">=</span><span class="n">course_id</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="nb">id</span><span class="p">,</span> <span class="n">user_id</span><span class="o">=</span><span class="n">user_id</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="n">payload</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+</pre></div></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../../index.html">Canvas_SDK 0.0.1 documentation</a> &raquo;</li>
+          <li><a href="../../index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, Harvard.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

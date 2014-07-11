@@ -1,0 +1,511 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>canvas_sdk.methods.modules &mdash; Canvas_SDK 0.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="top" title="Canvas_SDK 0.0.1 documentation" href="../../../index.html" />
+    <link rel="up" title="Module code" href="../../index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../../index.html">Canvas_SDK 0.0.1 documentation</a> &raquo;</li>
+          <li><a href="../../index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for canvas_sdk.methods.modules</h1><div class="highlight"><pre>
+<span class="kn">from</span> <span class="nn">canvas_sdk</span> <span class="kn">import</span> <span class="n">client</span><span class="p">,</span> <span class="n">utils</span>
+
+<div class="viewcode-block" id="list_modules"><a class="viewcode-back" href="../../../canvas_sdk.methods.modules.html#canvas_sdk.methods.modules.list_modules">[docs]</a><span class="k">def</span> <span class="nf">list_modules</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">course_id</span><span class="p">,</span> <span class="n">include</span><span class="p">,</span> <span class="n">search_term</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">student_id</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">per_page</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    List the modules in a course</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param course_id: (required) ID</span>
+<span class="sd">        :type course_id: string</span>
+<span class="sd">        :param include: (required) - &quot;items&quot;: Return module items inline if possible. This parameter suggests that Canvas return module items directly in the Module object JSON, to avoid having to make separate API requests for each module when enumerating modules and items. Canvas is free to omit &#39;items&#39; for any particular module if it deems them too numerous to return inline. Callers must be prepared to use the {api:ContextModuleItemsApiController#index List Module Items API} if items are not returned. - &quot;content_details&quot;: Requires include[&#39;items&#39;]. Returns additional details with module items specific to their associated content items. Includes standard lock information for each item.</span>
+<span class="sd">        :type include: string</span>
+<span class="sd">        :param search_term: (optional) The partial name of the modules (and module items, if include[&#39;items&#39;] is specified) to match and return.</span>
+<span class="sd">        :type search_term: string or None</span>
+<span class="sd">        :param student_id: (optional) Returns module completion information for the student with this id.</span>
+<span class="sd">        :type student_id: string or None</span>
+<span class="sd">        :param per_page: (optional) Set how many results canvas should return, defaults to config.LIMIT_PER_PAGE</span>
+<span class="sd">        :type per_page: integer or None</span>
+<span class="sd">        :return: List modules</span>
+<span class="sd">        :rtype: requests.Response (with array data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">per_page</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="n">per_page</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">per_page</span>
+    <span class="n">include_types</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;items&#39;</span><span class="p">,</span> <span class="s">&#39;content_details&#39;</span><span class="p">)</span>
+    <span class="n">utils</span><span class="o">.</span><span class="n">validate_attr_is_acceptable</span><span class="p">(</span><span class="n">include</span><span class="p">,</span> <span class="n">include_types</span><span class="p">)</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/courses/{course_id}/modules&#39;</span>
+    <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s">&#39;include&#39;</span> <span class="p">:</span> <span class="n">include</span><span class="p">,</span>
+        <span class="s">&#39;search_term&#39;</span> <span class="p">:</span> <span class="n">search_term</span><span class="p">,</span>
+        <span class="s">&#39;student_id&#39;</span> <span class="p">:</span> <span class="n">student_id</span><span class="p">,</span>
+        <span class="s">&#39;per_page&#39;</span> <span class="p">:</span> <span class="n">per_page</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">course_id</span><span class="o">=</span><span class="n">course_id</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="n">payload</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+
+</div>
+<div class="viewcode-block" id="show_module"><a class="viewcode-back" href="../../../canvas_sdk.methods.modules.html#canvas_sdk.methods.modules.show_module">[docs]</a><span class="k">def</span> <span class="nf">show_module</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">course_id</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="n">include</span><span class="p">,</span> <span class="n">student_id</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Get information about a single module</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param course_id: (required) ID</span>
+<span class="sd">        :type course_id: string</span>
+<span class="sd">        :param id: (required) ID</span>
+<span class="sd">        :type id: string</span>
+<span class="sd">        :param include: (required) - &quot;items&quot;: Return module items inline if possible. This parameter suggests that Canvas return module items directly in the Module object JSON, to avoid having to make separate API requests for each module when enumerating modules and items. Canvas is free to omit &#39;items&#39; for any particular module if it deems them too numerous to return inline. Callers must be prepared to use the {api:ContextModuleItemsApiController#index List Module Items API} if items are not returned. - &quot;content_details&quot;: Requires include[&#39;items&#39;]. Returns additional details with module items specific to their associated content items. Includes standard lock information for each item.</span>
+<span class="sd">        :type include: string</span>
+<span class="sd">        :param student_id: (optional) Returns module completion information for the student with this id.</span>
+<span class="sd">        :type student_id: string or None</span>
+<span class="sd">        :return: Show module</span>
+<span class="sd">        :rtype: requests.Response (with Module data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">include_types</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;items&#39;</span><span class="p">,</span> <span class="s">&#39;content_details&#39;</span><span class="p">)</span>
+    <span class="n">utils</span><span class="o">.</span><span class="n">validate_attr_is_acceptable</span><span class="p">(</span><span class="n">include</span><span class="p">,</span> <span class="n">include_types</span><span class="p">)</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/courses/{course_id}/modules/{id}&#39;</span>
+    <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s">&#39;include&#39;</span> <span class="p">:</span> <span class="n">include</span><span class="p">,</span>
+        <span class="s">&#39;student_id&#39;</span> <span class="p">:</span> <span class="n">student_id</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">course_id</span><span class="o">=</span><span class="n">course_id</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="nb">id</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="n">payload</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+
+</div>
+<div class="viewcode-block" id="create_module"><a class="viewcode-back" href="../../../canvas_sdk.methods.modules.html#canvas_sdk.methods.modules.create_module">[docs]</a><span class="k">def</span> <span class="nf">create_module</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">course_id</span><span class="p">,</span> <span class="n">module_name</span><span class="p">,</span> <span class="n">module_unlock_at</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">module_position</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">module_require_sequential_progress</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">module_prerequisite_module_ids</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">module_publish_final_grade</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Create and return a new module</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param course_id: (required) ID</span>
+<span class="sd">        :type course_id: string</span>
+<span class="sd">        :param module_name: (required) The name of the module</span>
+<span class="sd">        :type module_name: string</span>
+<span class="sd">        :param module_unlock_at: (optional) The date the module will unlock</span>
+<span class="sd">        :type module_unlock_at: datetime or None</span>
+<span class="sd">        :param module_position: (optional) The position of this module in the course (1-based)</span>
+<span class="sd">        :type module_position: integer or None</span>
+<span class="sd">        :param module_require_sequential_progress: (optional) Whether module items must be unlocked in order</span>
+<span class="sd">        :type module_require_sequential_progress: boolean or None</span>
+<span class="sd">        :param module_prerequisite_module_ids: (optional) IDs of Modules that must be completed before this one is unlocked. Prerequisite modules must precede this module (i.e. have a lower position value), otherwise they will be ignored</span>
+<span class="sd">        :type module_prerequisite_module_ids: string or None</span>
+<span class="sd">        :param module_publish_final_grade: (optional) Whether to publish the student&#39;s final grade for the course upon completion of this module.</span>
+<span class="sd">        :type module_publish_final_grade: boolean or None</span>
+<span class="sd">        :return: Create a module</span>
+<span class="sd">        :rtype: requests.Response (with Module data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/courses/{course_id}/modules&#39;</span>
+    <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s">&#39;module[name]&#39;</span> <span class="p">:</span> <span class="n">module_name</span><span class="p">,</span>
+        <span class="s">&#39;module[unlock_at]&#39;</span> <span class="p">:</span> <span class="n">module_unlock_at</span><span class="p">,</span>
+        <span class="s">&#39;module[position]&#39;</span> <span class="p">:</span> <span class="n">module_position</span><span class="p">,</span>
+        <span class="s">&#39;module[require_sequential_progress]&#39;</span> <span class="p">:</span> <span class="n">module_require_sequential_progress</span><span class="p">,</span>
+        <span class="s">&#39;module[prerequisite_module_ids]&#39;</span> <span class="p">:</span> <span class="n">module_prerequisite_module_ids</span><span class="p">,</span>
+        <span class="s">&#39;module[publish_final_grade]&#39;</span> <span class="p">:</span> <span class="n">module_publish_final_grade</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">course_id</span><span class="o">=</span><span class="n">course_id</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="n">payload</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+
+</div>
+<div class="viewcode-block" id="update_module"><a class="viewcode-back" href="../../../canvas_sdk.methods.modules.html#canvas_sdk.methods.modules.update_module">[docs]</a><span class="k">def</span> <span class="nf">update_module</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">course_id</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="n">module_name</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">module_unlock_at</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">module_position</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">module_require_sequential_progress</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">module_prerequisite_module_ids</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">module_publish_final_grade</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">module_published</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Update and return an existing module</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param course_id: (required) ID</span>
+<span class="sd">        :type course_id: string</span>
+<span class="sd">        :param id: (required) ID</span>
+<span class="sd">        :type id: string</span>
+<span class="sd">        :param module_name: (optional) The name of the module</span>
+<span class="sd">        :type module_name: string or None</span>
+<span class="sd">        :param module_unlock_at: (optional) The date the module will unlock</span>
+<span class="sd">        :type module_unlock_at: datetime or None</span>
+<span class="sd">        :param module_position: (optional) The position of the module in the course (1-based)</span>
+<span class="sd">        :type module_position: integer or None</span>
+<span class="sd">        :param module_require_sequential_progress: (optional) Whether module items must be unlocked in order</span>
+<span class="sd">        :type module_require_sequential_progress: boolean or None</span>
+<span class="sd">        :param module_prerequisite_module_ids: (optional) IDs of Modules that must be completed before this one is unlocked Prerequisite modules must precede this module (i.e. have a lower position value), otherwise they will be ignored</span>
+<span class="sd">        :type module_prerequisite_module_ids: string or None</span>
+<span class="sd">        :param module_publish_final_grade: (optional) Whether to publish the student&#39;s final grade for the course upon completion of this module.</span>
+<span class="sd">        :type module_publish_final_grade: boolean or None</span>
+<span class="sd">        :param module_published: (optional) Whether the module is published and visible to students</span>
+<span class="sd">        :type module_published: boolean or None</span>
+<span class="sd">        :return: Update a module</span>
+<span class="sd">        :rtype: requests.Response (with Module data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/courses/{course_id}/modules/{id}&#39;</span>
+    <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s">&#39;module[name]&#39;</span> <span class="p">:</span> <span class="n">module_name</span><span class="p">,</span>
+        <span class="s">&#39;module[unlock_at]&#39;</span> <span class="p">:</span> <span class="n">module_unlock_at</span><span class="p">,</span>
+        <span class="s">&#39;module[position]&#39;</span> <span class="p">:</span> <span class="n">module_position</span><span class="p">,</span>
+        <span class="s">&#39;module[require_sequential_progress]&#39;</span> <span class="p">:</span> <span class="n">module_require_sequential_progress</span><span class="p">,</span>
+        <span class="s">&#39;module[prerequisite_module_ids]&#39;</span> <span class="p">:</span> <span class="n">module_prerequisite_module_ids</span><span class="p">,</span>
+        <span class="s">&#39;module[publish_final_grade]&#39;</span> <span class="p">:</span> <span class="n">module_publish_final_grade</span><span class="p">,</span>
+        <span class="s">&#39;module[published]&#39;</span> <span class="p">:</span> <span class="n">module_published</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">course_id</span><span class="o">=</span><span class="n">course_id</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="nb">id</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="n">payload</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+
+</div>
+<div class="viewcode-block" id="delete_module"><a class="viewcode-back" href="../../../canvas_sdk.methods.modules.html#canvas_sdk.methods.modules.delete_module">[docs]</a><span class="k">def</span> <span class="nf">delete_module</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">course_id</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Delete a module</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param course_id: (required) ID</span>
+<span class="sd">        :type course_id: string</span>
+<span class="sd">        :param id: (required) ID</span>
+<span class="sd">        :type id: string</span>
+<span class="sd">        :return: Delete module</span>
+<span class="sd">        :rtype: requests.Response (with Module data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/courses/{course_id}/modules/{id}&#39;</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">course_id</span><span class="o">=</span><span class="n">course_id</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="nb">id</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+
+</div>
+<div class="viewcode-block" id="list_module_items"><a class="viewcode-back" href="../../../canvas_sdk.methods.modules.html#canvas_sdk.methods.modules.list_module_items">[docs]</a><span class="k">def</span> <span class="nf">list_module_items</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">course_id</span><span class="p">,</span> <span class="n">module_id</span><span class="p">,</span> <span class="n">include</span><span class="p">,</span> <span class="n">search_term</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">student_id</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">per_page</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    List the items in a module</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param course_id: (required) ID</span>
+<span class="sd">        :type course_id: string</span>
+<span class="sd">        :param module_id: (required) ID</span>
+<span class="sd">        :type module_id: string</span>
+<span class="sd">        :param include: (required) If included, will return additional details specific to the content associated with each item. Refer to the {api:Modules:Module%20Item Module Item specification} for more details. Includes standard lock information for each item.</span>
+<span class="sd">        :type include: string</span>
+<span class="sd">        :param search_term: (optional) The partial title of the items to match and return.</span>
+<span class="sd">        :type search_term: string or None</span>
+<span class="sd">        :param student_id: (optional) Returns module completion information for the student with this id.</span>
+<span class="sd">        :type student_id: string or None</span>
+<span class="sd">        :param per_page: (optional) Set how many results canvas should return, defaults to config.LIMIT_PER_PAGE</span>
+<span class="sd">        :type per_page: integer or None</span>
+<span class="sd">        :return: List module items</span>
+<span class="sd">        :rtype: requests.Response (with array data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">per_page</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="n">per_page</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">per_page</span>
+    <span class="n">include_types</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;content_details&#39;</span><span class="p">)</span>
+    <span class="n">utils</span><span class="o">.</span><span class="n">validate_attr_is_acceptable</span><span class="p">(</span><span class="n">include</span><span class="p">,</span> <span class="n">include_types</span><span class="p">)</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/courses/{course_id}/modules/{module_id}/items&#39;</span>
+    <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s">&#39;include&#39;</span> <span class="p">:</span> <span class="n">include</span><span class="p">,</span>
+        <span class="s">&#39;search_term&#39;</span> <span class="p">:</span> <span class="n">search_term</span><span class="p">,</span>
+        <span class="s">&#39;student_id&#39;</span> <span class="p">:</span> <span class="n">student_id</span><span class="p">,</span>
+        <span class="s">&#39;per_page&#39;</span> <span class="p">:</span> <span class="n">per_page</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">course_id</span><span class="o">=</span><span class="n">course_id</span><span class="p">,</span> <span class="n">module_id</span><span class="o">=</span><span class="n">module_id</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="n">payload</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+
+</div>
+<div class="viewcode-block" id="show_module_item"><a class="viewcode-back" href="../../../canvas_sdk.methods.modules.html#canvas_sdk.methods.modules.show_module_item">[docs]</a><span class="k">def</span> <span class="nf">show_module_item</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">course_id</span><span class="p">,</span> <span class="n">module_id</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="n">include</span><span class="p">,</span> <span class="n">student_id</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Get information about a single module item</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param course_id: (required) ID</span>
+<span class="sd">        :type course_id: string</span>
+<span class="sd">        :param module_id: (required) ID</span>
+<span class="sd">        :type module_id: string</span>
+<span class="sd">        :param id: (required) ID</span>
+<span class="sd">        :type id: string</span>
+<span class="sd">        :param include: (required) If included, will return additional details specific to the content associated with this item. Refer to the {api:Modules:Module%20Item Module Item specification} for more details. Includes standard lock information for each item.</span>
+<span class="sd">        :type include: string</span>
+<span class="sd">        :param student_id: (optional) Returns module completion information for the student with this id.</span>
+<span class="sd">        :type student_id: string or None</span>
+<span class="sd">        :return: Show module item</span>
+<span class="sd">        :rtype: requests.Response (with ModuleItem data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">include_types</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;content_details&#39;</span><span class="p">)</span>
+    <span class="n">utils</span><span class="o">.</span><span class="n">validate_attr_is_acceptable</span><span class="p">(</span><span class="n">include</span><span class="p">,</span> <span class="n">include_types</span><span class="p">)</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/courses/{course_id}/modules/{module_id}/items/{id}&#39;</span>
+    <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s">&#39;include&#39;</span> <span class="p">:</span> <span class="n">include</span><span class="p">,</span>
+        <span class="s">&#39;student_id&#39;</span> <span class="p">:</span> <span class="n">student_id</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">course_id</span><span class="o">=</span><span class="n">course_id</span><span class="p">,</span> <span class="n">module_id</span><span class="o">=</span><span class="n">module_id</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="nb">id</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="n">payload</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+
+</div>
+<div class="viewcode-block" id="create_module_item"><a class="viewcode-back" href="../../../canvas_sdk.methods.modules.html#canvas_sdk.methods.modules.create_module_item">[docs]</a><span class="k">def</span> <span class="nf">create_module_item</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">course_id</span><span class="p">,</span> <span class="n">module_id</span><span class="p">,</span> <span class="n">module_item_type</span><span class="p">,</span> <span class="n">module_item_content_id</span><span class="p">,</span> <span class="n">module_item_page_url</span><span class="p">,</span> <span class="n">module_item_external_url</span><span class="p">,</span> <span class="n">module_item_completion_requirement_min_score</span><span class="p">,</span> <span class="n">module_item_title</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">module_item_position</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">module_item_indent</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">module_item_new_tab</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">module_item_completion_requirement_type</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Create and return a new module item</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param course_id: (required) ID</span>
+<span class="sd">        :type course_id: string</span>
+<span class="sd">        :param module_id: (required) ID</span>
+<span class="sd">        :type module_id: string</span>
+<span class="sd">        :param module_item_type: (required) The type of content linked to the item</span>
+<span class="sd">        :type module_item_type: string</span>
+<span class="sd">        :param module_item_content_id: (required) The id of the content to link to the module item. Required, except for &#39;ExternalUrl&#39;, &#39;Page&#39;, and &#39;SubHeader&#39; types.</span>
+<span class="sd">        :type module_item_content_id: string</span>
+<span class="sd">        :param module_item_page_url: (required) Suffix for the linked wiki page (e.g. &#39;front-page&#39;). Required for &#39;Page&#39; type.</span>
+<span class="sd">        :type module_item_page_url: string</span>
+<span class="sd">        :param module_item_external_url: (required) External url that the item points to. [Required for &#39;ExternalUrl&#39; and &#39;ExternalTool&#39; types.</span>
+<span class="sd">        :type module_item_external_url: string</span>
+<span class="sd">        :param module_item_completion_requirement: (required) Minimum score required to complete. Required for completion_requirement type &#39;min_score&#39;.</span>
+<span class="sd">        :type module_item_completion_requirement: integer</span>
+<span class="sd">        :param module_item_title: (optional) The name of the module item and associated content</span>
+<span class="sd">        :type module_item_title: string or None</span>
+<span class="sd">        :param module_item_position: (optional) The position of this item in the module (1-based).</span>
+<span class="sd">        :type module_item_position: integer or None</span>
+<span class="sd">        :param module_item_indent: (optional) 0-based indent level; module items may be indented to show a hierarchy</span>
+<span class="sd">        :type module_item_indent: integer or None</span>
+<span class="sd">        :param module_item_new_tab: (optional) Whether the external tool opens in a new tab. Only applies to &#39;ExternalTool&#39; type.</span>
+<span class="sd">        :type module_item_new_tab: boolean or None</span>
+<span class="sd">        :param module_item_completion_requirement: (optional) Completion requirement for this module item. &quot;must_view&quot;: Applies to all item types &quot;must_contribute&quot;: Only applies to &quot;Assignment&quot;, &quot;Discussion&quot;, and &quot;Page&quot; types &quot;must_submit&quot;, &quot;min_score&quot;: Only apply to &quot;Assignment&quot; and &quot;Quiz&quot; types Inapplicable types will be ignored</span>
+<span class="sd">        :type module_item_completion_requirement: string or None</span>
+<span class="sd">        :return: Create a module item</span>
+<span class="sd">        :rtype: requests.Response (with ModuleItem data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">type_types</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;File&#39;</span><span class="p">,</span> <span class="s">&#39;Page&#39;</span><span class="p">,</span> <span class="s">&#39;Discussion&#39;</span><span class="p">,</span> <span class="s">&#39;Assignment&#39;</span><span class="p">,</span> <span class="s">&#39;Quiz&#39;</span><span class="p">,</span> <span class="s">&#39;SubHeader&#39;</span><span class="p">,</span> <span class="s">&#39;ExternalUrl&#39;</span><span class="p">,</span> <span class="s">&#39;ExternalTool&#39;</span><span class="p">)</span>
+    <span class="n">completion_requirement_types</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;must_view&#39;</span><span class="p">,</span> <span class="s">&#39;must_contribute&#39;</span><span class="p">,</span> <span class="s">&#39;must_submit&#39;</span><span class="p">)</span>
+    <span class="n">utils</span><span class="o">.</span><span class="n">validate_attr_is_acceptable</span><span class="p">(</span><span class="nb">type</span><span class="p">,</span> <span class="n">type_types</span><span class="p">)</span>
+    <span class="n">utils</span><span class="o">.</span><span class="n">validate_attr_is_acceptable</span><span class="p">(</span><span class="n">completion_requirement</span><span class="p">,</span> <span class="n">completion_requirement_types</span><span class="p">)</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/courses/{course_id}/modules/{module_id}/items&#39;</span>
+    <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s">&#39;module_item[title]&#39;</span> <span class="p">:</span> <span class="n">module_item_title</span><span class="p">,</span>
+        <span class="s">&#39;module_item[type]&#39;</span> <span class="p">:</span> <span class="n">module_item_type</span><span class="p">,</span>
+        <span class="s">&#39;module_item[content_id]&#39;</span> <span class="p">:</span> <span class="n">module_item_content_id</span><span class="p">,</span>
+        <span class="s">&#39;module_item[position]&#39;</span> <span class="p">:</span> <span class="n">module_item_position</span><span class="p">,</span>
+        <span class="s">&#39;module_item[indent]&#39;</span> <span class="p">:</span> <span class="n">module_item_indent</span><span class="p">,</span>
+        <span class="s">&#39;module_item[page_url]&#39;</span> <span class="p">:</span> <span class="n">module_item_page_url</span><span class="p">,</span>
+        <span class="s">&#39;module_item[external_url]&#39;</span> <span class="p">:</span> <span class="n">module_item_external_url</span><span class="p">,</span>
+        <span class="s">&#39;module_item[new_tab]&#39;</span> <span class="p">:</span> <span class="n">module_item_new_tab</span><span class="p">,</span>
+        <span class="s">&#39;module_item[completion_requirement][type]&#39;</span> <span class="p">:</span> <span class="n">module_item_completion_requirement_type</span><span class="p">,</span>
+        <span class="s">&#39;module_item[completion_requirement][min_score]&#39;</span> <span class="p">:</span> <span class="n">module_item_completion_requirement_min_score</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">course_id</span><span class="o">=</span><span class="n">course_id</span><span class="p">,</span> <span class="n">module_id</span><span class="o">=</span><span class="n">module_id</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="n">payload</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+
+</div>
+<div class="viewcode-block" id="update_module_item"><a class="viewcode-back" href="../../../canvas_sdk.methods.modules.html#canvas_sdk.methods.modules.update_module_item">[docs]</a><span class="k">def</span> <span class="nf">update_module_item</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">course_id</span><span class="p">,</span> <span class="n">module_id</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="n">module_item_completion_requirement_min_score</span><span class="p">,</span> <span class="n">module_item_title</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">module_item_position</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">module_item_indent</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">module_item_external_url</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">module_item_new_tab</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">module_item_completion_requirement_type</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">module_item_published</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">module_item_module_id</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Update and return an existing module item</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param course_id: (required) ID</span>
+<span class="sd">        :type course_id: string</span>
+<span class="sd">        :param module_id: (required) ID</span>
+<span class="sd">        :type module_id: string</span>
+<span class="sd">        :param id: (required) ID</span>
+<span class="sd">        :type id: string</span>
+<span class="sd">        :param module_item_completion_requirement: (required) Minimum score required to complete, Required for completion_requirement type &#39;min_score&#39;.</span>
+<span class="sd">        :type module_item_completion_requirement: integer</span>
+<span class="sd">        :param module_item_title: (optional) The name of the module item</span>
+<span class="sd">        :type module_item_title: string or None</span>
+<span class="sd">        :param module_item_position: (optional) The position of this item in the module (1-based)</span>
+<span class="sd">        :type module_item_position: integer or None</span>
+<span class="sd">        :param module_item_indent: (optional) 0-based indent level; module items may be indented to show a hierarchy</span>
+<span class="sd">        :type module_item_indent: integer or None</span>
+<span class="sd">        :param module_item_external_url: (optional) External url that the item points to. Only applies to &#39;ExternalUrl&#39; type.</span>
+<span class="sd">        :type module_item_external_url: string or None</span>
+<span class="sd">        :param module_item_new_tab: (optional) Whether the external tool opens in a new tab. Only applies to &#39;ExternalTool&#39; type.</span>
+<span class="sd">        :type module_item_new_tab: boolean or None</span>
+<span class="sd">        :param module_item_completion_requirement: (optional) Completion requirement for this module item. &quot;must_view&quot;: Applies to all item types &quot;must_contribute&quot;: Only applies to &quot;Assignment&quot;, &quot;Discussion&quot;, and &quot;Page&quot; types &quot;must_submit&quot;, &quot;min_score&quot;: Only apply to &quot;Assignment&quot; and &quot;Quiz&quot; types Inapplicable types will be ignored</span>
+<span class="sd">        :type module_item_completion_requirement: string or None</span>
+<span class="sd">        :param module_item_published: (optional) Whether the module item is published and visible to students.</span>
+<span class="sd">        :type module_item_published: boolean or None</span>
+<span class="sd">        :param module_item_module_id: (optional) Move this item to another module by specifying the target module id here. The target module must be in the same course.</span>
+<span class="sd">        :type module_item_module_id: string or None</span>
+<span class="sd">        :return: Update a module item</span>
+<span class="sd">        :rtype: requests.Response (with ModuleItem data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">completion_requirement_types</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;must_view&#39;</span><span class="p">,</span> <span class="s">&#39;must_contribute&#39;</span><span class="p">,</span> <span class="s">&#39;must_submit&#39;</span><span class="p">)</span>
+    <span class="n">utils</span><span class="o">.</span><span class="n">validate_attr_is_acceptable</span><span class="p">(</span><span class="n">completion_requirement</span><span class="p">,</span> <span class="n">completion_requirement_types</span><span class="p">)</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/courses/{course_id}/modules/{module_id}/items/{id}&#39;</span>
+    <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s">&#39;module_item[title]&#39;</span> <span class="p">:</span> <span class="n">module_item_title</span><span class="p">,</span>
+        <span class="s">&#39;module_item[position]&#39;</span> <span class="p">:</span> <span class="n">module_item_position</span><span class="p">,</span>
+        <span class="s">&#39;module_item[indent]&#39;</span> <span class="p">:</span> <span class="n">module_item_indent</span><span class="p">,</span>
+        <span class="s">&#39;module_item[external_url]&#39;</span> <span class="p">:</span> <span class="n">module_item_external_url</span><span class="p">,</span>
+        <span class="s">&#39;module_item[new_tab]&#39;</span> <span class="p">:</span> <span class="n">module_item_new_tab</span><span class="p">,</span>
+        <span class="s">&#39;module_item[completion_requirement][type]&#39;</span> <span class="p">:</span> <span class="n">module_item_completion_requirement_type</span><span class="p">,</span>
+        <span class="s">&#39;module_item[completion_requirement][min_score]&#39;</span> <span class="p">:</span> <span class="n">module_item_completion_requirement_min_score</span><span class="p">,</span>
+        <span class="s">&#39;module_item[published]&#39;</span> <span class="p">:</span> <span class="n">module_item_published</span><span class="p">,</span>
+        <span class="s">&#39;module_item[module_id]&#39;</span> <span class="p">:</span> <span class="n">module_item_module_id</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">course_id</span><span class="o">=</span><span class="n">course_id</span><span class="p">,</span> <span class="n">module_id</span><span class="o">=</span><span class="n">module_id</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="nb">id</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="n">payload</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+
+</div>
+<div class="viewcode-block" id="delete_module_item"><a class="viewcode-back" href="../../../canvas_sdk.methods.modules.html#canvas_sdk.methods.modules.delete_module_item">[docs]</a><span class="k">def</span> <span class="nf">delete_module_item</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">course_id</span><span class="p">,</span> <span class="n">module_id</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Delete a module item</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param course_id: (required) ID</span>
+<span class="sd">        :type course_id: string</span>
+<span class="sd">        :param module_id: (required) ID</span>
+<span class="sd">        :type module_id: string</span>
+<span class="sd">        :param id: (required) ID</span>
+<span class="sd">        :type id: string</span>
+<span class="sd">        :return: Delete module item</span>
+<span class="sd">        :rtype: requests.Response (with ModuleItem data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/courses/{course_id}/modules/{module_id}/items/{id}&#39;</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">course_id</span><span class="o">=</span><span class="n">course_id</span><span class="p">,</span> <span class="n">module_id</span><span class="o">=</span><span class="n">module_id</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="nb">id</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+
+</div>
+<div class="viewcode-block" id="get_module_item_sequence"><a class="viewcode-back" href="../../../canvas_sdk.methods.modules.html#canvas_sdk.methods.modules.get_module_item_sequence">[docs]</a><span class="k">def</span> <span class="nf">get_module_item_sequence</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">course_id</span><span class="p">,</span> <span class="n">asset_type</span><span class="p">,</span> <span class="n">asset_id</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Given an asset in a course, find the ModuleItem it belongs to, and also the previous and next Module Items</span>
+<span class="sd">    in the course sequence.</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param course_id: (required) ID</span>
+<span class="sd">        :type course_id: string</span>
+<span class="sd">        :param asset_type: (required) The type of asset to find module sequence information for. Use the ModuleItem if it is known (e.g., the user navigated from a module item), since this will avoid ambiguity if the asset appears more than once in the module sequence.</span>
+<span class="sd">        :type asset_type: string</span>
+<span class="sd">        :param asset_id: (required) The id of the asset (or the url in the case of a Page)</span>
+<span class="sd">        :type asset_id: integer</span>
+<span class="sd">        :return: Get module item sequence</span>
+<span class="sd">        :rtype: requests.Response (with ModuleItemSequence data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">asset_type_types</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;ModuleItem&#39;</span><span class="p">,</span> <span class="s">&#39;File&#39;</span><span class="p">,</span> <span class="s">&#39;Page&#39;</span><span class="p">,</span> <span class="s">&#39;Discussion&#39;</span><span class="p">,</span> <span class="s">&#39;Assignment&#39;</span><span class="p">,</span> <span class="s">&#39;Quiz&#39;</span><span class="p">,</span> <span class="s">&#39;ExternalTool&#39;</span><span class="p">)</span>
+    <span class="n">utils</span><span class="o">.</span><span class="n">validate_attr_is_acceptable</span><span class="p">(</span><span class="n">asset_type</span><span class="p">,</span> <span class="n">asset_type_types</span><span class="p">)</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/courses/{course_id}/module_item_sequence&#39;</span>
+    <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s">&#39;asset_type&#39;</span> <span class="p">:</span> <span class="n">asset_type</span><span class="p">,</span>
+        <span class="s">&#39;asset_id&#39;</span> <span class="p">:</span> <span class="n">asset_id</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">course_id</span><span class="o">=</span><span class="n">course_id</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="n">payload</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+</pre></div></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../../index.html">Canvas_SDK 0.0.1 documentation</a> &raquo;</li>
+          <li><a href="../../index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, Harvard.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

@@ -470,7 +470,7 @@ def update_user_settings(request_ctx, id, manual_mark_as_read, **request_kwargs)
     return response
 
 
-def edit_user(request_ctx, id, user_name=None, user_short_name=None, user_sortable_name=None, user_time_zone=None, user_locale=None, user_avatar=None, user_avatar=None, **request_kwargs):
+def edit_user(request_ctx, id, user_name=None, user_short_name=None, user_sortable_name=None, user_time_zone=None, user_locale=None, user_avatar_token=None, user_avatar_url=None, **request_kwargs):
     """
     Modify an existing user. To modify a user's login, see the documentation for logins.
 
@@ -504,8 +504,8 @@ def edit_user(request_ctx, id, user_name=None, user_short_name=None, user_sortab
         'user[sortable_name]' : user_sortable_name,
         'user[time_zone]' : user_time_zone,
         'user[locale]' : user_locale,
-        'user[avatar][token]' : user_avatar,
-        'user[avatar][url]' : user_avatar,
+        'user[avatar][token]' : user_avatar_token,
+        'user[avatar][url]' : user_avatar_url,
     }
     url = request_ctx.base_api_url + path.format(id=id)
     response = client.put(request_ctx, url, payload=payload, **request_kwargs)
@@ -742,7 +742,7 @@ def store_custom_data(request_ctx, user_id, scope, ns, data, **request_kwargs):
     
     Following such a request, subsets of the stored data to be retrieved directly from a subscope.
     
-    Example {api:UsersController#get_custom_data GET} from a generated scope
+    Example `UsersController#get_custom_data <https://github.com/instructure/canvas-lms/blob/master/app/controllers/users_controller.rb>`_ from a generated scope
       curl 'https://<canvas>/api/v1/users/<user_id>/custom_data/body/measurements/chest' \
         -X GET \
         -F 'ns=com.my-organization.canvas-app' \
@@ -793,7 +793,7 @@ def store_custom_data(request_ctx, user_id, scope, ns, data, **request_kwargs):
     If the data is an Object (as it is in the above example), then subsets of the data can
     be accessed by including the object's (possibly nested) keys in the scope of a GET request.
     
-    Example {api:UsersController#get_custom_data GET} with a generated scope:
+    Example `UsersController#get_custom_data <https://github.com/instructure/canvas-lms/blob/master/app/controllers/users_controller.rb>`_ with a generated scope:
       curl 'https://<canvas>/api/v1/users/<user_id>/custom_data/a-hash/a/b' \
         -X GET \
         -F 'ns=com.my-organization.canvas-app' \
@@ -865,7 +865,7 @@ def load_custom_data(request_ctx, user_id, scope, ns, **request_kwargs):
     
     Arbitrary JSON data can be stored for a User.  This API call
     retrieves that data for a (optional) given scope.
-    See {api:UsersController#set_custom_data Store Custom Data} for details and
+    See `UsersController#set_custom_data <https://github.com/instructure/canvas-lms/blob/master/app/controllers/users_controller.rb>`_ for details and
     examples.
     
     On success, this endpoint returns an object containing the data that was requested.
@@ -902,12 +902,12 @@ def delete_custom_data(request_ctx, user_id, scope, ns, **request_kwargs):
     
     Arbitrary JSON data can be stored for a User.  This API call
     deletes that data for a given scope.  Without a scope, all custom_data is deleted.
-    See {api:UsersController#set_custom_data Store Custom Data} for details and
+    See `UsersController#set_custom_data <https://github.com/instructure/canvas-lms/blob/master/app/controllers/users_controller.rb>`_ for details and
     examples of storage and retrieval.
     
     As an example, we'll store some data, then delete a subset of it.
     
-    Example {api:UsersController#set_custom_data PUT} with valid JSON data:
+    Example `UsersController#set_custom_data <https://github.com/instructure/canvas-lms/blob/master/app/controllers/users_controller.rb>`_ with valid JSON data:
       curl 'https://<canvas>/api/v1/users/<user_id>/custom_data' \
         -X PUT \
         -F 'ns=com.my-organization.canvas-app' \
@@ -944,7 +944,7 @@ def delete_custom_data(request_ctx, user_id, scope, ns, **request_kwargs):
         "data": "a bit sour"
       }
     
-    Example {api:UsersController#get_custom_data GET} following the above DELETE:
+    Example `UsersController#get_custom_data <https://github.com/instructure/canvas-lms/blob/master/app/controllers/users_controller.rb>`_ following the above DELETE:
       curl 'https://<canvas>/api/v1/users/<user_id>/custom_data' \
         -X GET \
         -F 'ns=com.my-organization.canvas-app' \
@@ -981,7 +981,7 @@ def delete_custom_data(request_ctx, user_id, scope, ns, **request_kwargs):
         "data": "tear-jerking"
       }
     
-    Example {api:UsersController#get_custom_data GET} following the above DELETE:
+    Example `UsersController#get_custom_data <https://github.com/instructure/canvas-lms/blob/master/app/controllers/users_controller.rb>`_ following the above DELETE:
       curl 'https://<canvas>/api/v1/users/<user_id>/custom_data' \
         -X GET \
         -F 'ns=com.my-organization.canvas-app' \

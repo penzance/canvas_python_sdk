@@ -532,7 +532,7 @@ def get_content_migration_users(request_ctx, user_id, id, **request_kwargs):
     return response
 
 
-def create_content_migration_accounts(request_ctx, account_id, migration_type, pre_attachment_name, settings_file_url, pre_attachment[*]=None, settings_source_course_id=None, settings_folder_id=None, settings_overwrite_quizzes=None, settings_question_bank_id=None, settings_question_bank_name=None, date_shift_options_shift_dates=None, date_shift_options_old_start_date=None, date_shift_options_old_end_date=None, date_shift_options_new_start_date=None, date_shift_options_new_end_date=None, date_shift_options_day_substitutions=None, **request_kwargs):
+def create_content_migration_accounts(request_ctx, account_id, migration_type, pre_attachment_name, settings_file_url, pre_attachment=None, settings_source_course_id=None, settings_folder_id=None, settings_overwrite_quizzes=None, settings_question_bank_id=None, settings_question_bank_name=None, date_shift_options_shift_dates=None, date_shift_options_old_start_date=None, date_shift_options_old_end_date=None, date_shift_options_new_start_date=None, date_shift_options_new_end_date=None, date_shift_options_day_substitutions_X=None, **request_kwargs):
     """
     Create a content migration. If the migration requires a file to be uploaded
     the actual processing of the file will start once the file upload process is completed.
@@ -542,7 +542,7 @@ def create_content_migration_accounts(request_ctx, account_id, migration_type, p
     For migrations that don't require a file to be uploaded, like course copy, the
     processing will begin as soon as the migration is created.
     
-    You can use the {api:ProgressController#show Progress API} to track the
+    You can use the `ProgressController#show <https://github.com/instructure/canvas-lms/blob/master/app/controllers/progress_controller.rb>`_ to track the
     progress of the migration. The migration's progress is linked to with the
     _progress_url_ value.
     
@@ -551,14 +551,14 @@ def create_content_migration_accounts(request_ctx, account_id, migration_type, p
     If no file upload is needed:
     
     1. POST to create
-    2. Use the {api:ProgressController#show Progress} specified in _progress_url_ to monitor progress
+    2. Use the `ProgressController#show <https://github.com/instructure/canvas-lms/blob/master/app/controllers/progress_controller.rb>`_ specified in _progress_url_ to monitor progress
     
     For file uploading:
     
     1. POST to create with file info in *pre_attachment*
     2. Do {file:file_uploads.html file upload processing} using the data in the *pre_attachment* data
-    3. {api:ContentMigrationsController#show GET} the ContentMigration
-    4. Use the {api:ProgressController#show Progress} specified in _progress_url_ to monitor progress
+    3. `ContentMigrationsController#show <https://github.com/instructure/canvas-lms/blob/master/app/controllers/content_migrations_controller.rb>`_ the ContentMigration
+    4. Use the `ProgressController#show <https://github.com/instructure/canvas-lms/blob/master/app/controllers/progress_controller.rb>`_ specified in _progress_url_ to monitor progress
     
      (required if doing .zip file upload)
 
@@ -605,7 +605,7 @@ def create_content_migration_accounts(request_ctx, account_id, migration_type, p
     payload = {
         'migration_type' : migration_type,
         'pre_attachment[name]' : pre_attachment_name,
-        'pre_attachment[*]' : pre_attachment[*],
+        'pre_attachment[*]' : pre_attachment,
         'settings[file_url]' : settings_file_url,
         'settings[source_course_id]' : settings_source_course_id,
         'settings[folder_id]' : settings_folder_id,
@@ -617,7 +617,7 @@ def create_content_migration_accounts(request_ctx, account_id, migration_type, p
         'date_shift_options[old_end_date]' : date_shift_options_old_end_date,
         'date_shift_options[new_start_date]' : date_shift_options_new_start_date,
         'date_shift_options[new_end_date]' : date_shift_options_new_end_date,
-        'date_shift_options[day_substitutions][X]' : date_shift_options_day_substitutions,
+        'date_shift_options[day_substitutions][X]' : date_shift_options_day_substitutions_X,
     }
     url = request_ctx.base_api_url + path.format(account_id=account_id)
     response = client.post(request_ctx, url, payload=payload, **request_kwargs)
@@ -625,7 +625,7 @@ def create_content_migration_accounts(request_ctx, account_id, migration_type, p
     return response
 
 
-def create_content_migration_courses(request_ctx, course_id, migration_type, pre_attachment_name, settings_file_url, pre_attachment[*]=None, settings_source_course_id=None, settings_folder_id=None, settings_overwrite_quizzes=None, settings_question_bank_id=None, settings_question_bank_name=None, date_shift_options_shift_dates=None, date_shift_options_old_start_date=None, date_shift_options_old_end_date=None, date_shift_options_new_start_date=None, date_shift_options_new_end_date=None, date_shift_options_day_substitutions=None, **request_kwargs):
+def create_content_migration_courses(request_ctx, course_id, migration_type, pre_attachment_name, settings_file_url, pre_attachment=None, settings_source_course_id=None, settings_folder_id=None, settings_overwrite_quizzes=None, settings_question_bank_id=None, settings_question_bank_name=None, date_shift_options_shift_dates=None, date_shift_options_old_start_date=None, date_shift_options_old_end_date=None, date_shift_options_new_start_date=None, date_shift_options_new_end_date=None, date_shift_options_day_substitutions_X=None, **request_kwargs):
     """
     Create a content migration. If the migration requires a file to be uploaded
     the actual processing of the file will start once the file upload process is completed.
@@ -635,7 +635,7 @@ def create_content_migration_courses(request_ctx, course_id, migration_type, pre
     For migrations that don't require a file to be uploaded, like course copy, the
     processing will begin as soon as the migration is created.
     
-    You can use the {api:ProgressController#show Progress API} to track the
+    You can use the `ProgressController#show <https://github.com/instructure/canvas-lms/blob/master/app/controllers/progress_controller.rb>`_ to track the
     progress of the migration. The migration's progress is linked to with the
     _progress_url_ value.
     
@@ -644,14 +644,14 @@ def create_content_migration_courses(request_ctx, course_id, migration_type, pre
     If no file upload is needed:
     
     1. POST to create
-    2. Use the {api:ProgressController#show Progress} specified in _progress_url_ to monitor progress
+    2. Use the `ProgressController#show <https://github.com/instructure/canvas-lms/blob/master/app/controllers/progress_controller.rb>`_ specified in _progress_url_ to monitor progress
     
     For file uploading:
     
     1. POST to create with file info in *pre_attachment*
     2. Do {file:file_uploads.html file upload processing} using the data in the *pre_attachment* data
-    3. {api:ContentMigrationsController#show GET} the ContentMigration
-    4. Use the {api:ProgressController#show Progress} specified in _progress_url_ to monitor progress
+    3. `ContentMigrationsController#show <https://github.com/instructure/canvas-lms/blob/master/app/controllers/content_migrations_controller.rb>`_ the ContentMigration
+    4. Use the `ProgressController#show <https://github.com/instructure/canvas-lms/blob/master/app/controllers/progress_controller.rb>`_ specified in _progress_url_ to monitor progress
     
      (required if doing .zip file upload)
 
@@ -698,7 +698,7 @@ def create_content_migration_courses(request_ctx, course_id, migration_type, pre
     payload = {
         'migration_type' : migration_type,
         'pre_attachment[name]' : pre_attachment_name,
-        'pre_attachment[*]' : pre_attachment[*],
+        'pre_attachment[*]' : pre_attachment,
         'settings[file_url]' : settings_file_url,
         'settings[source_course_id]' : settings_source_course_id,
         'settings[folder_id]' : settings_folder_id,
@@ -710,7 +710,7 @@ def create_content_migration_courses(request_ctx, course_id, migration_type, pre
         'date_shift_options[old_end_date]' : date_shift_options_old_end_date,
         'date_shift_options[new_start_date]' : date_shift_options_new_start_date,
         'date_shift_options[new_end_date]' : date_shift_options_new_end_date,
-        'date_shift_options[day_substitutions][X]' : date_shift_options_day_substitutions,
+        'date_shift_options[day_substitutions][X]' : date_shift_options_day_substitutions_X,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id)
     response = client.post(request_ctx, url, payload=payload, **request_kwargs)
@@ -718,7 +718,7 @@ def create_content_migration_courses(request_ctx, course_id, migration_type, pre
     return response
 
 
-def create_content_migration_groups(request_ctx, group_id, migration_type, pre_attachment_name, settings_file_url, pre_attachment[*]=None, settings_source_course_id=None, settings_folder_id=None, settings_overwrite_quizzes=None, settings_question_bank_id=None, settings_question_bank_name=None, date_shift_options_shift_dates=None, date_shift_options_old_start_date=None, date_shift_options_old_end_date=None, date_shift_options_new_start_date=None, date_shift_options_new_end_date=None, date_shift_options_day_substitutions=None, **request_kwargs):
+def create_content_migration_groups(request_ctx, group_id, migration_type, pre_attachment_name, settings_file_url, pre_attachment=None, settings_source_course_id=None, settings_folder_id=None, settings_overwrite_quizzes=None, settings_question_bank_id=None, settings_question_bank_name=None, date_shift_options_shift_dates=None, date_shift_options_old_start_date=None, date_shift_options_old_end_date=None, date_shift_options_new_start_date=None, date_shift_options_new_end_date=None, date_shift_options_day_substitutions_X=None, **request_kwargs):
     """
     Create a content migration. If the migration requires a file to be uploaded
     the actual processing of the file will start once the file upload process is completed.
@@ -728,7 +728,7 @@ def create_content_migration_groups(request_ctx, group_id, migration_type, pre_a
     For migrations that don't require a file to be uploaded, like course copy, the
     processing will begin as soon as the migration is created.
     
-    You can use the {api:ProgressController#show Progress API} to track the
+    You can use the `ProgressController#show <https://github.com/instructure/canvas-lms/blob/master/app/controllers/progress_controller.rb>`_ to track the
     progress of the migration. The migration's progress is linked to with the
     _progress_url_ value.
     
@@ -737,14 +737,14 @@ def create_content_migration_groups(request_ctx, group_id, migration_type, pre_a
     If no file upload is needed:
     
     1. POST to create
-    2. Use the {api:ProgressController#show Progress} specified in _progress_url_ to monitor progress
+    2. Use the `ProgressController#show <https://github.com/instructure/canvas-lms/blob/master/app/controllers/progress_controller.rb>`_ specified in _progress_url_ to monitor progress
     
     For file uploading:
     
     1. POST to create with file info in *pre_attachment*
     2. Do {file:file_uploads.html file upload processing} using the data in the *pre_attachment* data
-    3. {api:ContentMigrationsController#show GET} the ContentMigration
-    4. Use the {api:ProgressController#show Progress} specified in _progress_url_ to monitor progress
+    3. `ContentMigrationsController#show <https://github.com/instructure/canvas-lms/blob/master/app/controllers/content_migrations_controller.rb>`_ the ContentMigration
+    4. Use the `ProgressController#show <https://github.com/instructure/canvas-lms/blob/master/app/controllers/progress_controller.rb>`_ specified in _progress_url_ to monitor progress
     
      (required if doing .zip file upload)
 
@@ -791,7 +791,7 @@ def create_content_migration_groups(request_ctx, group_id, migration_type, pre_a
     payload = {
         'migration_type' : migration_type,
         'pre_attachment[name]' : pre_attachment_name,
-        'pre_attachment[*]' : pre_attachment[*],
+        'pre_attachment[*]' : pre_attachment,
         'settings[file_url]' : settings_file_url,
         'settings[source_course_id]' : settings_source_course_id,
         'settings[folder_id]' : settings_folder_id,
@@ -803,7 +803,7 @@ def create_content_migration_groups(request_ctx, group_id, migration_type, pre_a
         'date_shift_options[old_end_date]' : date_shift_options_old_end_date,
         'date_shift_options[new_start_date]' : date_shift_options_new_start_date,
         'date_shift_options[new_end_date]' : date_shift_options_new_end_date,
-        'date_shift_options[day_substitutions][X]' : date_shift_options_day_substitutions,
+        'date_shift_options[day_substitutions][X]' : date_shift_options_day_substitutions_X,
     }
     url = request_ctx.base_api_url + path.format(group_id=group_id)
     response = client.post(request_ctx, url, payload=payload, **request_kwargs)
@@ -811,7 +811,7 @@ def create_content_migration_groups(request_ctx, group_id, migration_type, pre_a
     return response
 
 
-def create_content_migration_users(request_ctx, user_id, migration_type, pre_attachment_name, settings_file_url, pre_attachment[*]=None, settings_source_course_id=None, settings_folder_id=None, settings_overwrite_quizzes=None, settings_question_bank_id=None, settings_question_bank_name=None, date_shift_options_shift_dates=None, date_shift_options_old_start_date=None, date_shift_options_old_end_date=None, date_shift_options_new_start_date=None, date_shift_options_new_end_date=None, date_shift_options_day_substitutions=None, **request_kwargs):
+def create_content_migration_users(request_ctx, user_id, migration_type, pre_attachment_name, settings_file_url, pre_attachment=None, settings_source_course_id=None, settings_folder_id=None, settings_overwrite_quizzes=None, settings_question_bank_id=None, settings_question_bank_name=None, date_shift_options_shift_dates=None, date_shift_options_old_start_date=None, date_shift_options_old_end_date=None, date_shift_options_new_start_date=None, date_shift_options_new_end_date=None, date_shift_options_day_substitutions_X=None, **request_kwargs):
     """
     Create a content migration. If the migration requires a file to be uploaded
     the actual processing of the file will start once the file upload process is completed.
@@ -821,7 +821,7 @@ def create_content_migration_users(request_ctx, user_id, migration_type, pre_att
     For migrations that don't require a file to be uploaded, like course copy, the
     processing will begin as soon as the migration is created.
     
-    You can use the {api:ProgressController#show Progress API} to track the
+    You can use the `ProgressController#show <https://github.com/instructure/canvas-lms/blob/master/app/controllers/progress_controller.rb>`_ to track the
     progress of the migration. The migration's progress is linked to with the
     _progress_url_ value.
     
@@ -830,14 +830,14 @@ def create_content_migration_users(request_ctx, user_id, migration_type, pre_att
     If no file upload is needed:
     
     1. POST to create
-    2. Use the {api:ProgressController#show Progress} specified in _progress_url_ to monitor progress
+    2. Use the `ProgressController#show <https://github.com/instructure/canvas-lms/blob/master/app/controllers/progress_controller.rb>`_ specified in _progress_url_ to monitor progress
     
     For file uploading:
     
     1. POST to create with file info in *pre_attachment*
     2. Do {file:file_uploads.html file upload processing} using the data in the *pre_attachment* data
-    3. {api:ContentMigrationsController#show GET} the ContentMigration
-    4. Use the {api:ProgressController#show Progress} specified in _progress_url_ to monitor progress
+    3. `ContentMigrationsController#show <https://github.com/instructure/canvas-lms/blob/master/app/controllers/content_migrations_controller.rb>`_ the ContentMigration
+    4. Use the `ProgressController#show <https://github.com/instructure/canvas-lms/blob/master/app/controllers/progress_controller.rb>`_ specified in _progress_url_ to monitor progress
     
      (required if doing .zip file upload)
 
@@ -884,7 +884,7 @@ def create_content_migration_users(request_ctx, user_id, migration_type, pre_att
     payload = {
         'migration_type' : migration_type,
         'pre_attachment[name]' : pre_attachment_name,
-        'pre_attachment[*]' : pre_attachment[*],
+        'pre_attachment[*]' : pre_attachment,
         'settings[file_url]' : settings_file_url,
         'settings[source_course_id]' : settings_source_course_id,
         'settings[folder_id]' : settings_folder_id,
@@ -896,7 +896,7 @@ def create_content_migration_users(request_ctx, user_id, migration_type, pre_att
         'date_shift_options[old_end_date]' : date_shift_options_old_end_date,
         'date_shift_options[new_start_date]' : date_shift_options_new_start_date,
         'date_shift_options[new_end_date]' : date_shift_options_new_end_date,
-        'date_shift_options[day_substitutions][X]' : date_shift_options_day_substitutions,
+        'date_shift_options[day_substitutions][X]' : date_shift_options_day_substitutions_X,
     }
     url = request_ctx.base_api_url + path.format(user_id=user_id)
     response = client.post(request_ctx, url, payload=payload, **request_kwargs)

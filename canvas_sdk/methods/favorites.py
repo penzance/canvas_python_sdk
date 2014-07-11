@@ -5,7 +5,7 @@ def list_favorite_courses(request_ctx, per_page=None, **request_kwargs):
     Retrieve the list of favorite courses for the current user. If the user has not chosen
     any favorites, then a selection of currently enrolled courses will be returned.
     
-    See the {api:CoursesController#index List courses API} for details on accepted include[] parameters.
+    See the `CoursesController#index <https://github.com/instructure/canvas-lms/blob/master/app/controllers/courses_controller.rb>`_ for details on accepted include[] parameters.
 
         :param request_ctx: The request context
         :type request_ctx: :class:RequestContext

@@ -1,0 +1,387 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>canvas_sdk.methods.custom_gradebook_columns module &mdash; Canvas_SDK 0.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Canvas_SDK 0.0.1 documentation" href="index.html" />
+    <link rel="up" title="canvas_sdk.methods package" href="canvas_sdk.methods.html" />
+    <link rel="next" title="canvas_sdk.methods.discussion_topics module" href="canvas_sdk.methods.discussion_topics.html" />
+    <link rel="prev" title="canvas_sdk.methods.courses module" href="canvas_sdk.methods.courses.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="canvas_sdk.methods.discussion_topics.html" title="canvas_sdk.methods.discussion_topics module"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="canvas_sdk.methods.courses.html" title="canvas_sdk.methods.courses module"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Canvas_SDK 0.0.1 documentation</a> &raquo;</li>
+          <li><a href="canvas_sdk.html" >canvas_sdk package</a> &raquo;</li>
+          <li><a href="canvas_sdk.methods.html" accesskey="U">canvas_sdk.methods package</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-canvas_sdk.methods.custom_gradebook_columns">
+<span id="canvas-sdk-methods-custom-gradebook-columns-module"></span><h1>canvas_sdk.methods.custom_gradebook_columns module<a class="headerlink" href="#module-canvas_sdk.methods.custom_gradebook_columns" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="canvas_sdk.methods.custom_gradebook_columns.create_custom_gradebook_column">
+<tt class="descclassname">canvas_sdk.methods.custom_gradebook_columns.</tt><tt class="descname">create_custom_gradebook_column</tt><big>(</big><em>request_ctx</em>, <em>course_id</em>, <em>column_title</em>, <em>column_position</em>, <em>column_hidden=None</em>, <em>column_teacher_notes=None</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/custom_gradebook_columns.html#create_custom_gradebook_column"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.custom_gradebook_columns.create_custom_gradebook_column" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a custom gradebook column</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param course_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type course_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param column_title:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) no description</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type column_title:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param column_position:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) The position of the column relative to other custom columns</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type column_position:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">int</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param column_hidden:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) Hidden columns are not displayed in the gradebook</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type column_hidden:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">boolean or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param column_teacher_notes:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) Set this if the column is created by a teacher. The gradebook only supports one teacher_notes column.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type column_teacher_notes:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">boolean or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Create a custom gradebook column</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with CustomColumn data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.custom_gradebook_columns.delete_custom_gradebook_column">
+<tt class="descclassname">canvas_sdk.methods.custom_gradebook_columns.</tt><tt class="descname">delete_custom_gradebook_column</tt><big>(</big><em>request_ctx</em>, <em>course_id</em>, <em>id</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/custom_gradebook_columns.html#delete_custom_gradebook_column"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.custom_gradebook_columns.delete_custom_gradebook_column" title="Permalink to this definition">¶</a></dt>
+<dd><p>Permanently deletes a custom column and its associated data</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param course_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type course_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Delete a custom gradebook column</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with CustomColumn data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.custom_gradebook_columns.list_custom_gradebook_columns">
+<tt class="descclassname">canvas_sdk.methods.custom_gradebook_columns.</tt><tt class="descname">list_custom_gradebook_columns</tt><big>(</big><em>request_ctx</em>, <em>course_id</em>, <em>per_page=None</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/custom_gradebook_columns.html#list_custom_gradebook_columns"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.custom_gradebook_columns.list_custom_gradebook_columns" title="Permalink to this definition">¶</a></dt>
+<dd><p>List all custom gradebook columns for a course</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param course_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type course_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param per_page:</th><td class="field-body">(optional) Set how many results canvas should return, defaults to config.LIMIT_PER_PAGE</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type per_page:</th><td class="field-body">integer or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">List custom gradebook columns</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with array data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.custom_gradebook_columns.list_entries_for_column">
+<tt class="descclassname">canvas_sdk.methods.custom_gradebook_columns.</tt><tt class="descname">list_entries_for_column</tt><big>(</big><em>request_ctx</em>, <em>course_id</em>, <em>id</em>, <em>per_page=None</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/custom_gradebook_columns.html#list_entries_for_column"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.custom_gradebook_columns.list_entries_for_column" title="Permalink to this definition">¶</a></dt>
+<dd><p>This does not list entries for students without associated data.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param course_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type course_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param per_page:</th><td class="field-body">(optional) Set how many results canvas should return, defaults to config.LIMIT_PER_PAGE</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type per_page:</th><td class="field-body">integer or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">List entries for a column</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with array data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.custom_gradebook_columns.reorder_custom_columns">
+<tt class="descclassname">canvas_sdk.methods.custom_gradebook_columns.</tt><tt class="descname">reorder_custom_columns</tt><big>(</big><em>request_ctx</em>, <em>course_id</em>, <em>order</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/custom_gradebook_columns.html#reorder_custom_columns"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.custom_gradebook_columns.reorder_custom_columns" title="Permalink to this definition">¶</a></dt>
+<dd><p>Puts the given columns in the specified order</p>
+<p>&lt;b&gt;200 OK&lt;/b&gt; is returned if successful</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param course_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type course_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param order:</th><td class="field-body">(required) no description</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type order:</th><td class="field-body">integer</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Reorder custom columns</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with void data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.custom_gradebook_columns.update_column_data">
+<tt class="descclassname">canvas_sdk.methods.custom_gradebook_columns.</tt><tt class="descname">update_column_data</tt><big>(</big><em>request_ctx</em>, <em>course_id</em>, <em>id</em>, <em>user_id</em>, <em>column_data_content</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/custom_gradebook_columns.html#update_column_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.custom_gradebook_columns.update_column_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the content of a custom column</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param course_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type course_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param user_id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type user_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param column_data_content:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) Column content. Setting this to blank will delete the datum object.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type column_data_content:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Update column data</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with ColumnDatum data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.custom_gradebook_columns.update_custom_gradebook_column">
+<tt class="descclassname">canvas_sdk.methods.custom_gradebook_columns.</tt><tt class="descname">update_custom_gradebook_column</tt><big>(</big><em>request_ctx</em>, <em>course_id</em>, <em>id</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/custom_gradebook_columns.html#update_custom_gradebook_column"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.custom_gradebook_columns.update_custom_gradebook_column" title="Permalink to this definition">¶</a></dt>
+<dd><p>Accepts the same parameters as custom gradebook column creation</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param course_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type course_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Update a custom gradebook column</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with CustomColumn data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="canvas_sdk.methods.courses.html"
+                        title="previous chapter">canvas_sdk.methods.courses module</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="canvas_sdk.methods.discussion_topics.html"
+                        title="next chapter">canvas_sdk.methods.discussion_topics module</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/canvas_sdk.methods.custom_gradebook_columns.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="canvas_sdk.methods.discussion_topics.html" title="canvas_sdk.methods.discussion_topics module"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="canvas_sdk.methods.courses.html" title="canvas_sdk.methods.courses module"
+             >previous</a> |</li>
+        <li><a href="index.html">Canvas_SDK 0.0.1 documentation</a> &raquo;</li>
+          <li><a href="canvas_sdk.html" >canvas_sdk package</a> &raquo;</li>
+          <li><a href="canvas_sdk.methods.html" >canvas_sdk.methods package</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, Harvard.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

@@ -251,7 +251,7 @@ def show_module_item(request_ctx, course_id, module_id, id, include, student_id=
     return response
 
 
-def create_module_item(request_ctx, course_id, module_id, module_item_type, module_item_content_id, module_item_page_url, module_item_external_url, module_item_completion_requirement, module_item_title=None, module_item_position=None, module_item_indent=None, module_item_new_tab=None, module_item_completion_requirement=None, **request_kwargs):
+def create_module_item(request_ctx, course_id, module_id, module_item_type, module_item_content_id, module_item_page_url, module_item_external_url, module_item_completion_requirement_min_score, module_item_title=None, module_item_position=None, module_item_indent=None, module_item_new_tab=None, module_item_completion_requirement_type=None, **request_kwargs):
     """
     Create and return a new module item
 
@@ -300,8 +300,8 @@ def create_module_item(request_ctx, course_id, module_id, module_item_type, modu
         'module_item[page_url]' : module_item_page_url,
         'module_item[external_url]' : module_item_external_url,
         'module_item[new_tab]' : module_item_new_tab,
-        'module_item[completion_requirement][type]' : module_item_completion_requirement,
-        'module_item[completion_requirement][min_score]' : module_item_completion_requirement,
+        'module_item[completion_requirement][type]' : module_item_completion_requirement_type,
+        'module_item[completion_requirement][min_score]' : module_item_completion_requirement_min_score,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id, module_id=module_id)
     response = client.post(request_ctx, url, payload=payload, **request_kwargs)
@@ -309,7 +309,7 @@ def create_module_item(request_ctx, course_id, module_id, module_item_type, modu
     return response
 
 
-def update_module_item(request_ctx, course_id, module_id, id, module_item_completion_requirement, module_item_title=None, module_item_position=None, module_item_indent=None, module_item_external_url=None, module_item_new_tab=None, module_item_completion_requirement=None, module_item_published=None, module_item_module_id=None, **request_kwargs):
+def update_module_item(request_ctx, course_id, module_id, id, module_item_completion_requirement_min_score, module_item_title=None, module_item_position=None, module_item_indent=None, module_item_external_url=None, module_item_new_tab=None, module_item_completion_requirement_type=None, module_item_published=None, module_item_module_id=None, **request_kwargs):
     """
     Update and return an existing module item
 
@@ -353,8 +353,8 @@ def update_module_item(request_ctx, course_id, module_id, id, module_item_comple
         'module_item[indent]' : module_item_indent,
         'module_item[external_url]' : module_item_external_url,
         'module_item[new_tab]' : module_item_new_tab,
-        'module_item[completion_requirement][type]' : module_item_completion_requirement,
-        'module_item[completion_requirement][min_score]' : module_item_completion_requirement,
+        'module_item[completion_requirement][type]' : module_item_completion_requirement_type,
+        'module_item[completion_requirement][min_score]' : module_item_completion_requirement_min_score,
         'module_item[published]' : module_item_published,
         'module_item[module_id]' : module_item_module_id,
     }

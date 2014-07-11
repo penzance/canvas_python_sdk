@@ -1,0 +1,990 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>canvas_sdk.methods.files module &mdash; Canvas_SDK 0.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Canvas_SDK 0.0.1 documentation" href="index.html" />
+    <link rel="up" title="canvas_sdk.methods package" href="canvas_sdk.methods.html" />
+    <link rel="next" title="canvas_sdk.methods.grade_change_log module" href="canvas_sdk.methods.grade_change_log.html" />
+    <link rel="prev" title="canvas_sdk.methods.feature_flags module" href="canvas_sdk.methods.feature_flags.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="canvas_sdk.methods.grade_change_log.html" title="canvas_sdk.methods.grade_change_log module"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="canvas_sdk.methods.feature_flags.html" title="canvas_sdk.methods.feature_flags module"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Canvas_SDK 0.0.1 documentation</a> &raquo;</li>
+          <li><a href="canvas_sdk.html" >canvas_sdk package</a> &raquo;</li>
+          <li><a href="canvas_sdk.methods.html" accesskey="U">canvas_sdk.methods package</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-canvas_sdk.methods.files">
+<span id="canvas-sdk-methods-files-module"></span><h1>canvas_sdk.methods.files module<a class="headerlink" href="#module-canvas_sdk.methods.files" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="canvas_sdk.methods.files.create_folder_courses">
+<tt class="descclassname">canvas_sdk.methods.files.</tt><tt class="descname">create_folder_courses</tt><big>(</big><em>request_ctx</em>, <em>course_id</em>, <em>name</em>, <em>parent_folder_id</em>, <em>parent_folder_path</em>, <em>lock_at</em>, <em>unlock_at</em>, <em>locked</em>, <em>hidden</em>, <em>position</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/files.html#create_folder_courses"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.files.create_folder_courses" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a folder in the specified context</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param course_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type course_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param name:</th><td class="field-body">(required) The name of the folder</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type name:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param parent_folder_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) The id of the folder to store the file in. If this and parent_folder_path are sent an error will be returned. If neither is given, a default folder will be used.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type parent_folder_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param parent_folder_path:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) The path of the folder to store the new folder in. The path separator is the forward slash <cite>/</cite>, never a back slash. The parent folder will be created if it does not already exist. This parameter only applies to new folders in a context that has folders, such as a user, a course, or a group. If this and parent_folder_id are sent an error will be returned. If neither is given, a default folder will be used.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type parent_folder_path:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param lock_at:</th><td class="field-body">(required) The datetime to lock the folder at</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type lock_at:</th><td class="field-body">datetime</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param unlock_at:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) The datetime to unlock the folder at</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type unlock_at:</th><td class="field-body">datetime</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param locked:</th><td class="field-body">(required) Flag the folder as locked</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type locked:</th><td class="field-body">boolean</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param hidden:</th><td class="field-body">(required) Flag the folder as hidden</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type hidden:</th><td class="field-body">boolean</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param position:</th><td class="field-body">(required) Set an explicit sort position for the folder</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type position:</th><td class="field-body">integer</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Create folder</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with Folder data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.files.create_folder_folders">
+<tt class="descclassname">canvas_sdk.methods.files.</tt><tt class="descname">create_folder_folders</tt><big>(</big><em>request_ctx</em>, <em>folder_id</em>, <em>name</em>, <em>parent_folder_id</em>, <em>parent_folder_path</em>, <em>lock_at</em>, <em>unlock_at</em>, <em>locked</em>, <em>hidden</em>, <em>position</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/files.html#create_folder_folders"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.files.create_folder_folders" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a folder in the specified context</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param folder_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type folder_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param name:</th><td class="field-body">(required) The name of the folder</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type name:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param parent_folder_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) The id of the folder to store the file in. If this and parent_folder_path are sent an error will be returned. If neither is given, a default folder will be used.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type parent_folder_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param parent_folder_path:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) The path of the folder to store the new folder in. The path separator is the forward slash <cite>/</cite>, never a back slash. The parent folder will be created if it does not already exist. This parameter only applies to new folders in a context that has folders, such as a user, a course, or a group. If this and parent_folder_id are sent an error will be returned. If neither is given, a default folder will be used.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type parent_folder_path:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param lock_at:</th><td class="field-body">(required) The datetime to lock the folder at</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type lock_at:</th><td class="field-body">datetime</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param unlock_at:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) The datetime to unlock the folder at</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type unlock_at:</th><td class="field-body">datetime</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param locked:</th><td class="field-body">(required) Flag the folder as locked</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type locked:</th><td class="field-body">boolean</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param hidden:</th><td class="field-body">(required) Flag the folder as hidden</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type hidden:</th><td class="field-body">boolean</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param position:</th><td class="field-body">(required) Set an explicit sort position for the folder</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type position:</th><td class="field-body">integer</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Create folder</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with Folder data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.files.create_folder_groups">
+<tt class="descclassname">canvas_sdk.methods.files.</tt><tt class="descname">create_folder_groups</tt><big>(</big><em>request_ctx</em>, <em>group_id</em>, <em>name</em>, <em>parent_folder_id</em>, <em>parent_folder_path</em>, <em>lock_at</em>, <em>unlock_at</em>, <em>locked</em>, <em>hidden</em>, <em>position</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/files.html#create_folder_groups"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.files.create_folder_groups" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a folder in the specified context</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param group_id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type group_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param name:</th><td class="field-body">(required) The name of the folder</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type name:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param parent_folder_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) The id of the folder to store the file in. If this and parent_folder_path are sent an error will be returned. If neither is given, a default folder will be used.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type parent_folder_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param parent_folder_path:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) The path of the folder to store the new folder in. The path separator is the forward slash <cite>/</cite>, never a back slash. The parent folder will be created if it does not already exist. This parameter only applies to new folders in a context that has folders, such as a user, a course, or a group. If this and parent_folder_id are sent an error will be returned. If neither is given, a default folder will be used.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type parent_folder_path:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param lock_at:</th><td class="field-body">(required) The datetime to lock the folder at</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type lock_at:</th><td class="field-body">datetime</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param unlock_at:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) The datetime to unlock the folder at</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type unlock_at:</th><td class="field-body">datetime</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param locked:</th><td class="field-body">(required) Flag the folder as locked</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type locked:</th><td class="field-body">boolean</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param hidden:</th><td class="field-body">(required) Flag the folder as hidden</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type hidden:</th><td class="field-body">boolean</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param position:</th><td class="field-body">(required) Set an explicit sort position for the folder</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type position:</th><td class="field-body">integer</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Create folder</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with Folder data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.files.create_folder_users">
+<tt class="descclassname">canvas_sdk.methods.files.</tt><tt class="descname">create_folder_users</tt><big>(</big><em>request_ctx</em>, <em>user_id</em>, <em>name</em>, <em>parent_folder_id</em>, <em>parent_folder_path</em>, <em>lock_at</em>, <em>unlock_at</em>, <em>locked</em>, <em>hidden</em>, <em>position</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/files.html#create_folder_users"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.files.create_folder_users" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a folder in the specified context</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param user_id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type user_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param name:</th><td class="field-body">(required) The name of the folder</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type name:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param parent_folder_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) The id of the folder to store the file in. If this and parent_folder_path are sent an error will be returned. If neither is given, a default folder will be used.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type parent_folder_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param parent_folder_path:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) The path of the folder to store the new folder in. The path separator is the forward slash <cite>/</cite>, never a back slash. The parent folder will be created if it does not already exist. This parameter only applies to new folders in a context that has folders, such as a user, a course, or a group. If this and parent_folder_id are sent an error will be returned. If neither is given, a default folder will be used.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type parent_folder_path:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param lock_at:</th><td class="field-body">(required) The datetime to lock the folder at</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type lock_at:</th><td class="field-body">datetime</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param unlock_at:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) The datetime to unlock the folder at</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type unlock_at:</th><td class="field-body">datetime</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param locked:</th><td class="field-body">(required) Flag the folder as locked</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type locked:</th><td class="field-body">boolean</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param hidden:</th><td class="field-body">(required) Flag the folder as hidden</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type hidden:</th><td class="field-body">boolean</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param position:</th><td class="field-body">(required) Set an explicit sort position for the folder</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type position:</th><td class="field-body">integer</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Create folder</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with Folder data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.files.delete_file">
+<tt class="descclassname">canvas_sdk.methods.files.</tt><tt class="descname">delete_file</tt><big>(</big><em>request_ctx</em>, <em>id</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/files.html#delete_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.files.delete_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove the specified file</p>
+<blockquote>
+<div><p>curl -XDELETE &#8216;<a class="reference external" href="https:/">https:/</a>/&lt;canvas&gt;/api/v1/files/&lt;file_id&gt;&#8217;            -H &#8216;Authorization: Bearer &lt;token&gt;&#8217;</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Delete file</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with void data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.files.delete_folder">
+<tt class="descclassname">canvas_sdk.methods.files.</tt><tt class="descname">delete_folder</tt><big>(</big><em>request_ctx</em>, <em>id</em>, <em>force</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/files.html#delete_folder"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.files.delete_folder" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove the specified folder. You can only delete empty folders unless you
+set the &#8216;force&#8217; flag</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param force:</th><td class="field-body">(required) Set to &#8216;true&#8217; to allow deleting a non-empty folder</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type force:</th><td class="field-body">boolean</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Delete folder</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with void data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.files.get_file">
+<tt class="descclassname">canvas_sdk.methods.files.</tt><tt class="descname">get_file</tt><big>(</big><em>request_ctx</em>, <em>id</em>, <em>include=None</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/files.html#get_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.files.get_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the standard attachment json object</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param include:</th><td class="field-body">(optional) Array of additional information to include. &#8220;user&#8221;:: the user who uploaded the file or last edited its content</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type include:</th><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Get file</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with File data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.files.get_folder_courses">
+<tt class="descclassname">canvas_sdk.methods.files.</tt><tt class="descname">get_folder_courses</tt><big>(</big><em>request_ctx</em>, <em>course_id</em>, <em>id</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/files.html#get_folder_courses"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.files.get_folder_courses" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the details for a folder</p>
+<p>You can get the root folder from a context by using &#8216;root&#8217; as the :id.
+For example, you could get the root folder for a course like:</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param course_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type course_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Get folder</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with Folder data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.files.get_folder_folders">
+<tt class="descclassname">canvas_sdk.methods.files.</tt><tt class="descname">get_folder_folders</tt><big>(</big><em>request_ctx</em>, <em>id</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/files.html#get_folder_folders"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.files.get_folder_folders" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the details for a folder</p>
+<p>You can get the root folder from a context by using &#8216;root&#8217; as the :id.
+For example, you could get the root folder for a course like:</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Get folder</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with Folder data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.files.get_folder_groups">
+<tt class="descclassname">canvas_sdk.methods.files.</tt><tt class="descname">get_folder_groups</tt><big>(</big><em>request_ctx</em>, <em>group_id</em>, <em>id</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/files.html#get_folder_groups"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.files.get_folder_groups" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the details for a folder</p>
+<p>You can get the root folder from a context by using &#8216;root&#8217; as the :id.
+For example, you could get the root folder for a course like:</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param group_id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type group_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Get folder</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with Folder data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.files.get_folder_users">
+<tt class="descclassname">canvas_sdk.methods.files.</tt><tt class="descname">get_folder_users</tt><big>(</big><em>request_ctx</em>, <em>user_id</em>, <em>id</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/files.html#get_folder_users"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.files.get_folder_users" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the details for a folder</p>
+<p>You can get the root folder from a context by using &#8216;root&#8217; as the :id.
+For example, you could get the root folder for a course like:</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param user_id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type user_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Get folder</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with Folder data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.files.get_quota_information_courses">
+<tt class="descclassname">canvas_sdk.methods.files.</tt><tt class="descname">get_quota_information_courses</tt><big>(</big><em>request_ctx</em>, <em>course_id</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/files.html#get_quota_information_courses"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.files.get_quota_information_courses" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the total and used storage quota for the course, group, or user.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param course_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type course_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Get quota information</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with void data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.files.get_quota_information_groups">
+<tt class="descclassname">canvas_sdk.methods.files.</tt><tt class="descname">get_quota_information_groups</tt><big>(</big><em>request_ctx</em>, <em>group_id</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/files.html#get_quota_information_groups"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.files.get_quota_information_groups" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the total and used storage quota for the course, group, or user.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param group_id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type group_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Get quota information</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with void data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.files.get_quota_information_users">
+<tt class="descclassname">canvas_sdk.methods.files.</tt><tt class="descname">get_quota_information_users</tt><big>(</big><em>request_ctx</em>, <em>user_id</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/files.html#get_quota_information_users"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.files.get_quota_information_users" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the total and used storage quota for the course, group, or user.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param user_id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type user_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Get quota information</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with void data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.files.list_files_courses">
+<tt class="descclassname">canvas_sdk.methods.files.</tt><tt class="descname">list_files_courses</tt><big>(</big><em>request_ctx</em>, <em>course_id</em>, <em>content_types=None</em>, <em>search_term=None</em>, <em>include=None</em>, <em>sort=None</em>, <em>order=None</em>, <em>per_page=None</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/files.html#list_files_courses"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.files.list_files_courses" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the paginated list of files for the folder or course.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param course_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type course_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param content_types:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) Filter results by content-type. You can specify type/subtype pairs (e.g., &#8216;image/jpeg&#8217;), or simply types (e.g., &#8216;image&#8217;, which will match &#8216;image/gif&#8217;, &#8216;image/jpeg&#8217;, etc.).</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type content_types:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param search_term:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) The partial name of the files to match and return.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type search_term:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param include:</th><td class="field-body">(optional) Array of additional information to include. &#8220;user&#8221;:: the user who uploaded the file or last edited its content</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type include:</th><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param sort:</th><td class="field-body">(optional) Sort results by this field. Defaults to &#8216;name&#8217;. Note that <cite>sort=user</cite> implies <cite>include[]=user</cite>.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type sort:</th><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param order:</th><td class="field-body">(optional) The sorting order. Defaults to &#8216;asc&#8217;.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type order:</th><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param per_page:</th><td class="field-body">(optional) Set how many results canvas should return, defaults to config.LIMIT_PER_PAGE</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type per_page:</th><td class="field-body">integer or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">List files</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with array data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.files.list_files_folders">
+<tt class="descclassname">canvas_sdk.methods.files.</tt><tt class="descname">list_files_folders</tt><big>(</big><em>request_ctx</em>, <em>id</em>, <em>content_types=None</em>, <em>search_term=None</em>, <em>include=None</em>, <em>sort=None</em>, <em>order=None</em>, <em>per_page=None</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/files.html#list_files_folders"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.files.list_files_folders" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the paginated list of files for the folder or course.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param content_types:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) Filter results by content-type. You can specify type/subtype pairs (e.g., &#8216;image/jpeg&#8217;), or simply types (e.g., &#8216;image&#8217;, which will match &#8216;image/gif&#8217;, &#8216;image/jpeg&#8217;, etc.).</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type content_types:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param search_term:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) The partial name of the files to match and return.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type search_term:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param include:</th><td class="field-body">(optional) Array of additional information to include. &#8220;user&#8221;:: the user who uploaded the file or last edited its content</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type include:</th><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param sort:</th><td class="field-body">(optional) Sort results by this field. Defaults to &#8216;name&#8217;. Note that <cite>sort=user</cite> implies <cite>include[]=user</cite>.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type sort:</th><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param order:</th><td class="field-body">(optional) The sorting order. Defaults to &#8216;asc&#8217;.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type order:</th><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param per_page:</th><td class="field-body">(optional) Set how many results canvas should return, defaults to config.LIMIT_PER_PAGE</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type per_page:</th><td class="field-body">integer or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">List files</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with array data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.files.list_folders">
+<tt class="descclassname">canvas_sdk.methods.files.</tt><tt class="descname">list_folders</tt><big>(</big><em>request_ctx</em>, <em>id</em>, <em>per_page=None</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/files.html#list_folders"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.files.list_folders" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the paginated list of folders in the folder.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param per_page:</th><td class="field-body">(optional) Set how many results canvas should return, defaults to config.LIMIT_PER_PAGE</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type per_page:</th><td class="field-body">integer or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">List folders</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with array data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.files.update_file">
+<tt class="descclassname">canvas_sdk.methods.files.</tt><tt class="descname">update_file</tt><big>(</big><em>request_ctx</em>, <em>id</em>, <em>name</em>, <em>parent_folder_id</em>, <em>lock_at</em>, <em>unlock_at</em>, <em>locked</em>, <em>hidden</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/files.html#update_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.files.update_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update some settings on the specified file</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param name:</th><td class="field-body">(required) The new display name of the file</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type name:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param parent_folder_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) The id of the folder to move this file into. The new folder must be in the same context as the original parent folder. If the file is in a context without folders this does not apply.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type parent_folder_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param lock_at:</th><td class="field-body">(required) The datetime to lock the file at</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type lock_at:</th><td class="field-body">datetime</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param unlock_at:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) The datetime to unlock the file at</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type unlock_at:</th><td class="field-body">datetime</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param locked:</th><td class="field-body">(required) Flag the file as locked</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type locked:</th><td class="field-body">boolean</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param hidden:</th><td class="field-body">(required) Flag the file as hidden</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type hidden:</th><td class="field-body">boolean</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Update file</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with File data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.files.update_folder">
+<tt class="descclassname">canvas_sdk.methods.files.</tt><tt class="descname">update_folder</tt><big>(</big><em>request_ctx</em>, <em>id</em>, <em>name</em>, <em>parent_folder_id</em>, <em>lock_at</em>, <em>unlock_at</em>, <em>locked</em>, <em>hidden</em>, <em>position</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/files.html#update_folder"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.files.update_folder" title="Permalink to this definition">¶</a></dt>
+<dd><p>Updates a folder</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param name:</th><td class="field-body">(required) The new name of the folder</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type name:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param parent_folder_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) The id of the folder to move this folder into. The new folder must be in the same context as the original parent folder.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type parent_folder_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param lock_at:</th><td class="field-body">(required) The datetime to lock the folder at</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type lock_at:</th><td class="field-body">datetime</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param unlock_at:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) The datetime to unlock the folder at</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type unlock_at:</th><td class="field-body">datetime</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param locked:</th><td class="field-body">(required) Flag the folder as locked</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type locked:</th><td class="field-body">boolean</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param hidden:</th><td class="field-body">(required) Flag the folder as hidden</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type hidden:</th><td class="field-body">boolean</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param position:</th><td class="field-body">(required) Set an explicit sort position for the folder</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type position:</th><td class="field-body">integer</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Update folder</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with Folder data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.files.upload_file">
+<tt class="descclassname">canvas_sdk.methods.files.</tt><tt class="descname">upload_file</tt><big>(</big><em>request_ctx</em>, <em>folder_id</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/files.html#upload_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.files.upload_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Upload a file to a folder.</p>
+<p>This API endpoint is the first step in uploading a file.
+See the {<a class="reference external" href="file:file_uploads.html">file:file_uploads.html</a> File Upload Documentation} for details on
+the file upload workflow.</p>
+<p>Only those with the &#8220;Manage Files&#8221; permission on a course or group can
+upload files to a folder in that course or group.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param folder_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type folder_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Upload a file</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with void data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="canvas_sdk.methods.feature_flags.html"
+                        title="previous chapter">canvas_sdk.methods.feature_flags module</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="canvas_sdk.methods.grade_change_log.html"
+                        title="next chapter">canvas_sdk.methods.grade_change_log module</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/canvas_sdk.methods.files.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="canvas_sdk.methods.grade_change_log.html" title="canvas_sdk.methods.grade_change_log module"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="canvas_sdk.methods.feature_flags.html" title="canvas_sdk.methods.feature_flags module"
+             >previous</a> |</li>
+        <li><a href="index.html">Canvas_SDK 0.0.1 documentation</a> &raquo;</li>
+          <li><a href="canvas_sdk.html" >canvas_sdk package</a> &raquo;</li>
+          <li><a href="canvas_sdk.methods.html" >canvas_sdk.methods package</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, Harvard.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

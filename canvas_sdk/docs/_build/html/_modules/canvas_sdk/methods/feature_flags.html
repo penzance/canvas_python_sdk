@@ -1,0 +1,488 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>canvas_sdk.methods.feature_flags &mdash; Canvas_SDK 0.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="top" title="Canvas_SDK 0.0.1 documentation" href="../../../index.html" />
+    <link rel="up" title="Module code" href="../../index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../../index.html">Canvas_SDK 0.0.1 documentation</a> &raquo;</li>
+          <li><a href="../../index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for canvas_sdk.methods.feature_flags</h1><div class="highlight"><pre>
+<span class="kn">from</span> <span class="nn">canvas_sdk</span> <span class="kn">import</span> <span class="n">client</span><span class="p">,</span> <span class="n">utils</span>
+
+<div class="viewcode-block" id="list_features_courses"><a class="viewcode-back" href="../../../canvas_sdk.methods.feature_flags.html#canvas_sdk.methods.feature_flags.list_features_courses">[docs]</a><span class="k">def</span> <span class="nf">list_features_courses</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">course_id</span><span class="p">,</span> <span class="n">per_page</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    List all features that apply to a given Account, Course, or User.</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param course_id: (required) ID</span>
+<span class="sd">        :type course_id: string</span>
+<span class="sd">        :param per_page: (optional) Set how many results canvas should return, defaults to config.LIMIT_PER_PAGE</span>
+<span class="sd">        :type per_page: integer or None</span>
+<span class="sd">        :return: List features</span>
+<span class="sd">        :rtype: requests.Response (with array data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">per_page</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="n">per_page</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">per_page</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/courses/{course_id}/features&#39;</span>
+    <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s">&#39;per_page&#39;</span> <span class="p">:</span> <span class="n">per_page</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">course_id</span><span class="o">=</span><span class="n">course_id</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="n">payload</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+
+</div>
+<div class="viewcode-block" id="list_features_accounts"><a class="viewcode-back" href="../../../canvas_sdk.methods.feature_flags.html#canvas_sdk.methods.feature_flags.list_features_accounts">[docs]</a><span class="k">def</span> <span class="nf">list_features_accounts</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">account_id</span><span class="p">,</span> <span class="n">per_page</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    List all features that apply to a given Account, Course, or User.</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param account_id: (required) ID</span>
+<span class="sd">        :type account_id: string</span>
+<span class="sd">        :param per_page: (optional) Set how many results canvas should return, defaults to config.LIMIT_PER_PAGE</span>
+<span class="sd">        :type per_page: integer or None</span>
+<span class="sd">        :return: List features</span>
+<span class="sd">        :rtype: requests.Response (with array data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">per_page</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="n">per_page</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">per_page</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/accounts/{account_id}/features&#39;</span>
+    <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s">&#39;per_page&#39;</span> <span class="p">:</span> <span class="n">per_page</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">account_id</span><span class="o">=</span><span class="n">account_id</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="n">payload</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+
+</div>
+<div class="viewcode-block" id="list_features_users"><a class="viewcode-back" href="../../../canvas_sdk.methods.feature_flags.html#canvas_sdk.methods.feature_flags.list_features_users">[docs]</a><span class="k">def</span> <span class="nf">list_features_users</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">user_id</span><span class="p">,</span> <span class="n">per_page</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    List all features that apply to a given Account, Course, or User.</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param user_id: (required) ID</span>
+<span class="sd">        :type user_id: string</span>
+<span class="sd">        :param per_page: (optional) Set how many results canvas should return, defaults to config.LIMIT_PER_PAGE</span>
+<span class="sd">        :type per_page: integer or None</span>
+<span class="sd">        :return: List features</span>
+<span class="sd">        :rtype: requests.Response (with array data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">per_page</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="n">per_page</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">per_page</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/users/{user_id}/features&#39;</span>
+    <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s">&#39;per_page&#39;</span> <span class="p">:</span> <span class="n">per_page</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">user_id</span><span class="o">=</span><span class="n">user_id</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="n">payload</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+
+</div>
+<div class="viewcode-block" id="list_enabled_features_courses"><a class="viewcode-back" href="../../../canvas_sdk.methods.feature_flags.html#canvas_sdk.methods.feature_flags.list_enabled_features_courses">[docs]</a><span class="k">def</span> <span class="nf">list_enabled_features_courses</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">course_id</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    List all features that are enabled on a given Account, Course, or User.</span>
+<span class="sd">    Only the feature names are returned.</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param course_id: (required) ID</span>
+<span class="sd">        :type course_id: string</span>
+<span class="sd">        :return: List enabled features</span>
+<span class="sd">        :rtype: requests.Response (with void data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/courses/{course_id}/features/enabled&#39;</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">course_id</span><span class="o">=</span><span class="n">course_id</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+
+</div>
+<div class="viewcode-block" id="list_enabled_features_accounts"><a class="viewcode-back" href="../../../canvas_sdk.methods.feature_flags.html#canvas_sdk.methods.feature_flags.list_enabled_features_accounts">[docs]</a><span class="k">def</span> <span class="nf">list_enabled_features_accounts</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">account_id</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    List all features that are enabled on a given Account, Course, or User.</span>
+<span class="sd">    Only the feature names are returned.</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param account_id: (required) ID</span>
+<span class="sd">        :type account_id: string</span>
+<span class="sd">        :return: List enabled features</span>
+<span class="sd">        :rtype: requests.Response (with void data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/accounts/{account_id}/features/enabled&#39;</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">account_id</span><span class="o">=</span><span class="n">account_id</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+
+</div>
+<div class="viewcode-block" id="list_enabled_features_users"><a class="viewcode-back" href="../../../canvas_sdk.methods.feature_flags.html#canvas_sdk.methods.feature_flags.list_enabled_features_users">[docs]</a><span class="k">def</span> <span class="nf">list_enabled_features_users</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">user_id</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    List all features that are enabled on a given Account, Course, or User.</span>
+<span class="sd">    Only the feature names are returned.</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param user_id: (required) ID</span>
+<span class="sd">        :type user_id: string</span>
+<span class="sd">        :return: List enabled features</span>
+<span class="sd">        :rtype: requests.Response (with void data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/users/{user_id}/features/enabled&#39;</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">user_id</span><span class="o">=</span><span class="n">user_id</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+
+</div>
+<div class="viewcode-block" id="get_feature_flag_courses"><a class="viewcode-back" href="../../../canvas_sdk.methods.feature_flags.html#canvas_sdk.methods.feature_flags.get_feature_flag_courses">[docs]</a><span class="k">def</span> <span class="nf">get_feature_flag_courses</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">course_id</span><span class="p">,</span> <span class="n">feature</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Get the feature flag that applies to a given Account, Course, or User.</span>
+<span class="sd">    The flag may be defined on the object, or it may be inherited from a parent</span>
+<span class="sd">    account. You can look at the context_id and context_type of the returned object</span>
+<span class="sd">    to determine which is the case. If these fields are missing, then the object</span>
+<span class="sd">    is the global Canvas default.</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param course_id: (required) ID</span>
+<span class="sd">        :type course_id: string</span>
+<span class="sd">        :param feature: (required) ID</span>
+<span class="sd">        :type feature: string</span>
+<span class="sd">        :return: Get feature flag</span>
+<span class="sd">        :rtype: requests.Response (with FeatureFlag data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/courses/{course_id}/features/flags/{feature}&#39;</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">course_id</span><span class="o">=</span><span class="n">course_id</span><span class="p">,</span> <span class="n">feature</span><span class="o">=</span><span class="n">feature</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+
+</div>
+<div class="viewcode-block" id="get_feature_flag_accounts"><a class="viewcode-back" href="../../../canvas_sdk.methods.feature_flags.html#canvas_sdk.methods.feature_flags.get_feature_flag_accounts">[docs]</a><span class="k">def</span> <span class="nf">get_feature_flag_accounts</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">account_id</span><span class="p">,</span> <span class="n">feature</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Get the feature flag that applies to a given Account, Course, or User.</span>
+<span class="sd">    The flag may be defined on the object, or it may be inherited from a parent</span>
+<span class="sd">    account. You can look at the context_id and context_type of the returned object</span>
+<span class="sd">    to determine which is the case. If these fields are missing, then the object</span>
+<span class="sd">    is the global Canvas default.</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param account_id: (required) ID</span>
+<span class="sd">        :type account_id: string</span>
+<span class="sd">        :param feature: (required) ID</span>
+<span class="sd">        :type feature: string</span>
+<span class="sd">        :return: Get feature flag</span>
+<span class="sd">        :rtype: requests.Response (with FeatureFlag data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/accounts/{account_id}/features/flags/{feature}&#39;</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">account_id</span><span class="o">=</span><span class="n">account_id</span><span class="p">,</span> <span class="n">feature</span><span class="o">=</span><span class="n">feature</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+
+</div>
+<div class="viewcode-block" id="get_feature_flag_users"><a class="viewcode-back" href="../../../canvas_sdk.methods.feature_flags.html#canvas_sdk.methods.feature_flags.get_feature_flag_users">[docs]</a><span class="k">def</span> <span class="nf">get_feature_flag_users</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">user_id</span><span class="p">,</span> <span class="n">feature</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Get the feature flag that applies to a given Account, Course, or User.</span>
+<span class="sd">    The flag may be defined on the object, or it may be inherited from a parent</span>
+<span class="sd">    account. You can look at the context_id and context_type of the returned object</span>
+<span class="sd">    to determine which is the case. If these fields are missing, then the object</span>
+<span class="sd">    is the global Canvas default.</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param user_id: (required) ID</span>
+<span class="sd">        :type user_id: string</span>
+<span class="sd">        :param feature: (required) ID</span>
+<span class="sd">        :type feature: string</span>
+<span class="sd">        :return: Get feature flag</span>
+<span class="sd">        :rtype: requests.Response (with FeatureFlag data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/users/{user_id}/features/flags/{feature}&#39;</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">user_id</span><span class="o">=</span><span class="n">user_id</span><span class="p">,</span> <span class="n">feature</span><span class="o">=</span><span class="n">feature</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+
+</div>
+<div class="viewcode-block" id="set_feature_flag_courses"><a class="viewcode-back" href="../../../canvas_sdk.methods.feature_flags.html#canvas_sdk.methods.feature_flags.set_feature_flag_courses">[docs]</a><span class="k">def</span> <span class="nf">set_feature_flag_courses</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">course_id</span><span class="p">,</span> <span class="n">feature</span><span class="p">,</span> <span class="n">state</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">locking_account_id</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Set a feature flag for a given Account, Course, or User. This call will fail if a parent account sets</span>
+<span class="sd">    a feature flag for the same feature in any state other than &quot;allowed&quot;.</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param course_id: (required) ID</span>
+<span class="sd">        :type course_id: string</span>
+<span class="sd">        :param feature: (required) ID</span>
+<span class="sd">        :type feature: string</span>
+<span class="sd">        :param state: (optional) &quot;off&quot;:: The feature is not available for the course, user, or account and sub-accounts. &quot;allowed&quot;:: (valid only on accounts) The feature is off in the account, but may be enabled in sub-accounts and courses by setting a feature flag on the sub-account or course. &quot;on&quot;:: The feature is turned on unconditionally for the user, course, or account and sub-accounts.</span>
+<span class="sd">        :type state: string or None</span>
+<span class="sd">        :param locking_account_id: (optional) If set, this FeatureFlag may only be modified by someone with administrative rights in the specified account. The locking account must be above the target object in the account chain.</span>
+<span class="sd">        :type locking_account_id: integer or None</span>
+<span class="sd">        :return: Set feature flag</span>
+<span class="sd">        :rtype: requests.Response (with FeatureFlag data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">state_types</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;off&#39;</span><span class="p">,</span> <span class="s">&#39;allowed&#39;</span><span class="p">,</span> <span class="s">&#39;on&#39;</span><span class="p">)</span>
+    <span class="n">utils</span><span class="o">.</span><span class="n">validate_attr_is_acceptable</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">state_types</span><span class="p">)</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/courses/{course_id}/features/flags/{feature}&#39;</span>
+    <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s">&#39;state&#39;</span> <span class="p">:</span> <span class="n">state</span><span class="p">,</span>
+        <span class="s">&#39;locking_account_id&#39;</span> <span class="p">:</span> <span class="n">locking_account_id</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">course_id</span><span class="o">=</span><span class="n">course_id</span><span class="p">,</span> <span class="n">feature</span><span class="o">=</span><span class="n">feature</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="n">payload</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+
+</div>
+<div class="viewcode-block" id="set_feature_flag_accounts"><a class="viewcode-back" href="../../../canvas_sdk.methods.feature_flags.html#canvas_sdk.methods.feature_flags.set_feature_flag_accounts">[docs]</a><span class="k">def</span> <span class="nf">set_feature_flag_accounts</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">account_id</span><span class="p">,</span> <span class="n">feature</span><span class="p">,</span> <span class="n">state</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">locking_account_id</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Set a feature flag for a given Account, Course, or User. This call will fail if a parent account sets</span>
+<span class="sd">    a feature flag for the same feature in any state other than &quot;allowed&quot;.</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param account_id: (required) ID</span>
+<span class="sd">        :type account_id: string</span>
+<span class="sd">        :param feature: (required) ID</span>
+<span class="sd">        :type feature: string</span>
+<span class="sd">        :param state: (optional) &quot;off&quot;:: The feature is not available for the course, user, or account and sub-accounts. &quot;allowed&quot;:: (valid only on accounts) The feature is off in the account, but may be enabled in sub-accounts and courses by setting a feature flag on the sub-account or course. &quot;on&quot;:: The feature is turned on unconditionally for the user, course, or account and sub-accounts.</span>
+<span class="sd">        :type state: string or None</span>
+<span class="sd">        :param locking_account_id: (optional) If set, this FeatureFlag may only be modified by someone with administrative rights in the specified account. The locking account must be above the target object in the account chain.</span>
+<span class="sd">        :type locking_account_id: integer or None</span>
+<span class="sd">        :return: Set feature flag</span>
+<span class="sd">        :rtype: requests.Response (with FeatureFlag data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">state_types</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;off&#39;</span><span class="p">,</span> <span class="s">&#39;allowed&#39;</span><span class="p">,</span> <span class="s">&#39;on&#39;</span><span class="p">)</span>
+    <span class="n">utils</span><span class="o">.</span><span class="n">validate_attr_is_acceptable</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">state_types</span><span class="p">)</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/accounts/{account_id}/features/flags/{feature}&#39;</span>
+    <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s">&#39;state&#39;</span> <span class="p">:</span> <span class="n">state</span><span class="p">,</span>
+        <span class="s">&#39;locking_account_id&#39;</span> <span class="p">:</span> <span class="n">locking_account_id</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">account_id</span><span class="o">=</span><span class="n">account_id</span><span class="p">,</span> <span class="n">feature</span><span class="o">=</span><span class="n">feature</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="n">payload</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+
+</div>
+<div class="viewcode-block" id="set_feature_flag_users"><a class="viewcode-back" href="../../../canvas_sdk.methods.feature_flags.html#canvas_sdk.methods.feature_flags.set_feature_flag_users">[docs]</a><span class="k">def</span> <span class="nf">set_feature_flag_users</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">user_id</span><span class="p">,</span> <span class="n">feature</span><span class="p">,</span> <span class="n">state</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">locking_account_id</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Set a feature flag for a given Account, Course, or User. This call will fail if a parent account sets</span>
+<span class="sd">    a feature flag for the same feature in any state other than &quot;allowed&quot;.</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param user_id: (required) ID</span>
+<span class="sd">        :type user_id: string</span>
+<span class="sd">        :param feature: (required) ID</span>
+<span class="sd">        :type feature: string</span>
+<span class="sd">        :param state: (optional) &quot;off&quot;:: The feature is not available for the course, user, or account and sub-accounts. &quot;allowed&quot;:: (valid only on accounts) The feature is off in the account, but may be enabled in sub-accounts and courses by setting a feature flag on the sub-account or course. &quot;on&quot;:: The feature is turned on unconditionally for the user, course, or account and sub-accounts.</span>
+<span class="sd">        :type state: string or None</span>
+<span class="sd">        :param locking_account_id: (optional) If set, this FeatureFlag may only be modified by someone with administrative rights in the specified account. The locking account must be above the target object in the account chain.</span>
+<span class="sd">        :type locking_account_id: integer or None</span>
+<span class="sd">        :return: Set feature flag</span>
+<span class="sd">        :rtype: requests.Response (with FeatureFlag data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">state_types</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;off&#39;</span><span class="p">,</span> <span class="s">&#39;allowed&#39;</span><span class="p">,</span> <span class="s">&#39;on&#39;</span><span class="p">)</span>
+    <span class="n">utils</span><span class="o">.</span><span class="n">validate_attr_is_acceptable</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">state_types</span><span class="p">)</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/users/{user_id}/features/flags/{feature}&#39;</span>
+    <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s">&#39;state&#39;</span> <span class="p">:</span> <span class="n">state</span><span class="p">,</span>
+        <span class="s">&#39;locking_account_id&#39;</span> <span class="p">:</span> <span class="n">locking_account_id</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">user_id</span><span class="o">=</span><span class="n">user_id</span><span class="p">,</span> <span class="n">feature</span><span class="o">=</span><span class="n">feature</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="n">payload</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+
+</div>
+<div class="viewcode-block" id="remove_feature_flag_courses"><a class="viewcode-back" href="../../../canvas_sdk.methods.feature_flags.html#canvas_sdk.methods.feature_flags.remove_feature_flag_courses">[docs]</a><span class="k">def</span> <span class="nf">remove_feature_flag_courses</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">course_id</span><span class="p">,</span> <span class="n">feature</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Remove feature flag for a given Account, Course, or User.  (Note that the flag must</span>
+<span class="sd">    be defined on the Account, Course, or User directly.)  The object will then inherit</span>
+<span class="sd">    the feature flags from a higher account, if any exist.  If this flag was &#39;on&#39; or &#39;off&#39;,</span>
+<span class="sd">    then lower-level account flags that were masked by this one will apply again.</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param course_id: (required) ID</span>
+<span class="sd">        :type course_id: string</span>
+<span class="sd">        :param feature: (required) ID</span>
+<span class="sd">        :type feature: string</span>
+<span class="sd">        :return: Remove feature flag</span>
+<span class="sd">        :rtype: requests.Response (with FeatureFlag data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/courses/{course_id}/features/flags/{feature}&#39;</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">course_id</span><span class="o">=</span><span class="n">course_id</span><span class="p">,</span> <span class="n">feature</span><span class="o">=</span><span class="n">feature</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+
+</div>
+<div class="viewcode-block" id="remove_feature_flag_accounts"><a class="viewcode-back" href="../../../canvas_sdk.methods.feature_flags.html#canvas_sdk.methods.feature_flags.remove_feature_flag_accounts">[docs]</a><span class="k">def</span> <span class="nf">remove_feature_flag_accounts</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">account_id</span><span class="p">,</span> <span class="n">feature</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Remove feature flag for a given Account, Course, or User.  (Note that the flag must</span>
+<span class="sd">    be defined on the Account, Course, or User directly.)  The object will then inherit</span>
+<span class="sd">    the feature flags from a higher account, if any exist.  If this flag was &#39;on&#39; or &#39;off&#39;,</span>
+<span class="sd">    then lower-level account flags that were masked by this one will apply again.</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param account_id: (required) ID</span>
+<span class="sd">        :type account_id: string</span>
+<span class="sd">        :param feature: (required) ID</span>
+<span class="sd">        :type feature: string</span>
+<span class="sd">        :return: Remove feature flag</span>
+<span class="sd">        :rtype: requests.Response (with FeatureFlag data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/accounts/{account_id}/features/flags/{feature}&#39;</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">account_id</span><span class="o">=</span><span class="n">account_id</span><span class="p">,</span> <span class="n">feature</span><span class="o">=</span><span class="n">feature</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+
+</div>
+<div class="viewcode-block" id="remove_feature_flag_users"><a class="viewcode-back" href="../../../canvas_sdk.methods.feature_flags.html#canvas_sdk.methods.feature_flags.remove_feature_flag_users">[docs]</a><span class="k">def</span> <span class="nf">remove_feature_flag_users</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">user_id</span><span class="p">,</span> <span class="n">feature</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Remove feature flag for a given Account, Course, or User.  (Note that the flag must</span>
+<span class="sd">    be defined on the Account, Course, or User directly.)  The object will then inherit</span>
+<span class="sd">    the feature flags from a higher account, if any exist.  If this flag was &#39;on&#39; or &#39;off&#39;,</span>
+<span class="sd">    then lower-level account flags that were masked by this one will apply again.</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param user_id: (required) ID</span>
+<span class="sd">        :type user_id: string</span>
+<span class="sd">        :param feature: (required) ID</span>
+<span class="sd">        :type feature: string</span>
+<span class="sd">        :return: Remove feature flag</span>
+<span class="sd">        :rtype: requests.Response (with FeatureFlag data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/users/{user_id}/features/flags/{feature}&#39;</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">user_id</span><span class="o">=</span><span class="n">user_id</span><span class="p">,</span> <span class="n">feature</span><span class="o">=</span><span class="n">feature</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+</pre></div></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../../index.html">Canvas_SDK 0.0.1 documentation</a> &raquo;</li>
+          <li><a href="../../index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, Harvard.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

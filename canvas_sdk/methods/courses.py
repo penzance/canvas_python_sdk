@@ -162,7 +162,7 @@ def list_students(request_ctx, course_id, per_page=None, **request_kwargs):
     """
     Returns the list of students enrolled in this course.
     
-    DEPRECATED: Please use the {api:CoursesController#users course users} endpoint
+    DEPRECATED: Please use the `CoursesController#users <https://github.com/instructure/canvas-lms/blob/master/app/controllers/courses_controller.rb>`_ endpoint
     and pass "student" as the enrollment_type.
 
         :param request_ctx: The request context
@@ -597,7 +597,7 @@ def update_course(request_ctx, id, course_grading_standard_id=None, **request_kw
 
 def update_courses(request_ctx, account_id, course_ids, event, **request_kwargs):
     """
-    Update multiple courses in an account.  Operates asynchronously; use the {api:ProgressController#show progress endpoint}
+    Update multiple courses in an account.  Operates asynchronously; use the `ProgressController#show <https://github.com/instructure/canvas-lms/blob/master/app/controllers/progress_controller.rb>`_
     to query the status of an operation.
 
         :param request_ctx: The request context
@@ -626,7 +626,7 @@ def update_courses(request_ctx, account_id, course_ids, event, **request_kwargs)
 
 def get_course_copy_status(request_ctx, course_id, id, **request_kwargs):
     """
-    DEPRECATED: Please use the {api:ContentMigrationsController#create Content Migrations API}
+    DEPRECATED: Please use the `ContentMigrationsController#create <https://github.com/instructure/canvas-lms/blob/master/app/controllers/content_migrations_controller.rb>`_
     
     Retrieve the status of a course copy
 
@@ -650,7 +650,7 @@ def get_course_copy_status(request_ctx, course_id, id, **request_kwargs):
 
 def copy_course_content(request_ctx, course_id, source_course, except, only, **request_kwargs):
     """
-    DEPRECATED: Please use the {api:ContentMigrationsController#create Content Migrations API}
+    DEPRECATED: Please use the `ContentMigrationsController#create <https://github.com/instructure/canvas-lms/blob/master/app/controllers/content_migrations_controller.rb>`_
     
     Copies content from one course into another. The default is to copy all course
     content. You can control specific types to copy by using either the 'except' option

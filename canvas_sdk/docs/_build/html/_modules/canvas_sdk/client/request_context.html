@@ -1,0 +1,198 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>canvas_sdk.client.request_context &mdash; Canvas_SDK 0.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="top" title="Canvas_SDK 0.0.1 documentation" href="../../../index.html" />
+    <link rel="up" title="Module code" href="../../index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../../index.html">Canvas_SDK 0.0.1 documentation</a> &raquo;</li>
+          <li><a href="../../index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for canvas_sdk.client.request_context</h1><div class="highlight"><pre>
+<span class="c"># request_context.py</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">from</span> <span class="nn">.auth</span> <span class="kn">import</span> <span class="n">OAuth2Bearer</span>
+<span class="kn">from</span> <span class="nn">urlparse</span> <span class="kn">import</span> <span class="n">urlparse</span>
+
+
+<div class="viewcode-block" id="RequestContext"><a class="viewcode-back" href="../../../canvas_sdk.client.request_context.html#canvas_sdk.client.request_context.RequestContext">[docs]</a><span class="k">class</span> <span class="nc">RequestContext</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A class that holds the default configuration values used to make Canvas API requests.  The requests</span>
+<span class="sd">    library is heavily leveraged in terms of the attributes that may be passed in.  Most of the attributes</span>
+<span class="sd">    are used to construct a requests.Session instance that by default will be reused across requests</span>
+<span class="sd">    made with a given :class:`RequestContext &lt;RequestContext&gt;`.  See below for a full list of parameters:</span>
+
+<span class="sd">    :param str auth_token: OAuth2 token retrieved from a Canvas site</span>
+<span class="sd">    :param str base_api_url: The api endpoint of the Canvas site in the form &quot;http(s)://[canvas.site.com]/api&quot;</span>
+<span class="sd">    :param int per_page: (optional) For get requests that return a list of data, this will be used as the default per_page value</span>
+<span class="sd">    :param int max_retries: (optional) Number of times a request that generates a certain class of HTTP exception will be retried</span>
+<span class="sd">        before being raised back to the caller.  See :py:mod:`client.base` for a list of those error types.</span>
+<span class="sd">    :param dictionary headers: (optional) dictionary of headers to send for each request.  Will be merged with a default set of headers.</span>
+<span class="sd">    :param cookies: (optional) Cookies to attach to each requests.</span>
+<span class="sd">    :type cookies: dictionary or CookieJar</span>
+<span class="sd">    :param float timeout: (optional) The timeout of the request in seconds.</span>
+<span class="sd">    :param dictionary proxies: (optional) Mapping protocol to the URL of the proxy.</span>
+<span class="sd">    :param verify: (optional) if ``True``, the SSL cert will be verified.  A CA_BUNDLE path can also be provided.</span>
+<span class="sd">    :type verify: boolean or str</span>
+<span class="sd">    :param cert: (optional) if String, path to ssl client cert file (.pem).  If Tuple, (&#39;cert&#39;, &#39;key&#39;) pair.</span>
+<span class="sd">    :type cert: str or Tuple</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="RequestContext.get_default_headers"><a class="viewcode-back" href="../../../canvas_sdk.client.request_context.html#canvas_sdk.client.request_context.RequestContext.get_default_headers">[docs]</a>    <span class="k">def</span> <span class="nf">get_default_headers</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        These are headers that are sent with every API request.  Be careful of overriding these headers since the API</span>
+<span class="sd">        calls may not work if these are modified.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">default_headers</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s">&#39;Accept&#39;</span><span class="p">:</span> <span class="s">&#39;text/json&#39;</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">default_headers</span>
+</div>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">auth_token</span><span class="p">,</span> <span class="n">base_api_url</span><span class="p">,</span> <span class="n">max_retries</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">per_page</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">cookies</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">proxies</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">verify</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">cert</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_session</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">auth_token</span> <span class="o">=</span> <span class="n">auth_token</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">per_page</span> <span class="o">=</span> <span class="n">per_page</span>
+        <span class="n">parsed_url</span> <span class="o">=</span> <span class="n">urlparse</span><span class="p">(</span><span class="n">base_api_url</span><span class="p">)</span>
+        <span class="k">if</span> <span class="s">&#39;http&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">parsed_url</span><span class="o">.</span><span class="n">scheme</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span>
+                <span class="s">&quot;&#39;</span><span class="si">%s</span><span class="s">&#39; was provided, but base_url should be in the format http(s)://path/to/canvas/instance/api.&quot;</span> <span class="o">%</span> <span class="n">base_api_url</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">=</span> <span class="n">base_api_url</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">headers</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_default_headers</span><span class="p">()</span>
+        <span class="c"># Allow overriding of default values with values passed in by user</span>
+        <span class="k">if</span> <span class="n">headers</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">headers</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">headers</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cookies</span> <span class="o">=</span> <span class="n">cookies</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">timeout</span> <span class="o">=</span> <span class="n">timeout</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">proxies</span> <span class="o">=</span> <span class="n">proxies</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">verify</span> <span class="o">=</span> <span class="n">verify</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cert</span> <span class="o">=</span> <span class="n">cert</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">max_retries</span> <span class="o">=</span> <span class="n">max_retries</span>
+
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="RequestContext.auth"><a class="viewcode-back" href="../../../canvas_sdk.client.request_context.html#canvas_sdk.client.request_context.RequestContext.auth">[docs]</a>    <span class="k">def</span> <span class="nf">auth</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        A custom OAuth2 authentication handler for the instance&#39;s auth_token</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">OAuth2Bearer</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">auth_token</span><span class="p">)</span>
+</div>
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">session</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get or set a requests.Session instance based on the session related values passed into the</span>
+<span class="sd">        class.  The setter should only be used if you need fine-grained control over your session.</span>
+<span class="sd">        You can refer to the requests library documentation for information on available options for</span>
+<span class="sd">        the session object: http://docs.python-requests.org/</span>
+<span class="sd">        NOTE: Refer to the setup.py file to match up the version of the Requests library the SDK uses</span>
+<span class="sd">        with the right doc version.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_session</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_session</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">Session</span><span class="p">()</span>
+            <span class="c"># Streaming is disabled by default when creating a requests.Session</span>
+            <span class="c"># object, but let&#39;s be explicit here to prevent connections from staying</span>
+            <span class="c"># open indefinitely</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_session</span><span class="o">.</span><span class="n">stream</span> <span class="o">=</span> <span class="bp">False</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_session</span><span class="o">.</span><span class="n">auth</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">auth</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_session</span><span class="o">.</span><span class="n">headers</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">headers</span> <span class="ow">or</span> <span class="p">{})</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_session</span><span class="o">.</span><span class="n">timeout</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">timeout</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_session</span><span class="o">.</span><span class="n">cert</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cert</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_session</span><span class="o">.</span><span class="n">verify</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">verify</span>
+            <span class="c"># We only need to set proxies and cookies if not None or empty since the</span>
+            <span class="c"># defaults are empty dicts</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">proxies</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_session</span><span class="o">.</span><span class="n">proxies</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">proxies</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">cookies</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_session</span><span class="o">.</span><span class="n">cookies</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cookies</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_session</span>
+
+    <span class="nd">@session.setter</span>
+<div class="viewcode-block" id="RequestContext.session"><a class="viewcode-back" href="../../../canvas_sdk.client.request_context.html#canvas_sdk.client.request_context.RequestContext.session">[docs]</a>    <span class="k">def</span> <span class="nf">session</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sess</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_session</span> <span class="o">=</span> <span class="n">sess</span>
+</div>
+<div class="viewcode-block" id="RequestContext.expire_session"><a class="viewcode-back" href="../../../canvas_sdk.client.request_context.html#canvas_sdk.client.request_context.RequestContext.expire_session">[docs]</a>    <span class="k">def</span> <span class="nf">expire_session</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        To expire a session, it just needs to be set to None according to requests doc.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">session</span> <span class="o">=</span> <span class="bp">None</span></div></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../../index.html">Canvas_SDK 0.0.1 documentation</a> &raquo;</li>
+          <li><a href="../../index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, Harvard.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,220 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>canvas_sdk.methods.outcomes module &mdash; Canvas_SDK 0.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Canvas_SDK 0.0.1 documentation" href="index.html" />
+    <link rel="up" title="canvas_sdk.methods package" href="canvas_sdk.methods.html" />
+    <link rel="next" title="canvas_sdk.methods.pages module" href="canvas_sdk.methods.pages.html" />
+    <link rel="prev" title="canvas_sdk.methods.outcome_results module" href="canvas_sdk.methods.outcome_results.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="canvas_sdk.methods.pages.html" title="canvas_sdk.methods.pages module"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="canvas_sdk.methods.outcome_results.html" title="canvas_sdk.methods.outcome_results module"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Canvas_SDK 0.0.1 documentation</a> &raquo;</li>
+          <li><a href="canvas_sdk.html" >canvas_sdk package</a> &raquo;</li>
+          <li><a href="canvas_sdk.methods.html" accesskey="U">canvas_sdk.methods package</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-canvas_sdk.methods.outcomes">
+<span id="canvas-sdk-methods-outcomes-module"></span><h1>canvas_sdk.methods.outcomes module<a class="headerlink" href="#module-canvas_sdk.methods.outcomes" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="canvas_sdk.methods.outcomes.show_outcome">
+<tt class="descclassname">canvas_sdk.methods.outcomes.</tt><tt class="descname">show_outcome</tt><big>(</big><em>request_ctx</em>, <em>id</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/outcomes.html#show_outcome"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.outcomes.show_outcome" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the details of the outcome with the given id.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Show an outcome</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with Outcome data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.outcomes.update_outcome">
+<tt class="descclassname">canvas_sdk.methods.outcomes.</tt><tt class="descname">update_outcome</tt><big>(</big><em>request_ctx</em>, <em>id</em>, <em>title=None</em>, <em>description=None</em>, <em>vendor_guid=None</em>, <em>mastery_points=None</em>, <em>ratings_description=None</em>, <em>ratings_points=None</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/outcomes.html#update_outcome"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.outcomes.update_outcome" title="Permalink to this definition">¶</a></dt>
+<dd><p>Modify an existing outcome. Fields not provided are left as is;
+unrecognized fields are ignored.</p>
+<p>If any new ratings are provided, the combination of all new ratings
+provided completely replace any existing embedded rubric criterion; it is
+not possible to tweak the ratings of the embedded rubric criterion.</p>
+<p>A new embedded rubric criterion&#8217;s mastery_points default to the maximum
+points in the highest rating if not specified in the mastery_points
+parameter. Any new ratings lacking a description are given a default of &#8220;No
+description&#8221;. Any new ratings lacking a point value are given a default of
+0.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param title:</th><td class="field-body">(optional) The new outcome title.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type title:</th><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param description:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) The new outcome description.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type description:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param vendor_guid:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) A custom GUID for the learning standard.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type vendor_guid:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param mastery_points:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) The new mastery threshold for the embedded rubric criterion.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type mastery_points:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">integer or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param ratings_description:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) The description of a new rating level for the embedded rubric criterion.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type ratings_description:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param ratings_points:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) The points corresponding to a new rating level for the embedded rubric criterion.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type ratings_points:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">integer or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Update an outcome</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with Outcome data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="canvas_sdk.methods.outcome_results.html"
+                        title="previous chapter">canvas_sdk.methods.outcome_results module</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="canvas_sdk.methods.pages.html"
+                        title="next chapter">canvas_sdk.methods.pages module</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/canvas_sdk.methods.outcomes.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="canvas_sdk.methods.pages.html" title="canvas_sdk.methods.pages module"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="canvas_sdk.methods.outcome_results.html" title="canvas_sdk.methods.outcome_results module"
+             >previous</a> |</li>
+        <li><a href="index.html">Canvas_SDK 0.0.1 documentation</a> &raquo;</li>
+          <li><a href="canvas_sdk.html" >canvas_sdk package</a> &raquo;</li>
+          <li><a href="canvas_sdk.methods.html" >canvas_sdk.methods package</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, Harvard.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,532 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>canvas_sdk.methods.assignments &mdash; Canvas_SDK 0.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="top" title="Canvas_SDK 0.0.1 documentation" href="../../../index.html" />
+    <link rel="up" title="Module code" href="../../index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../../index.html">Canvas_SDK 0.0.1 documentation</a> &raquo;</li>
+          <li><a href="../../index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for canvas_sdk.methods.assignments</h1><div class="highlight"><pre>
+<span class="kn">from</span> <span class="nn">canvas_sdk</span> <span class="kn">import</span> <span class="n">client</span><span class="p">,</span> <span class="n">utils</span>
+
+<div class="viewcode-block" id="delete_assignment"><a class="viewcode-back" href="../../../canvas_sdk.methods.assignments.html#canvas_sdk.methods.assignments.delete_assignment">[docs]</a><span class="k">def</span> <span class="nf">delete_assignment</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">course_id</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Delete the given assignment.</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param course_id: (required) ID</span>
+<span class="sd">        :type course_id: string</span>
+<span class="sd">        :param id: (required) ID</span>
+<span class="sd">        :type id: string</span>
+<span class="sd">        :return: Delete an assignment</span>
+<span class="sd">        :rtype: requests.Response (with Assignment data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/courses/{course_id}/assignments/{id}&#39;</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">course_id</span><span class="o">=</span><span class="n">course_id</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="nb">id</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+
+</div>
+<div class="viewcode-block" id="list_assignments"><a class="viewcode-back" href="../../../canvas_sdk.methods.assignments.html#canvas_sdk.methods.assignments.list_assignments">[docs]</a><span class="k">def</span> <span class="nf">list_assignments</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">course_id</span><span class="p">,</span> <span class="n">include</span><span class="p">,</span> <span class="n">search_term</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">override_assignment_dates</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">per_page</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns the list of assignments for the current context.</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param course_id: (required) ID</span>
+<span class="sd">        :type course_id: string</span>
+<span class="sd">        :param include: (required) Associations to include with the assignment.</span>
+<span class="sd">        :type include: string</span>
+<span class="sd">        :param search_term: (optional) The partial title of the assignments to match and return.</span>
+<span class="sd">        :type search_term: string or None</span>
+<span class="sd">        :param override_assignment_dates: (optional) Apply assignment overrides for each assignment, defaults to true.</span>
+<span class="sd">        :type override_assignment_dates: boolean or None</span>
+<span class="sd">        :param per_page: (optional) Set how many results canvas should return, defaults to config.LIMIT_PER_PAGE</span>
+<span class="sd">        :type per_page: integer or None</span>
+<span class="sd">        :return: List assignments</span>
+<span class="sd">        :rtype: requests.Response (with array data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">per_page</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="n">per_page</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">per_page</span>
+    <span class="n">include_types</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;submission&#39;</span><span class="p">)</span>
+    <span class="n">utils</span><span class="o">.</span><span class="n">validate_attr_is_acceptable</span><span class="p">(</span><span class="n">include</span><span class="p">,</span> <span class="n">include_types</span><span class="p">)</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/courses/{course_id}/assignments&#39;</span>
+    <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s">&#39;include&#39;</span> <span class="p">:</span> <span class="n">include</span><span class="p">,</span>
+        <span class="s">&#39;search_term&#39;</span> <span class="p">:</span> <span class="n">search_term</span><span class="p">,</span>
+        <span class="s">&#39;override_assignment_dates&#39;</span> <span class="p">:</span> <span class="n">override_assignment_dates</span><span class="p">,</span>
+        <span class="s">&#39;per_page&#39;</span> <span class="p">:</span> <span class="n">per_page</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">course_id</span><span class="o">=</span><span class="n">course_id</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="n">payload</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+
+</div>
+<div class="viewcode-block" id="get_single_assignment"><a class="viewcode-back" href="../../../canvas_sdk.methods.assignments.html#canvas_sdk.methods.assignments.get_single_assignment">[docs]</a><span class="k">def</span> <span class="nf">get_single_assignment</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">course_id</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="n">include</span><span class="p">,</span> <span class="n">override_assignment_dates</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns the assignment with the given id.</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param course_id: (required) ID</span>
+<span class="sd">        :type course_id: string</span>
+<span class="sd">        :param id: (required) ID</span>
+<span class="sd">        :type id: string</span>
+<span class="sd">        :param include: (required) Associations to include with the assignment.</span>
+<span class="sd">        :type include: string</span>
+<span class="sd">        :param override_assignment_dates: (optional) Apply assignment overrides to the assignment, defaults to true.</span>
+<span class="sd">        :type override_assignment_dates: boolean or None</span>
+<span class="sd">        :return: Get a single assignment</span>
+<span class="sd">        :rtype: requests.Response (with Assignment data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">include_types</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;submission&#39;</span><span class="p">)</span>
+    <span class="n">utils</span><span class="o">.</span><span class="n">validate_attr_is_acceptable</span><span class="p">(</span><span class="n">include</span><span class="p">,</span> <span class="n">include_types</span><span class="p">)</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/courses/{course_id}/assignments/{id}&#39;</span>
+    <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s">&#39;include&#39;</span> <span class="p">:</span> <span class="n">include</span><span class="p">,</span>
+        <span class="s">&#39;override_assignment_dates&#39;</span> <span class="p">:</span> <span class="n">override_assignment_dates</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">course_id</span><span class="o">=</span><span class="n">course_id</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="nb">id</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="n">payload</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+
+</div>
+<div class="viewcode-block" id="create_assignment"><a class="viewcode-back" href="../../../canvas_sdk.methods.assignments.html#canvas_sdk.methods.assignments.create_assignment">[docs]</a><span class="k">def</span> <span class="nf">create_assignment</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">course_id</span><span class="p">,</span> <span class="n">assignment_name</span><span class="p">,</span> <span class="n">assignment_submission_types</span><span class="p">,</span> <span class="n">assignment_position</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">assignment_allowed_extensions</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">assignment_turnitin_enabled</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">assignment_turnitin_settings</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">assignment_peer_reviews</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">assignment_automatic_peer_reviews</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">assignment_notify_of_update</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">assignment_group_category_id</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">assignment_grade_group_students_individually</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">assignment_external_tool_tag_attributes</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">assignment_points_possible</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">assignment_grading_type</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">assignment_due_at</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">assignment_lock_at</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">assignment_unlock_at</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">assignment_description</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">assignment_assignment_group_id</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">assignment_muted</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">assignment_assignment_overrides</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">assignment_only_visible_to_overrides</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">assignment_published</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Create a new assignment for this course. The assignment is created in the</span>
+<span class="sd">    active state.</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param course_id: (required) ID</span>
+<span class="sd">        :type course_id: string</span>
+<span class="sd">        :param assignment_name: (required) The assignment name.</span>
+<span class="sd">        :type assignment_name: string</span>
+<span class="sd">        :param assignment_submission_types: (required) List of supported submission types for the assignment. Unless the assignment is allowing online submissions, the array should only have one element. If not allowing online submissions, your options are: &quot;online_quiz&quot; &quot;none&quot; &quot;on_paper&quot; &quot;online_quiz&quot; &quot;discussion_topic&quot; &quot;external_tool&quot; If you are allowing online submissions, you can have one or many allowed submission types: &quot;online_upload&quot; &quot;online_text_entry&quot; &quot;online_url&quot; &quot;media_recording&quot; (Only valid when the Kaltura plugin is enabled)</span>
+<span class="sd">        :type assignment_submission_types: string</span>
+<span class="sd">        :param assignment_position: (optional) The position of this assignment in the group when displaying assignment lists.</span>
+<span class="sd">        :type assignment_position: integer or None</span>
+<span class="sd">        :param assignment_allowed_extensions: (optional) Allowed extensions if submission_types includes &quot;online_upload&quot; Example: allowed_extensions: [&quot;docx&quot;,&quot;ppt&quot;]</span>
+<span class="sd">        :type assignment_allowed_extensions: string or None</span>
+<span class="sd">        :param assignment_turnitin_enabled: (optional) Only applies when the Turnitin plugin is enabled for a course and the submission_types array includes &quot;online_upload&quot;. Toggles Turnitin submissions for the assignment. Will be ignored if Turnitin is not available for the course.</span>
+<span class="sd">        :type assignment_turnitin_enabled: boolean or None</span>
+<span class="sd">        :param assignment_turnitin_settings: (optional) Settings to send along to turnitin. See Assignment object definition for format.</span>
+<span class="sd">        :type assignment_turnitin_settings: string or None</span>
+<span class="sd">        :param assignment_peer_reviews: (optional) If submission_types does not include external_tool,discussion_topic, online_quiz, or on_paper, determines whether or not peer reviews will be turned on for the assignment.</span>
+<span class="sd">        :type assignment_peer_reviews: boolean or None</span>
+<span class="sd">        :param assignment_automatic_peer_reviews: (optional) Whether peer reviews will be assigned automatically by Canvas or if teachers must manually assign peer reviews. Does not apply if peer reviews are not enabled.</span>
+<span class="sd">        :type assignment_automatic_peer_reviews: boolean or None</span>
+<span class="sd">        :param assignment_notify_of_update: (optional) If true, Canvas will send a notification to students in the class notifying them that the content has changed.</span>
+<span class="sd">        :type assignment_notify_of_update: boolean or None</span>
+<span class="sd">        :param assignment_group_category_id: (optional) If present, the assignment will become a group assignment assigned to the group.</span>
+<span class="sd">        :type assignment_group_category_id: integer or None</span>
+<span class="sd">        :param assignment_grade_group_students_individually: (optional) If this is a group assignment, teachers have the options to grade students individually. If false, Canvas will apply the assignment&#39;s score to each member of the group. If true, the teacher can manually assign scores to each member of the group.</span>
+<span class="sd">        :type assignment_grade_group_students_individually: integer or None</span>
+<span class="sd">        :param assignment_external_tool_tag_attributes: (optional) Hash of attributes if submission_types is [&quot;external_tool&quot;] Example: external_tool_tag_attributes: { // url to the external tool url: &quot;http://instructure.com&quot;, // create a new tab for the module, defaults to false. new_tab: false }</span>
+<span class="sd">        :type assignment_external_tool_tag_attributes: string or None</span>
+<span class="sd">        :param assignment_points_possible: (optional) The maximum points possible on the assignment.</span>
+<span class="sd">        :type assignment_points_possible: float or None</span>
+<span class="sd">        :param assignment_grading_type: (optional) The strategy used for grading the assignment. The assignment is ungraded if this field is omitted.</span>
+<span class="sd">        :type assignment_grading_type: string or None</span>
+<span class="sd">        :param assignment_due_at: (optional) The day/time the assignment is due. Accepts times in ISO 8601 format, e.g. 2014-10-21T18:48:00Z.</span>
+<span class="sd">        :type assignment_due_at: timestamp or None</span>
+<span class="sd">        :param assignment_lock_at: (optional) The day/time the assignment is locked after. Accepts times in ISO 8601 format, e.g. 2014-10-21T18:48:00Z.</span>
+<span class="sd">        :type assignment_lock_at: timestamp or None</span>
+<span class="sd">        :param assignment_unlock_at: (optional) The day/time the assignment is unlocked. Accepts times in ISO 8601 format, e.g. 2014-10-21T18:48:00Z.</span>
+<span class="sd">        :type assignment_unlock_at: timestamp or None</span>
+<span class="sd">        :param assignment_description: (optional) The assignment&#39;s description, supports HTML.</span>
+<span class="sd">        :type assignment_description: string or None</span>
+<span class="sd">        :param assignment_assignment_group_id: (optional) The assignment group id to put the assignment in. Defaults to the top assignment group in the course.</span>
+<span class="sd">        :type assignment_assignment_group_id: integer or None</span>
+<span class="sd">        :param assignment_muted: (optional) Whether this assignment is muted. A muted assignment does not send change notifications and hides grades from students. Defaults to false.</span>
+<span class="sd">        :type assignment_muted: boolean or None</span>
+<span class="sd">        :param assignment_assignment_overrides: (optional) List of overrides for the assignment. NOTE: The assignment overrides feature is in beta.</span>
+<span class="sd">        :type assignment_assignment_overrides: assignmentoverride or None</span>
+<span class="sd">        :param assignment_only_visible_to_overrides: (optional) Whether this assignment is only visible to overrides (Only useful if &#39;differentiated assignments&#39; account setting is on)</span>
+<span class="sd">        :type assignment_only_visible_to_overrides: boolean or None</span>
+<span class="sd">        :param assignment_published: (optional) Whether this assignment is published. (Only useful if &#39;draft state&#39; account setting is on) Unpublished assignments are not visible to students.</span>
+<span class="sd">        :type assignment_published: boolean or None</span>
+<span class="sd">        :return: Create an assignment</span>
+<span class="sd">        :rtype: requests.Response (with Assignment data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">submission_types_types</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;online_quiz&#39;</span><span class="p">,</span> <span class="s">&#39;none&#39;</span><span class="p">,</span> <span class="s">&#39;on_paper&#39;</span><span class="p">,</span> <span class="s">&#39;online_quiz&#39;</span><span class="p">,</span> <span class="s">&#39;discussion_topic&#39;</span><span class="p">,</span> <span class="s">&#39;external_tool&#39;</span><span class="p">,</span> <span class="s">&#39;online_upload&#39;</span><span class="p">,</span> <span class="s">&#39;online_text_entry&#39;</span><span class="p">,</span> <span class="s">&#39;online_url&#39;</span><span class="p">,</span> <span class="s">&#39;media_recording&#39;</span><span class="p">)</span>
+    <span class="n">grading_type_types</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;pass_fail&#39;</span><span class="p">,</span> <span class="s">&#39;percent&#39;</span><span class="p">,</span> <span class="s">&#39;letter_grade&#39;</span><span class="p">,</span> <span class="s">&#39;gpa_scale&#39;</span><span class="p">,</span> <span class="s">&#39;points&#39;</span><span class="p">)</span>
+    <span class="n">utils</span><span class="o">.</span><span class="n">validate_attr_is_acceptable</span><span class="p">(</span><span class="n">submission_types</span><span class="p">,</span> <span class="n">submission_types_types</span><span class="p">)</span>
+    <span class="n">utils</span><span class="o">.</span><span class="n">validate_attr_is_acceptable</span><span class="p">(</span><span class="n">grading_type</span><span class="p">,</span> <span class="n">grading_type_types</span><span class="p">)</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/courses/{course_id}/assignments&#39;</span>
+    <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s">&#39;assignment[name]&#39;</span> <span class="p">:</span> <span class="n">assignment_name</span><span class="p">,</span>
+        <span class="s">&#39;assignment[position]&#39;</span> <span class="p">:</span> <span class="n">assignment_position</span><span class="p">,</span>
+        <span class="s">&#39;assignment[submission_types]&#39;</span> <span class="p">:</span> <span class="n">assignment_submission_types</span><span class="p">,</span>
+        <span class="s">&#39;assignment[allowed_extensions]&#39;</span> <span class="p">:</span> <span class="n">assignment_allowed_extensions</span><span class="p">,</span>
+        <span class="s">&#39;assignment[turnitin_enabled]&#39;</span> <span class="p">:</span> <span class="n">assignment_turnitin_enabled</span><span class="p">,</span>
+        <span class="s">&#39;assignment[turnitin_settings]&#39;</span> <span class="p">:</span> <span class="n">assignment_turnitin_settings</span><span class="p">,</span>
+        <span class="s">&#39;assignment[peer_reviews]&#39;</span> <span class="p">:</span> <span class="n">assignment_peer_reviews</span><span class="p">,</span>
+        <span class="s">&#39;assignment[automatic_peer_reviews]&#39;</span> <span class="p">:</span> <span class="n">assignment_automatic_peer_reviews</span><span class="p">,</span>
+        <span class="s">&#39;assignment[notify_of_update]&#39;</span> <span class="p">:</span> <span class="n">assignment_notify_of_update</span><span class="p">,</span>
+        <span class="s">&#39;assignment[group_category_id]&#39;</span> <span class="p">:</span> <span class="n">assignment_group_category_id</span><span class="p">,</span>
+        <span class="s">&#39;assignment[grade_group_students_individually]&#39;</span> <span class="p">:</span> <span class="n">assignment_grade_group_students_individually</span><span class="p">,</span>
+        <span class="s">&#39;assignment[external_tool_tag_attributes]&#39;</span> <span class="p">:</span> <span class="n">assignment_external_tool_tag_attributes</span><span class="p">,</span>
+        <span class="s">&#39;assignment[points_possible]&#39;</span> <span class="p">:</span> <span class="n">assignment_points_possible</span><span class="p">,</span>
+        <span class="s">&#39;assignment[grading_type]&#39;</span> <span class="p">:</span> <span class="n">assignment_grading_type</span><span class="p">,</span>
+        <span class="s">&#39;assignment[due_at]&#39;</span> <span class="p">:</span> <span class="n">assignment_due_at</span><span class="p">,</span>
+        <span class="s">&#39;assignment[lock_at]&#39;</span> <span class="p">:</span> <span class="n">assignment_lock_at</span><span class="p">,</span>
+        <span class="s">&#39;assignment[unlock_at]&#39;</span> <span class="p">:</span> <span class="n">assignment_unlock_at</span><span class="p">,</span>
+        <span class="s">&#39;assignment[description]&#39;</span> <span class="p">:</span> <span class="n">assignment_description</span><span class="p">,</span>
+        <span class="s">&#39;assignment[assignment_group_id]&#39;</span> <span class="p">:</span> <span class="n">assignment_assignment_group_id</span><span class="p">,</span>
+        <span class="s">&#39;assignment[muted]&#39;</span> <span class="p">:</span> <span class="n">assignment_muted</span><span class="p">,</span>
+        <span class="s">&#39;assignment[assignment_overrides]&#39;</span> <span class="p">:</span> <span class="n">assignment_assignment_overrides</span><span class="p">,</span>
+        <span class="s">&#39;assignment[only_visible_to_overrides]&#39;</span> <span class="p">:</span> <span class="n">assignment_only_visible_to_overrides</span><span class="p">,</span>
+        <span class="s">&#39;assignment[published]&#39;</span> <span class="p">:</span> <span class="n">assignment_published</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">course_id</span><span class="o">=</span><span class="n">course_id</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="n">payload</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+
+</div>
+<div class="viewcode-block" id="edit_assignment"><a class="viewcode-back" href="../../../canvas_sdk.methods.assignments.html#canvas_sdk.methods.assignments.edit_assignment">[docs]</a><span class="k">def</span> <span class="nf">edit_assignment</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">course_id</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="n">assignment_grading_standard_id</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Modify an existing assignment. See the documentation for assignment</span>
+<span class="sd">    creation.</span>
+<span class="sd">    </span>
+<span class="sd">    If the assignment[assignment_overrides] key is absent, any existing</span>
+<span class="sd">    overrides are kept as is. If the assignment[assignment_overrides] key is</span>
+<span class="sd">    present, existing overrides are updated or deleted (and new ones created,</span>
+<span class="sd">    as necessary) to match the provided list.</span>
+<span class="sd">    </span>
+<span class="sd">    NOTE: The assignment overrides feature is in beta.</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param course_id: (required) ID</span>
+<span class="sd">        :type course_id: string</span>
+<span class="sd">        :param id: (required) ID</span>
+<span class="sd">        :type id: string</span>
+<span class="sd">        :param assignment_grading_standard_id: (optional) The grading standard id to set for the course. If no value is provided for this argument the current grading_standard will be un-set from this course. This will update the grading_type for the course to &#39;letter_grade&#39; unless it is already &#39;gpa_scale&#39;.</span>
+<span class="sd">        :type assignment_grading_standard_id: integer or None</span>
+<span class="sd">        :return: Edit an assignment</span>
+<span class="sd">        :rtype: requests.Response (with Assignment data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/courses/{course_id}/assignments/{id}&#39;</span>
+    <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s">&#39;assignment[grading_standard_id]&#39;</span> <span class="p">:</span> <span class="n">assignment_grading_standard_id</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">course_id</span><span class="o">=</span><span class="n">course_id</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="nb">id</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="n">payload</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+
+</div>
+<div class="viewcode-block" id="list_assignment_overrides"><a class="viewcode-back" href="../../../canvas_sdk.methods.assignments.html#canvas_sdk.methods.assignments.list_assignment_overrides">[docs]</a><span class="k">def</span> <span class="nf">list_assignment_overrides</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">course_id</span><span class="p">,</span> <span class="n">assignment_id</span><span class="p">,</span> <span class="n">per_page</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns the list of overrides for this assignment that target</span>
+<span class="sd">    sections/groups/students visible to the current user.</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param course_id: (required) ID</span>
+<span class="sd">        :type course_id: string</span>
+<span class="sd">        :param assignment_id: (required) ID</span>
+<span class="sd">        :type assignment_id: string</span>
+<span class="sd">        :param per_page: (optional) Set how many results canvas should return, defaults to config.LIMIT_PER_PAGE</span>
+<span class="sd">        :type per_page: integer or None</span>
+<span class="sd">        :return: List assignment overrides</span>
+<span class="sd">        :rtype: requests.Response (with array data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">per_page</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="n">per_page</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">per_page</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/courses/{course_id}/assignments/{assignment_id}/overrides&#39;</span>
+    <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s">&#39;per_page&#39;</span> <span class="p">:</span> <span class="n">per_page</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">course_id</span><span class="o">=</span><span class="n">course_id</span><span class="p">,</span> <span class="n">assignment_id</span><span class="o">=</span><span class="n">assignment_id</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="n">payload</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+
+</div>
+<div class="viewcode-block" id="get_single_assignment_override"><a class="viewcode-back" href="../../../canvas_sdk.methods.assignments.html#canvas_sdk.methods.assignments.get_single_assignment_override">[docs]</a><span class="k">def</span> <span class="nf">get_single_assignment_override</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">course_id</span><span class="p">,</span> <span class="n">assignment_id</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns details of the the override with the given id.</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param course_id: (required) ID</span>
+<span class="sd">        :type course_id: string</span>
+<span class="sd">        :param assignment_id: (required) ID</span>
+<span class="sd">        :type assignment_id: string</span>
+<span class="sd">        :param id: (required) ID</span>
+<span class="sd">        :type id: string</span>
+<span class="sd">        :return: Get a single assignment override</span>
+<span class="sd">        :rtype: requests.Response (with AssignmentOverride data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/courses/{course_id}/assignments/{assignment_id}/overrides/{id}&#39;</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">course_id</span><span class="o">=</span><span class="n">course_id</span><span class="p">,</span> <span class="n">assignment_id</span><span class="o">=</span><span class="n">assignment_id</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="nb">id</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+
+</div>
+<div class="viewcode-block" id="redirect_to_the_assignment_override_for_group"><a class="viewcode-back" href="../../../canvas_sdk.methods.assignments.html#canvas_sdk.methods.assignments.redirect_to_the_assignment_override_for_group">[docs]</a><span class="k">def</span> <span class="nf">redirect_to_the_assignment_override_for_group</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">group_id</span><span class="p">,</span> <span class="n">assignment_id</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Responds with a redirect to the override for the given group, if any</span>
+<span class="sd">    (404 otherwise).</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param group_id: (required) ID</span>
+<span class="sd">        :type group_id: string</span>
+<span class="sd">        :param assignment_id: (required) ID</span>
+<span class="sd">        :type assignment_id: string</span>
+<span class="sd">        :return: Redirect to the assignment override for a group</span>
+<span class="sd">        :rtype: requests.Response (with void data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/groups/{group_id}/assignments/{assignment_id}/override&#39;</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">group_id</span><span class="o">=</span><span class="n">group_id</span><span class="p">,</span> <span class="n">assignment_id</span><span class="o">=</span><span class="n">assignment_id</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+
+</div>
+<div class="viewcode-block" id="redirect_to_the_assignment_override_for_section"><a class="viewcode-back" href="../../../canvas_sdk.methods.assignments.html#canvas_sdk.methods.assignments.redirect_to_the_assignment_override_for_section">[docs]</a><span class="k">def</span> <span class="nf">redirect_to_the_assignment_override_for_section</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">course_section_id</span><span class="p">,</span> <span class="n">assignment_id</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Responds with a redirect to the override for the given section, if any</span>
+<span class="sd">    (404 otherwise).</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param course_section_id: (required) ID</span>
+<span class="sd">        :type course_section_id: string</span>
+<span class="sd">        :param assignment_id: (required) ID</span>
+<span class="sd">        :type assignment_id: string</span>
+<span class="sd">        :return: Redirect to the assignment override for a section</span>
+<span class="sd">        :rtype: requests.Response (with void data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/sections/{course_section_id}/assignments/{assignment_id}/override&#39;</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">course_section_id</span><span class="o">=</span><span class="n">course_section_id</span><span class="p">,</span> <span class="n">assignment_id</span><span class="o">=</span><span class="n">assignment_id</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+
+</div>
+<div class="viewcode-block" id="create_assignment_override"><a class="viewcode-back" href="../../../canvas_sdk.methods.assignments.html#canvas_sdk.methods.assignments.create_assignment_override">[docs]</a><span class="k">def</span> <span class="nf">create_assignment_override</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">course_id</span><span class="p">,</span> <span class="n">assignment_id</span><span class="p">,</span> <span class="n">assignment_override_student_ids</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">assignment_override_title</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">assignment_override_group_id</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">assignment_override_course_section_id</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">assignment_override_due_at</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">assignment_override_unlock_at</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">assignment_override_lock_at</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    One of student_ids, group_id, or course_section_id must be present. At most</span>
+<span class="sd">    one should be present; if multiple are present only the most specific</span>
+<span class="sd">    (student_ids first, then group_id, then course_section_id) is used and any</span>
+<span class="sd">    others are ignored.</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param course_id: (required) ID</span>
+<span class="sd">        :type course_id: string</span>
+<span class="sd">        :param assignment_id: (required) ID</span>
+<span class="sd">        :type assignment_id: string</span>
+<span class="sd">        :param assignment_override_student_ids: (optional) The IDs of the override&#39;s target students. If present, the IDs must each identify a user with an active student enrollment in the course that is not already targetted by a different adhoc override.</span>
+<span class="sd">        :type assignment_override_student_ids: integer or None</span>
+<span class="sd">        :param assignment_override_title: (optional) The title of the adhoc assignment override. Required if student_ids is present, ignored otherwise (the title is set to the name of the targetted group or section instead).</span>
+<span class="sd">        :type assignment_override_title: string or None</span>
+<span class="sd">        :param assignment_override_group_id: (optional) The ID of the override&#39;s target group. If present, the following conditions must be met for the override to be successful: 1. the assignment MUST be a group assignment (a group_category_id is assigned to it) 2. the ID must identify an active group in the group set the assignment is in 3. the ID must not be targetted by a different override See {Appendix: Group assignments} for more info.</span>
+<span class="sd">        :type assignment_override_group_id: integer or None</span>
+<span class="sd">        :param assignment_override_course_section_id: (optional) The ID of the override&#39;s target section. If present, must identify an active section of the assignment&#39;s course not already targetted by a different override.</span>
+<span class="sd">        :type assignment_override_course_section_id: integer or None</span>
+<span class="sd">        :param assignment_override_due_at: (optional) The day/time the overridden assignment is due. Accepts times in ISO 8601 format, e.g. 2014-10-21T18:48:00Z. If absent, this override will not affect due date. May be present but null to indicate the override removes any previous due date.</span>
+<span class="sd">        :type assignment_override_due_at: timestamp or None</span>
+<span class="sd">        :param assignment_override_unlock_at: (optional) The day/time the overridden assignment becomes unlocked. Accepts times in ISO 8601 format, e.g. 2014-10-21T18:48:00Z. If absent, this override will not affect the unlock date. May be present but null to indicate the override removes any previous unlock date.</span>
+<span class="sd">        :type assignment_override_unlock_at: timestamp or None</span>
+<span class="sd">        :param assignment_override_lock_at: (optional) The day/time the overridden assignment becomes locked. Accepts times in ISO 8601 format, e.g. 2014-10-21T18:48:00Z. If absent, this override will not affect the lock date. May be present but null to indicate the override removes any previous lock date.</span>
+<span class="sd">        :type assignment_override_lock_at: timestamp or None</span>
+<span class="sd">        :return: Create an assignment override</span>
+<span class="sd">        :rtype: requests.Response (with AssignmentOverride data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/courses/{course_id}/assignments/{assignment_id}/overrides&#39;</span>
+    <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s">&#39;assignment_override[student_ids]&#39;</span> <span class="p">:</span> <span class="n">assignment_override_student_ids</span><span class="p">,</span>
+        <span class="s">&#39;assignment_override[title]&#39;</span> <span class="p">:</span> <span class="n">assignment_override_title</span><span class="p">,</span>
+        <span class="s">&#39;assignment_override[group_id]&#39;</span> <span class="p">:</span> <span class="n">assignment_override_group_id</span><span class="p">,</span>
+        <span class="s">&#39;assignment_override[course_section_id]&#39;</span> <span class="p">:</span> <span class="n">assignment_override_course_section_id</span><span class="p">,</span>
+        <span class="s">&#39;assignment_override[due_at]&#39;</span> <span class="p">:</span> <span class="n">assignment_override_due_at</span><span class="p">,</span>
+        <span class="s">&#39;assignment_override[unlock_at]&#39;</span> <span class="p">:</span> <span class="n">assignment_override_unlock_at</span><span class="p">,</span>
+        <span class="s">&#39;assignment_override[lock_at]&#39;</span> <span class="p">:</span> <span class="n">assignment_override_lock_at</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">course_id</span><span class="o">=</span><span class="n">course_id</span><span class="p">,</span> <span class="n">assignment_id</span><span class="o">=</span><span class="n">assignment_id</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="n">payload</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+
+</div>
+<div class="viewcode-block" id="update_assignment_override"><a class="viewcode-back" href="../../../canvas_sdk.methods.assignments.html#canvas_sdk.methods.assignments.update_assignment_override">[docs]</a><span class="k">def</span> <span class="nf">update_assignment_override</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">course_id</span><span class="p">,</span> <span class="n">assignment_id</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="n">assignment_override_student_ids</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">assignment_override_title</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">assignment_override_due_at</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">assignment_override_unlock_at</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">assignment_override_lock_at</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    All current overridden values must be supplied if they are to be retained;</span>
+<span class="sd">    e.g. if due_at was overridden, but this PUT omits a value for due_at,</span>
+<span class="sd">    due_at will no longer be overridden. If the override is adhoc and</span>
+<span class="sd">    student_ids is not supplied, the target override set is unchanged. Target</span>
+<span class="sd">    override sets cannot be changed for group or section overrides.</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param course_id: (required) ID</span>
+<span class="sd">        :type course_id: string</span>
+<span class="sd">        :param assignment_id: (required) ID</span>
+<span class="sd">        :type assignment_id: string</span>
+<span class="sd">        :param id: (required) ID</span>
+<span class="sd">        :type id: string</span>
+<span class="sd">        :param assignment_override_student_ids: (optional) The IDs of the override&#39;s target students. If present, the IDs must each identify a user with an active student enrollment in the course that is not already targetted by a different adhoc override. Ignored unless the override being updated is adhoc.</span>
+<span class="sd">        :type assignment_override_student_ids: integer or None</span>
+<span class="sd">        :param assignment_override_title: (optional) The title of an adhoc assignment override. Ignored unless the override being updated is adhoc.</span>
+<span class="sd">        :type assignment_override_title: string or None</span>
+<span class="sd">        :param assignment_override_due_at: (optional) The day/time the overridden assignment is due. Accepts times in ISO 8601 format, e.g. 2014-10-21T18:48:00Z. If absent, this override will not affect due date. May be present but null to indicate the override removes any previous due date.</span>
+<span class="sd">        :type assignment_override_due_at: timestamp or None</span>
+<span class="sd">        :param assignment_override_unlock_at: (optional) The day/time the overridden assignment becomes unlocked. Accepts times in ISO 8601 format, e.g. 2014-10-21T18:48:00Z. If absent, this override will not affect the unlock date. May be present but null to indicate the override removes any previous unlock date.</span>
+<span class="sd">        :type assignment_override_unlock_at: timestamp or None</span>
+<span class="sd">        :param assignment_override_lock_at: (optional) The day/time the overridden assignment becomes locked. Accepts times in ISO 8601 format, e.g. 2014-10-21T18:48:00Z. If absent, this override will not affect the lock date. May be present but null to indicate the override removes any previous lock date.</span>
+<span class="sd">        :type assignment_override_lock_at: timestamp or None</span>
+<span class="sd">        :return: Update an assignment override</span>
+<span class="sd">        :rtype: requests.Response (with AssignmentOverride data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/courses/{course_id}/assignments/{assignment_id}/overrides/{id}&#39;</span>
+    <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s">&#39;assignment_override[student_ids]&#39;</span> <span class="p">:</span> <span class="n">assignment_override_student_ids</span><span class="p">,</span>
+        <span class="s">&#39;assignment_override[title]&#39;</span> <span class="p">:</span> <span class="n">assignment_override_title</span><span class="p">,</span>
+        <span class="s">&#39;assignment_override[due_at]&#39;</span> <span class="p">:</span> <span class="n">assignment_override_due_at</span><span class="p">,</span>
+        <span class="s">&#39;assignment_override[unlock_at]&#39;</span> <span class="p">:</span> <span class="n">assignment_override_unlock_at</span><span class="p">,</span>
+        <span class="s">&#39;assignment_override[lock_at]&#39;</span> <span class="p">:</span> <span class="n">assignment_override_lock_at</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">course_id</span><span class="o">=</span><span class="n">course_id</span><span class="p">,</span> <span class="n">assignment_id</span><span class="o">=</span><span class="n">assignment_id</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="nb">id</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="n">payload</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+
+</div>
+<div class="viewcode-block" id="delete_assignment_override"><a class="viewcode-back" href="../../../canvas_sdk.methods.assignments.html#canvas_sdk.methods.assignments.delete_assignment_override">[docs]</a><span class="k">def</span> <span class="nf">delete_assignment_override</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">course_id</span><span class="p">,</span> <span class="n">assignment_id</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Deletes an override and returns its former details.</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param course_id: (required) ID</span>
+<span class="sd">        :type course_id: string</span>
+<span class="sd">        :param assignment_id: (required) ID</span>
+<span class="sd">        :type assignment_id: string</span>
+<span class="sd">        :param id: (required) ID</span>
+<span class="sd">        :type id: string</span>
+<span class="sd">        :return: Delete an assignment override</span>
+<span class="sd">        :rtype: requests.Response (with AssignmentOverride data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/courses/{course_id}/assignments/{assignment_id}/overrides/{id}&#39;</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">course_id</span><span class="o">=</span><span class="n">course_id</span><span class="p">,</span> <span class="n">assignment_id</span><span class="o">=</span><span class="n">assignment_id</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="nb">id</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+</pre></div></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../../index.html">Canvas_SDK 0.0.1 documentation</a> &raquo;</li>
+          <li><a href="../../index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, Harvard.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

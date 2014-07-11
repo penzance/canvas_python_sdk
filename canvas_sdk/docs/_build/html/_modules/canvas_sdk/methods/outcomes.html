@@ -1,0 +1,163 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>canvas_sdk.methods.outcomes &mdash; Canvas_SDK 0.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="top" title="Canvas_SDK 0.0.1 documentation" href="../../../index.html" />
+    <link rel="up" title="Module code" href="../../index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../../index.html">Canvas_SDK 0.0.1 documentation</a> &raquo;</li>
+          <li><a href="../../index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for canvas_sdk.methods.outcomes</h1><div class="highlight"><pre>
+<span class="kn">from</span> <span class="nn">canvas_sdk</span> <span class="kn">import</span> <span class="n">client</span><span class="p">,</span> <span class="n">utils</span>
+
+<div class="viewcode-block" id="show_outcome"><a class="viewcode-back" href="../../../canvas_sdk.methods.outcomes.html#canvas_sdk.methods.outcomes.show_outcome">[docs]</a><span class="k">def</span> <span class="nf">show_outcome</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns the details of the outcome with the given id.</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param id: (required) ID</span>
+<span class="sd">        :type id: string</span>
+<span class="sd">        :return: Show an outcome</span>
+<span class="sd">        :rtype: requests.Response (with Outcome data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/outcomes/{id}&#39;</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="nb">id</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+
+</div>
+<div class="viewcode-block" id="update_outcome"><a class="viewcode-back" href="../../../canvas_sdk.methods.outcomes.html#canvas_sdk.methods.outcomes.update_outcome">[docs]</a><span class="k">def</span> <span class="nf">update_outcome</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">vendor_guid</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">mastery_points</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">ratings_description</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">ratings_points</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Modify an existing outcome. Fields not provided are left as is;</span>
+<span class="sd">    unrecognized fields are ignored.</span>
+<span class="sd">    </span>
+<span class="sd">    If any new ratings are provided, the combination of all new ratings</span>
+<span class="sd">    provided completely replace any existing embedded rubric criterion; it is</span>
+<span class="sd">    not possible to tweak the ratings of the embedded rubric criterion.</span>
+<span class="sd">    </span>
+<span class="sd">    A new embedded rubric criterion&#39;s mastery_points default to the maximum</span>
+<span class="sd">    points in the highest rating if not specified in the mastery_points</span>
+<span class="sd">    parameter. Any new ratings lacking a description are given a default of &quot;No</span>
+<span class="sd">    description&quot;. Any new ratings lacking a point value are given a default of</span>
+<span class="sd">    0.</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param id: (required) ID</span>
+<span class="sd">        :type id: string</span>
+<span class="sd">        :param title: (optional) The new outcome title.</span>
+<span class="sd">        :type title: string or None</span>
+<span class="sd">        :param description: (optional) The new outcome description.</span>
+<span class="sd">        :type description: string or None</span>
+<span class="sd">        :param vendor_guid: (optional) A custom GUID for the learning standard.</span>
+<span class="sd">        :type vendor_guid: string or None</span>
+<span class="sd">        :param mastery_points: (optional) The new mastery threshold for the embedded rubric criterion.</span>
+<span class="sd">        :type mastery_points: integer or None</span>
+<span class="sd">        :param ratings_description: (optional) The description of a new rating level for the embedded rubric criterion.</span>
+<span class="sd">        :type ratings_description: string or None</span>
+<span class="sd">        :param ratings_points: (optional) The points corresponding to a new rating level for the embedded rubric criterion.</span>
+<span class="sd">        :type ratings_points: integer or None</span>
+<span class="sd">        :return: Update an outcome</span>
+<span class="sd">        :rtype: requests.Response (with Outcome data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/outcomes/{id}&#39;</span>
+    <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s">&#39;title&#39;</span> <span class="p">:</span> <span class="n">title</span><span class="p">,</span>
+        <span class="s">&#39;description&#39;</span> <span class="p">:</span> <span class="n">description</span><span class="p">,</span>
+        <span class="s">&#39;vendor_guid&#39;</span> <span class="p">:</span> <span class="n">vendor_guid</span><span class="p">,</span>
+        <span class="s">&#39;mastery_points&#39;</span> <span class="p">:</span> <span class="n">mastery_points</span><span class="p">,</span>
+        <span class="s">&#39;ratings[description]&#39;</span> <span class="p">:</span> <span class="n">ratings_description</span><span class="p">,</span>
+        <span class="s">&#39;ratings[points]&#39;</span> <span class="p">:</span> <span class="n">ratings_points</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="nb">id</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="n">payload</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+</pre></div></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../../index.html">Canvas_SDK 0.0.1 documentation</a> &raquo;</li>
+          <li><a href="../../index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, Harvard.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

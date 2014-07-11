@@ -1,0 +1,606 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>canvas_sdk.methods.external_tools &mdash; Canvas_SDK 0.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="top" title="Canvas_SDK 0.0.1 documentation" href="../../../index.html" />
+    <link rel="up" title="Module code" href="../../index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../../index.html">Canvas_SDK 0.0.1 documentation</a> &raquo;</li>
+          <li><a href="../../index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for canvas_sdk.methods.external_tools</h1><div class="highlight"><pre>
+<span class="kn">from</span> <span class="nn">canvas_sdk</span> <span class="kn">import</span> <span class="n">client</span><span class="p">,</span> <span class="n">utils</span>
+
+<div class="viewcode-block" id="list_external_tools_courses"><a class="viewcode-back" href="../../../canvas_sdk.methods.external_tools.html#canvas_sdk.methods.external_tools.list_external_tools_courses">[docs]</a><span class="k">def</span> <span class="nf">list_external_tools_courses</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">course_id</span><span class="p">,</span> <span class="n">search_term</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns the paginated list of external tools for the current context.</span>
+<span class="sd">    See the get request docs for a single tool for a list of properties on an external tool.</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param course_id: (required) ID</span>
+<span class="sd">        :type course_id: string</span>
+<span class="sd">        :param search_term: (optional) The partial name of the tools to match and return.</span>
+<span class="sd">        :type search_term: string or None</span>
+<span class="sd">        :return: List external tools</span>
+<span class="sd">        :rtype: requests.Response (with void data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/courses/{course_id}/external_tools&#39;</span>
+    <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s">&#39;search_term&#39;</span> <span class="p">:</span> <span class="n">search_term</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">course_id</span><span class="o">=</span><span class="n">course_id</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="n">payload</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+
+</div>
+<div class="viewcode-block" id="list_external_tools_accounts"><a class="viewcode-back" href="../../../canvas_sdk.methods.external_tools.html#canvas_sdk.methods.external_tools.list_external_tools_accounts">[docs]</a><span class="k">def</span> <span class="nf">list_external_tools_accounts</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">account_id</span><span class="p">,</span> <span class="n">search_term</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns the paginated list of external tools for the current context.</span>
+<span class="sd">    See the get request docs for a single tool for a list of properties on an external tool.</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param account_id: (required) ID</span>
+<span class="sd">        :type account_id: string</span>
+<span class="sd">        :param search_term: (optional) The partial name of the tools to match and return.</span>
+<span class="sd">        :type search_term: string or None</span>
+<span class="sd">        :return: List external tools</span>
+<span class="sd">        :rtype: requests.Response (with void data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/accounts/{account_id}/external_tools&#39;</span>
+    <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s">&#39;search_term&#39;</span> <span class="p">:</span> <span class="n">search_term</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">account_id</span><span class="o">=</span><span class="n">account_id</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="n">payload</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+
+</div>
+<div class="viewcode-block" id="get_sessionless_launch_url_for_external_tool_courses"><a class="viewcode-back" href="../../../canvas_sdk.methods.external_tools.html#canvas_sdk.methods.external_tools.get_sessionless_launch_url_for_external_tool_courses">[docs]</a><span class="k">def</span> <span class="nf">get_sessionless_launch_url_for_external_tool_courses</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">course_id</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">assignment_id</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">launch_type</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns a sessionless launch url for an external tool.</span>
+<span class="sd">    </span>
+<span class="sd">    Either the id or url must be provided.</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param course_id: (required) ID</span>
+<span class="sd">        :type course_id: string</span>
+<span class="sd">        :param id: (optional) The external id of the tool to launch.</span>
+<span class="sd">        :type id: string or None</span>
+<span class="sd">        :param url: (optional) The LTI launch url for the external tool.</span>
+<span class="sd">        :type url: string or None</span>
+<span class="sd">        :param assignment_id: (optional) The assignment id for an assignment launch.</span>
+<span class="sd">        :type assignment_id: string or None</span>
+<span class="sd">        :param launch_type: (optional) The type of launch to perform on the external tool.</span>
+<span class="sd">        :type launch_type: string or None</span>
+<span class="sd">        :return: Get a sessionless launch url for an external tool.</span>
+<span class="sd">        :rtype: requests.Response (with void data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/courses/{course_id}/external_tools/sessionless_launch&#39;</span>
+    <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s">&#39;id&#39;</span> <span class="p">:</span> <span class="nb">id</span><span class="p">,</span>
+        <span class="s">&#39;url&#39;</span> <span class="p">:</span> <span class="n">url</span><span class="p">,</span>
+        <span class="s">&#39;assignment_id&#39;</span> <span class="p">:</span> <span class="n">assignment_id</span><span class="p">,</span>
+        <span class="s">&#39;launch_type&#39;</span> <span class="p">:</span> <span class="n">launch_type</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">course_id</span><span class="o">=</span><span class="n">course_id</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="n">payload</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+
+</div>
+<div class="viewcode-block" id="get_sessionless_launch_url_for_external_tool_accounts"><a class="viewcode-back" href="../../../canvas_sdk.methods.external_tools.html#canvas_sdk.methods.external_tools.get_sessionless_launch_url_for_external_tool_accounts">[docs]</a><span class="k">def</span> <span class="nf">get_sessionless_launch_url_for_external_tool_accounts</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">account_id</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">assignment_id</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">launch_type</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns a sessionless launch url for an external tool.</span>
+<span class="sd">    </span>
+<span class="sd">    Either the id or url must be provided.</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param account_id: (required) ID</span>
+<span class="sd">        :type account_id: string</span>
+<span class="sd">        :param id: (optional) The external id of the tool to launch.</span>
+<span class="sd">        :type id: string or None</span>
+<span class="sd">        :param url: (optional) The LTI launch url for the external tool.</span>
+<span class="sd">        :type url: string or None</span>
+<span class="sd">        :param assignment_id: (optional) The assignment id for an assignment launch.</span>
+<span class="sd">        :type assignment_id: string or None</span>
+<span class="sd">        :param launch_type: (optional) The type of launch to perform on the external tool.</span>
+<span class="sd">        :type launch_type: string or None</span>
+<span class="sd">        :return: Get a sessionless launch url for an external tool.</span>
+<span class="sd">        :rtype: requests.Response (with void data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/accounts/{account_id}/external_tools/sessionless_launch&#39;</span>
+    <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s">&#39;id&#39;</span> <span class="p">:</span> <span class="nb">id</span><span class="p">,</span>
+        <span class="s">&#39;url&#39;</span> <span class="p">:</span> <span class="n">url</span><span class="p">,</span>
+        <span class="s">&#39;assignment_id&#39;</span> <span class="p">:</span> <span class="n">assignment_id</span><span class="p">,</span>
+        <span class="s">&#39;launch_type&#39;</span> <span class="p">:</span> <span class="n">launch_type</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">account_id</span><span class="o">=</span><span class="n">account_id</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="n">payload</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+
+</div>
+<div class="viewcode-block" id="get_single_external_tool_courses"><a class="viewcode-back" href="../../../canvas_sdk.methods.external_tools.html#canvas_sdk.methods.external_tools.get_single_external_tool_courses">[docs]</a><span class="k">def</span> <span class="nf">get_single_external_tool_courses</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">course_id</span><span class="p">,</span> <span class="n">external_tool_id</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns the specified external tool.</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param course_id: (required) ID</span>
+<span class="sd">        :type course_id: string</span>
+<span class="sd">        :param external_tool_id: (required) ID</span>
+<span class="sd">        :type external_tool_id: string</span>
+<span class="sd">        :return: Get a single external tool</span>
+<span class="sd">        :rtype: requests.Response (with void data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/courses/{course_id}/external_tools/{external_tool_id}&#39;</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">course_id</span><span class="o">=</span><span class="n">course_id</span><span class="p">,</span> <span class="n">external_tool_id</span><span class="o">=</span><span class="n">external_tool_id</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+
+</div>
+<div class="viewcode-block" id="get_single_external_tool_accounts"><a class="viewcode-back" href="../../../canvas_sdk.methods.external_tools.html#canvas_sdk.methods.external_tools.get_single_external_tool_accounts">[docs]</a><span class="k">def</span> <span class="nf">get_single_external_tool_accounts</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">account_id</span><span class="p">,</span> <span class="n">external_tool_id</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns the specified external tool.</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param account_id: (required) ID</span>
+<span class="sd">        :type account_id: string</span>
+<span class="sd">        :param external_tool_id: (required) ID</span>
+<span class="sd">        :type external_tool_id: string</span>
+<span class="sd">        :return: Get a single external tool</span>
+<span class="sd">        :rtype: requests.Response (with void data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/accounts/{account_id}/external_tools/{external_tool_id}&#39;</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">account_id</span><span class="o">=</span><span class="n">account_id</span><span class="p">,</span> <span class="n">external_tool_id</span><span class="o">=</span><span class="n">external_tool_id</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+
+</div>
+<div class="viewcode-block" id="create_external_tool_courses"><a class="viewcode-back" href="../../../canvas_sdk.methods.external_tools.html#canvas_sdk.methods.external_tools.create_external_tool_courses">[docs]</a><span class="k">def</span> <span class="nf">create_external_tool_courses</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">course_id</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">privacy_level</span><span class="p">,</span> <span class="n">consumer_key</span><span class="p">,</span> <span class="n">shared_secret</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">domain</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">icon_url</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">custom_fields</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">account_navigation_url</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">account_navigation_enabled</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">account_navigation_text</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">user_navigation_url</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">user_navigation_enabled</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">user_navigation_text</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">course_navigation_url</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">course_navigation_enabled</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">course_navigation_text</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">course_navigation_visibility</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">course_navigation_default</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">editor_button_url</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">editor_button_enabled</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">editor_button_icon_url</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">editor_button_selection_width</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">editor_button_selection_height</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">resource_selection_url</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">resource_selection_enabled</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">resource_selection_icon_url</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">resource_selection_selection_width</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">resource_selection_selection_height</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">config_type</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">config_xml</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">config_url</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Create an external tool in the specified course/account.</span>
+<span class="sd">    The created tool will be returned, see the &quot;show&quot; endpoint for an example.</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param course_id: (required) ID</span>
+<span class="sd">        :type course_id: string</span>
+<span class="sd">        :param name: (required) The name of the tool</span>
+<span class="sd">        :type name: string</span>
+<span class="sd">        :param privacy_level: (required) What information to send to the external tool.</span>
+<span class="sd">        :type privacy_level: string</span>
+<span class="sd">        :param consumer_key: (required) The consumer key for the external tool</span>
+<span class="sd">        :type consumer_key: string</span>
+<span class="sd">        :param shared_secret: (required) The shared secret with the external tool</span>
+<span class="sd">        :type shared_secret: string</span>
+<span class="sd">        :param description: (optional) A description of the tool</span>
+<span class="sd">        :type description: string or None</span>
+<span class="sd">        :param url: (optional) The url to match links against. Either &quot;url&quot; or &quot;domain&quot; should be set, not both.</span>
+<span class="sd">        :type url: string or None</span>
+<span class="sd">        :param domain: (optional) The domain to match links against. Either &quot;url&quot; or &quot;domain&quot; should be set, not both.</span>
+<span class="sd">        :type domain: string or None</span>
+<span class="sd">        :param icon_url: (optional) The url of the icon to show for this tool</span>
+<span class="sd">        :type icon_url: string or None</span>
+<span class="sd">        :param text: (optional) The default text to show for this tool</span>
+<span class="sd">        :type text: string or None</span>
+<span class="sd">        :param custom_fields: (optional) Custom fields that will be sent to the tool consumer, specified as custom_fields[field_name]</span>
+<span class="sd">        :type custom_fields: string or None</span>
+<span class="sd">        :param account_navigation_url: (optional) The url of the external tool for account navigation</span>
+<span class="sd">        :type account_navigation_url: string or None</span>
+<span class="sd">        :param account_navigation_enabled: (optional) Set this to enable this feature</span>
+<span class="sd">        :type account_navigation_enabled: boolean or None</span>
+<span class="sd">        :param account_navigation_text: (optional) The text that will show on the left-tab in the account navigation</span>
+<span class="sd">        :type account_navigation_text: string or None</span>
+<span class="sd">        :param user_navigation_url: (optional) The url of the external tool for user navigation</span>
+<span class="sd">        :type user_navigation_url: string or None</span>
+<span class="sd">        :param user_navigation_enabled: (optional) Set this to enable this feature</span>
+<span class="sd">        :type user_navigation_enabled: boolean or None</span>
+<span class="sd">        :param user_navigation_text: (optional) The text that will show on the left-tab in the user navigation</span>
+<span class="sd">        :type user_navigation_text: string or None</span>
+<span class="sd">        :param course_navigation_url: (optional) The url of the external tool for course navigation</span>
+<span class="sd">        :type course_navigation_url: string or None</span>
+<span class="sd">        :param course_navigation_enabled: (optional) Set this to enable this feature</span>
+<span class="sd">        :type course_navigation_enabled: boolean or None</span>
+<span class="sd">        :param course_navigation_text: (optional) The text that will show on the left-tab in the course navigation</span>
+<span class="sd">        :type course_navigation_text: string or None</span>
+<span class="sd">        :param course_navigation_visibility: (optional) Who will see the navigation tab. &quot;admins&quot; for course admins, &quot;members&quot; for students, null for everyone</span>
+<span class="sd">        :type course_navigation_visibility: string or None</span>
+<span class="sd">        :param course_navigation_default: (optional) Whether the navigation option will show in the course by default or whether the teacher will have to explicitly enable it</span>
+<span class="sd">        :type course_navigation_default: boolean or None</span>
+<span class="sd">        :param editor_button_url: (optional) The url of the external tool</span>
+<span class="sd">        :type editor_button_url: string or None</span>
+<span class="sd">        :param editor_button_enabled: (optional) Set this to enable this feature</span>
+<span class="sd">        :type editor_button_enabled: boolean or None</span>
+<span class="sd">        :param editor_button_icon_url: (optional) The url of the icon to show in the WYSIWYG editor</span>
+<span class="sd">        :type editor_button_icon_url: string or None</span>
+<span class="sd">        :param editor_button_selection_width: (optional) The width of the dialog the tool is launched in</span>
+<span class="sd">        :type editor_button_selection_width: string or None</span>
+<span class="sd">        :param editor_button_selection_height: (optional) The height of the dialog the tool is launched in</span>
+<span class="sd">        :type editor_button_selection_height: string or None</span>
+<span class="sd">        :param resource_selection_url: (optional) The url of the external tool</span>
+<span class="sd">        :type resource_selection_url: string or None</span>
+<span class="sd">        :param resource_selection_enabled: (optional) Set this to enable this feature</span>
+<span class="sd">        :type resource_selection_enabled: boolean or None</span>
+<span class="sd">        :param resource_selection_icon_url: (optional) The url of the icon to show in the module external tool list</span>
+<span class="sd">        :type resource_selection_icon_url: string or None</span>
+<span class="sd">        :param resource_selection_selection_width: (optional) The width of the dialog the tool is launched in</span>
+<span class="sd">        :type resource_selection_selection_width: string or None</span>
+<span class="sd">        :param resource_selection_selection_height: (optional) The height of the dialog the tool is launched in</span>
+<span class="sd">        :type resource_selection_selection_height: string or None</span>
+<span class="sd">        :param config_type: (optional) Configuration can be passed in as CC xml instead of using query parameters. If this value is &quot;by_url&quot; or &quot;by_xml&quot; then an xml configuration will be expected in either the &quot;config_xml&quot; or &quot;config_url&quot; parameter. Note that the name parameter overrides the tool name provided in the xml</span>
+<span class="sd">        :type config_type: string or None</span>
+<span class="sd">        :param config_xml: (optional) XML tool configuration, as specified in the CC xml specification. This is required if &quot;config_type&quot; is set to &quot;by_xml&quot;</span>
+<span class="sd">        :type config_xml: string or None</span>
+<span class="sd">        :param config_url: (optional) URL where the server can retrieve an XML tool configuration, as specified in the CC xml specification. This is required if &quot;config_type&quot; is set to &quot;by_url&quot;</span>
+<span class="sd">        :type config_url: string or None</span>
+<span class="sd">        :return: Create an external tool</span>
+<span class="sd">        :rtype: requests.Response (with void data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">privacy_level_types</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;anonymous&#39;</span><span class="p">,</span> <span class="s">&#39;name_only&#39;</span><span class="p">,</span> <span class="s">&#39;public&#39;</span><span class="p">)</span>
+    <span class="n">visibility_types</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;admins&#39;</span><span class="p">,</span> <span class="s">&#39;members&#39;</span><span class="p">)</span>
+    <span class="n">utils</span><span class="o">.</span><span class="n">validate_attr_is_acceptable</span><span class="p">(</span><span class="n">privacy_level</span><span class="p">,</span> <span class="n">privacy_level_types</span><span class="p">)</span>
+    <span class="n">utils</span><span class="o">.</span><span class="n">validate_attr_is_acceptable</span><span class="p">(</span><span class="n">visibility</span><span class="p">,</span> <span class="n">visibility_types</span><span class="p">)</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/courses/{course_id}/external_tools&#39;</span>
+    <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s">&#39;name&#39;</span> <span class="p">:</span> <span class="n">name</span><span class="p">,</span>
+        <span class="s">&#39;privacy_level&#39;</span> <span class="p">:</span> <span class="n">privacy_level</span><span class="p">,</span>
+        <span class="s">&#39;consumer_key&#39;</span> <span class="p">:</span> <span class="n">consumer_key</span><span class="p">,</span>
+        <span class="s">&#39;shared_secret&#39;</span> <span class="p">:</span> <span class="n">shared_secret</span><span class="p">,</span>
+        <span class="s">&#39;description&#39;</span> <span class="p">:</span> <span class="n">description</span><span class="p">,</span>
+        <span class="s">&#39;url&#39;</span> <span class="p">:</span> <span class="n">url</span><span class="p">,</span>
+        <span class="s">&#39;domain&#39;</span> <span class="p">:</span> <span class="n">domain</span><span class="p">,</span>
+        <span class="s">&#39;icon_url&#39;</span> <span class="p">:</span> <span class="n">icon_url</span><span class="p">,</span>
+        <span class="s">&#39;text&#39;</span> <span class="p">:</span> <span class="n">text</span><span class="p">,</span>
+        <span class="s">&#39;custom_fields&#39;</span> <span class="p">:</span> <span class="n">custom_fields</span><span class="p">,</span>
+        <span class="s">&#39;account_navigation[url]&#39;</span> <span class="p">:</span> <span class="n">account_navigation_url</span><span class="p">,</span>
+        <span class="s">&#39;account_navigation[enabled]&#39;</span> <span class="p">:</span> <span class="n">account_navigation_enabled</span><span class="p">,</span>
+        <span class="s">&#39;account_navigation[text]&#39;</span> <span class="p">:</span> <span class="n">account_navigation_text</span><span class="p">,</span>
+        <span class="s">&#39;user_navigation[url]&#39;</span> <span class="p">:</span> <span class="n">user_navigation_url</span><span class="p">,</span>
+        <span class="s">&#39;user_navigation[enabled]&#39;</span> <span class="p">:</span> <span class="n">user_navigation_enabled</span><span class="p">,</span>
+        <span class="s">&#39;user_navigation[text]&#39;</span> <span class="p">:</span> <span class="n">user_navigation_text</span><span class="p">,</span>
+        <span class="s">&#39;course_navigation[url]&#39;</span> <span class="p">:</span> <span class="n">course_navigation_url</span><span class="p">,</span>
+        <span class="s">&#39;course_navigation[enabled]&#39;</span> <span class="p">:</span> <span class="n">course_navigation_enabled</span><span class="p">,</span>
+        <span class="s">&#39;course_navigation[text]&#39;</span> <span class="p">:</span> <span class="n">course_navigation_text</span><span class="p">,</span>
+        <span class="s">&#39;course_navigation[visibility]&#39;</span> <span class="p">:</span> <span class="n">course_navigation_visibility</span><span class="p">,</span>
+        <span class="s">&#39;course_navigation[default]&#39;</span> <span class="p">:</span> <span class="n">course_navigation_default</span><span class="p">,</span>
+        <span class="s">&#39;editor_button[url]&#39;</span> <span class="p">:</span> <span class="n">editor_button_url</span><span class="p">,</span>
+        <span class="s">&#39;editor_button[enabled]&#39;</span> <span class="p">:</span> <span class="n">editor_button_enabled</span><span class="p">,</span>
+        <span class="s">&#39;editor_button[icon_url]&#39;</span> <span class="p">:</span> <span class="n">editor_button_icon_url</span><span class="p">,</span>
+        <span class="s">&#39;editor_button[selection_width]&#39;</span> <span class="p">:</span> <span class="n">editor_button_selection_width</span><span class="p">,</span>
+        <span class="s">&#39;editor_button[selection_height]&#39;</span> <span class="p">:</span> <span class="n">editor_button_selection_height</span><span class="p">,</span>
+        <span class="s">&#39;resource_selection[url]&#39;</span> <span class="p">:</span> <span class="n">resource_selection_url</span><span class="p">,</span>
+        <span class="s">&#39;resource_selection[enabled]&#39;</span> <span class="p">:</span> <span class="n">resource_selection_enabled</span><span class="p">,</span>
+        <span class="s">&#39;resource_selection[icon_url]&#39;</span> <span class="p">:</span> <span class="n">resource_selection_icon_url</span><span class="p">,</span>
+        <span class="s">&#39;resource_selection[selection_width]&#39;</span> <span class="p">:</span> <span class="n">resource_selection_selection_width</span><span class="p">,</span>
+        <span class="s">&#39;resource_selection[selection_height]&#39;</span> <span class="p">:</span> <span class="n">resource_selection_selection_height</span><span class="p">,</span>
+        <span class="s">&#39;config_type&#39;</span> <span class="p">:</span> <span class="n">config_type</span><span class="p">,</span>
+        <span class="s">&#39;config_xml&#39;</span> <span class="p">:</span> <span class="n">config_xml</span><span class="p">,</span>
+        <span class="s">&#39;config_url&#39;</span> <span class="p">:</span> <span class="n">config_url</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">course_id</span><span class="o">=</span><span class="n">course_id</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="n">payload</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+
+</div>
+<div class="viewcode-block" id="create_external_tool_accounts"><a class="viewcode-back" href="../../../canvas_sdk.methods.external_tools.html#canvas_sdk.methods.external_tools.create_external_tool_accounts">[docs]</a><span class="k">def</span> <span class="nf">create_external_tool_accounts</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">account_id</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">privacy_level</span><span class="p">,</span> <span class="n">consumer_key</span><span class="p">,</span> <span class="n">shared_secret</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">domain</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">icon_url</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">custom_fields</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">account_navigation_url</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">account_navigation_enabled</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">account_navigation_text</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">user_navigation_url</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">user_navigation_enabled</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">user_navigation_text</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">course_navigation_url</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">course_navigation_enabled</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">course_navigation_text</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">course_navigation_visibility</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">course_navigation_default</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">editor_button_url</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">editor_button_enabled</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">editor_button_icon_url</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">editor_button_selection_width</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">editor_button_selection_height</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">resource_selection_url</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">resource_selection_enabled</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">resource_selection_icon_url</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">resource_selection_selection_width</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">resource_selection_selection_height</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">config_type</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">config_xml</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">config_url</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Create an external tool in the specified course/account.</span>
+<span class="sd">    The created tool will be returned, see the &quot;show&quot; endpoint for an example.</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param account_id: (required) ID</span>
+<span class="sd">        :type account_id: string</span>
+<span class="sd">        :param name: (required) The name of the tool</span>
+<span class="sd">        :type name: string</span>
+<span class="sd">        :param privacy_level: (required) What information to send to the external tool.</span>
+<span class="sd">        :type privacy_level: string</span>
+<span class="sd">        :param consumer_key: (required) The consumer key for the external tool</span>
+<span class="sd">        :type consumer_key: string</span>
+<span class="sd">        :param shared_secret: (required) The shared secret with the external tool</span>
+<span class="sd">        :type shared_secret: string</span>
+<span class="sd">        :param description: (optional) A description of the tool</span>
+<span class="sd">        :type description: string or None</span>
+<span class="sd">        :param url: (optional) The url to match links against. Either &quot;url&quot; or &quot;domain&quot; should be set, not both.</span>
+<span class="sd">        :type url: string or None</span>
+<span class="sd">        :param domain: (optional) The domain to match links against. Either &quot;url&quot; or &quot;domain&quot; should be set, not both.</span>
+<span class="sd">        :type domain: string or None</span>
+<span class="sd">        :param icon_url: (optional) The url of the icon to show for this tool</span>
+<span class="sd">        :type icon_url: string or None</span>
+<span class="sd">        :param text: (optional) The default text to show for this tool</span>
+<span class="sd">        :type text: string or None</span>
+<span class="sd">        :param custom_fields: (optional) Custom fields that will be sent to the tool consumer, specified as custom_fields[field_name]</span>
+<span class="sd">        :type custom_fields: string or None</span>
+<span class="sd">        :param account_navigation_url: (optional) The url of the external tool for account navigation</span>
+<span class="sd">        :type account_navigation_url: string or None</span>
+<span class="sd">        :param account_navigation_enabled: (optional) Set this to enable this feature</span>
+<span class="sd">        :type account_navigation_enabled: boolean or None</span>
+<span class="sd">        :param account_navigation_text: (optional) The text that will show on the left-tab in the account navigation</span>
+<span class="sd">        :type account_navigation_text: string or None</span>
+<span class="sd">        :param user_navigation_url: (optional) The url of the external tool for user navigation</span>
+<span class="sd">        :type user_navigation_url: string or None</span>
+<span class="sd">        :param user_navigation_enabled: (optional) Set this to enable this feature</span>
+<span class="sd">        :type user_navigation_enabled: boolean or None</span>
+<span class="sd">        :param user_navigation_text: (optional) The text that will show on the left-tab in the user navigation</span>
+<span class="sd">        :type user_navigation_text: string or None</span>
+<span class="sd">        :param course_navigation_url: (optional) The url of the external tool for course navigation</span>
+<span class="sd">        :type course_navigation_url: string or None</span>
+<span class="sd">        :param course_navigation_enabled: (optional) Set this to enable this feature</span>
+<span class="sd">        :type course_navigation_enabled: boolean or None</span>
+<span class="sd">        :param course_navigation_text: (optional) The text that will show on the left-tab in the course navigation</span>
+<span class="sd">        :type course_navigation_text: string or None</span>
+<span class="sd">        :param course_navigation_visibility: (optional) Who will see the navigation tab. &quot;admins&quot; for course admins, &quot;members&quot; for students, null for everyone</span>
+<span class="sd">        :type course_navigation_visibility: string or None</span>
+<span class="sd">        :param course_navigation_default: (optional) Whether the navigation option will show in the course by default or whether the teacher will have to explicitly enable it</span>
+<span class="sd">        :type course_navigation_default: boolean or None</span>
+<span class="sd">        :param editor_button_url: (optional) The url of the external tool</span>
+<span class="sd">        :type editor_button_url: string or None</span>
+<span class="sd">        :param editor_button_enabled: (optional) Set this to enable this feature</span>
+<span class="sd">        :type editor_button_enabled: boolean or None</span>
+<span class="sd">        :param editor_button_icon_url: (optional) The url of the icon to show in the WYSIWYG editor</span>
+<span class="sd">        :type editor_button_icon_url: string or None</span>
+<span class="sd">        :param editor_button_selection_width: (optional) The width of the dialog the tool is launched in</span>
+<span class="sd">        :type editor_button_selection_width: string or None</span>
+<span class="sd">        :param editor_button_selection_height: (optional) The height of the dialog the tool is launched in</span>
+<span class="sd">        :type editor_button_selection_height: string or None</span>
+<span class="sd">        :param resource_selection_url: (optional) The url of the external tool</span>
+<span class="sd">        :type resource_selection_url: string or None</span>
+<span class="sd">        :param resource_selection_enabled: (optional) Set this to enable this feature</span>
+<span class="sd">        :type resource_selection_enabled: boolean or None</span>
+<span class="sd">        :param resource_selection_icon_url: (optional) The url of the icon to show in the module external tool list</span>
+<span class="sd">        :type resource_selection_icon_url: string or None</span>
+<span class="sd">        :param resource_selection_selection_width: (optional) The width of the dialog the tool is launched in</span>
+<span class="sd">        :type resource_selection_selection_width: string or None</span>
+<span class="sd">        :param resource_selection_selection_height: (optional) The height of the dialog the tool is launched in</span>
+<span class="sd">        :type resource_selection_selection_height: string or None</span>
+<span class="sd">        :param config_type: (optional) Configuration can be passed in as CC xml instead of using query parameters. If this value is &quot;by_url&quot; or &quot;by_xml&quot; then an xml configuration will be expected in either the &quot;config_xml&quot; or &quot;config_url&quot; parameter. Note that the name parameter overrides the tool name provided in the xml</span>
+<span class="sd">        :type config_type: string or None</span>
+<span class="sd">        :param config_xml: (optional) XML tool configuration, as specified in the CC xml specification. This is required if &quot;config_type&quot; is set to &quot;by_xml&quot;</span>
+<span class="sd">        :type config_xml: string or None</span>
+<span class="sd">        :param config_url: (optional) URL where the server can retrieve an XML tool configuration, as specified in the CC xml specification. This is required if &quot;config_type&quot; is set to &quot;by_url&quot;</span>
+<span class="sd">        :type config_url: string or None</span>
+<span class="sd">        :return: Create an external tool</span>
+<span class="sd">        :rtype: requests.Response (with void data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">privacy_level_types</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;anonymous&#39;</span><span class="p">,</span> <span class="s">&#39;name_only&#39;</span><span class="p">,</span> <span class="s">&#39;public&#39;</span><span class="p">)</span>
+    <span class="n">visibility_types</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;admins&#39;</span><span class="p">,</span> <span class="s">&#39;members&#39;</span><span class="p">)</span>
+    <span class="n">utils</span><span class="o">.</span><span class="n">validate_attr_is_acceptable</span><span class="p">(</span><span class="n">privacy_level</span><span class="p">,</span> <span class="n">privacy_level_types</span><span class="p">)</span>
+    <span class="n">utils</span><span class="o">.</span><span class="n">validate_attr_is_acceptable</span><span class="p">(</span><span class="n">visibility</span><span class="p">,</span> <span class="n">visibility_types</span><span class="p">)</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/accounts/{account_id}/external_tools&#39;</span>
+    <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s">&#39;name&#39;</span> <span class="p">:</span> <span class="n">name</span><span class="p">,</span>
+        <span class="s">&#39;privacy_level&#39;</span> <span class="p">:</span> <span class="n">privacy_level</span><span class="p">,</span>
+        <span class="s">&#39;consumer_key&#39;</span> <span class="p">:</span> <span class="n">consumer_key</span><span class="p">,</span>
+        <span class="s">&#39;shared_secret&#39;</span> <span class="p">:</span> <span class="n">shared_secret</span><span class="p">,</span>
+        <span class="s">&#39;description&#39;</span> <span class="p">:</span> <span class="n">description</span><span class="p">,</span>
+        <span class="s">&#39;url&#39;</span> <span class="p">:</span> <span class="n">url</span><span class="p">,</span>
+        <span class="s">&#39;domain&#39;</span> <span class="p">:</span> <span class="n">domain</span><span class="p">,</span>
+        <span class="s">&#39;icon_url&#39;</span> <span class="p">:</span> <span class="n">icon_url</span><span class="p">,</span>
+        <span class="s">&#39;text&#39;</span> <span class="p">:</span> <span class="n">text</span><span class="p">,</span>
+        <span class="s">&#39;custom_fields&#39;</span> <span class="p">:</span> <span class="n">custom_fields</span><span class="p">,</span>
+        <span class="s">&#39;account_navigation[url]&#39;</span> <span class="p">:</span> <span class="n">account_navigation_url</span><span class="p">,</span>
+        <span class="s">&#39;account_navigation[enabled]&#39;</span> <span class="p">:</span> <span class="n">account_navigation_enabled</span><span class="p">,</span>
+        <span class="s">&#39;account_navigation[text]&#39;</span> <span class="p">:</span> <span class="n">account_navigation_text</span><span class="p">,</span>
+        <span class="s">&#39;user_navigation[url]&#39;</span> <span class="p">:</span> <span class="n">user_navigation_url</span><span class="p">,</span>
+        <span class="s">&#39;user_navigation[enabled]&#39;</span> <span class="p">:</span> <span class="n">user_navigation_enabled</span><span class="p">,</span>
+        <span class="s">&#39;user_navigation[text]&#39;</span> <span class="p">:</span> <span class="n">user_navigation_text</span><span class="p">,</span>
+        <span class="s">&#39;course_navigation[url]&#39;</span> <span class="p">:</span> <span class="n">course_navigation_url</span><span class="p">,</span>
+        <span class="s">&#39;course_navigation[enabled]&#39;</span> <span class="p">:</span> <span class="n">course_navigation_enabled</span><span class="p">,</span>
+        <span class="s">&#39;course_navigation[text]&#39;</span> <span class="p">:</span> <span class="n">course_navigation_text</span><span class="p">,</span>
+        <span class="s">&#39;course_navigation[visibility]&#39;</span> <span class="p">:</span> <span class="n">course_navigation_visibility</span><span class="p">,</span>
+        <span class="s">&#39;course_navigation[default]&#39;</span> <span class="p">:</span> <span class="n">course_navigation_default</span><span class="p">,</span>
+        <span class="s">&#39;editor_button[url]&#39;</span> <span class="p">:</span> <span class="n">editor_button_url</span><span class="p">,</span>
+        <span class="s">&#39;editor_button[enabled]&#39;</span> <span class="p">:</span> <span class="n">editor_button_enabled</span><span class="p">,</span>
+        <span class="s">&#39;editor_button[icon_url]&#39;</span> <span class="p">:</span> <span class="n">editor_button_icon_url</span><span class="p">,</span>
+        <span class="s">&#39;editor_button[selection_width]&#39;</span> <span class="p">:</span> <span class="n">editor_button_selection_width</span><span class="p">,</span>
+        <span class="s">&#39;editor_button[selection_height]&#39;</span> <span class="p">:</span> <span class="n">editor_button_selection_height</span><span class="p">,</span>
+        <span class="s">&#39;resource_selection[url]&#39;</span> <span class="p">:</span> <span class="n">resource_selection_url</span><span class="p">,</span>
+        <span class="s">&#39;resource_selection[enabled]&#39;</span> <span class="p">:</span> <span class="n">resource_selection_enabled</span><span class="p">,</span>
+        <span class="s">&#39;resource_selection[icon_url]&#39;</span> <span class="p">:</span> <span class="n">resource_selection_icon_url</span><span class="p">,</span>
+        <span class="s">&#39;resource_selection[selection_width]&#39;</span> <span class="p">:</span> <span class="n">resource_selection_selection_width</span><span class="p">,</span>
+        <span class="s">&#39;resource_selection[selection_height]&#39;</span> <span class="p">:</span> <span class="n">resource_selection_selection_height</span><span class="p">,</span>
+        <span class="s">&#39;config_type&#39;</span> <span class="p">:</span> <span class="n">config_type</span><span class="p">,</span>
+        <span class="s">&#39;config_xml&#39;</span> <span class="p">:</span> <span class="n">config_xml</span><span class="p">,</span>
+        <span class="s">&#39;config_url&#39;</span> <span class="p">:</span> <span class="n">config_url</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">account_id</span><span class="o">=</span><span class="n">account_id</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="n">payload</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+
+</div>
+<div class="viewcode-block" id="edit_external_tool_courses"><a class="viewcode-back" href="../../../canvas_sdk.methods.external_tools.html#canvas_sdk.methods.external_tools.edit_external_tool_courses">[docs]</a><span class="k">def</span> <span class="nf">edit_external_tool_courses</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">course_id</span><span class="p">,</span> <span class="n">external_tool_id</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Update the specified external tool. Uses same parameters as create</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param course_id: (required) ID</span>
+<span class="sd">        :type course_id: string</span>
+<span class="sd">        :param external_tool_id: (required) ID</span>
+<span class="sd">        :type external_tool_id: string</span>
+<span class="sd">        :return: Edit an external tool</span>
+<span class="sd">        :rtype: requests.Response (with void data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/courses/{course_id}/external_tools/{external_tool_id}&#39;</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">course_id</span><span class="o">=</span><span class="n">course_id</span><span class="p">,</span> <span class="n">external_tool_id</span><span class="o">=</span><span class="n">external_tool_id</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+
+</div>
+<div class="viewcode-block" id="edit_external_tool_accounts"><a class="viewcode-back" href="../../../canvas_sdk.methods.external_tools.html#canvas_sdk.methods.external_tools.edit_external_tool_accounts">[docs]</a><span class="k">def</span> <span class="nf">edit_external_tool_accounts</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">account_id</span><span class="p">,</span> <span class="n">external_tool_id</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Update the specified external tool. Uses same parameters as create</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param account_id: (required) ID</span>
+<span class="sd">        :type account_id: string</span>
+<span class="sd">        :param external_tool_id: (required) ID</span>
+<span class="sd">        :type external_tool_id: string</span>
+<span class="sd">        :return: Edit an external tool</span>
+<span class="sd">        :rtype: requests.Response (with void data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/accounts/{account_id}/external_tools/{external_tool_id}&#39;</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">account_id</span><span class="o">=</span><span class="n">account_id</span><span class="p">,</span> <span class="n">external_tool_id</span><span class="o">=</span><span class="n">external_tool_id</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+
+</div>
+<div class="viewcode-block" id="delete_external_tool_courses"><a class="viewcode-back" href="../../../canvas_sdk.methods.external_tools.html#canvas_sdk.methods.external_tools.delete_external_tool_courses">[docs]</a><span class="k">def</span> <span class="nf">delete_external_tool_courses</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">course_id</span><span class="p">,</span> <span class="n">external_tool_id</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Remove the specified external tool</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param course_id: (required) ID</span>
+<span class="sd">        :type course_id: string</span>
+<span class="sd">        :param external_tool_id: (required) ID</span>
+<span class="sd">        :type external_tool_id: string</span>
+<span class="sd">        :return: Delete an external tool</span>
+<span class="sd">        :rtype: requests.Response (with void data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/courses/{course_id}/external_tools/{external_tool_id}&#39;</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">course_id</span><span class="o">=</span><span class="n">course_id</span><span class="p">,</span> <span class="n">external_tool_id</span><span class="o">=</span><span class="n">external_tool_id</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+
+</div>
+<div class="viewcode-block" id="delete_external_tool_accounts"><a class="viewcode-back" href="../../../canvas_sdk.methods.external_tools.html#canvas_sdk.methods.external_tools.delete_external_tool_accounts">[docs]</a><span class="k">def</span> <span class="nf">delete_external_tool_accounts</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">account_id</span><span class="p">,</span> <span class="n">external_tool_id</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Remove the specified external tool</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param account_id: (required) ID</span>
+<span class="sd">        :type account_id: string</span>
+<span class="sd">        :param external_tool_id: (required) ID</span>
+<span class="sd">        :type external_tool_id: string</span>
+<span class="sd">        :return: Delete an external tool</span>
+<span class="sd">        :rtype: requests.Response (with void data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/accounts/{account_id}/external_tools/{external_tool_id}&#39;</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">account_id</span><span class="o">=</span><span class="n">account_id</span><span class="p">,</span> <span class="n">external_tool_id</span><span class="o">=</span><span class="n">external_tool_id</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+</pre></div></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../../index.html">Canvas_SDK 0.0.1 documentation</a> &raquo;</li>
+          <li><a href="../../index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, Harvard.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

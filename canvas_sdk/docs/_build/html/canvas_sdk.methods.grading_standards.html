@@ -1,0 +1,242 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>canvas_sdk.methods.grading_standards module &mdash; Canvas_SDK 0.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Canvas_SDK 0.0.1 documentation" href="index.html" />
+    <link rel="up" title="canvas_sdk.methods package" href="canvas_sdk.methods.html" />
+    <link rel="next" title="canvas_sdk.methods.group_categories module" href="canvas_sdk.methods.group_categories.html" />
+    <link rel="prev" title="canvas_sdk.methods.gradebook_history module" href="canvas_sdk.methods.gradebook_history.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="canvas_sdk.methods.group_categories.html" title="canvas_sdk.methods.group_categories module"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="canvas_sdk.methods.gradebook_history.html" title="canvas_sdk.methods.gradebook_history module"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Canvas_SDK 0.0.1 documentation</a> &raquo;</li>
+          <li><a href="canvas_sdk.html" >canvas_sdk package</a> &raquo;</li>
+          <li><a href="canvas_sdk.methods.html" accesskey="U">canvas_sdk.methods package</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-canvas_sdk.methods.grading_standards">
+<span id="canvas-sdk-methods-grading-standards-module"></span><h1>canvas_sdk.methods.grading_standards module<a class="headerlink" href="#module-canvas_sdk.methods.grading_standards" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="canvas_sdk.methods.grading_standards.create_new_grading_standard_accounts">
+<tt class="descclassname">canvas_sdk.methods.grading_standards.</tt><tt class="descname">create_new_grading_standard_accounts</tt><big>(</big><em>request_ctx</em>, <em>account_id</em>, <em>title</em>, <em>grading_scheme_entry_name</em>, <em>grading_scheme_entry_value</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/grading_standards.html#create_new_grading_standard_accounts"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.grading_standards.create_new_grading_standard_accounts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a new grading standard</p>
+<p>If grading_scheme_entry arguments are omitted, then a default grading scheme
+will be set. The default scheme is as follows:</p>
+<blockquote>
+<div><blockquote>
+<div>&#8220;A&#8221; : 94,
+&#8220;A-&#8221; : 90,
+&#8220;B+&#8221; : 87,
+&#8220;B&#8221; : 84,
+&#8220;B-&#8221; : 80,
+&#8220;C+&#8221; : 77,
+&#8220;C&#8221; : 74,
+&#8220;C-&#8221; : 70,
+&#8220;D+&#8221; : 67,
+&#8220;D&#8221; : 64,
+&#8220;D-&#8221; : 61,
+&#8220;F&#8221; : 0,</div></blockquote>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param account_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type account_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param title:</th><td class="field-body">(required) The title for the Grading Standard.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type title:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param grading_scheme_entry_name:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) The name for an entry value within a GradingStandard that describes the range of the value e.g. A-</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type grading_scheme_entry_name:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param grading_scheme_entry_value:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) The value for the name of the entry within a GradingStandard. The entry represents the lower bound of the range for the entry. This range includes the value up to the next entry in the GradingStandard, or 100 if there is no upper bound. The lowest value will have a lower bound range of 0. e.g. 93</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type grading_scheme_entry_value:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">integer</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Create a new grading standard</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with GradingStandard data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.grading_standards.create_new_grading_standard_courses">
+<tt class="descclassname">canvas_sdk.methods.grading_standards.</tt><tt class="descname">create_new_grading_standard_courses</tt><big>(</big><em>request_ctx</em>, <em>course_id</em>, <em>title</em>, <em>grading_scheme_entry_name</em>, <em>grading_scheme_entry_value</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/grading_standards.html#create_new_grading_standard_courses"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.grading_standards.create_new_grading_standard_courses" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a new grading standard</p>
+<p>If grading_scheme_entry arguments are omitted, then a default grading scheme
+will be set. The default scheme is as follows:</p>
+<blockquote>
+<div><blockquote>
+<div>&#8220;A&#8221; : 94,
+&#8220;A-&#8221; : 90,
+&#8220;B+&#8221; : 87,
+&#8220;B&#8221; : 84,
+&#8220;B-&#8221; : 80,
+&#8220;C+&#8221; : 77,
+&#8220;C&#8221; : 74,
+&#8220;C-&#8221; : 70,
+&#8220;D+&#8221; : 67,
+&#8220;D&#8221; : 64,
+&#8220;D-&#8221; : 61,
+&#8220;F&#8221; : 0,</div></blockquote>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param course_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type course_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param title:</th><td class="field-body">(required) The title for the Grading Standard.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type title:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param grading_scheme_entry_name:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) The name for an entry value within a GradingStandard that describes the range of the value e.g. A-</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type grading_scheme_entry_name:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param grading_scheme_entry_value:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) The value for the name of the entry within a GradingStandard. The entry represents the lower bound of the range for the entry. This range includes the value up to the next entry in the GradingStandard, or 100 if there is no upper bound. The lowest value will have a lower bound range of 0. e.g. 93</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type grading_scheme_entry_value:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">integer</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Create a new grading standard</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with GradingStandard data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="canvas_sdk.methods.gradebook_history.html"
+                        title="previous chapter">canvas_sdk.methods.gradebook_history module</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="canvas_sdk.methods.group_categories.html"
+                        title="next chapter">canvas_sdk.methods.group_categories module</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/canvas_sdk.methods.grading_standards.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="canvas_sdk.methods.group_categories.html" title="canvas_sdk.methods.group_categories module"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="canvas_sdk.methods.gradebook_history.html" title="canvas_sdk.methods.gradebook_history module"
+             >previous</a> |</li>
+        <li><a href="index.html">Canvas_SDK 0.0.1 documentation</a> &raquo;</li>
+          <li><a href="canvas_sdk.html" >canvas_sdk package</a> &raquo;</li>
+          <li><a href="canvas_sdk.methods.html" >canvas_sdk.methods package</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, Harvard.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

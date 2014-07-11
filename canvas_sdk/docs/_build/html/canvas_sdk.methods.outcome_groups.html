@@ -1,0 +1,1817 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>canvas_sdk.methods.outcome_groups module &mdash; Canvas_SDK 0.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Canvas_SDK 0.0.1 documentation" href="index.html" />
+    <link rel="up" title="canvas_sdk.methods package" href="canvas_sdk.methods.html" />
+    <link rel="next" title="canvas_sdk.methods.outcome_results module" href="canvas_sdk.methods.outcome_results.html" />
+    <link rel="prev" title="canvas_sdk.methods.notification_preferences module" href="canvas_sdk.methods.notification_preferences.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="canvas_sdk.methods.outcome_results.html" title="canvas_sdk.methods.outcome_results module"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="canvas_sdk.methods.notification_preferences.html" title="canvas_sdk.methods.notification_preferences module"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Canvas_SDK 0.0.1 documentation</a> &raquo;</li>
+          <li><a href="canvas_sdk.html" >canvas_sdk package</a> &raquo;</li>
+          <li><a href="canvas_sdk.methods.html" accesskey="U">canvas_sdk.methods package</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-canvas_sdk.methods.outcome_groups">
+<span id="canvas-sdk-methods-outcome-groups-module"></span><h1>canvas_sdk.methods.outcome_groups module<a class="headerlink" href="#module-canvas_sdk.methods.outcome_groups" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="canvas_sdk.methods.outcome_groups.create_link_outcome_accounts">
+<tt class="descclassname">canvas_sdk.methods.outcome_groups.</tt><tt class="descname">create_link_outcome_accounts</tt><big>(</big><em>request_ctx</em>, <em>account_id</em>, <em>id</em>, <em>outcome_id=None</em>, <em>title=None</em>, <em>description=None</em>, <em>vendor_guid=None</em>, <em>mastery_points=None</em>, <em>ratings_description=None</em>, <em>ratings_points=None</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/outcome_groups.html#create_link_outcome_accounts"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.outcome_groups.create_link_outcome_accounts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Link an outcome into the outcome group. The outcome to link can either be
+specified by a PUT to the link URL for a specific outcome (the outcome_id
+in the PUT URLs) or by supplying the information for a new outcome (title,
+description, ratings, mastery_points) in a POST to the collection.</p>
+<p>If linking an existing outcome, the outcome_id must identify an outcome
+available to this context; i.e. an outcome owned by this group&#8217;s context,
+an outcome owned by an associated account, or a global outcome. With
+outcome_id present, any other parameters are ignored.</p>
+<p>If defining a new outcome, the outcome is created in the outcome group&#8217;s
+context using the provided title, description, ratings, and mastery points;
+the title is required but all other fields are optional. The new outcome is
+then linked into the outcome group.</p>
+<p>If ratings are provided when creating a new outcome, an embedded rubric
+criterion is included in the new outcome. This criterion&#8217;s mastery_points
+default to the maximum points in the highest rating if not specified in the
+mastery_points parameter. Any ratings lacking a description are given a
+default of &#8220;No description&#8221;. Any ratings lacking a point value are given a
+default of 0. If no ratings are provided, the mastery_points parameter is
+ignored.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param account_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type account_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param outcome_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) The ID of the existing outcome to link.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type outcome_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">integer or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param title:</th><td class="field-body">(optional) The title of the new outcome. Required if outcome_id is absent.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type title:</th><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param description:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) The description of the new outcome.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type description:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param vendor_guid:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) A custom GUID for the learning standard.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type vendor_guid:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param mastery_points:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) The mastery threshold for the embedded rubric criterion.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type mastery_points:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">integer or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param ratings_description:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) The description of a rating level for the embedded rubric criterion.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type ratings_description:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param ratings_points:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) The points corresponding to a rating level for the embedded rubric criterion.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type ratings_points:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">integer or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Create/link an outcome</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with OutcomeLink data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.outcome_groups.create_link_outcome_accounts_outcome_id">
+<tt class="descclassname">canvas_sdk.methods.outcome_groups.</tt><tt class="descname">create_link_outcome_accounts_outcome_id</tt><big>(</big><em>request_ctx</em>, <em>account_id</em>, <em>id</em>, <em>outcome_id=None</em>, <em>title=None</em>, <em>description=None</em>, <em>vendor_guid=None</em>, <em>mastery_points=None</em>, <em>ratings_description=None</em>, <em>ratings_points=None</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/outcome_groups.html#create_link_outcome_accounts_outcome_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.outcome_groups.create_link_outcome_accounts_outcome_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Link an outcome into the outcome group. The outcome to link can either be
+specified by a PUT to the link URL for a specific outcome (the outcome_id
+in the PUT URLs) or by supplying the information for a new outcome (title,
+description, ratings, mastery_points) in a POST to the collection.</p>
+<p>If linking an existing outcome, the outcome_id must identify an outcome
+available to this context; i.e. an outcome owned by this group&#8217;s context,
+an outcome owned by an associated account, or a global outcome. With
+outcome_id present, any other parameters are ignored.</p>
+<p>If defining a new outcome, the outcome is created in the outcome group&#8217;s
+context using the provided title, description, ratings, and mastery points;
+the title is required but all other fields are optional. The new outcome is
+then linked into the outcome group.</p>
+<p>If ratings are provided when creating a new outcome, an embedded rubric
+criterion is included in the new outcome. This criterion&#8217;s mastery_points
+default to the maximum points in the highest rating if not specified in the
+mastery_points parameter. Any ratings lacking a description are given a
+default of &#8220;No description&#8221;. Any ratings lacking a point value are given a
+default of 0. If no ratings are provided, the mastery_points parameter is
+ignored.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param account_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type account_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param outcome_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) The ID of the existing outcome to link.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type outcome_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">integer or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param title:</th><td class="field-body">(optional) The title of the new outcome. Required if outcome_id is absent.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type title:</th><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param description:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) The description of the new outcome.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type description:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param vendor_guid:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) A custom GUID for the learning standard.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type vendor_guid:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param mastery_points:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) The mastery threshold for the embedded rubric criterion.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type mastery_points:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">integer or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param ratings_description:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) The description of a rating level for the embedded rubric criterion.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type ratings_description:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param ratings_points:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) The points corresponding to a rating level for the embedded rubric criterion.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type ratings_points:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">integer or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Create/link an outcome</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with OutcomeLink data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.outcome_groups.create_link_outcome_courses">
+<tt class="descclassname">canvas_sdk.methods.outcome_groups.</tt><tt class="descname">create_link_outcome_courses</tt><big>(</big><em>request_ctx</em>, <em>course_id</em>, <em>id</em>, <em>outcome_id=None</em>, <em>title=None</em>, <em>description=None</em>, <em>vendor_guid=None</em>, <em>mastery_points=None</em>, <em>ratings_description=None</em>, <em>ratings_points=None</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/outcome_groups.html#create_link_outcome_courses"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.outcome_groups.create_link_outcome_courses" title="Permalink to this definition">¶</a></dt>
+<dd><p>Link an outcome into the outcome group. The outcome to link can either be
+specified by a PUT to the link URL for a specific outcome (the outcome_id
+in the PUT URLs) or by supplying the information for a new outcome (title,
+description, ratings, mastery_points) in a POST to the collection.</p>
+<p>If linking an existing outcome, the outcome_id must identify an outcome
+available to this context; i.e. an outcome owned by this group&#8217;s context,
+an outcome owned by an associated account, or a global outcome. With
+outcome_id present, any other parameters are ignored.</p>
+<p>If defining a new outcome, the outcome is created in the outcome group&#8217;s
+context using the provided title, description, ratings, and mastery points;
+the title is required but all other fields are optional. The new outcome is
+then linked into the outcome group.</p>
+<p>If ratings are provided when creating a new outcome, an embedded rubric
+criterion is included in the new outcome. This criterion&#8217;s mastery_points
+default to the maximum points in the highest rating if not specified in the
+mastery_points parameter. Any ratings lacking a description are given a
+default of &#8220;No description&#8221;. Any ratings lacking a point value are given a
+default of 0. If no ratings are provided, the mastery_points parameter is
+ignored.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param course_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type course_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param outcome_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) The ID of the existing outcome to link.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type outcome_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">integer or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param title:</th><td class="field-body">(optional) The title of the new outcome. Required if outcome_id is absent.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type title:</th><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param description:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) The description of the new outcome.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type description:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param vendor_guid:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) A custom GUID for the learning standard.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type vendor_guid:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param mastery_points:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) The mastery threshold for the embedded rubric criterion.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type mastery_points:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">integer or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param ratings_description:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) The description of a rating level for the embedded rubric criterion.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type ratings_description:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param ratings_points:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) The points corresponding to a rating level for the embedded rubric criterion.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type ratings_points:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">integer or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Create/link an outcome</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with OutcomeLink data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.outcome_groups.create_link_outcome_courses_outcome_id">
+<tt class="descclassname">canvas_sdk.methods.outcome_groups.</tt><tt class="descname">create_link_outcome_courses_outcome_id</tt><big>(</big><em>request_ctx</em>, <em>course_id</em>, <em>id</em>, <em>outcome_id=None</em>, <em>title=None</em>, <em>description=None</em>, <em>vendor_guid=None</em>, <em>mastery_points=None</em>, <em>ratings_description=None</em>, <em>ratings_points=None</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/outcome_groups.html#create_link_outcome_courses_outcome_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.outcome_groups.create_link_outcome_courses_outcome_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Link an outcome into the outcome group. The outcome to link can either be
+specified by a PUT to the link URL for a specific outcome (the outcome_id
+in the PUT URLs) or by supplying the information for a new outcome (title,
+description, ratings, mastery_points) in a POST to the collection.</p>
+<p>If linking an existing outcome, the outcome_id must identify an outcome
+available to this context; i.e. an outcome owned by this group&#8217;s context,
+an outcome owned by an associated account, or a global outcome. With
+outcome_id present, any other parameters are ignored.</p>
+<p>If defining a new outcome, the outcome is created in the outcome group&#8217;s
+context using the provided title, description, ratings, and mastery points;
+the title is required but all other fields are optional. The new outcome is
+then linked into the outcome group.</p>
+<p>If ratings are provided when creating a new outcome, an embedded rubric
+criterion is included in the new outcome. This criterion&#8217;s mastery_points
+default to the maximum points in the highest rating if not specified in the
+mastery_points parameter. Any ratings lacking a description are given a
+default of &#8220;No description&#8221;. Any ratings lacking a point value are given a
+default of 0. If no ratings are provided, the mastery_points parameter is
+ignored.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param course_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type course_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param outcome_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) The ID of the existing outcome to link.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type outcome_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">integer or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param title:</th><td class="field-body">(optional) The title of the new outcome. Required if outcome_id is absent.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type title:</th><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param description:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) The description of the new outcome.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type description:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param vendor_guid:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) A custom GUID for the learning standard.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type vendor_guid:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param mastery_points:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) The mastery threshold for the embedded rubric criterion.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type mastery_points:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">integer or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param ratings_description:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) The description of a rating level for the embedded rubric criterion.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type ratings_description:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param ratings_points:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) The points corresponding to a rating level for the embedded rubric criterion.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type ratings_points:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">integer or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Create/link an outcome</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with OutcomeLink data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.outcome_groups.create_link_outcome_global">
+<tt class="descclassname">canvas_sdk.methods.outcome_groups.</tt><tt class="descname">create_link_outcome_global</tt><big>(</big><em>request_ctx</em>, <em>id</em>, <em>outcome_id=None</em>, <em>title=None</em>, <em>description=None</em>, <em>vendor_guid=None</em>, <em>mastery_points=None</em>, <em>ratings_description=None</em>, <em>ratings_points=None</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/outcome_groups.html#create_link_outcome_global"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.outcome_groups.create_link_outcome_global" title="Permalink to this definition">¶</a></dt>
+<dd><p>Link an outcome into the outcome group. The outcome to link can either be
+specified by a PUT to the link URL for a specific outcome (the outcome_id
+in the PUT URLs) or by supplying the information for a new outcome (title,
+description, ratings, mastery_points) in a POST to the collection.</p>
+<p>If linking an existing outcome, the outcome_id must identify an outcome
+available to this context; i.e. an outcome owned by this group&#8217;s context,
+an outcome owned by an associated account, or a global outcome. With
+outcome_id present, any other parameters are ignored.</p>
+<p>If defining a new outcome, the outcome is created in the outcome group&#8217;s
+context using the provided title, description, ratings, and mastery points;
+the title is required but all other fields are optional. The new outcome is
+then linked into the outcome group.</p>
+<p>If ratings are provided when creating a new outcome, an embedded rubric
+criterion is included in the new outcome. This criterion&#8217;s mastery_points
+default to the maximum points in the highest rating if not specified in the
+mastery_points parameter. Any ratings lacking a description are given a
+default of &#8220;No description&#8221;. Any ratings lacking a point value are given a
+default of 0. If no ratings are provided, the mastery_points parameter is
+ignored.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param outcome_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) The ID of the existing outcome to link.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type outcome_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">integer or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param title:</th><td class="field-body">(optional) The title of the new outcome. Required if outcome_id is absent.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type title:</th><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param description:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) The description of the new outcome.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type description:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param vendor_guid:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) A custom GUID for the learning standard.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type vendor_guid:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param mastery_points:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) The mastery threshold for the embedded rubric criterion.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type mastery_points:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">integer or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param ratings_description:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) The description of a rating level for the embedded rubric criterion.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type ratings_description:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param ratings_points:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) The points corresponding to a rating level for the embedded rubric criterion.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type ratings_points:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">integer or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Create/link an outcome</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with OutcomeLink data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.outcome_groups.create_link_outcome_global_outcome_id">
+<tt class="descclassname">canvas_sdk.methods.outcome_groups.</tt><tt class="descname">create_link_outcome_global_outcome_id</tt><big>(</big><em>request_ctx</em>, <em>id</em>, <em>outcome_id=None</em>, <em>title=None</em>, <em>description=None</em>, <em>vendor_guid=None</em>, <em>mastery_points=None</em>, <em>ratings_description=None</em>, <em>ratings_points=None</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/outcome_groups.html#create_link_outcome_global_outcome_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.outcome_groups.create_link_outcome_global_outcome_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Link an outcome into the outcome group. The outcome to link can either be
+specified by a PUT to the link URL for a specific outcome (the outcome_id
+in the PUT URLs) or by supplying the information for a new outcome (title,
+description, ratings, mastery_points) in a POST to the collection.</p>
+<p>If linking an existing outcome, the outcome_id must identify an outcome
+available to this context; i.e. an outcome owned by this group&#8217;s context,
+an outcome owned by an associated account, or a global outcome. With
+outcome_id present, any other parameters are ignored.</p>
+<p>If defining a new outcome, the outcome is created in the outcome group&#8217;s
+context using the provided title, description, ratings, and mastery points;
+the title is required but all other fields are optional. The new outcome is
+then linked into the outcome group.</p>
+<p>If ratings are provided when creating a new outcome, an embedded rubric
+criterion is included in the new outcome. This criterion&#8217;s mastery_points
+default to the maximum points in the highest rating if not specified in the
+mastery_points parameter. Any ratings lacking a description are given a
+default of &#8220;No description&#8221;. Any ratings lacking a point value are given a
+default of 0. If no ratings are provided, the mastery_points parameter is
+ignored.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param outcome_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) The ID of the existing outcome to link.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type outcome_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">integer or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param title:</th><td class="field-body">(optional) The title of the new outcome. Required if outcome_id is absent.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type title:</th><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param description:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) The description of the new outcome.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type description:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param vendor_guid:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) A custom GUID for the learning standard.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type vendor_guid:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param mastery_points:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) The mastery threshold for the embedded rubric criterion.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type mastery_points:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">integer or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param ratings_description:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) The description of a rating level for the embedded rubric criterion.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type ratings_description:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param ratings_points:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) The points corresponding to a rating level for the embedded rubric criterion.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type ratings_points:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">integer or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Create/link an outcome</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with OutcomeLink data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.outcome_groups.create_subgroup_accounts">
+<tt class="descclassname">canvas_sdk.methods.outcome_groups.</tt><tt class="descname">create_subgroup_accounts</tt><big>(</big><em>request_ctx</em>, <em>account_id</em>, <em>id</em>, <em>title</em>, <em>description=None</em>, <em>vendor_guid=None</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/outcome_groups.html#create_subgroup_accounts"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.outcome_groups.create_subgroup_accounts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a new empty subgroup under the outcome group with the given title
+and description.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param account_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type account_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param title:</th><td class="field-body">(required) The title of the new outcome group.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type title:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param description:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) The description of the new outcome group.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type description:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param vendor_guid:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) A custom GUID for the learning standard</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type vendor_guid:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Create a subgroup</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with OutcomeGroup data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.outcome_groups.create_subgroup_courses">
+<tt class="descclassname">canvas_sdk.methods.outcome_groups.</tt><tt class="descname">create_subgroup_courses</tt><big>(</big><em>request_ctx</em>, <em>course_id</em>, <em>id</em>, <em>title</em>, <em>description=None</em>, <em>vendor_guid=None</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/outcome_groups.html#create_subgroup_courses"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.outcome_groups.create_subgroup_courses" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a new empty subgroup under the outcome group with the given title
+and description.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param course_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type course_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param title:</th><td class="field-body">(required) The title of the new outcome group.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type title:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param description:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) The description of the new outcome group.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type description:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param vendor_guid:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) A custom GUID for the learning standard</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type vendor_guid:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Create a subgroup</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with OutcomeGroup data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.outcome_groups.create_subgroup_global">
+<tt class="descclassname">canvas_sdk.methods.outcome_groups.</tt><tt class="descname">create_subgroup_global</tt><big>(</big><em>request_ctx</em>, <em>id</em>, <em>title</em>, <em>description=None</em>, <em>vendor_guid=None</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/outcome_groups.html#create_subgroup_global"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.outcome_groups.create_subgroup_global" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a new empty subgroup under the outcome group with the given title
+and description.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param title:</th><td class="field-body">(required) The title of the new outcome group.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type title:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param description:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) The description of the new outcome group.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type description:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param vendor_guid:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) A custom GUID for the learning standard</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type vendor_guid:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Create a subgroup</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with OutcomeGroup data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.outcome_groups.delete_outcome_group_accounts">
+<tt class="descclassname">canvas_sdk.methods.outcome_groups.</tt><tt class="descname">delete_outcome_group_accounts</tt><big>(</big><em>request_ctx</em>, <em>account_id</em>, <em>id</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/outcome_groups.html#delete_outcome_group_accounts"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.outcome_groups.delete_outcome_group_accounts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deleting an outcome group deletes descendant outcome groups and outcome
+links. The linked outcomes themselves are only deleted if all links to the
+outcome were deleted.</p>
+<p>Aligned outcomes cannot be deleted; as such, if all remaining links to an
+aligned outcome are included in this group&#8217;s descendants, the group
+deletion will fail.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param account_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type account_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Delete an outcome group</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with OutcomeGroup data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.outcome_groups.delete_outcome_group_courses">
+<tt class="descclassname">canvas_sdk.methods.outcome_groups.</tt><tt class="descname">delete_outcome_group_courses</tt><big>(</big><em>request_ctx</em>, <em>course_id</em>, <em>id</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/outcome_groups.html#delete_outcome_group_courses"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.outcome_groups.delete_outcome_group_courses" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deleting an outcome group deletes descendant outcome groups and outcome
+links. The linked outcomes themselves are only deleted if all links to the
+outcome were deleted.</p>
+<p>Aligned outcomes cannot be deleted; as such, if all remaining links to an
+aligned outcome are included in this group&#8217;s descendants, the group
+deletion will fail.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param course_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type course_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Delete an outcome group</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with OutcomeGroup data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.outcome_groups.delete_outcome_group_global">
+<tt class="descclassname">canvas_sdk.methods.outcome_groups.</tt><tt class="descname">delete_outcome_group_global</tt><big>(</big><em>request_ctx</em>, <em>id</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/outcome_groups.html#delete_outcome_group_global"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.outcome_groups.delete_outcome_group_global" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deleting an outcome group deletes descendant outcome groups and outcome
+links. The linked outcomes themselves are only deleted if all links to the
+outcome were deleted.</p>
+<p>Aligned outcomes cannot be deleted; as such, if all remaining links to an
+aligned outcome are included in this group&#8217;s descendants, the group
+deletion will fail.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Delete an outcome group</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with OutcomeGroup data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.outcome_groups.get_all_outcome_groups_for_context_accounts">
+<tt class="descclassname">canvas_sdk.methods.outcome_groups.</tt><tt class="descname">get_all_outcome_groups_for_context_accounts</tt><big>(</big><em>request_ctx</em>, <em>account_id</em>, <em>per_page=None</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/outcome_groups.html#get_all_outcome_groups_for_context_accounts"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.outcome_groups.get_all_outcome_groups_for_context_accounts" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>request_ctx</strong> (<em>:class:RequestContext</em>) &#8211; The request context</li>
+<li><strong>account_id</strong> (<em>string</em>) &#8211; (required) ID</li>
+<li><strong>per_page</strong> (<em>integer or None</em>) &#8211; (optional) Set how many results canvas should return, defaults to config.LIMIT_PER_PAGE</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Get all outcome groups for context</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">requests.Response (with array data)</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.outcome_groups.get_all_outcome_groups_for_context_courses">
+<tt class="descclassname">canvas_sdk.methods.outcome_groups.</tt><tt class="descname">get_all_outcome_groups_for_context_courses</tt><big>(</big><em>request_ctx</em>, <em>course_id</em>, <em>per_page=None</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/outcome_groups.html#get_all_outcome_groups_for_context_courses"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.outcome_groups.get_all_outcome_groups_for_context_courses" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>request_ctx</strong> (<em>:class:RequestContext</em>) &#8211; The request context</li>
+<li><strong>course_id</strong> (<em>string</em>) &#8211; (required) ID</li>
+<li><strong>per_page</strong> (<em>integer or None</em>) &#8211; (optional) Set how many results canvas should return, defaults to config.LIMIT_PER_PAGE</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Get all outcome groups for context</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">requests.Response (with array data)</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.outcome_groups.get_all_outcome_links_for_context_accounts">
+<tt class="descclassname">canvas_sdk.methods.outcome_groups.</tt><tt class="descname">get_all_outcome_links_for_context_accounts</tt><big>(</big><em>request_ctx</em>, <em>account_id</em>, <em>per_page=None</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/outcome_groups.html#get_all_outcome_links_for_context_accounts"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.outcome_groups.get_all_outcome_links_for_context_accounts" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>request_ctx</strong> (<em>:class:RequestContext</em>) &#8211; The request context</li>
+<li><strong>account_id</strong> (<em>string</em>) &#8211; (required) ID</li>
+<li><strong>per_page</strong> (<em>integer or None</em>) &#8211; (optional) Set how many results canvas should return, defaults to config.LIMIT_PER_PAGE</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Get all outcome links for context</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">requests.Response (with array data)</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.outcome_groups.get_all_outcome_links_for_context_courses">
+<tt class="descclassname">canvas_sdk.methods.outcome_groups.</tt><tt class="descname">get_all_outcome_links_for_context_courses</tt><big>(</big><em>request_ctx</em>, <em>course_id</em>, <em>per_page=None</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/outcome_groups.html#get_all_outcome_links_for_context_courses"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.outcome_groups.get_all_outcome_links_for_context_courses" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>request_ctx</strong> (<em>:class:RequestContext</em>) &#8211; The request context</li>
+<li><strong>course_id</strong> (<em>string</em>) &#8211; (required) ID</li>
+<li><strong>per_page</strong> (<em>integer or None</em>) &#8211; (optional) Set how many results canvas should return, defaults to config.LIMIT_PER_PAGE</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Get all outcome links for context</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">requests.Response (with array data)</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.outcome_groups.import_outcome_group_accounts">
+<tt class="descclassname">canvas_sdk.methods.outcome_groups.</tt><tt class="descname">import_outcome_group_accounts</tt><big>(</big><em>request_ctx</em>, <em>account_id</em>, <em>id</em>, <em>source_outcome_group_id</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/outcome_groups.html#import_outcome_group_accounts"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.outcome_groups.import_outcome_group_accounts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a new subgroup of the outcome group with the same title and
+description as the source group, then creates links in that new subgroup to
+the same outcomes that are linked in the source group. Recurses on the
+subgroups of the source group, importing them each in turn into the new
+subgroup.</p>
+<p>Allows you to copy organizational structure, but does not create copies of
+the outcomes themselves, only new links.</p>
+<p>The source group must be either global, from the same context as this
+outcome group, or from an associated account. The source group cannot be
+the root outcome group of its context.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param account_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type account_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param source_outcome_group_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) The ID of the source outcome group.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type source_outcome_group_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">integer</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Import an outcome group</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with OutcomeGroup data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.outcome_groups.import_outcome_group_courses">
+<tt class="descclassname">canvas_sdk.methods.outcome_groups.</tt><tt class="descname">import_outcome_group_courses</tt><big>(</big><em>request_ctx</em>, <em>course_id</em>, <em>id</em>, <em>source_outcome_group_id</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/outcome_groups.html#import_outcome_group_courses"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.outcome_groups.import_outcome_group_courses" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a new subgroup of the outcome group with the same title and
+description as the source group, then creates links in that new subgroup to
+the same outcomes that are linked in the source group. Recurses on the
+subgroups of the source group, importing them each in turn into the new
+subgroup.</p>
+<p>Allows you to copy organizational structure, but does not create copies of
+the outcomes themselves, only new links.</p>
+<p>The source group must be either global, from the same context as this
+outcome group, or from an associated account. The source group cannot be
+the root outcome group of its context.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param course_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type course_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param source_outcome_group_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) The ID of the source outcome group.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type source_outcome_group_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">integer</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Import an outcome group</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with OutcomeGroup data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.outcome_groups.import_outcome_group_global">
+<tt class="descclassname">canvas_sdk.methods.outcome_groups.</tt><tt class="descname">import_outcome_group_global</tt><big>(</big><em>request_ctx</em>, <em>id</em>, <em>source_outcome_group_id</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/outcome_groups.html#import_outcome_group_global"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.outcome_groups.import_outcome_group_global" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a new subgroup of the outcome group with the same title and
+description as the source group, then creates links in that new subgroup to
+the same outcomes that are linked in the source group. Recurses on the
+subgroups of the source group, importing them each in turn into the new
+subgroup.</p>
+<p>Allows you to copy organizational structure, but does not create copies of
+the outcomes themselves, only new links.</p>
+<p>The source group must be either global, from the same context as this
+outcome group, or from an associated account. The source group cannot be
+the root outcome group of its context.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param source_outcome_group_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) The ID of the source outcome group.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type source_outcome_group_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">integer</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Import an outcome group</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with OutcomeGroup data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.outcome_groups.list_linked_outcomes_accounts">
+<tt class="descclassname">canvas_sdk.methods.outcome_groups.</tt><tt class="descname">list_linked_outcomes_accounts</tt><big>(</big><em>request_ctx</em>, <em>account_id</em>, <em>id</em>, <em>per_page=None</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/outcome_groups.html#list_linked_outcomes_accounts"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.outcome_groups.list_linked_outcomes_accounts" title="Permalink to this definition">¶</a></dt>
+<dd><p>List the immediate OutcomeLink children of the outcome group. Paginated.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param account_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type account_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param per_page:</th><td class="field-body">(optional) Set how many results canvas should return, defaults to config.LIMIT_PER_PAGE</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type per_page:</th><td class="field-body">integer or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">List linked outcomes</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with array data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.outcome_groups.list_linked_outcomes_courses">
+<tt class="descclassname">canvas_sdk.methods.outcome_groups.</tt><tt class="descname">list_linked_outcomes_courses</tt><big>(</big><em>request_ctx</em>, <em>course_id</em>, <em>id</em>, <em>per_page=None</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/outcome_groups.html#list_linked_outcomes_courses"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.outcome_groups.list_linked_outcomes_courses" title="Permalink to this definition">¶</a></dt>
+<dd><p>List the immediate OutcomeLink children of the outcome group. Paginated.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param course_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type course_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param per_page:</th><td class="field-body">(optional) Set how many results canvas should return, defaults to config.LIMIT_PER_PAGE</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type per_page:</th><td class="field-body">integer or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">List linked outcomes</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with array data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.outcome_groups.list_linked_outcomes_global">
+<tt class="descclassname">canvas_sdk.methods.outcome_groups.</tt><tt class="descname">list_linked_outcomes_global</tt><big>(</big><em>request_ctx</em>, <em>id</em>, <em>per_page=None</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/outcome_groups.html#list_linked_outcomes_global"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.outcome_groups.list_linked_outcomes_global" title="Permalink to this definition">¶</a></dt>
+<dd><p>List the immediate OutcomeLink children of the outcome group. Paginated.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param per_page:</th><td class="field-body">(optional) Set how many results canvas should return, defaults to config.LIMIT_PER_PAGE</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type per_page:</th><td class="field-body">integer or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">List linked outcomes</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with array data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.outcome_groups.list_subgroups_accounts">
+<tt class="descclassname">canvas_sdk.methods.outcome_groups.</tt><tt class="descname">list_subgroups_accounts</tt><big>(</big><em>request_ctx</em>, <em>account_id</em>, <em>id</em>, <em>per_page=None</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/outcome_groups.html#list_subgroups_accounts"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.outcome_groups.list_subgroups_accounts" title="Permalink to this definition">¶</a></dt>
+<dd><p>List the immediate OutcomeGroup children of the outcome group. Paginated.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param account_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type account_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param per_page:</th><td class="field-body">(optional) Set how many results canvas should return, defaults to config.LIMIT_PER_PAGE</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type per_page:</th><td class="field-body">integer or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">List subgroups</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with array data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.outcome_groups.list_subgroups_courses">
+<tt class="descclassname">canvas_sdk.methods.outcome_groups.</tt><tt class="descname">list_subgroups_courses</tt><big>(</big><em>request_ctx</em>, <em>course_id</em>, <em>id</em>, <em>per_page=None</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/outcome_groups.html#list_subgroups_courses"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.outcome_groups.list_subgroups_courses" title="Permalink to this definition">¶</a></dt>
+<dd><p>List the immediate OutcomeGroup children of the outcome group. Paginated.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param course_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type course_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param per_page:</th><td class="field-body">(optional) Set how many results canvas should return, defaults to config.LIMIT_PER_PAGE</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type per_page:</th><td class="field-body">integer or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">List subgroups</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with array data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.outcome_groups.list_subgroups_global">
+<tt class="descclassname">canvas_sdk.methods.outcome_groups.</tt><tt class="descname">list_subgroups_global</tt><big>(</big><em>request_ctx</em>, <em>id</em>, <em>per_page=None</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/outcome_groups.html#list_subgroups_global"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.outcome_groups.list_subgroups_global" title="Permalink to this definition">¶</a></dt>
+<dd><p>List the immediate OutcomeGroup children of the outcome group. Paginated.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param per_page:</th><td class="field-body">(optional) Set how many results canvas should return, defaults to config.LIMIT_PER_PAGE</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type per_page:</th><td class="field-body">integer or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">List subgroups</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with array data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.outcome_groups.redirect_to_root_outcome_group_for_context_accounts">
+<tt class="descclassname">canvas_sdk.methods.outcome_groups.</tt><tt class="descname">redirect_to_root_outcome_group_for_context_accounts</tt><big>(</big><em>request_ctx</em>, <em>account_id</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/outcome_groups.html#redirect_to_root_outcome_group_for_context_accounts"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.outcome_groups.redirect_to_root_outcome_group_for_context_accounts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convenience redirect to find the root outcome group for a particular
+context. Will redirect to the appropriate outcome group&#8217;s URL.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param account_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type account_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Redirect to root outcome group for context</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with void data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.outcome_groups.redirect_to_root_outcome_group_for_context_courses">
+<tt class="descclassname">canvas_sdk.methods.outcome_groups.</tt><tt class="descname">redirect_to_root_outcome_group_for_context_courses</tt><big>(</big><em>request_ctx</em>, <em>course_id</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/outcome_groups.html#redirect_to_root_outcome_group_for_context_courses"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.outcome_groups.redirect_to_root_outcome_group_for_context_courses" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convenience redirect to find the root outcome group for a particular
+context. Will redirect to the appropriate outcome group&#8217;s URL.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param course_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type course_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Redirect to root outcome group for context</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with void data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.outcome_groups.redirect_to_root_outcome_group_for_context_global">
+<tt class="descclassname">canvas_sdk.methods.outcome_groups.</tt><tt class="descname">redirect_to_root_outcome_group_for_context_global</tt><big>(</big><em>request_ctx</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/outcome_groups.html#redirect_to_root_outcome_group_for_context_global"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.outcome_groups.redirect_to_root_outcome_group_for_context_global" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convenience redirect to find the root outcome group for a particular
+context. Will redirect to the appropriate outcome group&#8217;s URL.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Redirect to root outcome group for context</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with void data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.outcome_groups.show_outcome_group_accounts">
+<tt class="descclassname">canvas_sdk.methods.outcome_groups.</tt><tt class="descname">show_outcome_group_accounts</tt><big>(</big><em>request_ctx</em>, <em>account_id</em>, <em>id</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/outcome_groups.html#show_outcome_group_accounts"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.outcome_groups.show_outcome_group_accounts" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>request_ctx</strong> (<em>:class:RequestContext</em>) &#8211; The request context</li>
+<li><strong>account_id</strong> (<em>string</em>) &#8211; (required) ID</li>
+<li><strong>id</strong> (<em>string</em>) &#8211; (required) ID</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Show an outcome group</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">requests.Response (with OutcomeGroup data)</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.outcome_groups.show_outcome_group_courses">
+<tt class="descclassname">canvas_sdk.methods.outcome_groups.</tt><tt class="descname">show_outcome_group_courses</tt><big>(</big><em>request_ctx</em>, <em>course_id</em>, <em>id</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/outcome_groups.html#show_outcome_group_courses"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.outcome_groups.show_outcome_group_courses" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>request_ctx</strong> (<em>:class:RequestContext</em>) &#8211; The request context</li>
+<li><strong>course_id</strong> (<em>string</em>) &#8211; (required) ID</li>
+<li><strong>id</strong> (<em>string</em>) &#8211; (required) ID</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Show an outcome group</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">requests.Response (with OutcomeGroup data)</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.outcome_groups.show_outcome_group_global">
+<tt class="descclassname">canvas_sdk.methods.outcome_groups.</tt><tt class="descname">show_outcome_group_global</tt><big>(</big><em>request_ctx</em>, <em>id</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/outcome_groups.html#show_outcome_group_global"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.outcome_groups.show_outcome_group_global" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>request_ctx</strong> (<em>:class:RequestContext</em>) &#8211; The request context</li>
+<li><strong>id</strong> (<em>string</em>) &#8211; (required) ID</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Show an outcome group</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">requests.Response (with OutcomeGroup data)</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.outcome_groups.unlink_outcome_accounts">
+<tt class="descclassname">canvas_sdk.methods.outcome_groups.</tt><tt class="descname">unlink_outcome_accounts</tt><big>(</big><em>request_ctx</em>, <em>account_id</em>, <em>id</em>, <em>outcome_id</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/outcome_groups.html#unlink_outcome_accounts"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.outcome_groups.unlink_outcome_accounts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Unlinking an outcome only deletes the outcome itself if this was the last
+link to the outcome in any group in any context. Aligned outcomes cannot be
+deleted; as such, if this is the last link to an aligned outcome, the
+unlinking will fail.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param account_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type account_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param outcome_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type outcome_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Unlink an outcome</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with OutcomeLink data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.outcome_groups.unlink_outcome_courses">
+<tt class="descclassname">canvas_sdk.methods.outcome_groups.</tt><tt class="descname">unlink_outcome_courses</tt><big>(</big><em>request_ctx</em>, <em>course_id</em>, <em>id</em>, <em>outcome_id</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/outcome_groups.html#unlink_outcome_courses"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.outcome_groups.unlink_outcome_courses" title="Permalink to this definition">¶</a></dt>
+<dd><p>Unlinking an outcome only deletes the outcome itself if this was the last
+link to the outcome in any group in any context. Aligned outcomes cannot be
+deleted; as such, if this is the last link to an aligned outcome, the
+unlinking will fail.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param course_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type course_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param outcome_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type outcome_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Unlink an outcome</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with OutcomeLink data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.outcome_groups.unlink_outcome_global">
+<tt class="descclassname">canvas_sdk.methods.outcome_groups.</tt><tt class="descname">unlink_outcome_global</tt><big>(</big><em>request_ctx</em>, <em>id</em>, <em>outcome_id</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/outcome_groups.html#unlink_outcome_global"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.outcome_groups.unlink_outcome_global" title="Permalink to this definition">¶</a></dt>
+<dd><p>Unlinking an outcome only deletes the outcome itself if this was the last
+link to the outcome in any group in any context. Aligned outcomes cannot be
+deleted; as such, if this is the last link to an aligned outcome, the
+unlinking will fail.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param outcome_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type outcome_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Unlink an outcome</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with OutcomeLink data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.outcome_groups.update_outcome_group_accounts">
+<tt class="descclassname">canvas_sdk.methods.outcome_groups.</tt><tt class="descname">update_outcome_group_accounts</tt><big>(</big><em>request_ctx</em>, <em>account_id</em>, <em>id</em>, <em>title=None</em>, <em>description=None</em>, <em>vendor_guid=None</em>, <em>parent_outcome_group_id=None</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/outcome_groups.html#update_outcome_group_accounts"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.outcome_groups.update_outcome_group_accounts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Modify an existing outcome group. Fields not provided are left as is;
+unrecognized fields are ignored.</p>
+<p>When changing the parent outcome group, the new parent group must belong to
+the same context as this outcome group, and must not be a descendant of
+this outcome group (i.e. no cycles allowed).</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param account_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type account_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param title:</th><td class="field-body">(optional) The new outcome group title.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type title:</th><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param description:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) The new outcome group description.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type description:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param vendor_guid:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) A custom GUID for the learning standard.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type vendor_guid:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param parent_outcome_group_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) The id of the new parent outcome group.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type parent_outcome_group_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">integer or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Update an outcome group</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with OutcomeGroup data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.outcome_groups.update_outcome_group_courses">
+<tt class="descclassname">canvas_sdk.methods.outcome_groups.</tt><tt class="descname">update_outcome_group_courses</tt><big>(</big><em>request_ctx</em>, <em>course_id</em>, <em>id</em>, <em>title=None</em>, <em>description=None</em>, <em>vendor_guid=None</em>, <em>parent_outcome_group_id=None</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/outcome_groups.html#update_outcome_group_courses"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.outcome_groups.update_outcome_group_courses" title="Permalink to this definition">¶</a></dt>
+<dd><p>Modify an existing outcome group. Fields not provided are left as is;
+unrecognized fields are ignored.</p>
+<p>When changing the parent outcome group, the new parent group must belong to
+the same context as this outcome group, and must not be a descendant of
+this outcome group (i.e. no cycles allowed).</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param course_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type course_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param title:</th><td class="field-body">(optional) The new outcome group title.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type title:</th><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param description:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) The new outcome group description.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type description:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param vendor_guid:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) A custom GUID for the learning standard.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type vendor_guid:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param parent_outcome_group_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) The id of the new parent outcome group.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type parent_outcome_group_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">integer or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Update an outcome group</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with OutcomeGroup data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.outcome_groups.update_outcome_group_global">
+<tt class="descclassname">canvas_sdk.methods.outcome_groups.</tt><tt class="descname">update_outcome_group_global</tt><big>(</big><em>request_ctx</em>, <em>id</em>, <em>title=None</em>, <em>description=None</em>, <em>vendor_guid=None</em>, <em>parent_outcome_group_id=None</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/outcome_groups.html#update_outcome_group_global"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.outcome_groups.update_outcome_group_global" title="Permalink to this definition">¶</a></dt>
+<dd><p>Modify an existing outcome group. Fields not provided are left as is;
+unrecognized fields are ignored.</p>
+<p>When changing the parent outcome group, the new parent group must belong to
+the same context as this outcome group, and must not be a descendant of
+this outcome group (i.e. no cycles allowed).</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param title:</th><td class="field-body">(optional) The new outcome group title.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type title:</th><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param description:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) The new outcome group description.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type description:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param vendor_guid:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) A custom GUID for the learning standard.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type vendor_guid:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param parent_outcome_group_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) The id of the new parent outcome group.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type parent_outcome_group_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">integer or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Update an outcome group</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with OutcomeGroup data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="canvas_sdk.methods.notification_preferences.html"
+                        title="previous chapter">canvas_sdk.methods.notification_preferences module</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="canvas_sdk.methods.outcome_results.html"
+                        title="next chapter">canvas_sdk.methods.outcome_results module</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/canvas_sdk.methods.outcome_groups.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="canvas_sdk.methods.outcome_results.html" title="canvas_sdk.methods.outcome_results module"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="canvas_sdk.methods.notification_preferences.html" title="canvas_sdk.methods.notification_preferences module"
+             >previous</a> |</li>
+        <li><a href="index.html">Canvas_SDK 0.0.1 documentation</a> &raquo;</li>
+          <li><a href="canvas_sdk.html" >canvas_sdk package</a> &raquo;</li>
+          <li><a href="canvas_sdk.methods.html" >canvas_sdk.methods package</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, Harvard.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,344 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>canvas_sdk.methods.calendar_events &mdash; Canvas_SDK 0.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="top" title="Canvas_SDK 0.0.1 documentation" href="../../../index.html" />
+    <link rel="up" title="Module code" href="../../index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../../index.html">Canvas_SDK 0.0.1 documentation</a> &raquo;</li>
+          <li><a href="../../index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for canvas_sdk.methods.calendar_events</h1><div class="highlight"><pre>
+<span class="kn">from</span> <span class="nn">canvas_sdk</span> <span class="kn">import</span> <span class="n">client</span><span class="p">,</span> <span class="n">utils</span>
+
+<div class="viewcode-block" id="list_calendar_events"><a class="viewcode-back" href="../../../canvas_sdk.methods.calendar_events.html#canvas_sdk.methods.calendar_events.list_calendar_events">[docs]</a><span class="k">def</span> <span class="nf">list_calendar_events</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">start_date</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">end_date</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">undated</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">all_events</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">context_codes</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">per_page</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Retrieve the list of calendar events or assignments for the current user</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param type: (optional) Defaults to &quot;event&quot;</span>
+<span class="sd">        :type type: string or None</span>
+<span class="sd">        :param start_date: (optional) Only return events since the start_date (inclusive). Defaults to today. The value should be formatted as: yyyy-mm-dd or ISO 8601 YYYY-MM-DDTHH:MM:SSZ.</span>
+<span class="sd">        :type start_date: date or None</span>
+<span class="sd">        :param end_date: (optional) Only return events before the end_date (inclusive). Defaults to start_date. The value should be formatted as: yyyy-mm-dd or ISO 8601 YYYY-MM-DDTHH:MM:SSZ. If end_date is the same as start_date, then only events on that day are returned.</span>
+<span class="sd">        :type end_date: date or None</span>
+<span class="sd">        :param undated: (optional) Defaults to false (dated events only). If true, only return undated events and ignore start_date and end_date.</span>
+<span class="sd">        :type undated: boolean or None</span>
+<span class="sd">        :param all_events: (optional) Defaults to false (uses start_date, end_date, and undated criteria). If true, all events are returned, ignoring start_date, end_date, and undated criteria.</span>
+<span class="sd">        :type all_events: boolean or None</span>
+<span class="sd">        :param context_codes: (optional) List of context codes of courses/groups/users whose events you want to see. If not specified, defaults to the current user (i.e personal calendar, no course/group events). Limited to 10 context codes, additional ones are ignored. The format of this field is the context type, followed by an underscore, followed by the context id. For example: course_42</span>
+<span class="sd">        :type context_codes: string or None</span>
+<span class="sd">        :param per_page: (optional) Set how many results canvas should return, defaults to config.LIMIT_PER_PAGE</span>
+<span class="sd">        :type per_page: integer or None</span>
+<span class="sd">        :return: List calendar events</span>
+<span class="sd">        :rtype: requests.Response (with array data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">per_page</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="n">per_page</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">per_page</span>
+    <span class="n">type_types</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;event&#39;</span><span class="p">,</span> <span class="s">&#39;assignment&#39;</span><span class="p">)</span>
+    <span class="n">utils</span><span class="o">.</span><span class="n">validate_attr_is_acceptable</span><span class="p">(</span><span class="nb">type</span><span class="p">,</span> <span class="n">type_types</span><span class="p">)</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/calendar_events&#39;</span>
+    <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s">&#39;type&#39;</span> <span class="p">:</span> <span class="nb">type</span><span class="p">,</span>
+        <span class="s">&#39;start_date&#39;</span> <span class="p">:</span> <span class="n">start_date</span><span class="p">,</span>
+        <span class="s">&#39;end_date&#39;</span> <span class="p">:</span> <span class="n">end_date</span><span class="p">,</span>
+        <span class="s">&#39;undated&#39;</span> <span class="p">:</span> <span class="n">undated</span><span class="p">,</span>
+        <span class="s">&#39;all_events&#39;</span> <span class="p">:</span> <span class="n">all_events</span><span class="p">,</span>
+        <span class="s">&#39;context_codes&#39;</span> <span class="p">:</span> <span class="n">context_codes</span><span class="p">,</span>
+        <span class="s">&#39;per_page&#39;</span> <span class="p">:</span> <span class="n">per_page</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">()</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="n">payload</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+
+</div>
+<div class="viewcode-block" id="create_calendar_event"><a class="viewcode-back" href="../../../canvas_sdk.methods.calendar_events.html#canvas_sdk.methods.calendar_events.create_calendar_event">[docs]</a><span class="k">def</span> <span class="nf">create_calendar_event</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">calendar_event_context_code</span><span class="p">,</span> <span class="n">calendar_event_title</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">calendar_event_description</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">calendar_event_start_at</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">calendar_event_end_at</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">calendar_event_location_name</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">calendar_event_location_address</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">calendar_event_time_zone_edited</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">calendar_event_child_event_data_X_start_at</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">calendar_event_child_event_data_X_end_at</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">calendar_event_child_event_data_X_context_code</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Create and return a new calendar event</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param calendar_event_context_code: (required) Context code of the course/group/user whose calendar this event should be added to.</span>
+<span class="sd">        :type calendar_event_context_code: string</span>
+<span class="sd">        :param calendar_event_title: (optional) Short title for the calendar event.</span>
+<span class="sd">        :type calendar_event_title: string or None</span>
+<span class="sd">        :param calendar_event_description: (optional) Longer HTML description of the event.</span>
+<span class="sd">        :type calendar_event_description: string or None</span>
+<span class="sd">        :param calendar_event_start_at: (optional) Start date/time of the event.</span>
+<span class="sd">        :type calendar_event_start_at: datetime or None</span>
+<span class="sd">        :param calendar_event_end_at: (optional) End date/time of the event.</span>
+<span class="sd">        :type calendar_event_end_at: datetime or None</span>
+<span class="sd">        :param calendar_event_location_name: (optional) Location name of the event.</span>
+<span class="sd">        :type calendar_event_location_name: string or None</span>
+<span class="sd">        :param calendar_event_location_address: (optional) Location address</span>
+<span class="sd">        :type calendar_event_location_address: string or None</span>
+<span class="sd">        :param calendar_event_time_zone_edited: (optional) Time zone of the user editing the event. Allowed time zones are {http://www.iana.org/time-zones IANA time zones} or friendlier {http://api.rubyonrails.org/classes/ActiveSupport/TimeZone.html Ruby on Rails time zones}.</span>
+<span class="sd">        :type calendar_event_time_zone_edited: string or None</span>
+<span class="sd">        :param calendar_event_child_event_data: (optional) Section-level start time(s) if this is a course event. X can be any identifier, provided that it is consistent across the start_at, end_at and context_code</span>
+<span class="sd">        :type calendar_event_child_event_data: datetime or None</span>
+<span class="sd">        :param calendar_event_child_event_data: (optional) Section-level end time(s) if this is a course event.</span>
+<span class="sd">        :type calendar_event_child_event_data: datetime or None</span>
+<span class="sd">        :param calendar_event_child_event_data: (optional) Context code(s) corresponding to the section-level start and end time(s).</span>
+<span class="sd">        :type calendar_event_child_event_data: string or None</span>
+<span class="sd">        :return: Create a calendar event</span>
+<span class="sd">        :rtype: requests.Response (with void data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/calendar_events&#39;</span>
+    <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s">&#39;calendar_event[context_code]&#39;</span> <span class="p">:</span> <span class="n">calendar_event_context_code</span><span class="p">,</span>
+        <span class="s">&#39;calendar_event[title]&#39;</span> <span class="p">:</span> <span class="n">calendar_event_title</span><span class="p">,</span>
+        <span class="s">&#39;calendar_event[description]&#39;</span> <span class="p">:</span> <span class="n">calendar_event_description</span><span class="p">,</span>
+        <span class="s">&#39;calendar_event[start_at]&#39;</span> <span class="p">:</span> <span class="n">calendar_event_start_at</span><span class="p">,</span>
+        <span class="s">&#39;calendar_event[end_at]&#39;</span> <span class="p">:</span> <span class="n">calendar_event_end_at</span><span class="p">,</span>
+        <span class="s">&#39;calendar_event[location_name]&#39;</span> <span class="p">:</span> <span class="n">calendar_event_location_name</span><span class="p">,</span>
+        <span class="s">&#39;calendar_event[location_address]&#39;</span> <span class="p">:</span> <span class="n">calendar_event_location_address</span><span class="p">,</span>
+        <span class="s">&#39;calendar_event[time_zone_edited]&#39;</span> <span class="p">:</span> <span class="n">calendar_event_time_zone_edited</span><span class="p">,</span>
+        <span class="s">&#39;calendar_event[child_event_data][X][start_at]&#39;</span> <span class="p">:</span> <span class="n">calendar_event_child_event_data_X_start_at</span><span class="p">,</span>
+        <span class="s">&#39;calendar_event[child_event_data][X][end_at]&#39;</span> <span class="p">:</span> <span class="n">calendar_event_child_event_data_X_end_at</span><span class="p">,</span>
+        <span class="s">&#39;calendar_event[child_event_data][X][context_code]&#39;</span> <span class="p">:</span> <span class="n">calendar_event_child_event_data_X_context_code</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">()</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="n">payload</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+
+</div>
+<div class="viewcode-block" id="get_single_calendar_event_or_assignment"><a class="viewcode-back" href="../../../canvas_sdk.methods.calendar_events.html#canvas_sdk.methods.calendar_events.get_single_calendar_event_or_assignment">[docs]</a><span class="k">def</span> <span class="nf">get_single_calendar_event_or_assignment</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param id: (required) ID</span>
+<span class="sd">        :type id: string</span>
+<span class="sd">        :return: Get a single calendar event or assignment</span>
+<span class="sd">        :rtype: requests.Response (with CalendarEvent data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/calendar_events/{id}&#39;</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="nb">id</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+
+</div>
+<div class="viewcode-block" id="reserve_time_slot"><a class="viewcode-back" href="../../../canvas_sdk.methods.calendar_events.html#canvas_sdk.methods.calendar_events.reserve_time_slot">[docs]</a><span class="k">def</span> <span class="nf">reserve_time_slot</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="n">participant_id</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">cancel_existing</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Reserves a particular time slot and return the new reservation</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param id: (required) ID</span>
+<span class="sd">        :type id: string</span>
+<span class="sd">        :param participant_id: (optional) User or group id for whom you are making the reservation (depends on the participant type). Defaults to the current user (or user&#39;s candidate group).</span>
+<span class="sd">        :type participant_id: string or None</span>
+<span class="sd">        :param cancel_existing: (optional) Defaults to false. If true, cancel any previous reservation(s) for this participant and appointment group.</span>
+<span class="sd">        :type cancel_existing: boolean or None</span>
+<span class="sd">        :return: Reserve a time slot</span>
+<span class="sd">        :rtype: requests.Response (with void data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/calendar_events/{id}/reservations&#39;</span>
+    <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s">&#39;participant_id&#39;</span> <span class="p">:</span> <span class="n">participant_id</span><span class="p">,</span>
+        <span class="s">&#39;cancel_existing&#39;</span> <span class="p">:</span> <span class="n">cancel_existing</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="nb">id</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="n">payload</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+
+</div>
+<div class="viewcode-block" id="reserve_time_slot_participant_id"><a class="viewcode-back" href="../../../canvas_sdk.methods.calendar_events.html#canvas_sdk.methods.calendar_events.reserve_time_slot_participant_id">[docs]</a><span class="k">def</span> <span class="nf">reserve_time_slot_participant_id</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="n">participant_id</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">cancel_existing</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Reserves a particular time slot and return the new reservation</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param id: (required) ID</span>
+<span class="sd">        :type id: string</span>
+<span class="sd">        :param participant_id: (optional) User or group id for whom you are making the reservation (depends on the participant type). Defaults to the current user (or user&#39;s candidate group).</span>
+<span class="sd">        :type participant_id: string or None</span>
+<span class="sd">        :param cancel_existing: (optional) Defaults to false. If true, cancel any previous reservation(s) for this participant and appointment group.</span>
+<span class="sd">        :type cancel_existing: boolean or None</span>
+<span class="sd">        :return: Reserve a time slot</span>
+<span class="sd">        :rtype: requests.Response (with void data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/calendar_events/{id}/reservations/{participant_id}&#39;</span>
+    <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s">&#39;cancel_existing&#39;</span> <span class="p">:</span> <span class="n">cancel_existing</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="nb">id</span><span class="p">,</span> <span class="n">participant_id</span><span class="o">=</span><span class="n">participant_id</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="n">payload</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+
+</div>
+<div class="viewcode-block" id="update_calendar_event"><a class="viewcode-back" href="../../../canvas_sdk.methods.calendar_events.html#canvas_sdk.methods.calendar_events.update_calendar_event">[docs]</a><span class="k">def</span> <span class="nf">update_calendar_event</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="n">calendar_event_context_code</span><span class="p">,</span> <span class="n">calendar_event_title</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">calendar_event_description</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">calendar_event_start_at</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">calendar_event_end_at</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">calendar_event_location_name</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">calendar_event_location_address</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">calendar_event_time_zone_edited</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">calendar_event_child_event_data_X_start_at</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">calendar_event_child_event_data_X_end_at</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">calendar_event_child_event_data_X_context_code</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Update and return a calendar event</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param id: (required) ID</span>
+<span class="sd">        :type id: string</span>
+<span class="sd">        :param calendar_event_context_code: (required) Context code of the course/group/user whose calendar this event should be added to.</span>
+<span class="sd">        :type calendar_event_context_code: string</span>
+<span class="sd">        :param calendar_event_title: (optional) Short title for the calendar event.</span>
+<span class="sd">        :type calendar_event_title: string or None</span>
+<span class="sd">        :param calendar_event_description: (optional) Longer HTML description of the event.</span>
+<span class="sd">        :type calendar_event_description: string or None</span>
+<span class="sd">        :param calendar_event_start_at: (optional) Start date/time of the event.</span>
+<span class="sd">        :type calendar_event_start_at: datetime or None</span>
+<span class="sd">        :param calendar_event_end_at: (optional) End date/time of the event.</span>
+<span class="sd">        :type calendar_event_end_at: datetime or None</span>
+<span class="sd">        :param calendar_event_location_name: (optional) Location name of the event.</span>
+<span class="sd">        :type calendar_event_location_name: string or None</span>
+<span class="sd">        :param calendar_event_location_address: (optional) Location address</span>
+<span class="sd">        :type calendar_event_location_address: string or None</span>
+<span class="sd">        :param calendar_event_time_zone_edited: (optional) Time zone of the user editing the event. Allowed time zones are {http://www.iana.org/time-zones IANA time zones} or friendlier {http://api.rubyonrails.org/classes/ActiveSupport/TimeZone.html Ruby on Rails time zones}.</span>
+<span class="sd">        :type calendar_event_time_zone_edited: string or None</span>
+<span class="sd">        :param calendar_event_child_event_data: (optional) Section-level start time(s) if this is a course event. X can be any identifier, provided that it is consistent across the start_at, end_at and context_code</span>
+<span class="sd">        :type calendar_event_child_event_data: datetime or None</span>
+<span class="sd">        :param calendar_event_child_event_data: (optional) Section-level end time(s) if this is a course event.</span>
+<span class="sd">        :type calendar_event_child_event_data: datetime or None</span>
+<span class="sd">        :param calendar_event_child_event_data: (optional) Context code(s) corresponding to the section-level start and end time(s).</span>
+<span class="sd">        :type calendar_event_child_event_data: string or None</span>
+<span class="sd">        :return: Update a calendar event</span>
+<span class="sd">        :rtype: requests.Response (with void data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/calendar_events/{id}&#39;</span>
+    <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s">&#39;calendar_event[context_code]&#39;</span> <span class="p">:</span> <span class="n">calendar_event_context_code</span><span class="p">,</span>
+        <span class="s">&#39;calendar_event[title]&#39;</span> <span class="p">:</span> <span class="n">calendar_event_title</span><span class="p">,</span>
+        <span class="s">&#39;calendar_event[description]&#39;</span> <span class="p">:</span> <span class="n">calendar_event_description</span><span class="p">,</span>
+        <span class="s">&#39;calendar_event[start_at]&#39;</span> <span class="p">:</span> <span class="n">calendar_event_start_at</span><span class="p">,</span>
+        <span class="s">&#39;calendar_event[end_at]&#39;</span> <span class="p">:</span> <span class="n">calendar_event_end_at</span><span class="p">,</span>
+        <span class="s">&#39;calendar_event[location_name]&#39;</span> <span class="p">:</span> <span class="n">calendar_event_location_name</span><span class="p">,</span>
+        <span class="s">&#39;calendar_event[location_address]&#39;</span> <span class="p">:</span> <span class="n">calendar_event_location_address</span><span class="p">,</span>
+        <span class="s">&#39;calendar_event[time_zone_edited]&#39;</span> <span class="p">:</span> <span class="n">calendar_event_time_zone_edited</span><span class="p">,</span>
+        <span class="s">&#39;calendar_event[child_event_data][X][start_at]&#39;</span> <span class="p">:</span> <span class="n">calendar_event_child_event_data_X_start_at</span><span class="p">,</span>
+        <span class="s">&#39;calendar_event[child_event_data][X][end_at]&#39;</span> <span class="p">:</span> <span class="n">calendar_event_child_event_data_X_end_at</span><span class="p">,</span>
+        <span class="s">&#39;calendar_event[child_event_data][X][context_code]&#39;</span> <span class="p">:</span> <span class="n">calendar_event_child_event_data_X_context_code</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="nb">id</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="n">payload</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+
+</div>
+<div class="viewcode-block" id="delete_calendar_event"><a class="viewcode-back" href="../../../canvas_sdk.methods.calendar_events.html#canvas_sdk.methods.calendar_events.delete_calendar_event">[docs]</a><span class="k">def</span> <span class="nf">delete_calendar_event</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="n">cancel_reason</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Delete an event from the calendar and return the deleted event</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param id: (required) ID</span>
+<span class="sd">        :type id: string</span>
+<span class="sd">        :param cancel_reason: (optional) Reason for deleting/canceling the event.</span>
+<span class="sd">        :type cancel_reason: string or None</span>
+<span class="sd">        :return: Delete a calendar event</span>
+<span class="sd">        :rtype: requests.Response (with void data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/calendar_events/{id}&#39;</span>
+    <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s">&#39;cancel_reason&#39;</span> <span class="p">:</span> <span class="n">cancel_reason</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="nb">id</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="n">payload</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+</pre></div></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../../index.html">Canvas_SDK 0.0.1 documentation</a> &raquo;</li>
+          <li><a href="../../index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, Harvard.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

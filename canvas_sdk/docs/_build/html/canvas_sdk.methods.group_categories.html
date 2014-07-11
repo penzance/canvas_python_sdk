@@ -1,0 +1,556 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>canvas_sdk.methods.group_categories module &mdash; Canvas_SDK 0.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Canvas_SDK 0.0.1 documentation" href="index.html" />
+    <link rel="up" title="canvas_sdk.methods package" href="canvas_sdk.methods.html" />
+    <link rel="next" title="canvas_sdk.methods.groups module" href="canvas_sdk.methods.groups.html" />
+    <link rel="prev" title="canvas_sdk.methods.grading_standards module" href="canvas_sdk.methods.grading_standards.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="canvas_sdk.methods.groups.html" title="canvas_sdk.methods.groups module"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="canvas_sdk.methods.grading_standards.html" title="canvas_sdk.methods.grading_standards module"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Canvas_SDK 0.0.1 documentation</a> &raquo;</li>
+          <li><a href="canvas_sdk.html" >canvas_sdk package</a> &raquo;</li>
+          <li><a href="canvas_sdk.methods.html" accesskey="U">canvas_sdk.methods package</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-canvas_sdk.methods.group_categories">
+<span id="canvas-sdk-methods-group-categories-module"></span><h1>canvas_sdk.methods.group_categories module<a class="headerlink" href="#module-canvas_sdk.methods.group_categories" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="canvas_sdk.methods.group_categories.assign_unassigned_members">
+<tt class="descclassname">canvas_sdk.methods.group_categories.</tt><tt class="descname">assign_unassigned_members</tt><big>(</big><em>request_ctx</em>, <em>group_category_id</em>, <em>sync=None</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/group_categories.html#assign_unassigned_members"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.group_categories.assign_unassigned_members" title="Permalink to this definition">¶</a></dt>
+<dd><p>Assign all unassigned members as evenly as possible among the existing
+student groups.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param group_category_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type group_category_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param sync:</th><td class="field-body">(optional) The assigning is done asynchronously by default. If you would like to override this and have the assigning done synchronously, set this value to true.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type sync:</th><td class="field-body">boolean or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Assign unassigned members</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with GroupMembership | Progress data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.group_categories.create_group_category_accounts">
+<tt class="descclassname">canvas_sdk.methods.group_categories.</tt><tt class="descname">create_group_category_accounts</tt><big>(</big><em>request_ctx</em>, <em>account_id</em>, <em>name</em>, <em>self_signup=None</em>, <em>auto_leader=None</em>, <em>group_limit=None</em>, <em>create_group_count=None</em>, <em>split_group_count=None</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/group_categories.html#create_group_category_accounts"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.group_categories.create_group_category_accounts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a new group category</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param account_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type account_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param name:</th><td class="field-body">(required) Name of the group category</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type name:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param self_signup:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) Allow students to sign up for a group themselves (Course Only). valid values are: &#8220;enabled&#8221;:: allows students to self sign up for any group in course &#8220;restricted&#8221;:: allows students to self sign up only for groups in the same section null disallows self sign up</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type self_signup:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param auto_leader:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) Assigns group leaders automatically when generating and allocating students to groups Valid values are: &#8220;first&#8221;:: the first student to be allocated to a group is the leader &#8220;random&#8221;:: a random student from all members is chosen as the leader</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type auto_leader:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param group_limit:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) Limit the maximum number of users in each group (Course Only). Requires self signup.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type group_limit:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param create_group_count:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) Create this number of groups (Course Only).</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type create_group_count:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param split_group_count:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) (Deprecated) Create this number of groups, and evenly distribute students among them. not allowed with &#8220;enable_self_signup&#8221;. because the group assignment happens synchronously, it&#8217;s recommended that you instead use the assign_unassigned_members endpoint. (Course Only)</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type split_group_count:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Create a Group Category</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with GroupCategory data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.group_categories.create_group_category_courses">
+<tt class="descclassname">canvas_sdk.methods.group_categories.</tt><tt class="descname">create_group_category_courses</tt><big>(</big><em>request_ctx</em>, <em>course_id</em>, <em>name</em>, <em>self_signup=None</em>, <em>auto_leader=None</em>, <em>group_limit=None</em>, <em>create_group_count=None</em>, <em>split_group_count=None</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/group_categories.html#create_group_category_courses"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.group_categories.create_group_category_courses" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a new group category</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param course_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type course_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param name:</th><td class="field-body">(required) Name of the group category</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type name:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param self_signup:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) Allow students to sign up for a group themselves (Course Only). valid values are: &#8220;enabled&#8221;:: allows students to self sign up for any group in course &#8220;restricted&#8221;:: allows students to self sign up only for groups in the same section null disallows self sign up</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type self_signup:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param auto_leader:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) Assigns group leaders automatically when generating and allocating students to groups Valid values are: &#8220;first&#8221;:: the first student to be allocated to a group is the leader &#8220;random&#8221;:: a random student from all members is chosen as the leader</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type auto_leader:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param group_limit:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) Limit the maximum number of users in each group (Course Only). Requires self signup.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type group_limit:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param create_group_count:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) Create this number of groups (Course Only).</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type create_group_count:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param split_group_count:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) (Deprecated) Create this number of groups, and evenly distribute students among them. not allowed with &#8220;enable_self_signup&#8221;. because the group assignment happens synchronously, it&#8217;s recommended that you instead use the assign_unassigned_members endpoint. (Course Only)</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type split_group_count:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Create a Group Category</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with GroupCategory data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.group_categories.delete_group_category">
+<tt class="descclassname">canvas_sdk.methods.group_categories.</tt><tt class="descname">delete_group_category</tt><big>(</big><em>request_ctx</em>, <em>group_category_id</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/group_categories.html#delete_group_category"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.group_categories.delete_group_category" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deletes a group category and all groups under it. Protected group
+categories can not be deleted, i.e. &#8220;communities&#8221;, &#8220;student_organized&#8221;, and &#8220;imported&#8221;.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param group_category_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type group_category_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Delete a Group Category</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with void data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.group_categories.get_single_group_category">
+<tt class="descclassname">canvas_sdk.methods.group_categories.</tt><tt class="descname">get_single_group_category</tt><big>(</big><em>request_ctx</em>, <em>group_category_id</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/group_categories.html#get_single_group_category"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.group_categories.get_single_group_category" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the data for a single group category, or a 401 if the caller doesn&#8217;t have
+the rights to see it.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param group_category_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type group_category_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Get a single group category</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with GroupCategory data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.group_categories.list_group_categories_for_context_accounts">
+<tt class="descclassname">canvas_sdk.methods.group_categories.</tt><tt class="descname">list_group_categories_for_context_accounts</tt><big>(</big><em>request_ctx</em>, <em>account_id</em>, <em>per_page=None</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/group_categories.html#list_group_categories_for_context_accounts"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.group_categories.list_group_categories_for_context_accounts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a list of group categories in a context</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param account_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type account_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param per_page:</th><td class="field-body">(optional) Set how many results canvas should return, defaults to config.LIMIT_PER_PAGE</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type per_page:</th><td class="field-body">integer or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">List group categories for a context</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with array data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.group_categories.list_group_categories_for_context_courses">
+<tt class="descclassname">canvas_sdk.methods.group_categories.</tt><tt class="descname">list_group_categories_for_context_courses</tt><big>(</big><em>request_ctx</em>, <em>course_id</em>, <em>per_page=None</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/group_categories.html#list_group_categories_for_context_courses"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.group_categories.list_group_categories_for_context_courses" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a list of group categories in a context</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param course_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type course_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param per_page:</th><td class="field-body">(optional) Set how many results canvas should return, defaults to config.LIMIT_PER_PAGE</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type per_page:</th><td class="field-body">integer or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">List group categories for a context</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with array data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.group_categories.list_groups_in_group_category">
+<tt class="descclassname">canvas_sdk.methods.group_categories.</tt><tt class="descname">list_groups_in_group_category</tt><big>(</big><em>request_ctx</em>, <em>group_category_id</em>, <em>per_page=None</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/group_categories.html#list_groups_in_group_category"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.group_categories.list_groups_in_group_category" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a list of groups in a group category</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param group_category_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type group_category_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param per_page:</th><td class="field-body">(optional) Set how many results canvas should return, defaults to config.LIMIT_PER_PAGE</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type per_page:</th><td class="field-body">integer or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">List groups in group category</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with array data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.group_categories.list_users_in_group_category">
+<tt class="descclassname">canvas_sdk.methods.group_categories.</tt><tt class="descname">list_users_in_group_category</tt><big>(</big><em>request_ctx</em>, <em>group_category_id</em>, <em>search_term=None</em>, <em>unassigned=None</em>, <em>per_page=None</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/group_categories.html#list_users_in_group_category"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.group_categories.list_users_in_group_category" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a list of users in the group category.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param group_category_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type group_category_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param search_term:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) The partial name or full ID of the users to match and return in the results list. Must be at least 3 characters.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type search_term:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param unassigned:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) Set this value to true if you wish only to search unassigned users in the group category.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type unassigned:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">boolean or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param per_page:</th><td class="field-body">(optional) Set how many results canvas should return, defaults to config.LIMIT_PER_PAGE</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type per_page:</th><td class="field-body">integer or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">List users in group category</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with array data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.group_categories.update_group_category">
+<tt class="descclassname">canvas_sdk.methods.group_categories.</tt><tt class="descname">update_group_category</tt><big>(</big><em>request_ctx</em>, <em>group_category_id</em>, <em>name</em>, <em>self_signup=None</em>, <em>auto_leader=None</em>, <em>group_limit=None</em>, <em>create_group_count=None</em>, <em>split_group_count=None</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/group_categories.html#update_group_category"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.group_categories.update_group_category" title="Permalink to this definition">¶</a></dt>
+<dd><p>Modifies an existing group category.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param group_category_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type group_category_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param name:</th><td class="field-body">(required) Name of the group category</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type name:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param self_signup:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) Allow students to sign up for a group themselves (Course Only). Valid values are: &#8220;enabled&#8221;:: allows students to self sign up for any group in course &#8220;restricted&#8221;:: allows students to self sign up only for groups in the same section null disallows self sign up</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type self_signup:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param auto_leader:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) Assigns group leaders automatically when generating and allocating students to groups Valid values are: &#8220;first&#8221;:: the first student to be allocated to a group is the leader &#8220;random&#8221;:: a random student from all members is chosen as the leader</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type auto_leader:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param group_limit:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) Limit the maximum number of users in each group (Course Only). Requires self signup.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type group_limit:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param create_group_count:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) Create this number of groups (Course Only).</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type create_group_count:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param split_group_count:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) (Deprecated) Create this number of groups, and evenly distribute students among them. not allowed with &#8220;enable_self_signup&#8221;. because the group assignment happens synchronously, it&#8217;s recommended that you instead use the assign_unassigned_members endpoint. (Course Only)</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type split_group_count:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Update a Group Category</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with GroupCategory data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="canvas_sdk.methods.grading_standards.html"
+                        title="previous chapter">canvas_sdk.methods.grading_standards module</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="canvas_sdk.methods.groups.html"
+                        title="next chapter">canvas_sdk.methods.groups module</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/canvas_sdk.methods.group_categories.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="canvas_sdk.methods.groups.html" title="canvas_sdk.methods.groups module"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="canvas_sdk.methods.grading_standards.html" title="canvas_sdk.methods.grading_standards module"
+             >previous</a> |</li>
+        <li><a href="index.html">Canvas_SDK 0.0.1 documentation</a> &raquo;</li>
+          <li><a href="canvas_sdk.html" >canvas_sdk package</a> &raquo;</li>
+          <li><a href="canvas_sdk.methods.html" >canvas_sdk.methods package</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, Harvard.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

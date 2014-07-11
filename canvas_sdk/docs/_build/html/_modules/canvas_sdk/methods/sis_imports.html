@@ -1,0 +1,199 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>canvas_sdk.methods.sis_imports &mdash; Canvas_SDK 0.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="top" title="Canvas_SDK 0.0.1 documentation" href="../../../index.html" />
+    <link rel="up" title="Module code" href="../../index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../../index.html">Canvas_SDK 0.0.1 documentation</a> &raquo;</li>
+          <li><a href="../../index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for canvas_sdk.methods.sis_imports</h1><div class="highlight"><pre>
+<span class="kn">from</span> <span class="nn">canvas_sdk</span> <span class="kn">import</span> <span class="n">client</span><span class="p">,</span> <span class="n">utils</span>
+
+<div class="viewcode-block" id="get_sis_import_list"><a class="viewcode-back" href="../../../canvas_sdk.methods.sis_imports.html#canvas_sdk.methods.sis_imports.get_sis_import_list">[docs]</a><span class="k">def</span> <span class="nf">get_sis_import_list</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">account_id</span><span class="p">,</span> <span class="n">per_page</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns the list of SIS imports for an account</span>
+<span class="sd">    </span>
+<span class="sd">      Examples:</span>
+<span class="sd">        curl &#39;https://&lt;canvas&gt;/api/v1/accounts/&lt;account_id&gt;/sis_imports&#39; \</span>
+<span class="sd">            -H &quot;Authorization: Bearer &lt;token&gt;&quot;</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param account_id: (required) ID</span>
+<span class="sd">        :type account_id: string</span>
+<span class="sd">        :param per_page: (optional) Set how many results canvas should return, defaults to config.LIMIT_PER_PAGE</span>
+<span class="sd">        :type per_page: integer or None</span>
+<span class="sd">        :return: Get SIS import list</span>
+<span class="sd">        :rtype: requests.Response (with array data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">per_page</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="n">per_page</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">per_page</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/accounts/{account_id}/sis_imports&#39;</span>
+    <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s">&#39;per_page&#39;</span> <span class="p">:</span> <span class="n">per_page</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">account_id</span><span class="o">=</span><span class="n">account_id</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="n">payload</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+
+</div>
+<div class="viewcode-block" id="import_sis_data"><a class="viewcode-back" href="../../../canvas_sdk.methods.sis_imports.html#canvas_sdk.methods.sis_imports.import_sis_data">[docs]</a><span class="k">def</span> <span class="nf">import_sis_data</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">account_id</span><span class="p">,</span> <span class="n">attachment</span><span class="p">,</span> <span class="n">import_type</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">extension</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">batch_mode</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">batch_mode_term_id</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">override_sis_stickiness</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">add_sis_stickiness</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">clear_sis_stickiness</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Import SIS data into Canvas. Must be on a root account with SIS imports</span>
+<span class="sd">    enabled.</span>
+<span class="sd">    </span>
+<span class="sd">    For more information on the format that&#39;s expected here, please see the</span>
+<span class="sd">    &quot;SIS CSV&quot; section in the API docs.</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param account_id: (required) ID</span>
+<span class="sd">        :type account_id: string</span>
+<span class="sd">        :param attachment: (required) There are two ways to post SIS import data - either via a multipart/form-data form-field-style attachment, or via a non-multipart raw post request. &#39;attachment&#39; is required for multipart/form-data style posts. Assumed to be SIS data from a file upload form field named &#39;attachment&#39;. Examples: curl -F attachment=@&lt;filename&gt; -H &quot;Authorization: Bearer &lt;token&gt;&quot; \ &#39;https://&lt;canvas&gt;/api/v1/accounts/&lt;account_id&gt;/sis_imports.json?import_type=instructure_csv&#39; If you decide to do a raw post, you can skip the &#39;attachment&#39; argument, but you will then be required to provide a suitable Content-Type header. You are encouraged to also provide the &#39;extension&#39; argument. Examples: curl -H &#39;Content-Type: application/octet-stream&#39; --data-binary @&lt;filename&gt;.zip \ -H &quot;Authorization: Bearer &lt;token&gt;&quot; \ &#39;https://&lt;canvas&gt;/api/v1/accounts/&lt;account_id&gt;/sis_imports.json?import_type=instructure_csv&amp;extension=zip&#39; curl -H &#39;Content-Type: application/zip&#39; --data-binary @&lt;filename&gt;.zip \ -H &quot;Authorization: Bearer &lt;token&gt;&quot; \ &#39;https://&lt;canvas&gt;/api/v1/accounts/&lt;account_id&gt;/sis_imports.json?import_type=instructure_csv&#39; curl -H &#39;Content-Type: text/csv&#39; --data-binary @&lt;filename&gt;.csv \ -H &quot;Authorization: Bearer &lt;token&gt;&quot; \ &#39;https://&lt;canvas&gt;/api/v1/accounts/&lt;account_id&gt;/sis_imports.json?import_type=instructure_csv&#39; curl -H &#39;Content-Type: text/csv&#39; --data-binary @&lt;filename&gt;.csv \ -H &quot;Authorization: Bearer &lt;token&gt;&quot; \ &#39;https://&lt;canvas&gt;/api/v1/accounts/&lt;account_id&gt;/sis_imports.json?import_type=instructure_csv&amp;batch_mode=1&amp;batch_mode_term_id=15&#39;</span>
+<span class="sd">        :type attachment: string</span>
+<span class="sd">        :param import_type: (optional) Choose the data format for reading SIS data. With a standard Canvas install, this option can only be &#39;instructure_csv&#39;, and if unprovided, will be assumed to be so. Can be part of the query string.</span>
+<span class="sd">        :type import_type: string or None</span>
+<span class="sd">        :param extension: (optional) Recommended for raw post request style imports. This field will be used to distinguish between zip, xml, csv, and other file format extensions that would usually be provided with the filename in the multipart post request scenario. If not provided, this value will be inferred from the Content-Type, falling back to zip-file format if all else fails.</span>
+<span class="sd">        :type extension: string or None</span>
+<span class="sd">        :param batch_mode: (optional) If set, this SIS import will be run in batch mode, deleting any data previously imported via SIS that is not present in this latest import. See the SIS CSV Format page for details.</span>
+<span class="sd">        :type batch_mode: boolean or None</span>
+<span class="sd">        :param batch_mode_term_id: (optional) Limit deletions to only this term. Required if batch mode is enabled.</span>
+<span class="sd">        :type batch_mode_term_id: string or None</span>
+<span class="sd">        :param override_sis_stickiness: (optional) Many fields on records in Canvas can be marked &quot;sticky,&quot; which means that when something changes in the UI apart from the SIS, that field gets &quot;stuck.&quot; In this way, by default, SIS imports do not override UI changes. If this field is present, however, it will tell the SIS import to ignore &quot;stickiness&quot; and override all fields.</span>
+<span class="sd">        :type override_sis_stickiness: boolean or None</span>
+<span class="sd">        :param add_sis_stickiness: (optional) This option, if present, will process all changes as if they were UI changes. This means that &quot;stickiness&quot; will be added to changed fields. This option is only processed if &#39;override_sis_stickiness&#39; is also provided.</span>
+<span class="sd">        :type add_sis_stickiness: boolean or None</span>
+<span class="sd">        :param clear_sis_stickiness: (optional) This option, if present, will clear &quot;stickiness&quot; from all fields touched by this import. Requires that &#39;override_sis_stickiness&#39; is also provided. If &#39;add_sis_stickiness&#39; is also provided, &#39;clear_sis_stickiness&#39; will overrule the behavior of &#39;add_sis_stickiness&#39;</span>
+<span class="sd">        :type clear_sis_stickiness: boolean or None</span>
+<span class="sd">        :return: Import SIS data</span>
+<span class="sd">        :rtype: requests.Response (with SisImport data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/accounts/{account_id}/sis_imports&#39;</span>
+    <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s">&#39;import_type&#39;</span> <span class="p">:</span> <span class="n">import_type</span><span class="p">,</span>
+        <span class="s">&#39;attachment&#39;</span> <span class="p">:</span> <span class="n">attachment</span><span class="p">,</span>
+        <span class="s">&#39;extension&#39;</span> <span class="p">:</span> <span class="n">extension</span><span class="p">,</span>
+        <span class="s">&#39;batch_mode&#39;</span> <span class="p">:</span> <span class="n">batch_mode</span><span class="p">,</span>
+        <span class="s">&#39;batch_mode_term_id&#39;</span> <span class="p">:</span> <span class="n">batch_mode_term_id</span><span class="p">,</span>
+        <span class="s">&#39;override_sis_stickiness&#39;</span> <span class="p">:</span> <span class="n">override_sis_stickiness</span><span class="p">,</span>
+        <span class="s">&#39;add_sis_stickiness&#39;</span> <span class="p">:</span> <span class="n">add_sis_stickiness</span><span class="p">,</span>
+        <span class="s">&#39;clear_sis_stickiness&#39;</span> <span class="p">:</span> <span class="n">clear_sis_stickiness</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">account_id</span><span class="o">=</span><span class="n">account_id</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="n">payload</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+
+</div>
+<div class="viewcode-block" id="get_sis_import_status"><a class="viewcode-back" href="../../../canvas_sdk.methods.sis_imports.html#canvas_sdk.methods.sis_imports.get_sis_import_status">[docs]</a><span class="k">def</span> <span class="nf">get_sis_import_status</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">account_id</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Get the status of an already created SIS import.</span>
+<span class="sd">    </span>
+<span class="sd">      Examples:</span>
+<span class="sd">        curl &#39;https://&lt;canvas&gt;/api/v1/accounts/&lt;account_id&gt;/sis_imports/&lt;sis_import_id&gt;&#39; \</span>
+<span class="sd">            -H &quot;Authorization: Bearer &lt;token&gt;&quot;</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param account_id: (required) ID</span>
+<span class="sd">        :type account_id: string</span>
+<span class="sd">        :param id: (required) ID</span>
+<span class="sd">        :type id: string</span>
+<span class="sd">        :return: Get SIS import status</span>
+<span class="sd">        :rtype: requests.Response (with SisImport data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/accounts/{account_id}/sis_imports/{id}&#39;</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">account_id</span><span class="o">=</span><span class="n">account_id</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="nb">id</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+</pre></div></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../../index.html">Canvas_SDK 0.0.1 documentation</a> &raquo;</li>
+          <li><a href="../../index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, Harvard.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,182 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>canvas_sdk.client.request_context module &mdash; Canvas_SDK 0.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Canvas_SDK 0.0.1 documentation" href="index.html" />
+    <link rel="up" title="canvas_sdk.client package" href="canvas_sdk.client.html" />
+    <link rel="next" title="canvas_sdk.methods package" href="canvas_sdk.methods.html" />
+    <link rel="prev" title="canvas_sdk.client.base module" href="canvas_sdk.client.base.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="canvas_sdk.methods.html" title="canvas_sdk.methods package"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="canvas_sdk.client.base.html" title="canvas_sdk.client.base module"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Canvas_SDK 0.0.1 documentation</a> &raquo;</li>
+          <li><a href="canvas_sdk.html" >canvas_sdk package</a> &raquo;</li>
+          <li><a href="canvas_sdk.client.html" accesskey="U">canvas_sdk.client package</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-canvas_sdk.client.request_context">
+<span id="canvas-sdk-client-request-context-module"></span><h1>canvas_sdk.client.request_context module<a class="headerlink" href="#module-canvas_sdk.client.request_context" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="canvas_sdk.client.request_context.RequestContext">
+<em class="property">class </em><tt class="descclassname">canvas_sdk.client.request_context.</tt><tt class="descname">RequestContext</tt><big>(</big><em>auth_token</em>, <em>base_api_url</em>, <em>max_retries=0</em>, <em>per_page=None</em>, <em>headers=None</em>, <em>cookies=None</em>, <em>timeout=None</em>, <em>proxies=None</em>, <em>verify=True</em>, <em>cert=None</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/client/request_context.html#RequestContext"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.client.request_context.RequestContext" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>A class that holds the default configuration values used to make Canvas API requests.  The requests
+library is heavily leveraged in terms of the attributes that may be passed in.  Most of the attributes
+are used to construct a requests.Session instance that by default will be reused across requests
+made with a given <a class="reference internal" href="#canvas_sdk.client.request_context.RequestContext" title="canvas_sdk.client.request_context.RequestContext"><tt class="xref py py-class docutils literal"><span class="pre">RequestContext</span></tt></a>.  See below for a full list of parameters:</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>auth_token</strong> (<em>str</em>) &#8211; OAuth2 token retrieved from a Canvas site</li>
+<li><strong>base_api_url</strong> (<em>str</em>) &#8211; The api endpoint of the Canvas site in the form &#8220;http(s)://[canvas.site.com]/api&#8221;</li>
+<li><strong>per_page</strong> (<em>int</em>) &#8211; (optional) For get requests that return a list of data, this will be used as the default per_page value</li>
+<li><strong>max_retries</strong> (<em>int</em>) &#8211; (optional) Number of times a request that generates a certain class of HTTP exception will be retried
+before being raised back to the caller.  See <tt class="xref py py-mod docutils literal"><span class="pre">client.base</span></tt> for a list of those error types.</li>
+<li><strong>headers</strong> (<em>dictionary</em>) &#8211; (optional) dictionary of headers to send for each request.  Will be merged with a default set of headers.</li>
+<li><strong>cookies</strong> (<em>dictionary or CookieJar</em>) &#8211; (optional) Cookies to attach to each requests.</li>
+<li><strong>timeout</strong> (<em>float</em>) &#8211; (optional) The timeout of the request in seconds.</li>
+<li><strong>proxies</strong> (<em>dictionary</em>) &#8211; (optional) Mapping protocol to the URL of the proxy.</li>
+<li><strong>verify</strong> (<em>boolean or str</em>) &#8211; (optional) if <tt class="docutils literal"><span class="pre">True</span></tt>, the SSL cert will be verified.  A CA_BUNDLE path can also be provided.</li>
+<li><strong>cert</strong> (<em>str or Tuple</em>) &#8211; (optional) if String, path to ssl client cert file (.pem).  If Tuple, (&#8216;cert&#8217;, &#8216;key&#8217;) pair.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="attribute">
+<dt id="canvas_sdk.client.request_context.RequestContext.auth">
+<tt class="descname">auth</tt><a class="reference internal" href="_modules/canvas_sdk/client/request_context.html#RequestContext.auth"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.client.request_context.RequestContext.auth" title="Permalink to this definition">¶</a></dt>
+<dd><p>A custom OAuth2 authentication handler for the instance&#8217;s auth_token</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="canvas_sdk.client.request_context.RequestContext.expire_session">
+<tt class="descname">expire_session</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/canvas_sdk/client/request_context.html#RequestContext.expire_session"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.client.request_context.RequestContext.expire_session" title="Permalink to this definition">¶</a></dt>
+<dd><p>To expire a session, it just needs to be set to None according to requests doc.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="canvas_sdk.client.request_context.RequestContext.get_default_headers">
+<em class="property">classmethod </em><tt class="descname">get_default_headers</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/canvas_sdk/client/request_context.html#RequestContext.get_default_headers"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.client.request_context.RequestContext.get_default_headers" title="Permalink to this definition">¶</a></dt>
+<dd><p>These are headers that are sent with every API request.  Be careful of overriding these headers since the API
+calls may not work if these are modified.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="canvas_sdk.client.request_context.RequestContext.session">
+<tt class="descname">session</tt><a class="reference internal" href="_modules/canvas_sdk/client/request_context.html#RequestContext.session"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.client.request_context.RequestContext.session" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get or set a requests.Session instance based on the session related values passed into the
+class.  The setter should only be used if you need fine-grained control over your session.
+You can refer to the requests library documentation for information on available options for
+the session object: <a class="reference external" href="http://docs.python-requests.org/">http://docs.python-requests.org/</a>
+NOTE: Refer to the setup.py file to match up the version of the Requests library the SDK uses
+with the right doc version.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="canvas_sdk.client.base.html"
+                        title="previous chapter">canvas_sdk.client.base module</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="canvas_sdk.methods.html"
+                        title="next chapter">canvas_sdk.methods package</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/canvas_sdk.client.request_context.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="canvas_sdk.methods.html" title="canvas_sdk.methods package"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="canvas_sdk.client.base.html" title="canvas_sdk.client.base module"
+             >previous</a> |</li>
+        <li><a href="index.html">Canvas_SDK 0.0.1 documentation</a> &raquo;</li>
+          <li><a href="canvas_sdk.html" >canvas_sdk package</a> &raquo;</li>
+          <li><a href="canvas_sdk.client.html" >canvas_sdk.client package</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, Harvard.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

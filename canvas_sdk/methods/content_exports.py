@@ -54,11 +54,11 @@ def export_course_content(request_ctx, course_id, export_type, **request_kwargs)
     """
     Begin a content export job for a course.
     
-    You can use the {api:ProgressController#show Progress API} to track the
+    You can use the `ProgressController#show <https://github.com/instructure/canvas-lms/blob/master/app/controllers/progress_controller.rb>`_ to track the
     progress of the export. The migration's progress is linked to with the
     _progress_url_ value.
     
-    When the export completes, use the {api:ContentExportsApiController#show Show content export} endpoint
+    When the export completes, use the `ContentExportsApiController#show <https://github.com/instructure/canvas-lms/blob/master/app/controllers/content_exports_api_controller.rb>`_ endpoint
     to retrieve a download URL for the exported content.
 
         :param request_ctx: The request context

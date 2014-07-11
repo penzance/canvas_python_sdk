@@ -1,0 +1,535 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>canvas_sdk.methods.analytics &mdash; Canvas_SDK 0.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="top" title="Canvas_SDK 0.0.1 documentation" href="../../../index.html" />
+    <link rel="up" title="Module code" href="../../index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../../index.html">Canvas_SDK 0.0.1 documentation</a> &raquo;</li>
+          <li><a href="../../index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for canvas_sdk.methods.analytics</h1><div class="highlight"><pre>
+<span class="kn">from</span> <span class="nn">canvas_sdk</span> <span class="kn">import</span> <span class="n">client</span><span class="p">,</span> <span class="n">utils</span>
+
+<div class="viewcode-block" id="get_department_level_participation_data_terms"><a class="viewcode-back" href="../../../canvas_sdk.methods.analytics.html#canvas_sdk.methods.analytics.get_department_level_participation_data_terms">[docs]</a><span class="k">def</span> <span class="nf">get_department_level_participation_data_terms</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">account_id</span><span class="p">,</span> <span class="n">term_id</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns page view hits summed across all courses in the department. Two</span>
+<span class="sd">    groupings of these counts are returned; one by day (+by_date+), the other</span>
+<span class="sd">    by category (+by_category+). The possible categories are announcements,</span>
+<span class="sd">    assignments, collaborations, conferences, discussions, files, general,</span>
+<span class="sd">    grades, groups, modules, other, pages, and quizzes.</span>
+<span class="sd">    </span>
+<span class="sd">    This and the other department-level endpoints have three variations which</span>
+<span class="sd">    all return the same style of data but for different subsets of courses. All</span>
+<span class="sd">    share the prefix /api/v1/accounts/&lt;account_id&gt;/analytics. The possible</span>
+<span class="sd">    suffixes are:</span>
+<span class="sd">    </span>
+<span class="sd">     * /current: includes all available courses in the default term</span>
+<span class="sd">     * /completed: includes all concluded courses in the default term</span>
+<span class="sd">     * /terms/&lt;term_id&gt;: includes all available or concluded courses in the</span>
+<span class="sd">       given term.</span>
+<span class="sd">    </span>
+<span class="sd">    Courses not yet offered or which have been deleted are never included.</span>
+<span class="sd">    </span>
+<span class="sd">    /current and /completed are intended for use when the account has only one</span>
+<span class="sd">    term. /terms/&lt;term_id&gt; is intended for use when the account has multiple</span>
+<span class="sd">    terms.</span>
+<span class="sd">    </span>
+<span class="sd">    The action follows the suffix.</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param account_id: (required) ID</span>
+<span class="sd">        :type account_id: string</span>
+<span class="sd">        :param term_id: (required) ID</span>
+<span class="sd">        :type term_id: string</span>
+<span class="sd">        :return: Get department-level participation data</span>
+<span class="sd">        :rtype: requests.Response (with void data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/accounts/{account_id}/analytics/terms/{term_id}/activity&#39;</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">account_id</span><span class="o">=</span><span class="n">account_id</span><span class="p">,</span> <span class="n">term_id</span><span class="o">=</span><span class="n">term_id</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+
+</div>
+<div class="viewcode-block" id="get_department_level_participation_data_current"><a class="viewcode-back" href="../../../canvas_sdk.methods.analytics.html#canvas_sdk.methods.analytics.get_department_level_participation_data_current">[docs]</a><span class="k">def</span> <span class="nf">get_department_level_participation_data_current</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">account_id</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns page view hits summed across all courses in the department. Two</span>
+<span class="sd">    groupings of these counts are returned; one by day (+by_date+), the other</span>
+<span class="sd">    by category (+by_category+). The possible categories are announcements,</span>
+<span class="sd">    assignments, collaborations, conferences, discussions, files, general,</span>
+<span class="sd">    grades, groups, modules, other, pages, and quizzes.</span>
+<span class="sd">    </span>
+<span class="sd">    This and the other department-level endpoints have three variations which</span>
+<span class="sd">    all return the same style of data but for different subsets of courses. All</span>
+<span class="sd">    share the prefix /api/v1/accounts/&lt;account_id&gt;/analytics. The possible</span>
+<span class="sd">    suffixes are:</span>
+<span class="sd">    </span>
+<span class="sd">     * /current: includes all available courses in the default term</span>
+<span class="sd">     * /completed: includes all concluded courses in the default term</span>
+<span class="sd">     * /terms/&lt;term_id&gt;: includes all available or concluded courses in the</span>
+<span class="sd">       given term.</span>
+<span class="sd">    </span>
+<span class="sd">    Courses not yet offered or which have been deleted are never included.</span>
+<span class="sd">    </span>
+<span class="sd">    /current and /completed are intended for use when the account has only one</span>
+<span class="sd">    term. /terms/&lt;term_id&gt; is intended for use when the account has multiple</span>
+<span class="sd">    terms.</span>
+<span class="sd">    </span>
+<span class="sd">    The action follows the suffix.</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param account_id: (required) ID</span>
+<span class="sd">        :type account_id: string</span>
+<span class="sd">        :return: Get department-level participation data</span>
+<span class="sd">        :rtype: requests.Response (with void data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/accounts/{account_id}/analytics/current/activity&#39;</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">account_id</span><span class="o">=</span><span class="n">account_id</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+
+</div>
+<div class="viewcode-block" id="get_department_level_participation_data_completed"><a class="viewcode-back" href="../../../canvas_sdk.methods.analytics.html#canvas_sdk.methods.analytics.get_department_level_participation_data_completed">[docs]</a><span class="k">def</span> <span class="nf">get_department_level_participation_data_completed</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">account_id</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns page view hits summed across all courses in the department. Two</span>
+<span class="sd">    groupings of these counts are returned; one by day (+by_date+), the other</span>
+<span class="sd">    by category (+by_category+). The possible categories are announcements,</span>
+<span class="sd">    assignments, collaborations, conferences, discussions, files, general,</span>
+<span class="sd">    grades, groups, modules, other, pages, and quizzes.</span>
+<span class="sd">    </span>
+<span class="sd">    This and the other department-level endpoints have three variations which</span>
+<span class="sd">    all return the same style of data but for different subsets of courses. All</span>
+<span class="sd">    share the prefix /api/v1/accounts/&lt;account_id&gt;/analytics. The possible</span>
+<span class="sd">    suffixes are:</span>
+<span class="sd">    </span>
+<span class="sd">     * /current: includes all available courses in the default term</span>
+<span class="sd">     * /completed: includes all concluded courses in the default term</span>
+<span class="sd">     * /terms/&lt;term_id&gt;: includes all available or concluded courses in the</span>
+<span class="sd">       given term.</span>
+<span class="sd">    </span>
+<span class="sd">    Courses not yet offered or which have been deleted are never included.</span>
+<span class="sd">    </span>
+<span class="sd">    /current and /completed are intended for use when the account has only one</span>
+<span class="sd">    term. /terms/&lt;term_id&gt; is intended for use when the account has multiple</span>
+<span class="sd">    terms.</span>
+<span class="sd">    </span>
+<span class="sd">    The action follows the suffix.</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param account_id: (required) ID</span>
+<span class="sd">        :type account_id: string</span>
+<span class="sd">        :return: Get department-level participation data</span>
+<span class="sd">        :rtype: requests.Response (with void data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/accounts/{account_id}/analytics/completed/activity&#39;</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">account_id</span><span class="o">=</span><span class="n">account_id</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+
+</div>
+<div class="viewcode-block" id="get_department_level_grade_data_terms"><a class="viewcode-back" href="../../../canvas_sdk.methods.analytics.html#canvas_sdk.methods.analytics.get_department_level_grade_data_terms">[docs]</a><span class="k">def</span> <span class="nf">get_department_level_grade_data_terms</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">account_id</span><span class="p">,</span> <span class="n">term_id</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns the distribution of grades for students in courses in the</span>
+<span class="sd">    department.  Each data point is one student&#39;s current grade in one course;</span>
+<span class="sd">    if a student is in multiple courses, he contributes one value per course,</span>
+<span class="sd">    but if he&#39;s enrolled multiple times in the same course (e.g. a lecture</span>
+<span class="sd">    section and a lab section), he only constributes on value for that course.</span>
+<span class="sd">    </span>
+<span class="sd">    Grades are binned to the nearest integer score; anomalous grades outside</span>
+<span class="sd">    the 0 to 100 range are ignored. The raw counts are returned, not yet</span>
+<span class="sd">    normalized by the total count.</span>
+<span class="sd">    </span>
+<span class="sd">    Shares the same variations on endpoint as the participation data.</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param account_id: (required) ID</span>
+<span class="sd">        :type account_id: string</span>
+<span class="sd">        :param term_id: (required) ID</span>
+<span class="sd">        :type term_id: string</span>
+<span class="sd">        :return: Get department-level grade data</span>
+<span class="sd">        :rtype: requests.Response (with void data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/accounts/{account_id}/analytics/terms/{term_id}/grades&#39;</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">account_id</span><span class="o">=</span><span class="n">account_id</span><span class="p">,</span> <span class="n">term_id</span><span class="o">=</span><span class="n">term_id</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+
+</div>
+<div class="viewcode-block" id="get_department_level_grade_data_current"><a class="viewcode-back" href="../../../canvas_sdk.methods.analytics.html#canvas_sdk.methods.analytics.get_department_level_grade_data_current">[docs]</a><span class="k">def</span> <span class="nf">get_department_level_grade_data_current</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">account_id</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns the distribution of grades for students in courses in the</span>
+<span class="sd">    department.  Each data point is one student&#39;s current grade in one course;</span>
+<span class="sd">    if a student is in multiple courses, he contributes one value per course,</span>
+<span class="sd">    but if he&#39;s enrolled multiple times in the same course (e.g. a lecture</span>
+<span class="sd">    section and a lab section), he only constributes on value for that course.</span>
+<span class="sd">    </span>
+<span class="sd">    Grades are binned to the nearest integer score; anomalous grades outside</span>
+<span class="sd">    the 0 to 100 range are ignored. The raw counts are returned, not yet</span>
+<span class="sd">    normalized by the total count.</span>
+<span class="sd">    </span>
+<span class="sd">    Shares the same variations on endpoint as the participation data.</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param account_id: (required) ID</span>
+<span class="sd">        :type account_id: string</span>
+<span class="sd">        :return: Get department-level grade data</span>
+<span class="sd">        :rtype: requests.Response (with void data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/accounts/{account_id}/analytics/current/grades&#39;</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">account_id</span><span class="o">=</span><span class="n">account_id</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+
+</div>
+<div class="viewcode-block" id="get_department_level_grade_data_completed"><a class="viewcode-back" href="../../../canvas_sdk.methods.analytics.html#canvas_sdk.methods.analytics.get_department_level_grade_data_completed">[docs]</a><span class="k">def</span> <span class="nf">get_department_level_grade_data_completed</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">account_id</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns the distribution of grades for students in courses in the</span>
+<span class="sd">    department.  Each data point is one student&#39;s current grade in one course;</span>
+<span class="sd">    if a student is in multiple courses, he contributes one value per course,</span>
+<span class="sd">    but if he&#39;s enrolled multiple times in the same course (e.g. a lecture</span>
+<span class="sd">    section and a lab section), he only constributes on value for that course.</span>
+<span class="sd">    </span>
+<span class="sd">    Grades are binned to the nearest integer score; anomalous grades outside</span>
+<span class="sd">    the 0 to 100 range are ignored. The raw counts are returned, not yet</span>
+<span class="sd">    normalized by the total count.</span>
+<span class="sd">    </span>
+<span class="sd">    Shares the same variations on endpoint as the participation data.</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param account_id: (required) ID</span>
+<span class="sd">        :type account_id: string</span>
+<span class="sd">        :return: Get department-level grade data</span>
+<span class="sd">        :rtype: requests.Response (with void data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/accounts/{account_id}/analytics/completed/grades&#39;</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">account_id</span><span class="o">=</span><span class="n">account_id</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+
+</div>
+<div class="viewcode-block" id="get_department_level_statistics_terms"><a class="viewcode-back" href="../../../canvas_sdk.methods.analytics.html#canvas_sdk.methods.analytics.get_department_level_statistics_terms">[docs]</a><span class="k">def</span> <span class="nf">get_department_level_statistics_terms</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">account_id</span><span class="p">,</span> <span class="n">term_id</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns numeric statistics about the department and term (or filter).</span>
+<span class="sd">    </span>
+<span class="sd">    Shares the same variations on endpoint as the participation data.</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param account_id: (required) ID</span>
+<span class="sd">        :type account_id: string</span>
+<span class="sd">        :param term_id: (required) ID</span>
+<span class="sd">        :type term_id: string</span>
+<span class="sd">        :return: Get department-level statistics</span>
+<span class="sd">        :rtype: requests.Response (with void data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/accounts/{account_id}/analytics/terms/{term_id}/statistics&#39;</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">account_id</span><span class="o">=</span><span class="n">account_id</span><span class="p">,</span> <span class="n">term_id</span><span class="o">=</span><span class="n">term_id</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+
+</div>
+<div class="viewcode-block" id="get_department_level_statistics_current"><a class="viewcode-back" href="../../../canvas_sdk.methods.analytics.html#canvas_sdk.methods.analytics.get_department_level_statistics_current">[docs]</a><span class="k">def</span> <span class="nf">get_department_level_statistics_current</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">account_id</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns numeric statistics about the department and term (or filter).</span>
+<span class="sd">    </span>
+<span class="sd">    Shares the same variations on endpoint as the participation data.</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param account_id: (required) ID</span>
+<span class="sd">        :type account_id: string</span>
+<span class="sd">        :return: Get department-level statistics</span>
+<span class="sd">        :rtype: requests.Response (with void data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/accounts/{account_id}/analytics/current/statistics&#39;</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">account_id</span><span class="o">=</span><span class="n">account_id</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+
+</div>
+<div class="viewcode-block" id="get_department_level_statistics_completed"><a class="viewcode-back" href="../../../canvas_sdk.methods.analytics.html#canvas_sdk.methods.analytics.get_department_level_statistics_completed">[docs]</a><span class="k">def</span> <span class="nf">get_department_level_statistics_completed</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">account_id</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns numeric statistics about the department and term (or filter).</span>
+<span class="sd">    </span>
+<span class="sd">    Shares the same variations on endpoint as the participation data.</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param account_id: (required) ID</span>
+<span class="sd">        :type account_id: string</span>
+<span class="sd">        :return: Get department-level statistics</span>
+<span class="sd">        :rtype: requests.Response (with void data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/accounts/{account_id}/analytics/completed/statistics&#39;</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">account_id</span><span class="o">=</span><span class="n">account_id</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+
+</div>
+<div class="viewcode-block" id="get_course_level_participation_data"><a class="viewcode-back" href="../../../canvas_sdk.methods.analytics.html#canvas_sdk.methods.analytics.get_course_level_participation_data">[docs]</a><span class="k">def</span> <span class="nf">get_course_level_participation_data</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">course_id</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns page view hits and participation numbers grouped by day through the</span>
+<span class="sd">    entire history of the course. Page views is returned as a hash, where the</span>
+<span class="sd">    hash keys are dates in the format &quot;YYYY-MM-DD&quot;. The page_views result set</span>
+<span class="sd">    includes page views broken out by access category. Participations is</span>
+<span class="sd">    returned as an array of dates in the format &quot;YYYY-MM-DD&quot;.</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param course_id: (required) ID</span>
+<span class="sd">        :type course_id: string</span>
+<span class="sd">        :return: Get course-level participation data</span>
+<span class="sd">        :rtype: requests.Response (with void data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/courses/{course_id}/analytics/activity&#39;</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">course_id</span><span class="o">=</span><span class="n">course_id</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+
+</div>
+<div class="viewcode-block" id="get_course_level_assignment_data"><a class="viewcode-back" href="../../../canvas_sdk.methods.analytics.html#canvas_sdk.methods.analytics.get_course_level_assignment_data">[docs]</a><span class="k">def</span> <span class="nf">get_course_level_assignment_data</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">course_id</span><span class="p">,</span> <span class="n">async</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns a list of assignments for the course sorted by due date. For</span>
+<span class="sd">    each assignment returns basic assignment information, the grade breakdown,</span>
+<span class="sd">    and a breakdown of on-time/late status of homework submissions.</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param course_id: (required) ID</span>
+<span class="sd">        :type course_id: string</span>
+<span class="sd">        :param async: (required) If async is true, then the course_assignments call can happen asynch- ronously and MAY return a response containing a progress_url key instead of an assignments array. If it does, then it is the caller&#39;s responsibility to poll the API again to see if the progress is complete. If the data is ready (possibly even on the first async call) then it will be passed back normally, as documented in the example response.</span>
+<span class="sd">        :type async: boolean</span>
+<span class="sd">        :return: Get course-level assignment data</span>
+<span class="sd">        :rtype: requests.Response (with void data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/courses/{course_id}/analytics/assignments&#39;</span>
+    <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s">&#39;async&#39;</span> <span class="p">:</span> <span class="n">async</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">course_id</span><span class="o">=</span><span class="n">course_id</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="n">payload</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+
+</div>
+<div class="viewcode-block" id="get_course_level_student_summary_data"><a class="viewcode-back" href="../../../canvas_sdk.methods.analytics.html#canvas_sdk.methods.analytics.get_course_level_student_summary_data">[docs]</a><span class="k">def</span> <span class="nf">get_course_level_student_summary_data</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">course_id</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns a summary of per-user access information for all students in</span>
+<span class="sd">    a course. This includes total page views, total participations, and a</span>
+<span class="sd">    breakdown of on-time/late status for all homework submissions in the course.</span>
+<span class="sd">    The data is returned as a list in lexical order on the student name.</span>
+<span class="sd">    </span>
+<span class="sd">    Each student&#39;s summary also includes the maximum number of page views and</span>
+<span class="sd">    participations by any student in the course, which may be useful for some</span>
+<span class="sd">    visualizations (since determining maximums client side can be tricky with</span>
+<span class="sd">    pagination).</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param course_id: (required) ID</span>
+<span class="sd">        :type course_id: string</span>
+<span class="sd">        :return: Get course-level student summary data</span>
+<span class="sd">        :rtype: requests.Response (with void data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/courses/{course_id}/analytics/student_summaries&#39;</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">course_id</span><span class="o">=</span><span class="n">course_id</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+
+</div>
+<div class="viewcode-block" id="get_user_in_a_course_level_participation_data"><a class="viewcode-back" href="../../../canvas_sdk.methods.analytics.html#canvas_sdk.methods.analytics.get_user_in_a_course_level_participation_data">[docs]</a><span class="k">def</span> <span class="nf">get_user_in_a_course_level_participation_data</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">course_id</span><span class="p">,</span> <span class="n">student_id</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns page view hits and participation numbers grouped by day through the</span>
+<span class="sd">    entire history of the course. Two hashes are returned, one for page views</span>
+<span class="sd">    and one for participations, where the hash keys are dates in the format</span>
+<span class="sd">    &quot;YYYY-MM-DD&quot;.</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param course_id: (required) ID</span>
+<span class="sd">        :type course_id: string</span>
+<span class="sd">        :param student_id: (required) ID</span>
+<span class="sd">        :type student_id: string</span>
+<span class="sd">        :return: Get user-in-a-course-level participation data</span>
+<span class="sd">        :rtype: requests.Response (with void data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/courses/{course_id}/analytics/users/{student_id}/activity&#39;</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">course_id</span><span class="o">=</span><span class="n">course_id</span><span class="p">,</span> <span class="n">student_id</span><span class="o">=</span><span class="n">student_id</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+
+</div>
+<div class="viewcode-block" id="get_user_in_a_course_level_assignment_data"><a class="viewcode-back" href="../../../canvas_sdk.methods.analytics.html#canvas_sdk.methods.analytics.get_user_in_a_course_level_assignment_data">[docs]</a><span class="k">def</span> <span class="nf">get_user_in_a_course_level_assignment_data</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">course_id</span><span class="p">,</span> <span class="n">student_id</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns a list of assignments for the course sorted by due date. For</span>
+<span class="sd">    each assignment returns basic assignment information, the grade breakdown</span>
+<span class="sd">    (including the student&#39;s actual grade), and the basic submission</span>
+<span class="sd">    information for the student&#39;s submission if it exists.</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param course_id: (required) ID</span>
+<span class="sd">        :type course_id: string</span>
+<span class="sd">        :param student_id: (required) ID</span>
+<span class="sd">        :type student_id: string</span>
+<span class="sd">        :return: Get user-in-a-course-level assignment data</span>
+<span class="sd">        :rtype: requests.Response (with void data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/courses/{course_id}/analytics/users/{student_id}/assignments&#39;</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">course_id</span><span class="o">=</span><span class="n">course_id</span><span class="p">,</span> <span class="n">student_id</span><span class="o">=</span><span class="n">student_id</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+
+</div>
+<div class="viewcode-block" id="get_user_in_a_course_level_messaging_data"><a class="viewcode-back" href="../../../canvas_sdk.methods.analytics.html#canvas_sdk.methods.analytics.get_user_in_a_course_level_messaging_data">[docs]</a><span class="k">def</span> <span class="nf">get_user_in_a_course_level_messaging_data</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">course_id</span><span class="p">,</span> <span class="n">student_id</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns messaging &quot;hits&quot; grouped by day through the entire history of the</span>
+<span class="sd">    course. Returns a hash containing the number of instructor-to-student messages,</span>
+<span class="sd">    and student-to-instructor messages, where the hash keys are dates</span>
+<span class="sd">    in the format &quot;YYYY-MM-DD&quot;. Message hits include Conversation messages and</span>
+<span class="sd">    comments on homework submissions.</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param course_id: (required) ID</span>
+<span class="sd">        :type course_id: string</span>
+<span class="sd">        :param student_id: (required) ID</span>
+<span class="sd">        :type student_id: string</span>
+<span class="sd">        :return: Get user-in-a-course-level messaging data</span>
+<span class="sd">        :rtype: requests.Response (with void data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/courses/{course_id}/analytics/users/{student_id}/communication&#39;</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">course_id</span><span class="o">=</span><span class="n">course_id</span><span class="p">,</span> <span class="n">student_id</span><span class="o">=</span><span class="n">student_id</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+</pre></div></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../../index.html">Canvas_SDK 0.0.1 documentation</a> &raquo;</li>
+          <li><a href="../../index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, Harvard.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

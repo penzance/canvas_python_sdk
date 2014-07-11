@@ -1,0 +1,712 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>canvas_sdk.methods.analytics module &mdash; Canvas_SDK 0.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Canvas_SDK 0.0.1 documentation" href="index.html" />
+    <link rel="up" title="canvas_sdk.methods package" href="canvas_sdk.methods.html" />
+    <link rel="next" title="canvas_sdk.methods.announcement_external_feeds module" href="canvas_sdk.methods.announcement_external_feeds.html" />
+    <link rel="prev" title="canvas_sdk.methods.admins module" href="canvas_sdk.methods.admins.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="canvas_sdk.methods.announcement_external_feeds.html" title="canvas_sdk.methods.announcement_external_feeds module"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="canvas_sdk.methods.admins.html" title="canvas_sdk.methods.admins module"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Canvas_SDK 0.0.1 documentation</a> &raquo;</li>
+          <li><a href="canvas_sdk.html" >canvas_sdk package</a> &raquo;</li>
+          <li><a href="canvas_sdk.methods.html" accesskey="U">canvas_sdk.methods package</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-canvas_sdk.methods.analytics">
+<span id="canvas-sdk-methods-analytics-module"></span><h1>canvas_sdk.methods.analytics module<a class="headerlink" href="#module-canvas_sdk.methods.analytics" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="canvas_sdk.methods.analytics.get_course_level_assignment_data">
+<tt class="descclassname">canvas_sdk.methods.analytics.</tt><tt class="descname">get_course_level_assignment_data</tt><big>(</big><em>request_ctx</em>, <em>course_id</em>, <em>async</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/analytics.html#get_course_level_assignment_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.analytics.get_course_level_assignment_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a list of assignments for the course sorted by due date. For
+each assignment returns basic assignment information, the grade breakdown,
+and a breakdown of on-time/late status of homework submissions.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param course_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type course_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param async:</th><td class="field-body">(required) If async is true, then the course_assignments call can happen asynch- ronously and MAY return a response containing a progress_url key instead of an assignments array. If it does, then it is the caller&#8217;s responsibility to poll the API again to see if the progress is complete. If the data is ready (possibly even on the first async call) then it will be passed back normally, as documented in the example response.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type async:</th><td class="field-body">boolean</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Get course-level assignment data</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with void data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.analytics.get_course_level_participation_data">
+<tt class="descclassname">canvas_sdk.methods.analytics.</tt><tt class="descname">get_course_level_participation_data</tt><big>(</big><em>request_ctx</em>, <em>course_id</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/analytics.html#get_course_level_participation_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.analytics.get_course_level_participation_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns page view hits and participation numbers grouped by day through the
+entire history of the course. Page views is returned as a hash, where the
+hash keys are dates in the format &#8220;YYYY-MM-DD&#8221;. The page_views result set
+includes page views broken out by access category. Participations is
+returned as an array of dates in the format &#8220;YYYY-MM-DD&#8221;.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param course_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type course_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Get course-level participation data</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with void data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.analytics.get_course_level_student_summary_data">
+<tt class="descclassname">canvas_sdk.methods.analytics.</tt><tt class="descname">get_course_level_student_summary_data</tt><big>(</big><em>request_ctx</em>, <em>course_id</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/analytics.html#get_course_level_student_summary_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.analytics.get_course_level_student_summary_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a summary of per-user access information for all students in
+a course. This includes total page views, total participations, and a
+breakdown of on-time/late status for all homework submissions in the course.
+The data is returned as a list in lexical order on the student name.</p>
+<p>Each student&#8217;s summary also includes the maximum number of page views and
+participations by any student in the course, which may be useful for some
+visualizations (since determining maximums client side can be tricky with
+pagination).</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param course_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type course_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Get course-level student summary data</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with void data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.analytics.get_department_level_grade_data_completed">
+<tt class="descclassname">canvas_sdk.methods.analytics.</tt><tt class="descname">get_department_level_grade_data_completed</tt><big>(</big><em>request_ctx</em>, <em>account_id</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/analytics.html#get_department_level_grade_data_completed"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.analytics.get_department_level_grade_data_completed" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the distribution of grades for students in courses in the
+department.  Each data point is one student&#8217;s current grade in one course;
+if a student is in multiple courses, he contributes one value per course,
+but if he&#8217;s enrolled multiple times in the same course (e.g. a lecture
+section and a lab section), he only constributes on value for that course.</p>
+<p>Grades are binned to the nearest integer score; anomalous grades outside
+the 0 to 100 range are ignored. The raw counts are returned, not yet
+normalized by the total count.</p>
+<p>Shares the same variations on endpoint as the participation data.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param account_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type account_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Get department-level grade data</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with void data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.analytics.get_department_level_grade_data_current">
+<tt class="descclassname">canvas_sdk.methods.analytics.</tt><tt class="descname">get_department_level_grade_data_current</tt><big>(</big><em>request_ctx</em>, <em>account_id</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/analytics.html#get_department_level_grade_data_current"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.analytics.get_department_level_grade_data_current" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the distribution of grades for students in courses in the
+department.  Each data point is one student&#8217;s current grade in one course;
+if a student is in multiple courses, he contributes one value per course,
+but if he&#8217;s enrolled multiple times in the same course (e.g. a lecture
+section and a lab section), he only constributes on value for that course.</p>
+<p>Grades are binned to the nearest integer score; anomalous grades outside
+the 0 to 100 range are ignored. The raw counts are returned, not yet
+normalized by the total count.</p>
+<p>Shares the same variations on endpoint as the participation data.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param account_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type account_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Get department-level grade data</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with void data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.analytics.get_department_level_grade_data_terms">
+<tt class="descclassname">canvas_sdk.methods.analytics.</tt><tt class="descname">get_department_level_grade_data_terms</tt><big>(</big><em>request_ctx</em>, <em>account_id</em>, <em>term_id</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/analytics.html#get_department_level_grade_data_terms"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.analytics.get_department_level_grade_data_terms" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the distribution of grades for students in courses in the
+department.  Each data point is one student&#8217;s current grade in one course;
+if a student is in multiple courses, he contributes one value per course,
+but if he&#8217;s enrolled multiple times in the same course (e.g. a lecture
+section and a lab section), he only constributes on value for that course.</p>
+<p>Grades are binned to the nearest integer score; anomalous grades outside
+the 0 to 100 range are ignored. The raw counts are returned, not yet
+normalized by the total count.</p>
+<p>Shares the same variations on endpoint as the participation data.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param account_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type account_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param term_id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type term_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Get department-level grade data</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with void data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.analytics.get_department_level_participation_data_completed">
+<tt class="descclassname">canvas_sdk.methods.analytics.</tt><tt class="descname">get_department_level_participation_data_completed</tt><big>(</big><em>request_ctx</em>, <em>account_id</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/analytics.html#get_department_level_participation_data_completed"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.analytics.get_department_level_participation_data_completed" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns page view hits summed across all courses in the department. Two
+groupings of these counts are returned; one by day (+by_date+), the other
+by category (+by_category+). The possible categories are announcements,
+assignments, collaborations, conferences, discussions, files, general,
+grades, groups, modules, other, pages, and quizzes.</p>
+<p>This and the other department-level endpoints have three variations which
+all return the same style of data but for different subsets of courses. All
+share the prefix /api/v1/accounts/&lt;account_id&gt;/analytics. The possible
+suffixes are:</p>
+<blockquote>
+<div><ul class="simple">
+<li>/current: includes all available courses in the default term</li>
+<li>/completed: includes all concluded courses in the default term</li>
+<li>/terms/&lt;term_id&gt;: includes all available or concluded courses in the
+given term.</li>
+</ul>
+</div></blockquote>
+<p>Courses not yet offered or which have been deleted are never included.</p>
+<p>/current and /completed are intended for use when the account has only one
+term. /terms/&lt;term_id&gt; is intended for use when the account has multiple
+terms.</p>
+<p>The action follows the suffix.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param account_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type account_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Get department-level participation data</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with void data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.analytics.get_department_level_participation_data_current">
+<tt class="descclassname">canvas_sdk.methods.analytics.</tt><tt class="descname">get_department_level_participation_data_current</tt><big>(</big><em>request_ctx</em>, <em>account_id</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/analytics.html#get_department_level_participation_data_current"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.analytics.get_department_level_participation_data_current" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns page view hits summed across all courses in the department. Two
+groupings of these counts are returned; one by day (+by_date+), the other
+by category (+by_category+). The possible categories are announcements,
+assignments, collaborations, conferences, discussions, files, general,
+grades, groups, modules, other, pages, and quizzes.</p>
+<p>This and the other department-level endpoints have three variations which
+all return the same style of data but for different subsets of courses. All
+share the prefix /api/v1/accounts/&lt;account_id&gt;/analytics. The possible
+suffixes are:</p>
+<blockquote>
+<div><ul class="simple">
+<li>/current: includes all available courses in the default term</li>
+<li>/completed: includes all concluded courses in the default term</li>
+<li>/terms/&lt;term_id&gt;: includes all available or concluded courses in the
+given term.</li>
+</ul>
+</div></blockquote>
+<p>Courses not yet offered or which have been deleted are never included.</p>
+<p>/current and /completed are intended for use when the account has only one
+term. /terms/&lt;term_id&gt; is intended for use when the account has multiple
+terms.</p>
+<p>The action follows the suffix.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param account_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type account_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Get department-level participation data</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with void data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.analytics.get_department_level_participation_data_terms">
+<tt class="descclassname">canvas_sdk.methods.analytics.</tt><tt class="descname">get_department_level_participation_data_terms</tt><big>(</big><em>request_ctx</em>, <em>account_id</em>, <em>term_id</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/analytics.html#get_department_level_participation_data_terms"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.analytics.get_department_level_participation_data_terms" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns page view hits summed across all courses in the department. Two
+groupings of these counts are returned; one by day (+by_date+), the other
+by category (+by_category+). The possible categories are announcements,
+assignments, collaborations, conferences, discussions, files, general,
+grades, groups, modules, other, pages, and quizzes.</p>
+<p>This and the other department-level endpoints have three variations which
+all return the same style of data but for different subsets of courses. All
+share the prefix /api/v1/accounts/&lt;account_id&gt;/analytics. The possible
+suffixes are:</p>
+<blockquote>
+<div><ul class="simple">
+<li>/current: includes all available courses in the default term</li>
+<li>/completed: includes all concluded courses in the default term</li>
+<li>/terms/&lt;term_id&gt;: includes all available or concluded courses in the
+given term.</li>
+</ul>
+</div></blockquote>
+<p>Courses not yet offered or which have been deleted are never included.</p>
+<p>/current and /completed are intended for use when the account has only one
+term. /terms/&lt;term_id&gt; is intended for use when the account has multiple
+terms.</p>
+<p>The action follows the suffix.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param account_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type account_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param term_id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type term_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Get department-level participation data</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with void data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.analytics.get_department_level_statistics_completed">
+<tt class="descclassname">canvas_sdk.methods.analytics.</tt><tt class="descname">get_department_level_statistics_completed</tt><big>(</big><em>request_ctx</em>, <em>account_id</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/analytics.html#get_department_level_statistics_completed"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.analytics.get_department_level_statistics_completed" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns numeric statistics about the department and term (or filter).</p>
+<p>Shares the same variations on endpoint as the participation data.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param account_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type account_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Get department-level statistics</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with void data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.analytics.get_department_level_statistics_current">
+<tt class="descclassname">canvas_sdk.methods.analytics.</tt><tt class="descname">get_department_level_statistics_current</tt><big>(</big><em>request_ctx</em>, <em>account_id</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/analytics.html#get_department_level_statistics_current"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.analytics.get_department_level_statistics_current" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns numeric statistics about the department and term (or filter).</p>
+<p>Shares the same variations on endpoint as the participation data.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param account_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type account_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Get department-level statistics</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with void data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.analytics.get_department_level_statistics_terms">
+<tt class="descclassname">canvas_sdk.methods.analytics.</tt><tt class="descname">get_department_level_statistics_terms</tt><big>(</big><em>request_ctx</em>, <em>account_id</em>, <em>term_id</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/analytics.html#get_department_level_statistics_terms"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.analytics.get_department_level_statistics_terms" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns numeric statistics about the department and term (or filter).</p>
+<p>Shares the same variations on endpoint as the participation data.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param account_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type account_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param term_id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type term_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Get department-level statistics</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with void data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.analytics.get_user_in_a_course_level_assignment_data">
+<tt class="descclassname">canvas_sdk.methods.analytics.</tt><tt class="descname">get_user_in_a_course_level_assignment_data</tt><big>(</big><em>request_ctx</em>, <em>course_id</em>, <em>student_id</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/analytics.html#get_user_in_a_course_level_assignment_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.analytics.get_user_in_a_course_level_assignment_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a list of assignments for the course sorted by due date. For
+each assignment returns basic assignment information, the grade breakdown
+(including the student&#8217;s actual grade), and the basic submission
+information for the student&#8217;s submission if it exists.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param course_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type course_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param student_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type student_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Get user-in-a-course-level assignment data</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with void data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.analytics.get_user_in_a_course_level_messaging_data">
+<tt class="descclassname">canvas_sdk.methods.analytics.</tt><tt class="descname">get_user_in_a_course_level_messaging_data</tt><big>(</big><em>request_ctx</em>, <em>course_id</em>, <em>student_id</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/analytics.html#get_user_in_a_course_level_messaging_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.analytics.get_user_in_a_course_level_messaging_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns messaging &#8220;hits&#8221; grouped by day through the entire history of the
+course. Returns a hash containing the number of instructor-to-student messages,
+and student-to-instructor messages, where the hash keys are dates
+in the format &#8220;YYYY-MM-DD&#8221;. Message hits include Conversation messages and
+comments on homework submissions.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param course_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type course_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param student_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type student_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Get user-in-a-course-level messaging data</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with void data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.analytics.get_user_in_a_course_level_participation_data">
+<tt class="descclassname">canvas_sdk.methods.analytics.</tt><tt class="descname">get_user_in_a_course_level_participation_data</tt><big>(</big><em>request_ctx</em>, <em>course_id</em>, <em>student_id</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/analytics.html#get_user_in_a_course_level_participation_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.analytics.get_user_in_a_course_level_participation_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns page view hits and participation numbers grouped by day through the
+entire history of the course. Two hashes are returned, one for page views
+and one for participations, where the hash keys are dates in the format
+&#8220;YYYY-MM-DD&#8221;.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param course_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type course_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param student_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type student_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Get user-in-a-course-level participation data</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with void data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="canvas_sdk.methods.admins.html"
+                        title="previous chapter">canvas_sdk.methods.admins module</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="canvas_sdk.methods.announcement_external_feeds.html"
+                        title="next chapter">canvas_sdk.methods.announcement_external_feeds module</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/canvas_sdk.methods.analytics.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="canvas_sdk.methods.announcement_external_feeds.html" title="canvas_sdk.methods.announcement_external_feeds module"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="canvas_sdk.methods.admins.html" title="canvas_sdk.methods.admins module"
+             >previous</a> |</li>
+        <li><a href="index.html">Canvas_SDK 0.0.1 documentation</a> &raquo;</li>
+          <li><a href="canvas_sdk.html" >canvas_sdk package</a> &raquo;</li>
+          <li><a href="canvas_sdk.methods.html" >canvas_sdk.methods package</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, Harvard.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

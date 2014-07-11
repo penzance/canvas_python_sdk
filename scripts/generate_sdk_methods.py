@@ -6,7 +6,6 @@ import re
 import os
 import sys
 import errno
-#import getopt
 import argparse
 
 """
@@ -41,30 +40,58 @@ def line_format(line, spacing):
     return new_line
 
 
-def format_field_name(field_name):
+def clean_param(param):
     """
-    format_field_name creates an entry for a dictionary with the field_name 
-    being the key and the value being the variable named field_name
-    Ex: 
-        sometext[thefieldname] becomes
-        'thefieldname' = sometext_thefieldname,
+    clean param looks for parameters with '<' and '>' and removes them
+    """
+    if '<' in param:
+        param = param.replace("<", "")
+    if '>' in param:
+        param = param.replace(">", "")
+    return param
 
-        The canvas api has form fields with the same name as non form fields
-        so it is necessary to preappend the dict name
-    
-        thefield becomes
-        'thefield' = thefield
+
+def flatten_param(param):
+    """
+    Turn a parameter that looks like this param[name_one][name_two][name_three] 
+    into this param_name_one_name_two_name_three
+
+    Regex patterns used:
+    '(\w+)\['          matches "word[param]"
+    '^\[(\w+)\]'       matches "[param]"
+    '\[(\w+|\<\w\>)\]' matches "[param]" or "[<param>]"
 
     """
-    fieldmatch = re.search(r'(\w+)\[(\w+)\]', field_name)
-    line = ''
-    if fieldmatch:
-        field = fieldmatch.group(1) + '_' + fieldmatch.group(2)
-        line = "'{0}' : {1},".format(field_name.strip(), field.strip())
+    param_list = []
+    param_match = re.search(r'(\w+)\[', param)
+    bracket_match = re.search(r'^\[(\w+)\]', param)
+    param_string = ''
+    if param_match:
+        """
+        matching pattern "name[param_name]"
+        """
+        param_string = param_match.group(1)
+        param_list.append(param_string)
+        for name in re.findall(r'\[(\w+|\<\w\>)\]', param):
+            """
+            matching multiple [param1][param2]...[paramN] if they exist
+            and removing '<' and '>' if they exist
+            """
+            name = clean_param(name)
+            param_list.append(name)
+    elif bracket_match:
+        """
+        matching pattern "[param_name]"
+        """
+        param_string = bracket_match.group(1)
+        param_list.append(param_string)
     else:
-        line = "'{0}' : {1},".format(field_name.strip(), field_name.strip())
+        """
+        param is just a string "param"
+        """
+        param_list.append(param)
 
-    return line
+    return '_'.join(param_list)
 
 
 def build_payload(parameters):
@@ -74,44 +101,34 @@ def build_payload(parameters):
     """
     payload = []
     for param in parameters:
+        """
+        Do not include path parameters in the payload
+        """
+
         if param['paramType'] not in 'path':
             field_name = param['name']
-            payload.append(format_field_name(field_name))
-
+            field = flatten_param(field_name)
+            field_name = clean_param(field_name)
+            payload.append("'{0}' : {1},".format(field_name, field))
     return payload
 
 
 def format_parameter(param, required):
     """
-    format_parameter build the a parameter to be used in the paramter list 
-    of the methods calls we are creating
+    format_parameter build the a parameter to be used in the 
+    paramter list of the methods calls we are creating
     """
 
-    param_match = re.search(r'(\w+)\[(\w+)\]', param)
-    param_string = ''
-    if param_match:
-        param_string = param_match.group(1)+'_'+param_match.group(2)
-    else:
-        param_string = param
-    
-    """
-    Some parameters have brackets around them like [param],
-    we want to remove those here. they wont be caught by the check above.
-    """
-
-    param_match = re.search(r'\[(\w+)\]', param_string) 
-    if param_match:
-        param_string = param_match.group(1)
-
+    param_string = flatten_param(param)
     if not required:
         param_string += '=None'
-
     return param_string
 
 
 def get_parameters(parameters):
     """
     get paramters creates the parameter list for the method call
+    Places all required params at the begining of the param list
     """
     
     arg_list = []
@@ -160,13 +177,12 @@ def get_path_parameters(parameters):
     get paramters creates the parameter list for the method call
     """
     
-    arg_list = []
+    param_list = []
     for param in parameters:
         if param['paramType'] == 'path':
             param_name = param['name']
-            arg_list.append('{0}={1}'.format(param_name, param_name))
-
-    return arg_list
+            param_list.append('{0}={1}'.format(param_name, param_name))
+    return param_list
 
 
 def get_param_name(param):
@@ -187,9 +203,11 @@ def check_for_enums(parameters):
     Check for the existance of enums in the parameter list. 
     If an enum exists, we need to build a tuple of the emum names
     as well as the code that will validate the the enum. We create
-    two lists one that has the enums as tuples and another that has
+    two lists one that contains the enums as tuples and another that contains
     the valdiate code. The method returns a list that consistes of these
-    two lists joined. 
+    two lists joined with the enums followed by the validate code.
+
+    Enum params are just flat strings so there is not need to flatten them.
     """
     
     enum_line = ''
@@ -205,6 +223,27 @@ def check_for_enums(parameters):
             enum_lines.append(enum_line)
             validate_enums.append('utils.validate_attr_is_acceptable('+param_name+', ' +param_name+'_types)')
     return enum_lines + validate_enums
+
+
+def convert(name):
+    """
+    convert camelCase to camel_case
+    """
+    s1 = re.sub('(.)([A-Z][a-z]+)', r'\1_\2', name)
+    return re.sub('([a-z0-9])([A-Z])', r'\1_\2', s1).lower()
+
+def format_api_string(match):
+    """
+    Convert {api:controller#section} strings to rst format 
+       `controller#section <http://hostname/controller.rb>_`
+    This will link back to the canvas-lms github repo, if you want to link 
+    to your own repo, just change the url below.
+    """
+    controller_cc = match.group(1)
+    section = match.group(2)
+    controller = convert(controller_cc)
+    rst_string = '`'+controller_cc+'#'+section+' <https://github.com/instructure/canvas-lms/blob/master/app/controllers/'+controller+'.rb>`_'
+    return rst_string
 
 
 def build_method(method_name, description, parameters, api_path, http_method, summary, return_type):
@@ -240,8 +279,10 @@ def build_method(method_name, description, parameters, api_path, http_method, su
     """
     Create the method description text from the description in the meta api
     """
+    regex = re.compile(r'\{api\:(\w+)\#(\w+).*?\}')
     for line in description.splitlines(True):
-        content += line_format(line.rstrip(), FOUR)
+        rst_line = regex.sub(format_api_string, line)
+        content += line_format(rst_line.rstrip(), FOUR)
     
     """
     list out the method paramters
@@ -258,7 +299,7 @@ def build_method(method_name, description, parameters, api_path, http_method, su
     content += line_format('', NONE)
     
     """
-    build the per_page check
+    Add the per_page check
     """
     if allow_per_page:
         content += line_format('if per_page is None:', FOUR)
@@ -311,6 +352,9 @@ def build_module(json_api_url):
     content = line_format('from canvas_sdk import client, utils', NONE)
     content += line_format('', NONE)
     
+    """
+    Extract the data needed to build the method from the json source
+    """
     for item in apis:
         api_path = item['path']
         description = item['description']
@@ -323,7 +367,6 @@ def build_module(json_api_url):
         content += build_method(
             method_name, description, parameters, api_path, http_method, 
             summary, return_type)
-
     return content
 
 def create_sdk_directories():
@@ -340,11 +383,6 @@ def create_sdk_directories():
     except OSError as exception:
         if exception.errno != errno.EEXIST:
             raise
-
-def check_url(url_string):
-    """
-    Check if the url contains http or https
-    """
     
 
 def main(argv=None):
@@ -394,6 +432,11 @@ def main(argv=None):
     create_sdk_directories()
     apis = json_data['apis']
     
+    """
+    Loop over all the api end points, these will be turned into python
+    modules
+    """
+
     for api in apis:
         path = api['path']
         url = base_api_url + path

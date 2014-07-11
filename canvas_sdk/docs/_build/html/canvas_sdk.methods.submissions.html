@@ -1,0 +1,821 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>canvas_sdk.methods.submissions module &mdash; Canvas_SDK 0.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Canvas_SDK 0.0.1 documentation" href="index.html" />
+    <link rel="up" title="canvas_sdk.methods package" href="canvas_sdk.methods.html" />
+    <link rel="next" title="canvas_sdk.methods.tabs module" href="canvas_sdk.methods.tabs.html" />
+    <link rel="prev" title="canvas_sdk.methods.submission_comments module" href="canvas_sdk.methods.submission_comments.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="canvas_sdk.methods.tabs.html" title="canvas_sdk.methods.tabs module"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="canvas_sdk.methods.submission_comments.html" title="canvas_sdk.methods.submission_comments module"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Canvas_SDK 0.0.1 documentation</a> &raquo;</li>
+          <li><a href="canvas_sdk.html" >canvas_sdk package</a> &raquo;</li>
+          <li><a href="canvas_sdk.methods.html" accesskey="U">canvas_sdk.methods package</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-canvas_sdk.methods.submissions">
+<span id="canvas-sdk-methods-submissions-module"></span><h1>canvas_sdk.methods.submissions module<a class="headerlink" href="#module-canvas_sdk.methods.submissions" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="canvas_sdk.methods.submissions.get_single_submission_courses">
+<tt class="descclassname">canvas_sdk.methods.submissions.</tt><tt class="descname">get_single_submission_courses</tt><big>(</big><em>request_ctx</em>, <em>course_id</em>, <em>assignment_id</em>, <em>user_id</em>, <em>include</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/submissions.html#get_single_submission_courses"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.submissions.get_single_submission_courses" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a single submission, based on user id.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param course_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type course_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param assignment_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type assignment_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param user_id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type user_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param include:</th><td class="field-body">(required) Associations to include with the group.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type include:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Get a single submission</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with void data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.submissions.get_single_submission_sections">
+<tt class="descclassname">canvas_sdk.methods.submissions.</tt><tt class="descname">get_single_submission_sections</tt><big>(</big><em>request_ctx</em>, <em>section_id</em>, <em>assignment_id</em>, <em>user_id</em>, <em>include</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/submissions.html#get_single_submission_sections"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.submissions.get_single_submission_sections" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a single submission, based on user id.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param section_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type section_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param assignment_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type assignment_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param user_id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type user_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param include:</th><td class="field-body">(required) Associations to include with the group.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type include:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Get a single submission</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with void data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.submissions.grade_or_comment_on_submission_courses">
+<tt class="descclassname">canvas_sdk.methods.submissions.</tt><tt class="descname">grade_or_comment_on_submission_courses</tt><big>(</big><em>request_ctx</em>, <em>course_id</em>, <em>assignment_id</em>, <em>user_id</em>, <em>comment_text_comment</em>, <em>comment_media_comment_id</em>, <em>comment_media_comment_type</em>, <em>submission_posted_grade</em>, <em>rubric_assessment</em>, <em>comment_group_comment=None</em>, <em>comment_file_ids=None</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/submissions.html#grade_or_comment_on_submission_courses"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.submissions.grade_or_comment_on_submission_courses" title="Permalink to this definition">¶</a></dt>
+<dd><p>Comment on and/or update the grading for a student&#8217;s assignment submission.
+If any submission or rubric_assessment arguments are provided, the user
+must have permission to manage grades in the appropriate context (course or
+section).</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param course_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type course_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param assignment_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type assignment_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param user_id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type user_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param comment_text_comment:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) Add a textual comment to the submission.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type comment_text_comment:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param comment_media_comment_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) Add an audio/video comment to the submission. Media comments can be added via this API, however, note that there is not yet an API to generate or list existing media comments, so this functionality is currently of limited use.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type comment_media_comment_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">integer</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param comment_media_comment_type:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) The type of media comment being added.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type comment_media_comment_type:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param submission_posted_grade:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) Assign a score to the submission, updating both the &#8220;score&#8221; and &#8220;grade&#8221; fields on the submission record. This parameter can be passed in a few different formats: points:: A floating point or integral value, such as &#8220;13.5&#8221;. The grade will be interpreted directly as the score of the assignment. Values above assignment.points_possible are allowed, for awarding extra credit. percentage:: A floating point value appended with a percent sign, such as &#8220;40%&#8221;. The grade will be interpreted as a percentage score on the assignment, where 100% == assignment.points_possible. Values above 100% are allowed, for awarding extra credit. letter grade:: A letter grade, following the assignment&#8217;s defined letter grading scheme. For example, &#8220;A-&#8221;. The resulting score will be the high end of the defined range for the letter grade. For instance, if &#8220;B&#8221; is defined as 86% to 84%, a letter grade of &#8220;B&#8221; will be worth 86%. The letter grade will be rejected if the assignment does not have a defined letter grading scheme. For more fine-grained control of scores, pass in points or percentage rather than the letter grade. &#8220;pass/complete/fail/incomplete&#8221;:: A string value of &#8220;pass&#8221; or &#8220;complete&#8221; will give a score of 100%. &#8220;fail&#8221; or &#8220;incomplete&#8221; will give a score of 0. Note that assignments with grading_type of &#8220;pass_fail&#8221; can only be assigned a score of 0 or assignment.points_possible, nothing inbetween. If a posted_grade in the &#8220;points&#8221; or &#8220;percentage&#8221; format is sent, the grade will only be accepted if the grade equals one of those two values.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type submission_posted_grade:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param rubric_assessment:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) Assign a rubric assessment to this assignment submission. The sub-parameters here depend on the rubric for the assignment. The general format is, for each row in the rubric: rubric_assessment[criterion_id][points]:: The points awarded for this row. rubric_assessment[criterion_id][comments]:: Comments to add for this row. For example, if the assignment rubric is (in JSON format): !!!javascript [ { &#8216;id&#8217;: &#8216;crit1&#8217;, &#8216;points&#8217;: 10, &#8216;description&#8217;: &#8216;Criterion 1&#8217;, &#8216;ratings&#8217;: [ { &#8216;description&#8217;: &#8216;Good&#8217;, &#8216;points&#8217;: 10 }, { &#8216;description&#8217;: &#8216;Poor&#8217;, &#8216;points&#8217;: 3 } ] }, { &#8216;id&#8217;: &#8216;crit2&#8217;, &#8216;points&#8217;: 5, &#8216;description&#8217;: &#8216;Criterion 2&#8217;, &#8216;ratings&#8217;: [ { &#8216;description&#8217;: &#8216;Complete&#8217;, &#8216;points&#8217;: 5 }, { &#8216;description&#8217;: &#8216;Incomplete&#8217;, &#8216;points&#8217;: 0 } ] } ] Then a possible set of values for rubric_assessment would be: rubric_assessment[crit1][points]=3&amp;rubric_assessment[crit2][points]=5&amp;rubric_assessment[crit2][comments]=Well%20Done.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type rubric_assessment:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">rubricassessment</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param comment_group_comment:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) Whether or not this comment should be sent to the entire group (defaults to false). Ignored if this is not a group assignment or if no text_comment is provided.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type comment_group_comment:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">boolean or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param comment_file_ids:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) Attach files to this comment that were previously uploaded using the Submission Comment API&#8217;s files action</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type comment_file_ids:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">integer or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Grade or comment on a submission</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with void data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.submissions.grade_or_comment_on_submission_sections">
+<tt class="descclassname">canvas_sdk.methods.submissions.</tt><tt class="descname">grade_or_comment_on_submission_sections</tt><big>(</big><em>request_ctx</em>, <em>section_id</em>, <em>assignment_id</em>, <em>user_id</em>, <em>comment_text_comment</em>, <em>comment_media_comment_id</em>, <em>comment_media_comment_type</em>, <em>submission_posted_grade</em>, <em>rubric_assessment</em>, <em>comment_group_comment=None</em>, <em>comment_file_ids=None</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/submissions.html#grade_or_comment_on_submission_sections"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.submissions.grade_or_comment_on_submission_sections" title="Permalink to this definition">¶</a></dt>
+<dd><p>Comment on and/or update the grading for a student&#8217;s assignment submission.
+If any submission or rubric_assessment arguments are provided, the user
+must have permission to manage grades in the appropriate context (course or
+section).</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param section_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type section_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param assignment_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type assignment_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param user_id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type user_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param comment_text_comment:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) Add a textual comment to the submission.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type comment_text_comment:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param comment_media_comment_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) Add an audio/video comment to the submission. Media comments can be added via this API, however, note that there is not yet an API to generate or list existing media comments, so this functionality is currently of limited use.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type comment_media_comment_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">integer</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param comment_media_comment_type:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) The type of media comment being added.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type comment_media_comment_type:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param submission_posted_grade:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) Assign a score to the submission, updating both the &#8220;score&#8221; and &#8220;grade&#8221; fields on the submission record. This parameter can be passed in a few different formats: points:: A floating point or integral value, such as &#8220;13.5&#8221;. The grade will be interpreted directly as the score of the assignment. Values above assignment.points_possible are allowed, for awarding extra credit. percentage:: A floating point value appended with a percent sign, such as &#8220;40%&#8221;. The grade will be interpreted as a percentage score on the assignment, where 100% == assignment.points_possible. Values above 100% are allowed, for awarding extra credit. letter grade:: A letter grade, following the assignment&#8217;s defined letter grading scheme. For example, &#8220;A-&#8221;. The resulting score will be the high end of the defined range for the letter grade. For instance, if &#8220;B&#8221; is defined as 86% to 84%, a letter grade of &#8220;B&#8221; will be worth 86%. The letter grade will be rejected if the assignment does not have a defined letter grading scheme. For more fine-grained control of scores, pass in points or percentage rather than the letter grade. &#8220;pass/complete/fail/incomplete&#8221;:: A string value of &#8220;pass&#8221; or &#8220;complete&#8221; will give a score of 100%. &#8220;fail&#8221; or &#8220;incomplete&#8221; will give a score of 0. Note that assignments with grading_type of &#8220;pass_fail&#8221; can only be assigned a score of 0 or assignment.points_possible, nothing inbetween. If a posted_grade in the &#8220;points&#8221; or &#8220;percentage&#8221; format is sent, the grade will only be accepted if the grade equals one of those two values.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type submission_posted_grade:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param rubric_assessment:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) Assign a rubric assessment to this assignment submission. The sub-parameters here depend on the rubric for the assignment. The general format is, for each row in the rubric: rubric_assessment[criterion_id][points]:: The points awarded for this row. rubric_assessment[criterion_id][comments]:: Comments to add for this row. For example, if the assignment rubric is (in JSON format): !!!javascript [ { &#8216;id&#8217;: &#8216;crit1&#8217;, &#8216;points&#8217;: 10, &#8216;description&#8217;: &#8216;Criterion 1&#8217;, &#8216;ratings&#8217;: [ { &#8216;description&#8217;: &#8216;Good&#8217;, &#8216;points&#8217;: 10 }, { &#8216;description&#8217;: &#8216;Poor&#8217;, &#8216;points&#8217;: 3 } ] }, { &#8216;id&#8217;: &#8216;crit2&#8217;, &#8216;points&#8217;: 5, &#8216;description&#8217;: &#8216;Criterion 2&#8217;, &#8216;ratings&#8217;: [ { &#8216;description&#8217;: &#8216;Complete&#8217;, &#8216;points&#8217;: 5 }, { &#8216;description&#8217;: &#8216;Incomplete&#8217;, &#8216;points&#8217;: 0 } ] } ] Then a possible set of values for rubric_assessment would be: rubric_assessment[crit1][points]=3&amp;rubric_assessment[crit2][points]=5&amp;rubric_assessment[crit2][comments]=Well%20Done.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type rubric_assessment:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">rubricassessment</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param comment_group_comment:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) Whether or not this comment should be sent to the entire group (defaults to false). Ignored if this is not a group assignment or if no text_comment is provided.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type comment_group_comment:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">boolean or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param comment_file_ids:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) Attach files to this comment that were previously uploaded using the Submission Comment API&#8217;s files action</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type comment_file_ids:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">integer or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Grade or comment on a submission</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with void data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.submissions.list_assignment_submissions_courses">
+<tt class="descclassname">canvas_sdk.methods.submissions.</tt><tt class="descname">list_assignment_submissions_courses</tt><big>(</big><em>request_ctx</em>, <em>course_id</em>, <em>assignment_id</em>, <em>include</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/submissions.html#list_assignment_submissions_courses"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.submissions.list_assignment_submissions_courses" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get all existing submissions for an assignment.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param course_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type course_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param assignment_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type assignment_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param include:</th><td class="field-body">(required) Associations to include with the group.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type include:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">List assignment submissions</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with void data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.submissions.list_assignment_submissions_sections">
+<tt class="descclassname">canvas_sdk.methods.submissions.</tt><tt class="descname">list_assignment_submissions_sections</tt><big>(</big><em>request_ctx</em>, <em>section_id</em>, <em>assignment_id</em>, <em>include</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/submissions.html#list_assignment_submissions_sections"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.submissions.list_assignment_submissions_sections" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get all existing submissions for an assignment.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param section_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type section_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param assignment_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type assignment_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param include:</th><td class="field-body">(required) Associations to include with the group.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type include:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">List assignment submissions</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with void data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.submissions.list_submissions_for_multiple_assignments_courses">
+<tt class="descclassname">canvas_sdk.methods.submissions.</tt><tt class="descname">list_submissions_for_multiple_assignments_courses</tt><big>(</big><em>request_ctx</em>, <em>course_id</em>, <em>student_ids</em>, <em>assignment_ids</em>, <em>grouped</em>, <em>include</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/submissions.html#list_submissions_for_multiple_assignments_courses"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.submissions.list_submissions_for_multiple_assignments_courses" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get all existing submissions for a given set of students and assignments.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param course_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type course_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param student_ids:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) List of student ids to return submissions for. If this argument is omitted, return submissions for the calling user. Students may only list their own submissions. Observers may only list those of associated students. The special id &#8220;all&#8221; will return submissions for all students in the course/section as appropriate.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type student_ids:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param assignment_ids:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) List of assignments to return submissions for. If none are given, submissions for all assignments are returned.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type assignment_ids:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param grouped:</th><td class="field-body">(required) If this argument is present, the response will be grouped by student, rather than a flat array of submissions.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type grouped:</th><td class="field-body">boolean</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param include:</th><td class="field-body">(required) Associations to include with the group. <cite>total_scores</cite> requires the <cite>grouped</cite> argument.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type include:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">List submissions for multiple assignments</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with void data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.submissions.list_submissions_for_multiple_assignments_sections">
+<tt class="descclassname">canvas_sdk.methods.submissions.</tt><tt class="descname">list_submissions_for_multiple_assignments_sections</tt><big>(</big><em>request_ctx</em>, <em>section_id</em>, <em>student_ids</em>, <em>assignment_ids</em>, <em>grouped</em>, <em>include</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/submissions.html#list_submissions_for_multiple_assignments_sections"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.submissions.list_submissions_for_multiple_assignments_sections" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get all existing submissions for a given set of students and assignments.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param section_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type section_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param student_ids:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) List of student ids to return submissions for. If this argument is omitted, return submissions for the calling user. Students may only list their own submissions. Observers may only list those of associated students. The special id &#8220;all&#8221; will return submissions for all students in the course/section as appropriate.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type student_ids:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param assignment_ids:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) List of assignments to return submissions for. If none are given, submissions for all assignments are returned.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type assignment_ids:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param grouped:</th><td class="field-body">(required) If this argument is present, the response will be grouped by student, rather than a flat array of submissions.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type grouped:</th><td class="field-body">boolean</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param include:</th><td class="field-body">(required) Associations to include with the group. <cite>total_scores</cite> requires the <cite>grouped</cite> argument.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type include:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">List submissions for multiple assignments</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with void data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.submissions.submit_assignment_courses">
+<tt class="descclassname">canvas_sdk.methods.submissions.</tt><tt class="descname">submit_assignment_courses</tt><big>(</big><em>request_ctx</em>, <em>course_id</em>, <em>assignment_id</em>, <em>comment_text_comment</em>, <em>submission_submission_type</em>, <em>submission_body</em>, <em>submission_url</em>, <em>submission_file_ids</em>, <em>submission_media_comment_id</em>, <em>submission_media_comment_type</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/submissions.html#submit_assignment_courses"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.submissions.submit_assignment_courses" title="Permalink to this definition">¶</a></dt>
+<dd><p>Make a submission for an assignment. You must be enrolled as a student in
+the course/section to do this.</p>
+<p>All online turn-in submission types are supported in this API. However,
+there are a few things that are not yet supported:</p>
+<ul>
+<li><p class="first">Files can be submitted based on a file ID of a user or group file. However, there is no API yet for listing the user and group files, or uploading new files via the API. A file upload API is coming soon.</p>
+</li>
+<li><p class="first">Media comments can be submitted, however, there is no API yet for creating a media comment to submit.</p>
+</li>
+<li><p class="first">Integration with Google Docs is not yet supported.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param course_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type course_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param assignment_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type assignment_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param comment_text_comment:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) Include a textual comment with the submission.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type comment_text_comment:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param submission_submission_type:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) The type of submission being made. The assignment submission_types must include this submission type as an allowed option, or the submission will be rejected with a 400 error. The submission_type given determines which of the following parameters is used. For instance, to submit a URL, submission[submission_type] must be set to &#8220;online_url&#8221;, otherwise the submission[url] parameter will be ignored.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type submission_submission_type:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param submission_body:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) Submit the assignment as an HTML document snippet. Note this HTML snippet will be sanitized using the same ruleset as a submission made from the Canvas web UI. The sanitized HTML will be returned in the response as the submission body. Requires a submission_type of &#8220;online_text_entry&#8221;.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type submission_body:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param submission_url:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) Submit the assignment as a URL. The URL scheme must be &#8220;http&#8221; or &#8220;https&#8221;, no &#8220;ftp&#8221; or other URL schemes are allowed. If no scheme is given (e.g. &#8220;www.example.com&#8221;) then &#8220;http&#8221; will be assumed. Requires a submission_type of &#8220;online_url&#8221;.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type submission_url:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param submission_file_ids:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) Submit the assignment as a set of one or more previously uploaded files residing in the submitting user&#8217;s files section (or the group&#8217;s files section, for group assignments). To upload a new file to submit, see the submissions {api:SubmissionsApiController#create_file Upload a file API}. Requires a submission_type of &#8220;online_upload&#8221;.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type submission_file_ids:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">integer</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param submission_media_comment_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) The media comment id to submit. Media comment ids can be submitted via this API, however, note that there is not yet an API to generate or list existing media comments, so this functionality is currently of limited use. Requires a submission_type of &#8220;media_recording&#8221;.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type submission_media_comment_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">integer</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param submission_media_comment_type:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) The type of media comment being submitted.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type submission_media_comment_type:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Submit an assignment</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with void data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</li>
+</ul>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.submissions.submit_assignment_sections">
+<tt class="descclassname">canvas_sdk.methods.submissions.</tt><tt class="descname">submit_assignment_sections</tt><big>(</big><em>request_ctx</em>, <em>section_id</em>, <em>assignment_id</em>, <em>comment_text_comment</em>, <em>submission_submission_type</em>, <em>submission_body</em>, <em>submission_url</em>, <em>submission_file_ids</em>, <em>submission_media_comment_id</em>, <em>submission_media_comment_type</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/submissions.html#submit_assignment_sections"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.submissions.submit_assignment_sections" title="Permalink to this definition">¶</a></dt>
+<dd><p>Make a submission for an assignment. You must be enrolled as a student in
+the course/section to do this.</p>
+<p>All online turn-in submission types are supported in this API. However,
+there are a few things that are not yet supported:</p>
+<ul>
+<li><p class="first">Files can be submitted based on a file ID of a user or group file. However, there is no API yet for listing the user and group files, or uploading new files via the API. A file upload API is coming soon.</p>
+</li>
+<li><p class="first">Media comments can be submitted, however, there is no API yet for creating a media comment to submit.</p>
+</li>
+<li><p class="first">Integration with Google Docs is not yet supported.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param section_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type section_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param assignment_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type assignment_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param comment_text_comment:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) Include a textual comment with the submission.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type comment_text_comment:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param submission_submission_type:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) The type of submission being made. The assignment submission_types must include this submission type as an allowed option, or the submission will be rejected with a 400 error. The submission_type given determines which of the following parameters is used. For instance, to submit a URL, submission[submission_type] must be set to &#8220;online_url&#8221;, otherwise the submission[url] parameter will be ignored.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type submission_submission_type:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param submission_body:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) Submit the assignment as an HTML document snippet. Note this HTML snippet will be sanitized using the same ruleset as a submission made from the Canvas web UI. The sanitized HTML will be returned in the response as the submission body. Requires a submission_type of &#8220;online_text_entry&#8221;.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type submission_body:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param submission_url:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) Submit the assignment as a URL. The URL scheme must be &#8220;http&#8221; or &#8220;https&#8221;, no &#8220;ftp&#8221; or other URL schemes are allowed. If no scheme is given (e.g. &#8220;www.example.com&#8221;) then &#8220;http&#8221; will be assumed. Requires a submission_type of &#8220;online_url&#8221;.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type submission_url:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param submission_file_ids:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) Submit the assignment as a set of one or more previously uploaded files residing in the submitting user&#8217;s files section (or the group&#8217;s files section, for group assignments). To upload a new file to submit, see the submissions {api:SubmissionsApiController#create_file Upload a file API}. Requires a submission_type of &#8220;online_upload&#8221;.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type submission_file_ids:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">integer</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param submission_media_comment_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) The media comment id to submit. Media comment ids can be submitted via this API, however, note that there is not yet an API to generate or list existing media comments, so this functionality is currently of limited use. Requires a submission_type of &#8220;media_recording&#8221;.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type submission_media_comment_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">integer</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param submission_media_comment_type:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) The type of media comment being submitted.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type submission_media_comment_type:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Submit an assignment</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with void data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</li>
+</ul>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.submissions.upload_file_courses">
+<tt class="descclassname">canvas_sdk.methods.submissions.</tt><tt class="descname">upload_file_courses</tt><big>(</big><em>request_ctx</em>, <em>course_id</em>, <em>assignment_id</em>, <em>user_id</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/submissions.html#upload_file_courses"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.submissions.upload_file_courses" title="Permalink to this definition">¶</a></dt>
+<dd><p>Upload a file to a submission.</p>
+<p>This API endpoint is the first step in uploading a file to a submission as a student.
+See the {<a class="reference external" href="file:file_uploads.html">file:file_uploads.html</a> File Upload Documentation} for details on the file upload workflow.</p>
+<p>The final step of the file upload workflow will return the attachment data,
+including the new file id. The caller can then POST to submit the
++online_upload+ assignment with these file ids.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param course_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type course_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param assignment_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type assignment_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param user_id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type user_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Upload a file</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with void data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.submissions.upload_file_sections">
+<tt class="descclassname">canvas_sdk.methods.submissions.</tt><tt class="descname">upload_file_sections</tt><big>(</big><em>request_ctx</em>, <em>section_id</em>, <em>assignment_id</em>, <em>user_id</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/submissions.html#upload_file_sections"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.submissions.upload_file_sections" title="Permalink to this definition">¶</a></dt>
+<dd><p>Upload a file to a submission.</p>
+<p>This API endpoint is the first step in uploading a file to a submission as a student.
+See the {<a class="reference external" href="file:file_uploads.html">file:file_uploads.html</a> File Upload Documentation} for details on the file upload workflow.</p>
+<p>The final step of the file upload workflow will return the attachment data,
+including the new file id. The caller can then POST to submit the
++online_upload+ assignment with these file ids.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param section_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type section_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param assignment_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type assignment_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param user_id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type user_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Upload a file</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with void data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="canvas_sdk.methods.submission_comments.html"
+                        title="previous chapter">canvas_sdk.methods.submission_comments module</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="canvas_sdk.methods.tabs.html"
+                        title="next chapter">canvas_sdk.methods.tabs module</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/canvas_sdk.methods.submissions.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="canvas_sdk.methods.tabs.html" title="canvas_sdk.methods.tabs module"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="canvas_sdk.methods.submission_comments.html" title="canvas_sdk.methods.submission_comments module"
+             >previous</a> |</li>
+        <li><a href="index.html">Canvas_SDK 0.0.1 documentation</a> &raquo;</li>
+          <li><a href="canvas_sdk.html" >canvas_sdk package</a> &raquo;</li>
+          <li><a href="canvas_sdk.methods.html" >canvas_sdk.methods package</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, Harvard.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

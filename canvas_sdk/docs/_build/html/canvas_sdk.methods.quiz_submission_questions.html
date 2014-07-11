@@ -1,0 +1,351 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>canvas_sdk.methods.quiz_submission_questions module &mdash; Canvas_SDK 0.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Canvas_SDK 0.0.1 documentation" href="index.html" />
+    <link rel="up" title="canvas_sdk.methods package" href="canvas_sdk.methods.html" />
+    <link rel="next" title="canvas_sdk.methods.quiz_submissions module" href="canvas_sdk.methods.quiz_submissions.html" />
+    <link rel="prev" title="canvas_sdk.methods.quiz_submission_files module" href="canvas_sdk.methods.quiz_submission_files.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="canvas_sdk.methods.quiz_submissions.html" title="canvas_sdk.methods.quiz_submissions module"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="canvas_sdk.methods.quiz_submission_files.html" title="canvas_sdk.methods.quiz_submission_files module"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Canvas_SDK 0.0.1 documentation</a> &raquo;</li>
+          <li><a href="canvas_sdk.html" >canvas_sdk package</a> &raquo;</li>
+          <li><a href="canvas_sdk.methods.html" accesskey="U">canvas_sdk.methods package</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-canvas_sdk.methods.quiz_submission_questions">
+<span id="canvas-sdk-methods-quiz-submission-questions-module"></span><h1>canvas_sdk.methods.quiz_submission_questions module<a class="headerlink" href="#module-canvas_sdk.methods.quiz_submission_questions" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="canvas_sdk.methods.quiz_submission_questions.answering_question">
+<tt class="descclassname">canvas_sdk.methods.quiz_submission_questions.</tt><tt class="descname">answering_question</tt><big>(</big><em>request_ctx</em>, <em>quiz_submission_id</em>, <em>id</em>, <em>attempt</em>, <em>validation_token</em>, <em>access_code=None</em>, <em>answer=None</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/quiz_submission_questions.html#answering_question"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.quiz_submission_questions.answering_question" title="Permalink to this definition">¶</a></dt>
+<dd><p>Provide or modify an answer to a QuizQuestion.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param quiz_submission_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type quiz_submission_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param attempt:</th><td class="field-body">(required) The attempt number of the quiz submission being taken. Note that this must be the latest attempt index, as questions for earlier attempts can not be modified.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type attempt:</th><td class="field-body">integer</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param validation_token:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) The unique validation token you received when the Quiz Submission was created.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type validation_token:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param access_code:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) Access code for the Quiz, if any.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type access_code:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param answer:</th><td class="field-body">(optional) The answer to the question. The type and format of this argument depend on the question type. See {Appendix: Question Answer Formats} for the accepted answer formats for each question type.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type answer:</th><td class="field-body">mixed or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Answering a question.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with void data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.quiz_submission_questions.flagging_question">
+<tt class="descclassname">canvas_sdk.methods.quiz_submission_questions.</tt><tt class="descname">flagging_question</tt><big>(</big><em>request_ctx</em>, <em>quiz_submission_id</em>, <em>id</em>, <em>attempt</em>, <em>validation_token</em>, <em>access_code=None</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/quiz_submission_questions.html#flagging_question"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.quiz_submission_questions.flagging_question" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set a flag on a quiz question to indicate that you want to return to it
+later.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param quiz_submission_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type quiz_submission_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param attempt:</th><td class="field-body">(required) The attempt number of the quiz submission being taken. Note that this must be the latest attempt index, as questions for earlier attempts can not be modified.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type attempt:</th><td class="field-body">integer</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param validation_token:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) The unique validation token you received when the Quiz Submission was created.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type validation_token:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param access_code:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) Access code for the Quiz, if any.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type access_code:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Flagging a question.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with void data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.quiz_submission_questions.get_all_quiz_submission_questions">
+<tt class="descclassname">canvas_sdk.methods.quiz_submission_questions.</tt><tt class="descname">get_all_quiz_submission_questions</tt><big>(</big><em>request_ctx</em>, <em>quiz_submission_id</em>, <em>include</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/quiz_submission_questions.html#get_all_quiz_submission_questions"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.quiz_submission_questions.get_all_quiz_submission_questions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a list of all the question records for this quiz submission.</p>
+<p>&lt;b&gt;200 OK&lt;/b&gt; response code is returned if the request was successful.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param quiz_submission_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type quiz_submission_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param include:</th><td class="field-body">(required) Associations to include with the quiz submission question.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type include:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Get all quiz submission questions.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with void data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.quiz_submission_questions.get_single_quiz_submission_question">
+<tt class="descclassname">canvas_sdk.methods.quiz_submission_questions.</tt><tt class="descname">get_single_quiz_submission_question</tt><big>(</big><em>request_ctx</em>, <em>quiz_submission_id</em>, <em>id</em>, <em>include</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/quiz_submission_questions.html#get_single_quiz_submission_question"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.quiz_submission_questions.get_single_quiz_submission_question" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a single question record.</p>
+<p>&lt;b&gt;200 OK&lt;/b&gt; response code is returned if the request was successful.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param quiz_submission_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type quiz_submission_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param include:</th><td class="field-body">(required) Associations to include with the quiz submission question.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type include:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Get a single quiz submission question.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with void data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.quiz_submission_questions.unflagging_question">
+<tt class="descclassname">canvas_sdk.methods.quiz_submission_questions.</tt><tt class="descname">unflagging_question</tt><big>(</big><em>request_ctx</em>, <em>quiz_submission_id</em>, <em>id</em>, <em>attempt</em>, <em>validation_token</em>, <em>access_code=None</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/quiz_submission_questions.html#unflagging_question"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.quiz_submission_questions.unflagging_question" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove the flag that you previously set on a quiz question after you&#8217;ve
+returned to it.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param quiz_submission_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type quiz_submission_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param attempt:</th><td class="field-body">(required) The attempt number of the quiz submission being taken. Note that this must be the latest attempt index, as questions for earlier attempts can not be modified.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type attempt:</th><td class="field-body">integer</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param validation_token:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) The unique validation token you received when the Quiz Submission was created.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type validation_token:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param access_code:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) Access code for the Quiz, if any.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type access_code:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Unflagging a question.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with void data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="canvas_sdk.methods.quiz_submission_files.html"
+                        title="previous chapter">canvas_sdk.methods.quiz_submission_files module</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="canvas_sdk.methods.quiz_submissions.html"
+                        title="next chapter">canvas_sdk.methods.quiz_submissions module</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/canvas_sdk.methods.quiz_submission_questions.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="canvas_sdk.methods.quiz_submissions.html" title="canvas_sdk.methods.quiz_submissions module"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="canvas_sdk.methods.quiz_submission_files.html" title="canvas_sdk.methods.quiz_submission_files module"
+             >previous</a> |</li>
+        <li><a href="index.html">Canvas_SDK 0.0.1 documentation</a> &raquo;</li>
+          <li><a href="canvas_sdk.html" >canvas_sdk package</a> &raquo;</li>
+          <li><a href="canvas_sdk.methods.html" >canvas_sdk.methods package</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, Harvard.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

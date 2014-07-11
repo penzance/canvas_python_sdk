@@ -1,0 +1,289 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>canvas_sdk.methods.quiz_questions &mdash; Canvas_SDK 0.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="top" title="Canvas_SDK 0.0.1 documentation" href="../../../index.html" />
+    <link rel="up" title="Module code" href="../../index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../../index.html">Canvas_SDK 0.0.1 documentation</a> &raquo;</li>
+          <li><a href="../../index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for canvas_sdk.methods.quiz_questions</h1><div class="highlight"><pre>
+<span class="kn">from</span> <span class="nn">canvas_sdk</span> <span class="kn">import</span> <span class="n">client</span><span class="p">,</span> <span class="n">utils</span>
+
+<div class="viewcode-block" id="list_questions_in_quiz"><a class="viewcode-back" href="../../../canvas_sdk.methods.quiz_questions.html#canvas_sdk.methods.quiz_questions.list_questions_in_quiz">[docs]</a><span class="k">def</span> <span class="nf">list_questions_in_quiz</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">course_id</span><span class="p">,</span> <span class="n">quiz_id</span><span class="p">,</span> <span class="n">per_page</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns the list of QuizQuestions in this quiz.</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param course_id: (required) ID</span>
+<span class="sd">        :type course_id: string</span>
+<span class="sd">        :param quiz_id: (required) ID</span>
+<span class="sd">        :type quiz_id: string</span>
+<span class="sd">        :param per_page: (optional) Set how many results canvas should return, defaults to config.LIMIT_PER_PAGE</span>
+<span class="sd">        :type per_page: integer or None</span>
+<span class="sd">        :return: List questions in a quiz</span>
+<span class="sd">        :rtype: requests.Response (with array data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">per_page</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="n">per_page</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">per_page</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/courses/{course_id}/quizzes/{quiz_id}/questions&#39;</span>
+    <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s">&#39;per_page&#39;</span> <span class="p">:</span> <span class="n">per_page</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">course_id</span><span class="o">=</span><span class="n">course_id</span><span class="p">,</span> <span class="n">quiz_id</span><span class="o">=</span><span class="n">quiz_id</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="n">payload</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+
+</div>
+<div class="viewcode-block" id="get_single_quiz_question"><a class="viewcode-back" href="../../../canvas_sdk.methods.quiz_questions.html#canvas_sdk.methods.quiz_questions.get_single_quiz_question">[docs]</a><span class="k">def</span> <span class="nf">get_single_quiz_question</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">course_id</span><span class="p">,</span> <span class="n">quiz_id</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns the quiz question with the given id</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param course_id: (required) ID</span>
+<span class="sd">        :type course_id: string</span>
+<span class="sd">        :param quiz_id: (required) ID</span>
+<span class="sd">        :type quiz_id: string</span>
+<span class="sd">        :param id: (required) The quiz question unique identifier.</span>
+<span class="sd">        :type id: integer</span>
+<span class="sd">        :return: Get a single quiz question</span>
+<span class="sd">        :rtype: requests.Response (with QuizQuestion data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/courses/{course_id}/quizzes/{quiz_id}/questions/{id}&#39;</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">course_id</span><span class="o">=</span><span class="n">course_id</span><span class="p">,</span> <span class="n">quiz_id</span><span class="o">=</span><span class="n">quiz_id</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="nb">id</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+
+</div>
+<div class="viewcode-block" id="create_single_quiz_question"><a class="viewcode-back" href="../../../canvas_sdk.methods.quiz_questions.html#canvas_sdk.methods.quiz_questions.create_single_quiz_question">[docs]</a><span class="k">def</span> <span class="nf">create_single_quiz_question</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">course_id</span><span class="p">,</span> <span class="n">quiz_id</span><span class="p">,</span> <span class="n">question_question_name</span><span class="p">,</span> <span class="n">question_question_text</span><span class="p">,</span> <span class="n">question_question_type</span><span class="p">,</span> <span class="n">question_quiz_group_id</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">question_position</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">question_points_possible</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">question_correct_comments</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">question_incorrect_comments</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">question_neutral_comments</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">question_text_after_answers</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">question_answers</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Create a new quiz question for this quiz</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param course_id: (required) ID</span>
+<span class="sd">        :type course_id: string</span>
+<span class="sd">        :param quiz_id: (required) ID</span>
+<span class="sd">        :type quiz_id: string</span>
+<span class="sd">        :param question_question_name: (required) The name of the question.</span>
+<span class="sd">        :type question_question_name: string</span>
+<span class="sd">        :param question_question_text: (required) The text of the question.</span>
+<span class="sd">        :type question_question_text: string</span>
+<span class="sd">        :param question_question_type: (required) The type of question. Multiple optional fields depend upon the type of question to be used.</span>
+<span class="sd">        :type question_question_type: string</span>
+<span class="sd">        :param question_quiz_group_id: (optional) The id of the quiz group to assign the question to.</span>
+<span class="sd">        :type question_quiz_group_id: integer or None</span>
+<span class="sd">        :param question_position: (optional) The order in which the question will be displayed in the quiz in relation to other questions.</span>
+<span class="sd">        :type question_position: integer or None</span>
+<span class="sd">        :param question_points_possible: (optional) The maximum amount of points received for answering this question correctly.</span>
+<span class="sd">        :type question_points_possible: integer or None</span>
+<span class="sd">        :param question_correct_comments: (optional) The comment to display if the student answers the question correctly.</span>
+<span class="sd">        :type question_correct_comments: string or None</span>
+<span class="sd">        :param question_incorrect_comments: (optional) The comment to display if the student answers incorrectly.</span>
+<span class="sd">        :type question_incorrect_comments: string or None</span>
+<span class="sd">        :param question_neutral_comments: (optional) The comment to display regardless of how the student answered.</span>
+<span class="sd">        :type question_neutral_comments: string or None</span>
+<span class="sd">        :param question_text_after_answers: (optional) no description</span>
+<span class="sd">        :type question_text_after_answers: string or None</span>
+<span class="sd">        :param question_answers: (optional) no description</span>
+<span class="sd">        :type question_answers: [answer] or None</span>
+<span class="sd">        :return: Create a single quiz question</span>
+<span class="sd">        :rtype: requests.Response (with QuizQuestion data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">question_type_types</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;calculated_question&#39;</span><span class="p">,</span> <span class="s">&#39;essay_question&#39;</span><span class="p">,</span> <span class="s">&#39;file_upload_question&#39;</span><span class="p">,</span> <span class="s">&#39;fill_in_multiple_blanks_question&#39;</span><span class="p">,</span> <span class="s">&#39;matching_question&#39;</span><span class="p">,</span> <span class="s">&#39;multiple_answers_question&#39;</span><span class="p">,</span> <span class="s">&#39;multiple_choice_question&#39;</span><span class="p">,</span> <span class="s">&#39;multiple_dropdowns_question&#39;</span><span class="p">,</span> <span class="s">&#39;numerical_question&#39;</span><span class="p">,</span> <span class="s">&#39;short_answer_question&#39;</span><span class="p">,</span> <span class="s">&#39;text_only_question&#39;</span><span class="p">)</span>
+    <span class="n">utils</span><span class="o">.</span><span class="n">validate_attr_is_acceptable</span><span class="p">(</span><span class="n">question_type</span><span class="p">,</span> <span class="n">question_type_types</span><span class="p">)</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/courses/{course_id}/quizzes/{quiz_id}/questions&#39;</span>
+    <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s">&#39;question[question_name]&#39;</span> <span class="p">:</span> <span class="n">question_question_name</span><span class="p">,</span>
+        <span class="s">&#39;question[question_text]&#39;</span> <span class="p">:</span> <span class="n">question_question_text</span><span class="p">,</span>
+        <span class="s">&#39;question[quiz_group_id]&#39;</span> <span class="p">:</span> <span class="n">question_quiz_group_id</span><span class="p">,</span>
+        <span class="s">&#39;question[question_type]&#39;</span> <span class="p">:</span> <span class="n">question_question_type</span><span class="p">,</span>
+        <span class="s">&#39;question[position]&#39;</span> <span class="p">:</span> <span class="n">question_position</span><span class="p">,</span>
+        <span class="s">&#39;question[points_possible]&#39;</span> <span class="p">:</span> <span class="n">question_points_possible</span><span class="p">,</span>
+        <span class="s">&#39;question[correct_comments]&#39;</span> <span class="p">:</span> <span class="n">question_correct_comments</span><span class="p">,</span>
+        <span class="s">&#39;question[incorrect_comments]&#39;</span> <span class="p">:</span> <span class="n">question_incorrect_comments</span><span class="p">,</span>
+        <span class="s">&#39;question[neutral_comments]&#39;</span> <span class="p">:</span> <span class="n">question_neutral_comments</span><span class="p">,</span>
+        <span class="s">&#39;question[text_after_answers]&#39;</span> <span class="p">:</span> <span class="n">question_text_after_answers</span><span class="p">,</span>
+        <span class="s">&#39;question[answers]&#39;</span> <span class="p">:</span> <span class="n">question_answers</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">course_id</span><span class="o">=</span><span class="n">course_id</span><span class="p">,</span> <span class="n">quiz_id</span><span class="o">=</span><span class="n">quiz_id</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="n">payload</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+
+</div>
+<div class="viewcode-block" id="update_existing_quiz_question"><a class="viewcode-back" href="../../../canvas_sdk.methods.quiz_questions.html#canvas_sdk.methods.quiz_questions.update_existing_quiz_question">[docs]</a><span class="k">def</span> <span class="nf">update_existing_quiz_question</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">course_id</span><span class="p">,</span> <span class="n">quiz_id</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="n">question_question_name</span><span class="p">,</span> <span class="n">question_question_text</span><span class="p">,</span> <span class="n">question_question_type</span><span class="p">,</span> <span class="n">question_quiz_group_id</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">question_position</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">question_points_possible</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">question_correct_comments</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">question_incorrect_comments</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">question_neutral_comments</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">question_text_after_answers</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">question_answers</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Updates an existing quiz question for this quiz</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param course_id: (required) ID</span>
+<span class="sd">        :type course_id: string</span>
+<span class="sd">        :param quiz_id: (required) The associated quiz&#39;s unique identifier.</span>
+<span class="sd">        :type quiz_id: integer</span>
+<span class="sd">        :param id: (required) The quiz question&#39;s unique identifier.</span>
+<span class="sd">        :type id: integer</span>
+<span class="sd">        :param question_question_name: (required) The name of the question.</span>
+<span class="sd">        :type question_question_name: string</span>
+<span class="sd">        :param question_question_text: (required) The text of the question.</span>
+<span class="sd">        :type question_question_text: string</span>
+<span class="sd">        :param question_question_type: (required) The type of question. Multiple optional fields depend upon the type of question to be used.</span>
+<span class="sd">        :type question_question_type: string</span>
+<span class="sd">        :param question_quiz_group_id: (optional) The id of the quiz group to assign the question to.</span>
+<span class="sd">        :type question_quiz_group_id: integer or None</span>
+<span class="sd">        :param question_position: (optional) The order in which the question will be displayed in the quiz in relation to other questions.</span>
+<span class="sd">        :type question_position: integer or None</span>
+<span class="sd">        :param question_points_possible: (optional) The maximum amount of points received for answering this question correctly.</span>
+<span class="sd">        :type question_points_possible: integer or None</span>
+<span class="sd">        :param question_correct_comments: (optional) The comment to display if the student answers the question correctly.</span>
+<span class="sd">        :type question_correct_comments: string or None</span>
+<span class="sd">        :param question_incorrect_comments: (optional) The comment to display if the student answers incorrectly.</span>
+<span class="sd">        :type question_incorrect_comments: string or None</span>
+<span class="sd">        :param question_neutral_comments: (optional) The comment to display regardless of how the student answered.</span>
+<span class="sd">        :type question_neutral_comments: string or None</span>
+<span class="sd">        :param question_text_after_answers: (optional) no description</span>
+<span class="sd">        :type question_text_after_answers: string or None</span>
+<span class="sd">        :param question_answers: (optional) no description</span>
+<span class="sd">        :type question_answers: [answer] or None</span>
+<span class="sd">        :return: Update an existing quiz question</span>
+<span class="sd">        :rtype: requests.Response (with QuizQuestion data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">question_type_types</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;calculated_question&#39;</span><span class="p">,</span> <span class="s">&#39;essay_question&#39;</span><span class="p">,</span> <span class="s">&#39;file_upload_question&#39;</span><span class="p">,</span> <span class="s">&#39;fill_in_multiple_blanks_question&#39;</span><span class="p">,</span> <span class="s">&#39;matching_question&#39;</span><span class="p">,</span> <span class="s">&#39;multiple_answers_question&#39;</span><span class="p">,</span> <span class="s">&#39;multiple_choice_question&#39;</span><span class="p">,</span> <span class="s">&#39;multiple_dropdowns_question&#39;</span><span class="p">,</span> <span class="s">&#39;numerical_question&#39;</span><span class="p">,</span> <span class="s">&#39;short_answer_question&#39;</span><span class="p">,</span> <span class="s">&#39;text_only_question&#39;</span><span class="p">)</span>
+    <span class="n">utils</span><span class="o">.</span><span class="n">validate_attr_is_acceptable</span><span class="p">(</span><span class="n">question_type</span><span class="p">,</span> <span class="n">question_type_types</span><span class="p">)</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/courses/{course_id}/quizzes/{quiz_id}/questions/{id}&#39;</span>
+    <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s">&#39;question[question_name]&#39;</span> <span class="p">:</span> <span class="n">question_question_name</span><span class="p">,</span>
+        <span class="s">&#39;question[question_text]&#39;</span> <span class="p">:</span> <span class="n">question_question_text</span><span class="p">,</span>
+        <span class="s">&#39;question[quiz_group_id]&#39;</span> <span class="p">:</span> <span class="n">question_quiz_group_id</span><span class="p">,</span>
+        <span class="s">&#39;question[question_type]&#39;</span> <span class="p">:</span> <span class="n">question_question_type</span><span class="p">,</span>
+        <span class="s">&#39;question[position]&#39;</span> <span class="p">:</span> <span class="n">question_position</span><span class="p">,</span>
+        <span class="s">&#39;question[points_possible]&#39;</span> <span class="p">:</span> <span class="n">question_points_possible</span><span class="p">,</span>
+        <span class="s">&#39;question[correct_comments]&#39;</span> <span class="p">:</span> <span class="n">question_correct_comments</span><span class="p">,</span>
+        <span class="s">&#39;question[incorrect_comments]&#39;</span> <span class="p">:</span> <span class="n">question_incorrect_comments</span><span class="p">,</span>
+        <span class="s">&#39;question[neutral_comments]&#39;</span> <span class="p">:</span> <span class="n">question_neutral_comments</span><span class="p">,</span>
+        <span class="s">&#39;question[text_after_answers]&#39;</span> <span class="p">:</span> <span class="n">question_text_after_answers</span><span class="p">,</span>
+        <span class="s">&#39;question[answers]&#39;</span> <span class="p">:</span> <span class="n">question_answers</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">course_id</span><span class="o">=</span><span class="n">course_id</span><span class="p">,</span> <span class="n">quiz_id</span><span class="o">=</span><span class="n">quiz_id</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="nb">id</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="n">payload</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+
+</div>
+<div class="viewcode-block" id="delete_quiz_question"><a class="viewcode-back" href="../../../canvas_sdk.methods.quiz_questions.html#canvas_sdk.methods.quiz_questions.delete_quiz_question">[docs]</a><span class="k">def</span> <span class="nf">delete_quiz_question</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">course_id</span><span class="p">,</span> <span class="n">quiz_id</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    &lt;b&gt;204 No Content&lt;b&gt; response code is returned if the deletion was successful.</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param course_id: (required) ID</span>
+<span class="sd">        :type course_id: string</span>
+<span class="sd">        :param quiz_id: (required) The associated quiz&#39;s unique identifier</span>
+<span class="sd">        :type quiz_id: integer</span>
+<span class="sd">        :param id: (required) The quiz question&#39;s unique identifier</span>
+<span class="sd">        :type id: integer</span>
+<span class="sd">        :return: Delete a quiz question</span>
+<span class="sd">        :rtype: requests.Response (with void data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/courses/{course_id}/quizzes/{quiz_id}/questions/{id}&#39;</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">course_id</span><span class="o">=</span><span class="n">course_id</span><span class="p">,</span> <span class="n">quiz_id</span><span class="o">=</span><span class="n">quiz_id</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="nb">id</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+</pre></div></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../../index.html">Canvas_SDK 0.0.1 documentation</a> &raquo;</li>
+          <li><a href="../../index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, Harvard.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

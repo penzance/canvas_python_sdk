@@ -1,0 +1,186 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>canvas_sdk.methods.search &mdash; Canvas_SDK 0.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="top" title="Canvas_SDK 0.0.1 documentation" href="../../../index.html" />
+    <link rel="up" title="Module code" href="../../index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../../index.html">Canvas_SDK 0.0.1 documentation</a> &raquo;</li>
+          <li><a href="../../index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for canvas_sdk.methods.search</h1><div class="highlight"><pre>
+<span class="kn">from</span> <span class="nn">canvas_sdk</span> <span class="kn">import</span> <span class="n">client</span><span class="p">,</span> <span class="n">utils</span>
+
+<div class="viewcode-block" id="find_recipients_conversations"><a class="viewcode-back" href="../../../canvas_sdk.methods.search.html#canvas_sdk.methods.search.find_recipients_conversations">[docs]</a><span class="k">def</span> <span class="nf">find_recipients_conversations</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">search</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">exclude</span><span class="p">,</span> <span class="nb">type</span><span class="p">,</span> <span class="n">user_id</span><span class="p">,</span> <span class="n">from_conversation_id</span><span class="p">,</span> <span class="n">permissions</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Find valid recipients (users, courses and groups) that the current user</span>
+<span class="sd">    can send messages to. The /api/v1/search/recipients path is the preferred</span>
+<span class="sd">    endpoint, /api/v1/conversations/find_recipients is deprecated.</span>
+<span class="sd">    </span>
+<span class="sd">    Pagination is supported.</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param search: (required) Search terms used for matching users/courses/groups (e.g. &quot;bob smith&quot;). If multiple terms are given (separated via whitespace), only results matching all terms will be returned.</span>
+<span class="sd">        :type search: string</span>
+<span class="sd">        :param context: (required) Limit the search to a particular course/group (e.g. &quot;course_3&quot; or &quot;group_4&quot;).</span>
+<span class="sd">        :type context: string</span>
+<span class="sd">        :param exclude: (required) Array of ids to exclude from the search. These may be user ids or course/group ids prefixed with &quot;course_&quot; or &quot;group_&quot; respectively, e.g. exclude[]=1&amp;exclude[]=2&amp;exclude[]=course_3</span>
+<span class="sd">        :type exclude: string</span>
+<span class="sd">        :param type: (required) Limit the search just to users or contexts (groups/courses).</span>
+<span class="sd">        :type type: string</span>
+<span class="sd">        :param user_id: (required) Search for a specific user id. This ignores the other above parameters, and will never return more than one result.</span>
+<span class="sd">        :type user_id: integer</span>
+<span class="sd">        :param from_conversation_id: (required) When searching by user_id, only users that could be normally messaged by this user will be returned. This parameter allows you to specify a conversation that will be referenced for a shared context -- if both the current user and the searched user are in the conversation, the user will be returned. This is used to start new side conversations.</span>
+<span class="sd">        :type from_conversation_id: integer</span>
+<span class="sd">        :param permissions: (required) Array of permission strings to be checked for each matched context (e.g. &quot;send_messages&quot;). This argument determines which permissions may be returned in the response; it won&#39;t prevent contexts from being returned if they don&#39;t grant the permission(s).</span>
+<span class="sd">        :type permissions: string</span>
+<span class="sd">        :return: Find recipients</span>
+<span class="sd">        :rtype: requests.Response (with void data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">type_types</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;user&#39;</span><span class="p">,</span> <span class="s">&#39;context&#39;</span><span class="p">)</span>
+    <span class="n">utils</span><span class="o">.</span><span class="n">validate_attr_is_acceptable</span><span class="p">(</span><span class="nb">type</span><span class="p">,</span> <span class="n">type_types</span><span class="p">)</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/conversations/find_recipients&#39;</span>
+    <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s">&#39;search&#39;</span> <span class="p">:</span> <span class="n">search</span><span class="p">,</span>
+        <span class="s">&#39;context&#39;</span> <span class="p">:</span> <span class="n">context</span><span class="p">,</span>
+        <span class="s">&#39;exclude&#39;</span> <span class="p">:</span> <span class="n">exclude</span><span class="p">,</span>
+        <span class="s">&#39;type&#39;</span> <span class="p">:</span> <span class="nb">type</span><span class="p">,</span>
+        <span class="s">&#39;user_id&#39;</span> <span class="p">:</span> <span class="n">user_id</span><span class="p">,</span>
+        <span class="s">&#39;from_conversation_id&#39;</span> <span class="p">:</span> <span class="n">from_conversation_id</span><span class="p">,</span>
+        <span class="s">&#39;permissions&#39;</span> <span class="p">:</span> <span class="n">permissions</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">()</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="n">payload</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+
+</div>
+<div class="viewcode-block" id="find_recipients_search"><a class="viewcode-back" href="../../../canvas_sdk.methods.search.html#canvas_sdk.methods.search.find_recipients_search">[docs]</a><span class="k">def</span> <span class="nf">find_recipients_search</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">search</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">exclude</span><span class="p">,</span> <span class="nb">type</span><span class="p">,</span> <span class="n">user_id</span><span class="p">,</span> <span class="n">from_conversation_id</span><span class="p">,</span> <span class="n">permissions</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Find valid recipients (users, courses and groups) that the current user</span>
+<span class="sd">    can send messages to. The /api/v1/search/recipients path is the preferred</span>
+<span class="sd">    endpoint, /api/v1/conversations/find_recipients is deprecated.</span>
+<span class="sd">    </span>
+<span class="sd">    Pagination is supported.</span>
+
+<span class="sd">        :param request_ctx: The request context</span>
+<span class="sd">        :type request_ctx: :class:RequestContext</span>
+<span class="sd">        :param search: (required) Search terms used for matching users/courses/groups (e.g. &quot;bob smith&quot;). If multiple terms are given (separated via whitespace), only results matching all terms will be returned.</span>
+<span class="sd">        :type search: string</span>
+<span class="sd">        :param context: (required) Limit the search to a particular course/group (e.g. &quot;course_3&quot; or &quot;group_4&quot;).</span>
+<span class="sd">        :type context: string</span>
+<span class="sd">        :param exclude: (required) Array of ids to exclude from the search. These may be user ids or course/group ids prefixed with &quot;course_&quot; or &quot;group_&quot; respectively, e.g. exclude[]=1&amp;exclude[]=2&amp;exclude[]=course_3</span>
+<span class="sd">        :type exclude: string</span>
+<span class="sd">        :param type: (required) Limit the search just to users or contexts (groups/courses).</span>
+<span class="sd">        :type type: string</span>
+<span class="sd">        :param user_id: (required) Search for a specific user id. This ignores the other above parameters, and will never return more than one result.</span>
+<span class="sd">        :type user_id: integer</span>
+<span class="sd">        :param from_conversation_id: (required) When searching by user_id, only users that could be normally messaged by this user will be returned. This parameter allows you to specify a conversation that will be referenced for a shared context -- if both the current user and the searched user are in the conversation, the user will be returned. This is used to start new side conversations.</span>
+<span class="sd">        :type from_conversation_id: integer</span>
+<span class="sd">        :param permissions: (required) Array of permission strings to be checked for each matched context (e.g. &quot;send_messages&quot;). This argument determines which permissions may be returned in the response; it won&#39;t prevent contexts from being returned if they don&#39;t grant the permission(s).</span>
+<span class="sd">        :type permissions: string</span>
+<span class="sd">        :return: Find recipients</span>
+<span class="sd">        :rtype: requests.Response (with void data)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">type_types</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;user&#39;</span><span class="p">,</span> <span class="s">&#39;context&#39;</span><span class="p">)</span>
+    <span class="n">utils</span><span class="o">.</span><span class="n">validate_attr_is_acceptable</span><span class="p">(</span><span class="nb">type</span><span class="p">,</span> <span class="n">type_types</span><span class="p">)</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/v1/search/recipients&#39;</span>
+    <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s">&#39;search&#39;</span> <span class="p">:</span> <span class="n">search</span><span class="p">,</span>
+        <span class="s">&#39;context&#39;</span> <span class="p">:</span> <span class="n">context</span><span class="p">,</span>
+        <span class="s">&#39;exclude&#39;</span> <span class="p">:</span> <span class="n">exclude</span><span class="p">,</span>
+        <span class="s">&#39;type&#39;</span> <span class="p">:</span> <span class="nb">type</span><span class="p">,</span>
+        <span class="s">&#39;user_id&#39;</span> <span class="p">:</span> <span class="n">user_id</span><span class="p">,</span>
+        <span class="s">&#39;from_conversation_id&#39;</span> <span class="p">:</span> <span class="n">from_conversation_id</span><span class="p">,</span>
+        <span class="s">&#39;permissions&#39;</span> <span class="p">:</span> <span class="n">permissions</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request_ctx</span><span class="o">.</span><span class="n">base_api_url</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">format</span><span class="p">()</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">request_ctx</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="n">payload</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+</pre></div></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../../index.html">Canvas_SDK 0.0.1 documentation</a> &raquo;</li>
+          <li><a href="../../index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, Harvard.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

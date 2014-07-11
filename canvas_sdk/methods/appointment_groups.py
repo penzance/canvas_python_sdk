@@ -37,7 +37,7 @@ def list_appointment_groups(request_ctx, scope=None, context_codes=None, include
     return response
 
 
-def create_appointment_group(request_ctx, appointment_group_context_codes, appointment_group_sub_context_codes=None, appointment_group_title=None, appointment_group_description=None, appointment_group_location_name=None, appointment_group_location_address=None, appointment_group_publish=None, appointment_group_participants_per_appointment=None, appointment_group_min_appointments_per_participant=None, appointment_group_max_appointments_per_participant=None, appointment_group_new_appointments=None, appointment_group_participant_visibility=None, **request_kwargs):
+def create_appointment_group(request_ctx, appointment_group_context_codes, appointment_group_sub_context_codes=None, appointment_group_title=None, appointment_group_description=None, appointment_group_location_name=None, appointment_group_location_address=None, appointment_group_publish=None, appointment_group_participants_per_appointment=None, appointment_group_min_appointments_per_participant=None, appointment_group_max_appointments_per_participant=None, appointment_group_new_appointments_X=None, appointment_group_participant_visibility=None, **request_kwargs):
     """
     Create and return a new appointment group. If new_appointments are
     specified, the response will return a new_appointments array (same format
@@ -88,7 +88,7 @@ def create_appointment_group(request_ctx, appointment_group_context_codes, appoi
         'appointment_group[participants_per_appointment]' : appointment_group_participants_per_appointment,
         'appointment_group[min_appointments_per_participant]' : appointment_group_min_appointments_per_participant,
         'appointment_group[max_appointments_per_participant]' : appointment_group_max_appointments_per_participant,
-        'appointment_group[new_appointments][X]' : appointment_group_new_appointments,
+        'appointment_group[new_appointments][X]' : appointment_group_new_appointments_X,
         'appointment_group[participant_visibility]' : appointment_group_participant_visibility,
     }
     url = request_ctx.base_api_url + path.format()
@@ -124,7 +124,7 @@ def get_single_appointment_group(request_ctx, id, include=None, **request_kwargs
     return response
 
 
-def update_appointment_group(request_ctx, id, appointment_group_context_codes, appointment_group_sub_context_codes=None, appointment_group_title=None, appointment_group_description=None, appointment_group_location_name=None, appointment_group_location_address=None, appointment_group_publish=None, appointment_group_participants_per_appointment=None, appointment_group_min_appointments_per_participant=None, appointment_group_max_appointments_per_participant=None, appointment_group_new_appointments=None, appointment_group_participant_visibility=None, **request_kwargs):
+def update_appointment_group(request_ctx, id, appointment_group_context_codes, appointment_group_sub_context_codes=None, appointment_group_title=None, appointment_group_description=None, appointment_group_location_name=None, appointment_group_location_address=None, appointment_group_publish=None, appointment_group_participants_per_appointment=None, appointment_group_min_appointments_per_participant=None, appointment_group_max_appointments_per_participant=None, appointment_group_new_appointments_X=None, appointment_group_participant_visibility=None, **request_kwargs):
     """
     Update and return an appointment group. If new_appointments are specified,
     the response will return a new_appointments array (same format as
@@ -177,7 +177,7 @@ def update_appointment_group(request_ctx, id, appointment_group_context_codes, a
         'appointment_group[participants_per_appointment]' : appointment_group_participants_per_appointment,
         'appointment_group[min_appointments_per_participant]' : appointment_group_min_appointments_per_participant,
         'appointment_group[max_appointments_per_participant]' : appointment_group_max_appointments_per_participant,
-        'appointment_group[new_appointments][X]' : appointment_group_new_appointments,
+        'appointment_group[new_appointments][X]' : appointment_group_new_appointments_X,
         'appointment_group[participant_visibility]' : appointment_group_participant_visibility,
     }
     url = request_ctx.base_api_url + path.format(id=id)

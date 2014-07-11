@@ -54,7 +54,7 @@ def get_single_role(request_ctx, account_id, role, **request_kwargs):
     return response
 
 
-def create_new_role(request_ctx, account_id, role, base_role_type=None, explicit=None, enabled=None, locked=None, **request_kwargs):
+def create_new_role(request_ctx, account_id, role, base_role_type=None, permissions_X_explicit=None, permissions_X_enabled=None, permissions_X_locked=None, **request_kwargs):
     """
     Create a new course-level or account-level role.
 
@@ -83,9 +83,9 @@ def create_new_role(request_ctx, account_id, role, base_role_type=None, explicit
     payload = {
         'role' : role,
         'base_role_type' : base_role_type,
-        'permissions[<X>][explicit]' : permissions[<X>][explicit],
-        'permissions[<X>][enabled]' : permissions[<X>][enabled],
-        'permissions[<X>][locked]' : permissions[<X>][locked],
+        'permissions[X][explicit]' : permissions_X_explicit,
+        'permissions[X][enabled]' : permissions_X_enabled,
+        'permissions[X][locked]' : permissions_X_locked,
     }
     url = request_ctx.base_api_url + path.format(account_id=account_id)
     response = client.post(request_ctx, url, payload=payload, **request_kwargs)
@@ -140,7 +140,7 @@ def activate_role(request_ctx, account_id, role, **request_kwargs):
     return response
 
 
-def update_role(request_ctx, account_id, role, explicit=None, enabled=None, **request_kwargs):
+def update_role(request_ctx, account_id, role, permissions_X_explicit=None, permissions_X_enabled=None, **request_kwargs):
     """
     Update permissions for an existing role.
     
@@ -170,8 +170,8 @@ def update_role(request_ctx, account_id, role, explicit=None, enabled=None, **re
 
     path = '/v1/accounts/{account_id}/roles/{role}'
     payload = {
-        'permissions[<X>][explicit]' : permissions[<X>][explicit],
-        'permissions[<X>][enabled]' : permissions[<X>][enabled],
+        'permissions[X][explicit]' : permissions_X_explicit,
+        'permissions[X][enabled]' : permissions_X_enabled,
     }
     url = request_ctx.base_api_url + path.format(account_id=account_id, role=role)
     response = client.put(request_ctx, url, payload=payload, **request_kwargs)

@@ -45,7 +45,7 @@ def list_calendar_events(request_ctx, type=None, start_date=None, end_date=None,
     return response
 
 
-def create_calendar_event(request_ctx, calendar_event_context_code, calendar_event_title=None, calendar_event_description=None, calendar_event_start_at=None, calendar_event_end_at=None, calendar_event_location_name=None, calendar_event_location_address=None, calendar_event_time_zone_edited=None, calendar_event_child_event_data=None, calendar_event_child_event_data=None, calendar_event_child_event_data=None, **request_kwargs):
+def create_calendar_event(request_ctx, calendar_event_context_code, calendar_event_title=None, calendar_event_description=None, calendar_event_start_at=None, calendar_event_end_at=None, calendar_event_location_name=None, calendar_event_location_address=None, calendar_event_time_zone_edited=None, calendar_event_child_event_data_X_start_at=None, calendar_event_child_event_data_X_end_at=None, calendar_event_child_event_data_X_context_code=None, **request_kwargs):
     """
     Create and return a new calendar event
 
@@ -88,9 +88,9 @@ def create_calendar_event(request_ctx, calendar_event_context_code, calendar_eve
         'calendar_event[location_name]' : calendar_event_location_name,
         'calendar_event[location_address]' : calendar_event_location_address,
         'calendar_event[time_zone_edited]' : calendar_event_time_zone_edited,
-        'calendar_event[child_event_data][X][start_at]' : calendar_event_child_event_data,
-        'calendar_event[child_event_data][X][end_at]' : calendar_event_child_event_data,
-        'calendar_event[child_event_data][X][context_code]' : calendar_event_child_event_data,
+        'calendar_event[child_event_data][X][start_at]' : calendar_event_child_event_data_X_start_at,
+        'calendar_event[child_event_data][X][end_at]' : calendar_event_child_event_data_X_end_at,
+        'calendar_event[child_event_data][X][context_code]' : calendar_event_child_event_data_X_context_code,
     }
     url = request_ctx.base_api_url + path.format()
     response = client.post(request_ctx, url, payload=payload, **request_kwargs)
@@ -172,7 +172,7 @@ def reserve_time_slot_participant_id(request_ctx, id, participant_id=None, cance
     return response
 
 
-def update_calendar_event(request_ctx, id, calendar_event_context_code, calendar_event_title=None, calendar_event_description=None, calendar_event_start_at=None, calendar_event_end_at=None, calendar_event_location_name=None, calendar_event_location_address=None, calendar_event_time_zone_edited=None, calendar_event_child_event_data=None, calendar_event_child_event_data=None, calendar_event_child_event_data=None, **request_kwargs):
+def update_calendar_event(request_ctx, id, calendar_event_context_code, calendar_event_title=None, calendar_event_description=None, calendar_event_start_at=None, calendar_event_end_at=None, calendar_event_location_name=None, calendar_event_location_address=None, calendar_event_time_zone_edited=None, calendar_event_child_event_data_X_start_at=None, calendar_event_child_event_data_X_end_at=None, calendar_event_child_event_data_X_context_code=None, **request_kwargs):
     """
     Update and return a calendar event
 
@@ -217,9 +217,9 @@ def update_calendar_event(request_ctx, id, calendar_event_context_code, calendar
         'calendar_event[location_name]' : calendar_event_location_name,
         'calendar_event[location_address]' : calendar_event_location_address,
         'calendar_event[time_zone_edited]' : calendar_event_time_zone_edited,
-        'calendar_event[child_event_data][X][start_at]' : calendar_event_child_event_data,
-        'calendar_event[child_event_data][X][end_at]' : calendar_event_child_event_data,
-        'calendar_event[child_event_data][X][context_code]' : calendar_event_child_event_data,
+        'calendar_event[child_event_data][X][start_at]' : calendar_event_child_event_data_X_start_at,
+        'calendar_event[child_event_data][X][end_at]' : calendar_event_child_event_data_X_end_at,
+        'calendar_event[child_event_data][X][context_code]' : calendar_event_child_event_data_X_context_code,
     }
     url = request_ctx.base_api_url + path.format(id=id)
     response = client.put(request_ctx, url, payload=payload, **request_kwargs)

@@ -1,0 +1,2954 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>canvas_sdk.methods.discussion_topics module &mdash; Canvas_SDK 0.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Canvas_SDK 0.0.1 documentation" href="index.html" />
+    <link rel="up" title="canvas_sdk.methods package" href="canvas_sdk.methods.html" />
+    <link rel="next" title="canvas_sdk.methods.enrollment_terms module" href="canvas_sdk.methods.enrollment_terms.html" />
+    <link rel="prev" title="canvas_sdk.methods.custom_gradebook_columns module" href="canvas_sdk.methods.custom_gradebook_columns.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="canvas_sdk.methods.enrollment_terms.html" title="canvas_sdk.methods.enrollment_terms module"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="canvas_sdk.methods.custom_gradebook_columns.html" title="canvas_sdk.methods.custom_gradebook_columns module"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Canvas_SDK 0.0.1 documentation</a> &raquo;</li>
+          <li><a href="canvas_sdk.html" >canvas_sdk package</a> &raquo;</li>
+          <li><a href="canvas_sdk.methods.html" accesskey="U">canvas_sdk.methods package</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-canvas_sdk.methods.discussion_topics">
+<span id="canvas-sdk-methods-discussion-topics-module"></span><h1>canvas_sdk.methods.discussion_topics module<a class="headerlink" href="#module-canvas_sdk.methods.discussion_topics" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="canvas_sdk.methods.discussion_topics.create_new_discussion_topic_collection_items">
+<tt class="descclassname">canvas_sdk.methods.discussion_topics.</tt><tt class="descname">create_new_discussion_topic_collection_items</tt><big>(</big><em>request_ctx</em>, <em>collection_item_id</em>, <em>title</em>, <em>message</em>, <em>require_initial_post</em>, <em>discussion_type=None</em>, <em>published=None</em>, <em>delayed_post_at=None</em>, <em>lock_at=None</em>, <em>podcast_enabled=None</em>, <em>podcast_has_student_posts=None</em>, <em>assignment=None</em>, <em>is_announcement=None</em>, <em>position_after=None</em>, <em>group_category_id=None</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/discussion_topics.html#create_new_discussion_topic_collection_items"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.discussion_topics.create_new_discussion_topic_collection_items" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create an new discussion topic for the course or group.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param collection_item_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type collection_item_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param title:</th><td class="field-body">(required) no description</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type title:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param message:</th><td class="field-body">(required) no description</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type message:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param require_initial_post:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) If true then a user may not respond to other replies until that user has made an initial reply. Defaults to false.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type require_initial_post:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">boolean</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param discussion_type:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) The type of discussion. Defaults to side_comment if not value is given. Accepted values are &#8216;side_comment&#8217;, for discussions that only allow one level of nested comments, and &#8216;threaded&#8217; for fully threaded discussions.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type discussion_type:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param published:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) Whether this topic is published (true) or draft state (false). Only teachers and TAs have the ability to create draft state topics.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type published:</th><td class="field-body">boolean or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param delayed_post_at:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) If a timestamp is given, the topic will not be published until that time.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type delayed_post_at:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">datetime or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param lock_at:</th><td class="field-body">(optional) If a timestamp is given, the topic will be scheduled to lock at the provided timestamp. If the timestamp is in the past, the topic will be locked.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type lock_at:</th><td class="field-body">datetime or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param podcast_enabled:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) If true, the topic will have an associated podcast feed.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type podcast_enabled:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">boolean or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param podcast_has_student_posts:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) If true, the podcast will include posts from students as well. Implies podcast_enabled.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type podcast_has_student_posts:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">boolean or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param assignment:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) To create an assignment discussion, pass the assignment parameters as a sub-object. See the {api:AssignmentsApiController#create Create an Assignment API} for the available parameters. The name parameter will be ignored, as it&#8217;s taken from the discussion title. If you want to make a discussion that was an assignment NOT an assignment, pass set_assignment = false as part of the assignment object</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type assignment:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">assignment or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param is_announcement:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) If true, this topic is an announcement. It will appear in the announcement&#8217;s section rather than the discussions section. This requires announcment-posting permissions.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type is_announcement:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">boolean or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param position_after:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) By default, discussions are sorted chronologically by creation date, you can pass the id of another topic to have this one show up after the other when they are listed.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type position_after:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param group_category_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) If present, the topic will become a group discussion assigned to the group.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type group_category_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">integer or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Create a new discussion topic</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with void data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.discussion_topics.create_new_discussion_topic_courses">
+<tt class="descclassname">canvas_sdk.methods.discussion_topics.</tt><tt class="descname">create_new_discussion_topic_courses</tt><big>(</big><em>request_ctx</em>, <em>course_id</em>, <em>title</em>, <em>message</em>, <em>require_initial_post</em>, <em>discussion_type=None</em>, <em>published=None</em>, <em>delayed_post_at=None</em>, <em>lock_at=None</em>, <em>podcast_enabled=None</em>, <em>podcast_has_student_posts=None</em>, <em>assignment=None</em>, <em>is_announcement=None</em>, <em>position_after=None</em>, <em>group_category_id=None</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/discussion_topics.html#create_new_discussion_topic_courses"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.discussion_topics.create_new_discussion_topic_courses" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create an new discussion topic for the course or group.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param course_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type course_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param title:</th><td class="field-body">(required) no description</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type title:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param message:</th><td class="field-body">(required) no description</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type message:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param require_initial_post:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) If true then a user may not respond to other replies until that user has made an initial reply. Defaults to false.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type require_initial_post:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">boolean</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param discussion_type:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) The type of discussion. Defaults to side_comment if not value is given. Accepted values are &#8216;side_comment&#8217;, for discussions that only allow one level of nested comments, and &#8216;threaded&#8217; for fully threaded discussions.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type discussion_type:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param published:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) Whether this topic is published (true) or draft state (false). Only teachers and TAs have the ability to create draft state topics.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type published:</th><td class="field-body">boolean or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param delayed_post_at:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) If a timestamp is given, the topic will not be published until that time.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type delayed_post_at:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">datetime or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param lock_at:</th><td class="field-body">(optional) If a timestamp is given, the topic will be scheduled to lock at the provided timestamp. If the timestamp is in the past, the topic will be locked.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type lock_at:</th><td class="field-body">datetime or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param podcast_enabled:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) If true, the topic will have an associated podcast feed.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type podcast_enabled:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">boolean or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param podcast_has_student_posts:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) If true, the podcast will include posts from students as well. Implies podcast_enabled.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type podcast_has_student_posts:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">boolean or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param assignment:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) To create an assignment discussion, pass the assignment parameters as a sub-object. See the {api:AssignmentsApiController#create Create an Assignment API} for the available parameters. The name parameter will be ignored, as it&#8217;s taken from the discussion title. If you want to make a discussion that was an assignment NOT an assignment, pass set_assignment = false as part of the assignment object</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type assignment:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">assignment or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param is_announcement:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) If true, this topic is an announcement. It will appear in the announcement&#8217;s section rather than the discussions section. This requires announcment-posting permissions.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type is_announcement:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">boolean or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param position_after:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) By default, discussions are sorted chronologically by creation date, you can pass the id of another topic to have this one show up after the other when they are listed.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type position_after:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param group_category_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) If present, the topic will become a group discussion assigned to the group.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type group_category_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">integer or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Create a new discussion topic</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with void data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.discussion_topics.create_new_discussion_topic_groups">
+<tt class="descclassname">canvas_sdk.methods.discussion_topics.</tt><tt class="descname">create_new_discussion_topic_groups</tt><big>(</big><em>request_ctx</em>, <em>group_id</em>, <em>title</em>, <em>message</em>, <em>require_initial_post</em>, <em>discussion_type=None</em>, <em>published=None</em>, <em>delayed_post_at=None</em>, <em>lock_at=None</em>, <em>podcast_enabled=None</em>, <em>podcast_has_student_posts=None</em>, <em>assignment=None</em>, <em>is_announcement=None</em>, <em>position_after=None</em>, <em>group_category_id=None</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/discussion_topics.html#create_new_discussion_topic_groups"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.discussion_topics.create_new_discussion_topic_groups" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create an new discussion topic for the course or group.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param group_id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type group_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param title:</th><td class="field-body">(required) no description</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type title:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param message:</th><td class="field-body">(required) no description</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type message:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param require_initial_post:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) If true then a user may not respond to other replies until that user has made an initial reply. Defaults to false.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type require_initial_post:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">boolean</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param discussion_type:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) The type of discussion. Defaults to side_comment if not value is given. Accepted values are &#8216;side_comment&#8217;, for discussions that only allow one level of nested comments, and &#8216;threaded&#8217; for fully threaded discussions.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type discussion_type:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param published:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) Whether this topic is published (true) or draft state (false). Only teachers and TAs have the ability to create draft state topics.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type published:</th><td class="field-body">boolean or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param delayed_post_at:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) If a timestamp is given, the topic will not be published until that time.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type delayed_post_at:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">datetime or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param lock_at:</th><td class="field-body">(optional) If a timestamp is given, the topic will be scheduled to lock at the provided timestamp. If the timestamp is in the past, the topic will be locked.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type lock_at:</th><td class="field-body">datetime or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param podcast_enabled:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) If true, the topic will have an associated podcast feed.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type podcast_enabled:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">boolean or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param podcast_has_student_posts:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) If true, the podcast will include posts from students as well. Implies podcast_enabled.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type podcast_has_student_posts:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">boolean or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param assignment:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) To create an assignment discussion, pass the assignment parameters as a sub-object. See the {api:AssignmentsApiController#create Create an Assignment API} for the available parameters. The name parameter will be ignored, as it&#8217;s taken from the discussion title. If you want to make a discussion that was an assignment NOT an assignment, pass set_assignment = false as part of the assignment object</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type assignment:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">assignment or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param is_announcement:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) If true, this topic is an announcement. It will appear in the announcement&#8217;s section rather than the discussions section. This requires announcment-posting permissions.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type is_announcement:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">boolean or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param position_after:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) By default, discussions are sorted chronologically by creation date, you can pass the id of another topic to have this one show up after the other when they are listed.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type position_after:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param group_category_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) If present, the topic will become a group discussion assigned to the group.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type group_category_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">integer or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Create a new discussion topic</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with void data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.discussion_topics.delete_entry_collection_items">
+<tt class="descclassname">canvas_sdk.methods.discussion_topics.</tt><tt class="descname">delete_entry_collection_items</tt><big>(</big><em>request_ctx</em>, <em>collection_item_id</em>, <em>topic_id</em>, <em>id</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/discussion_topics.html#delete_entry_collection_items"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.discussion_topics.delete_entry_collection_items" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete a discussion entry.</p>
+<p>The entry must have been created by the current user, or the current user
+must have admin rights to the discussion. If the delete is not allowed, a 401 will be returned.</p>
+<p>The discussion will be marked deleted, and the user_id and message will be cleared out.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param collection_item_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type collection_item_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param topic_id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type topic_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Delete an entry</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with void data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.discussion_topics.delete_entry_courses">
+<tt class="descclassname">canvas_sdk.methods.discussion_topics.</tt><tt class="descname">delete_entry_courses</tt><big>(</big><em>request_ctx</em>, <em>course_id</em>, <em>topic_id</em>, <em>id</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/discussion_topics.html#delete_entry_courses"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.discussion_topics.delete_entry_courses" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete a discussion entry.</p>
+<p>The entry must have been created by the current user, or the current user
+must have admin rights to the discussion. If the delete is not allowed, a 401 will be returned.</p>
+<p>The discussion will be marked deleted, and the user_id and message will be cleared out.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param course_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type course_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param topic_id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type topic_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Delete an entry</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with void data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.discussion_topics.delete_entry_groups">
+<tt class="descclassname">canvas_sdk.methods.discussion_topics.</tt><tt class="descname">delete_entry_groups</tt><big>(</big><em>request_ctx</em>, <em>group_id</em>, <em>topic_id</em>, <em>id</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/discussion_topics.html#delete_entry_groups"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.discussion_topics.delete_entry_groups" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete a discussion entry.</p>
+<p>The entry must have been created by the current user, or the current user
+must have admin rights to the discussion. If the delete is not allowed, a 401 will be returned.</p>
+<p>The discussion will be marked deleted, and the user_id and message will be cleared out.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param group_id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type group_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param topic_id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type topic_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Delete an entry</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with void data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.discussion_topics.delete_topic_collection_items">
+<tt class="descclassname">canvas_sdk.methods.discussion_topics.</tt><tt class="descname">delete_topic_collection_items</tt><big>(</big><em>request_ctx</em>, <em>collection_item_id</em>, <em>topic_id</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/discussion_topics.html#delete_topic_collection_items"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.discussion_topics.delete_topic_collection_items" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deletes the discussion topic. This will also delete the assignment, if it&#8217;s
+an assignment discussion.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param collection_item_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type collection_item_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param topic_id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type topic_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Delete a topic</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with void data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.discussion_topics.delete_topic_courses">
+<tt class="descclassname">canvas_sdk.methods.discussion_topics.</tt><tt class="descname">delete_topic_courses</tt><big>(</big><em>request_ctx</em>, <em>course_id</em>, <em>topic_id</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/discussion_topics.html#delete_topic_courses"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.discussion_topics.delete_topic_courses" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deletes the discussion topic. This will also delete the assignment, if it&#8217;s
+an assignment discussion.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param course_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type course_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param topic_id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type topic_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Delete a topic</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with void data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.discussion_topics.delete_topic_groups">
+<tt class="descclassname">canvas_sdk.methods.discussion_topics.</tt><tt class="descname">delete_topic_groups</tt><big>(</big><em>request_ctx</em>, <em>group_id</em>, <em>topic_id</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/discussion_topics.html#delete_topic_groups"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.discussion_topics.delete_topic_groups" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deletes the discussion topic. This will also delete the assignment, if it&#8217;s
+an assignment discussion.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param group_id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type group_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param topic_id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type topic_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Delete a topic</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with void data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.discussion_topics.get_single_topic_collection_items">
+<tt class="descclassname">canvas_sdk.methods.discussion_topics.</tt><tt class="descname">get_single_topic_collection_items</tt><big>(</big><em>request_ctx</em>, <em>collection_item_id</em>, <em>topic_id</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/discussion_topics.html#get_single_topic_collection_items"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.discussion_topics.get_single_topic_collection_items" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns data on an individual discussion topic. See the List action for the response formatting.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param collection_item_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type collection_item_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param topic_id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type topic_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Get a single topic</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with void data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.discussion_topics.get_single_topic_courses">
+<tt class="descclassname">canvas_sdk.methods.discussion_topics.</tt><tt class="descname">get_single_topic_courses</tt><big>(</big><em>request_ctx</em>, <em>course_id</em>, <em>topic_id</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/discussion_topics.html#get_single_topic_courses"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.discussion_topics.get_single_topic_courses" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns data on an individual discussion topic. See the List action for the response formatting.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param course_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type course_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param topic_id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type topic_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Get a single topic</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with void data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.discussion_topics.get_single_topic_groups">
+<tt class="descclassname">canvas_sdk.methods.discussion_topics.</tt><tt class="descname">get_single_topic_groups</tt><big>(</big><em>request_ctx</em>, <em>group_id</em>, <em>topic_id</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/discussion_topics.html#get_single_topic_groups"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.discussion_topics.get_single_topic_groups" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns data on an individual discussion topic. See the List action for the response formatting.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param group_id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type group_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param topic_id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type topic_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Get a single topic</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with void data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.discussion_topics.get_the_full_topic_collection_items">
+<tt class="descclassname">canvas_sdk.methods.discussion_topics.</tt><tt class="descname">get_the_full_topic_collection_items</tt><big>(</big><em>request_ctx</em>, <em>collection_item_id</em>, <em>topic_id</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/discussion_topics.html#get_the_full_topic_collection_items"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.discussion_topics.get_the_full_topic_collection_items" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a cached structure of the discussion topic, containing all entries,
+their authors, and their message bodies.</p>
+<p>May require (depending on the topic) that the user has posted in the topic.
+If it is required, and the user has not posted, will respond with a 403
+Forbidden status and the body &#8216;require_initial_post&#8217;.</p>
+<p>In some rare situations, this cached structure may not be available yet. In
+that case, the server will respond with a 503 error, and the caller should
+try again soon.</p>
+<p>The response is an object containing the following keys:
+* &#8220;participants&#8221;: A list of summary information on users who have posted to</p>
+<blockquote>
+<div>the discussion. Each value is an object containing their id, display_name,
+and avatar_url.</div></blockquote>
+<ul>
+<li><p class="first">&#8220;unread_entries&#8221;: A list of entry ids that are unread by the current
+user. this implies that any entry not in this list is read.</p>
+</li>
+<li><p class="first">&#8220;forced_entries&#8221;: A list of entry ids that have forced_read_state set to
+true. This flag is meant to indicate the entry&#8217;s read_state has been
+manually set to &#8216;unread&#8217; by the user, so the entry should not be
+automatically marked as read.</p>
+</li>
+<li><p class="first">&#8220;view&#8221;: A threaded view of all the entries in the discussion, containing
+the id, user_id, and message.</p>
+</li>
+<li><p class="first">&#8220;new_entries&#8221;: Because this view is eventually consistent, it&#8217;s possible
+that newly created or updated entries won&#8217;t yet be reflected in the view.
+If the application wants to also get a flat list of all entries not yet
+reflected in the view, pass include_new_entries=1 to the request and this
+array of entries will be returned. These entries are returned in a flat
+array, in ascending created_at order.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param collection_item_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type collection_item_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param topic_id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type topic_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Get the full topic</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with void data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</li>
+</ul>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.discussion_topics.get_the_full_topic_courses">
+<tt class="descclassname">canvas_sdk.methods.discussion_topics.</tt><tt class="descname">get_the_full_topic_courses</tt><big>(</big><em>request_ctx</em>, <em>course_id</em>, <em>topic_id</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/discussion_topics.html#get_the_full_topic_courses"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.discussion_topics.get_the_full_topic_courses" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a cached structure of the discussion topic, containing all entries,
+their authors, and their message bodies.</p>
+<p>May require (depending on the topic) that the user has posted in the topic.
+If it is required, and the user has not posted, will respond with a 403
+Forbidden status and the body &#8216;require_initial_post&#8217;.</p>
+<p>In some rare situations, this cached structure may not be available yet. In
+that case, the server will respond with a 503 error, and the caller should
+try again soon.</p>
+<p>The response is an object containing the following keys:
+* &#8220;participants&#8221;: A list of summary information on users who have posted to</p>
+<blockquote>
+<div>the discussion. Each value is an object containing their id, display_name,
+and avatar_url.</div></blockquote>
+<ul>
+<li><p class="first">&#8220;unread_entries&#8221;: A list of entry ids that are unread by the current
+user. this implies that any entry not in this list is read.</p>
+</li>
+<li><p class="first">&#8220;forced_entries&#8221;: A list of entry ids that have forced_read_state set to
+true. This flag is meant to indicate the entry&#8217;s read_state has been
+manually set to &#8216;unread&#8217; by the user, so the entry should not be
+automatically marked as read.</p>
+</li>
+<li><p class="first">&#8220;view&#8221;: A threaded view of all the entries in the discussion, containing
+the id, user_id, and message.</p>
+</li>
+<li><p class="first">&#8220;new_entries&#8221;: Because this view is eventually consistent, it&#8217;s possible
+that newly created or updated entries won&#8217;t yet be reflected in the view.
+If the application wants to also get a flat list of all entries not yet
+reflected in the view, pass include_new_entries=1 to the request and this
+array of entries will be returned. These entries are returned in a flat
+array, in ascending created_at order.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param course_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type course_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param topic_id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type topic_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Get the full topic</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with void data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</li>
+</ul>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.discussion_topics.get_the_full_topic_groups">
+<tt class="descclassname">canvas_sdk.methods.discussion_topics.</tt><tt class="descname">get_the_full_topic_groups</tt><big>(</big><em>request_ctx</em>, <em>group_id</em>, <em>topic_id</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/discussion_topics.html#get_the_full_topic_groups"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.discussion_topics.get_the_full_topic_groups" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a cached structure of the discussion topic, containing all entries,
+their authors, and their message bodies.</p>
+<p>May require (depending on the topic) that the user has posted in the topic.
+If it is required, and the user has not posted, will respond with a 403
+Forbidden status and the body &#8216;require_initial_post&#8217;.</p>
+<p>In some rare situations, this cached structure may not be available yet. In
+that case, the server will respond with a 503 error, and the caller should
+try again soon.</p>
+<p>The response is an object containing the following keys:
+* &#8220;participants&#8221;: A list of summary information on users who have posted to</p>
+<blockquote>
+<div>the discussion. Each value is an object containing their id, display_name,
+and avatar_url.</div></blockquote>
+<ul>
+<li><p class="first">&#8220;unread_entries&#8221;: A list of entry ids that are unread by the current
+user. this implies that any entry not in this list is read.</p>
+</li>
+<li><p class="first">&#8220;forced_entries&#8221;: A list of entry ids that have forced_read_state set to
+true. This flag is meant to indicate the entry&#8217;s read_state has been
+manually set to &#8216;unread&#8217; by the user, so the entry should not be
+automatically marked as read.</p>
+</li>
+<li><p class="first">&#8220;view&#8221;: A threaded view of all the entries in the discussion, containing
+the id, user_id, and message.</p>
+</li>
+<li><p class="first">&#8220;new_entries&#8221;: Because this view is eventually consistent, it&#8217;s possible
+that newly created or updated entries won&#8217;t yet be reflected in the view.
+If the application wants to also get a flat list of all entries not yet
+reflected in the view, pass include_new_entries=1 to the request and this
+array of entries will be returned. These entries are returned in a flat
+array, in ascending created_at order.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param group_id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type group_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param topic_id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type topic_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Get the full topic</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with void data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</li>
+</ul>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.discussion_topics.list_discussion_topics_courses">
+<tt class="descclassname">canvas_sdk.methods.discussion_topics.</tt><tt class="descname">list_discussion_topics_courses</tt><big>(</big><em>request_ctx</em>, <em>course_id</em>, <em>order_by=None</em>, <em>scope=None</em>, <em>only_announcements=None</em>, <em>search_term=None</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/discussion_topics.html#list_discussion_topics_courses"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.discussion_topics.list_discussion_topics_courses" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the paginated list of discussion topics for this course or group.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param course_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type course_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param order_by:</th><td class="field-body">(optional) Determines the order of the discussion topic list. Defaults to &#8220;position&#8221;.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type order_by:</th><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param scope:</th><td class="field-body">(optional) Only return discussion topics in the given state(s). Defaults to including all topics. Filtering is done after pagination, so pages may be smaller than requested if topics are filtered. Can pass multiple states as comma separated string.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type scope:</th><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param only_announcements:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) Return announcements instead of discussion topics. Defaults to false</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type only_announcements:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">boolean or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param search_term:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) The partial title of the discussion topics to match and return.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type search_term:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">List discussion topics</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with void data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.discussion_topics.list_discussion_topics_groups">
+<tt class="descclassname">canvas_sdk.methods.discussion_topics.</tt><tt class="descname">list_discussion_topics_groups</tt><big>(</big><em>request_ctx</em>, <em>group_id</em>, <em>order_by=None</em>, <em>scope=None</em>, <em>only_announcements=None</em>, <em>search_term=None</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/discussion_topics.html#list_discussion_topics_groups"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.discussion_topics.list_discussion_topics_groups" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the paginated list of discussion topics for this course or group.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param group_id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type group_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param order_by:</th><td class="field-body">(optional) Determines the order of the discussion topic list. Defaults to &#8220;position&#8221;.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type order_by:</th><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param scope:</th><td class="field-body">(optional) Only return discussion topics in the given state(s). Defaults to including all topics. Filtering is done after pagination, so pages may be smaller than requested if topics are filtered. Can pass multiple states as comma separated string.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type scope:</th><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param only_announcements:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) Return announcements instead of discussion topics. Defaults to false</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type only_announcements:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">boolean or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param search_term:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) The partial title of the discussion topics to match and return.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type search_term:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">List discussion topics</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with void data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.discussion_topics.list_entries_collection_items">
+<tt class="descclassname">canvas_sdk.methods.discussion_topics.</tt><tt class="descname">list_entries_collection_items</tt><big>(</big><em>request_ctx</em>, <em>collection_item_id</em>, <em>topic_id</em>, <em>ids</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/discussion_topics.html#list_entries_collection_items"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.discussion_topics.list_entries_collection_items" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve a paginated list of discussion entries, given a list of ids.</p>
+<p>May require (depending on the topic) that the user has posted in the topic.
+If it is required, and the user has not posted, will respond with a 403
+Forbidden status and the body &#8216;require_initial_post&#8217;.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param collection_item_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type collection_item_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param topic_id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type topic_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param ids:</th><td class="field-body">(required) A list of entry ids to retrieve. Entries will be returned in id order, smallest id first.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type ids:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">List entries</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with void data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.discussion_topics.list_entries_courses">
+<tt class="descclassname">canvas_sdk.methods.discussion_topics.</tt><tt class="descname">list_entries_courses</tt><big>(</big><em>request_ctx</em>, <em>course_id</em>, <em>topic_id</em>, <em>ids</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/discussion_topics.html#list_entries_courses"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.discussion_topics.list_entries_courses" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve a paginated list of discussion entries, given a list of ids.</p>
+<p>May require (depending on the topic) that the user has posted in the topic.
+If it is required, and the user has not posted, will respond with a 403
+Forbidden status and the body &#8216;require_initial_post&#8217;.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param course_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type course_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param topic_id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type topic_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param ids:</th><td class="field-body">(required) A list of entry ids to retrieve. Entries will be returned in id order, smallest id first.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type ids:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">List entries</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with void data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.discussion_topics.list_entries_groups">
+<tt class="descclassname">canvas_sdk.methods.discussion_topics.</tt><tt class="descname">list_entries_groups</tt><big>(</big><em>request_ctx</em>, <em>group_id</em>, <em>topic_id</em>, <em>ids</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/discussion_topics.html#list_entries_groups"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.discussion_topics.list_entries_groups" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve a paginated list of discussion entries, given a list of ids.</p>
+<p>May require (depending on the topic) that the user has posted in the topic.
+If it is required, and the user has not posted, will respond with a 403
+Forbidden status and the body &#8216;require_initial_post&#8217;.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param group_id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type group_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param topic_id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type topic_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param ids:</th><td class="field-body">(required) A list of entry ids to retrieve. Entries will be returned in id order, smallest id first.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type ids:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">List entries</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with void data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.discussion_topics.list_entry_replies_collection_items">
+<tt class="descclassname">canvas_sdk.methods.discussion_topics.</tt><tt class="descname">list_entry_replies_collection_items</tt><big>(</big><em>request_ctx</em>, <em>collection_item_id</em>, <em>topic_id</em>, <em>entry_id</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/discussion_topics.html#list_entry_replies_collection_items"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.discussion_topics.list_entry_replies_collection_items" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve the (paginated) replies to a top-level entry in a discussion
+topic.</p>
+<p>May require (depending on the topic) that the user has posted in the topic.
+If it is required, and the user has not posted, will respond with a 403
+Forbidden status and the body &#8216;require_initial_post&#8217;.</p>
+<p>Ordering of returned entries is newest-first by creation timestamp.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param collection_item_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type collection_item_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param topic_id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type topic_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param entry_id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type entry_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">List entry replies</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with void data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.discussion_topics.list_entry_replies_courses">
+<tt class="descclassname">canvas_sdk.methods.discussion_topics.</tt><tt class="descname">list_entry_replies_courses</tt><big>(</big><em>request_ctx</em>, <em>course_id</em>, <em>topic_id</em>, <em>entry_id</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/discussion_topics.html#list_entry_replies_courses"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.discussion_topics.list_entry_replies_courses" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve the (paginated) replies to a top-level entry in a discussion
+topic.</p>
+<p>May require (depending on the topic) that the user has posted in the topic.
+If it is required, and the user has not posted, will respond with a 403
+Forbidden status and the body &#8216;require_initial_post&#8217;.</p>
+<p>Ordering of returned entries is newest-first by creation timestamp.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param course_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type course_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param topic_id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type topic_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param entry_id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type entry_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">List entry replies</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with void data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.discussion_topics.list_entry_replies_groups">
+<tt class="descclassname">canvas_sdk.methods.discussion_topics.</tt><tt class="descname">list_entry_replies_groups</tt><big>(</big><em>request_ctx</em>, <em>group_id</em>, <em>topic_id</em>, <em>entry_id</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/discussion_topics.html#list_entry_replies_groups"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.discussion_topics.list_entry_replies_groups" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve the (paginated) replies to a top-level entry in a discussion
+topic.</p>
+<p>May require (depending on the topic) that the user has posted in the topic.
+If it is required, and the user has not posted, will respond with a 403
+Forbidden status and the body &#8216;require_initial_post&#8217;.</p>
+<p>Ordering of returned entries is newest-first by creation timestamp.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param group_id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type group_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param topic_id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type topic_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param entry_id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type entry_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">List entry replies</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with void data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.discussion_topics.list_topic_entries_collection_items">
+<tt class="descclassname">canvas_sdk.methods.discussion_topics.</tt><tt class="descname">list_topic_entries_collection_items</tt><big>(</big><em>request_ctx</em>, <em>collection_item_id</em>, <em>topic_id</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/discussion_topics.html#list_topic_entries_collection_items"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.discussion_topics.list_topic_entries_collection_items" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve the (paginated) top-level entries in a discussion topic.</p>
+<p>May require (depending on the topic) that the user has posted in the topic.
+If it is required, and the user has not posted, will respond with a 403
+Forbidden status and the body &#8216;require_initial_post&#8217;.</p>
+<p>Will include the 10 most recent replies, if any, for each entry returned.</p>
+<p>If the topic is a root topic with children corresponding to groups of a
+group assignment, entries from those subtopics for which the user belongs
+to the corresponding group will be returned.</p>
+<p>Ordering of returned entries is newest-first by posting timestamp (reply
+activity is ignored).</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param collection_item_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type collection_item_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param topic_id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type topic_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">List topic entries</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with void data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.discussion_topics.list_topic_entries_courses">
+<tt class="descclassname">canvas_sdk.methods.discussion_topics.</tt><tt class="descname">list_topic_entries_courses</tt><big>(</big><em>request_ctx</em>, <em>course_id</em>, <em>topic_id</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/discussion_topics.html#list_topic_entries_courses"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.discussion_topics.list_topic_entries_courses" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve the (paginated) top-level entries in a discussion topic.</p>
+<p>May require (depending on the topic) that the user has posted in the topic.
+If it is required, and the user has not posted, will respond with a 403
+Forbidden status and the body &#8216;require_initial_post&#8217;.</p>
+<p>Will include the 10 most recent replies, if any, for each entry returned.</p>
+<p>If the topic is a root topic with children corresponding to groups of a
+group assignment, entries from those subtopics for which the user belongs
+to the corresponding group will be returned.</p>
+<p>Ordering of returned entries is newest-first by posting timestamp (reply
+activity is ignored).</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param course_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type course_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param topic_id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type topic_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">List topic entries</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with void data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.discussion_topics.list_topic_entries_groups">
+<tt class="descclassname">canvas_sdk.methods.discussion_topics.</tt><tt class="descname">list_topic_entries_groups</tt><big>(</big><em>request_ctx</em>, <em>group_id</em>, <em>topic_id</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/discussion_topics.html#list_topic_entries_groups"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.discussion_topics.list_topic_entries_groups" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve the (paginated) top-level entries in a discussion topic.</p>
+<p>May require (depending on the topic) that the user has posted in the topic.
+If it is required, and the user has not posted, will respond with a 403
+Forbidden status and the body &#8216;require_initial_post&#8217;.</p>
+<p>Will include the 10 most recent replies, if any, for each entry returned.</p>
+<p>If the topic is a root topic with children corresponding to groups of a
+group assignment, entries from those subtopics for which the user belongs
+to the corresponding group will be returned.</p>
+<p>Ordering of returned entries is newest-first by posting timestamp (reply
+activity is ignored).</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param group_id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type group_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param topic_id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type topic_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">List topic entries</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with void data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.discussion_topics.mark_all_entries_as_read_collection_items">
+<tt class="descclassname">canvas_sdk.methods.discussion_topics.</tt><tt class="descname">mark_all_entries_as_read_collection_items</tt><big>(</big><em>request_ctx</em>, <em>collection_item_id</em>, <em>topic_id</em>, <em>forced_read_state=None</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/discussion_topics.html#mark_all_entries_as_read_collection_items"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.discussion_topics.mark_all_entries_as_read_collection_items" title="Permalink to this definition">¶</a></dt>
+<dd><p>Mark the discussion topic and all its entries as read.</p>
+<p>No request fields are necessary.</p>
+<p>On success, the response will be 204 No Content with an empty body.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param collection_item_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type collection_item_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param topic_id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type topic_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param forced_read_state:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) A boolean value to set all of the entries&#8217; forced_read_state. No change is made if this argument is not specified.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type forced_read_state:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">boolean or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Mark all entries as read</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with void data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.discussion_topics.mark_all_entries_as_read_courses">
+<tt class="descclassname">canvas_sdk.methods.discussion_topics.</tt><tt class="descname">mark_all_entries_as_read_courses</tt><big>(</big><em>request_ctx</em>, <em>course_id</em>, <em>topic_id</em>, <em>forced_read_state=None</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/discussion_topics.html#mark_all_entries_as_read_courses"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.discussion_topics.mark_all_entries_as_read_courses" title="Permalink to this definition">¶</a></dt>
+<dd><p>Mark the discussion topic and all its entries as read.</p>
+<p>No request fields are necessary.</p>
+<p>On success, the response will be 204 No Content with an empty body.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param course_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type course_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param topic_id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type topic_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param forced_read_state:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) A boolean value to set all of the entries&#8217; forced_read_state. No change is made if this argument is not specified.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type forced_read_state:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">boolean or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Mark all entries as read</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with void data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.discussion_topics.mark_all_entries_as_read_groups">
+<tt class="descclassname">canvas_sdk.methods.discussion_topics.</tt><tt class="descname">mark_all_entries_as_read_groups</tt><big>(</big><em>request_ctx</em>, <em>group_id</em>, <em>topic_id</em>, <em>forced_read_state=None</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/discussion_topics.html#mark_all_entries_as_read_groups"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.discussion_topics.mark_all_entries_as_read_groups" title="Permalink to this definition">¶</a></dt>
+<dd><p>Mark the discussion topic and all its entries as read.</p>
+<p>No request fields are necessary.</p>
+<p>On success, the response will be 204 No Content with an empty body.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param group_id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type group_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param topic_id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type topic_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param forced_read_state:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) A boolean value to set all of the entries&#8217; forced_read_state. No change is made if this argument is not specified.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type forced_read_state:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">boolean or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Mark all entries as read</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with void data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.discussion_topics.mark_all_entries_as_unread_collection_items">
+<tt class="descclassname">canvas_sdk.methods.discussion_topics.</tt><tt class="descname">mark_all_entries_as_unread_collection_items</tt><big>(</big><em>request_ctx</em>, <em>collection_item_id</em>, <em>topic_id</em>, <em>forced_read_state=None</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/discussion_topics.html#mark_all_entries_as_unread_collection_items"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.discussion_topics.mark_all_entries_as_unread_collection_items" title="Permalink to this definition">¶</a></dt>
+<dd><p>Mark the discussion topic and all its entries as unread.</p>
+<p>No request fields are necessary.</p>
+<p>On success, the response will be 204 No Content with an empty body.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param collection_item_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type collection_item_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param topic_id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type topic_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param forced_read_state:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) A boolean value to set all of the entries&#8217; forced_read_state. No change is made if this argument is not specified.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type forced_read_state:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">boolean or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Mark all entries as unread</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with void data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.discussion_topics.mark_all_entries_as_unread_courses">
+<tt class="descclassname">canvas_sdk.methods.discussion_topics.</tt><tt class="descname">mark_all_entries_as_unread_courses</tt><big>(</big><em>request_ctx</em>, <em>course_id</em>, <em>topic_id</em>, <em>forced_read_state=None</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/discussion_topics.html#mark_all_entries_as_unread_courses"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.discussion_topics.mark_all_entries_as_unread_courses" title="Permalink to this definition">¶</a></dt>
+<dd><p>Mark the discussion topic and all its entries as unread.</p>
+<p>No request fields are necessary.</p>
+<p>On success, the response will be 204 No Content with an empty body.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param course_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type course_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param topic_id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type topic_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param forced_read_state:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) A boolean value to set all of the entries&#8217; forced_read_state. No change is made if this argument is not specified.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type forced_read_state:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">boolean or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Mark all entries as unread</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with void data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.discussion_topics.mark_all_entries_as_unread_groups">
+<tt class="descclassname">canvas_sdk.methods.discussion_topics.</tt><tt class="descname">mark_all_entries_as_unread_groups</tt><big>(</big><em>request_ctx</em>, <em>group_id</em>, <em>topic_id</em>, <em>forced_read_state=None</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/discussion_topics.html#mark_all_entries_as_unread_groups"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.discussion_topics.mark_all_entries_as_unread_groups" title="Permalink to this definition">¶</a></dt>
+<dd><p>Mark the discussion topic and all its entries as unread.</p>
+<p>No request fields are necessary.</p>
+<p>On success, the response will be 204 No Content with an empty body.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param group_id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type group_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param topic_id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type topic_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param forced_read_state:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) A boolean value to set all of the entries&#8217; forced_read_state. No change is made if this argument is not specified.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type forced_read_state:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">boolean or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Mark all entries as unread</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with void data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.discussion_topics.mark_entry_as_read_collection_items">
+<tt class="descclassname">canvas_sdk.methods.discussion_topics.</tt><tt class="descname">mark_entry_as_read_collection_items</tt><big>(</big><em>request_ctx</em>, <em>collection_item_id</em>, <em>topic_id</em>, <em>entry_id</em>, <em>forced_read_state=None</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/discussion_topics.html#mark_entry_as_read_collection_items"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.discussion_topics.mark_entry_as_read_collection_items" title="Permalink to this definition">¶</a></dt>
+<dd><p>Mark a discussion entry as read.</p>
+<p>No request fields are necessary.</p>
+<p>On success, the response will be 204 No Content with an empty body.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param collection_item_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type collection_item_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param topic_id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type topic_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param entry_id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type entry_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param forced_read_state:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) A boolean value to set the entry&#8217;s forced_read_state. No change is made if this argument is not specified.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type forced_read_state:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">boolean or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Mark entry as read</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with void data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.discussion_topics.mark_entry_as_read_courses">
+<tt class="descclassname">canvas_sdk.methods.discussion_topics.</tt><tt class="descname">mark_entry_as_read_courses</tt><big>(</big><em>request_ctx</em>, <em>course_id</em>, <em>topic_id</em>, <em>entry_id</em>, <em>forced_read_state=None</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/discussion_topics.html#mark_entry_as_read_courses"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.discussion_topics.mark_entry_as_read_courses" title="Permalink to this definition">¶</a></dt>
+<dd><p>Mark a discussion entry as read.</p>
+<p>No request fields are necessary.</p>
+<p>On success, the response will be 204 No Content with an empty body.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param course_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type course_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param topic_id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type topic_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param entry_id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type entry_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param forced_read_state:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) A boolean value to set the entry&#8217;s forced_read_state. No change is made if this argument is not specified.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type forced_read_state:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">boolean or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Mark entry as read</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with void data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.discussion_topics.mark_entry_as_read_groups">
+<tt class="descclassname">canvas_sdk.methods.discussion_topics.</tt><tt class="descname">mark_entry_as_read_groups</tt><big>(</big><em>request_ctx</em>, <em>group_id</em>, <em>topic_id</em>, <em>entry_id</em>, <em>forced_read_state=None</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/discussion_topics.html#mark_entry_as_read_groups"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.discussion_topics.mark_entry_as_read_groups" title="Permalink to this definition">¶</a></dt>
+<dd><p>Mark a discussion entry as read.</p>
+<p>No request fields are necessary.</p>
+<p>On success, the response will be 204 No Content with an empty body.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param group_id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type group_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param topic_id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type topic_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param entry_id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type entry_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param forced_read_state:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) A boolean value to set the entry&#8217;s forced_read_state. No change is made if this argument is not specified.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type forced_read_state:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">boolean or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Mark entry as read</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with void data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.discussion_topics.mark_entry_as_unread_collection_items">
+<tt class="descclassname">canvas_sdk.methods.discussion_topics.</tt><tt class="descname">mark_entry_as_unread_collection_items</tt><big>(</big><em>request_ctx</em>, <em>collection_item_id</em>, <em>topic_id</em>, <em>entry_id</em>, <em>forced_read_state=None</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/discussion_topics.html#mark_entry_as_unread_collection_items"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.discussion_topics.mark_entry_as_unread_collection_items" title="Permalink to this definition">¶</a></dt>
+<dd><p>Mark a discussion entry as unread.</p>
+<p>No request fields are necessary.</p>
+<p>On success, the response will be 204 No Content with an empty body.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param collection_item_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type collection_item_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param topic_id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type topic_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param entry_id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type entry_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param forced_read_state:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) A boolean value to set the entry&#8217;s forced_read_state. No change is made if this argument is not specified.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type forced_read_state:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">boolean or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Mark entry as unread</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with void data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.discussion_topics.mark_entry_as_unread_courses">
+<tt class="descclassname">canvas_sdk.methods.discussion_topics.</tt><tt class="descname">mark_entry_as_unread_courses</tt><big>(</big><em>request_ctx</em>, <em>course_id</em>, <em>topic_id</em>, <em>entry_id</em>, <em>forced_read_state=None</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/discussion_topics.html#mark_entry_as_unread_courses"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.discussion_topics.mark_entry_as_unread_courses" title="Permalink to this definition">¶</a></dt>
+<dd><p>Mark a discussion entry as unread.</p>
+<p>No request fields are necessary.</p>
+<p>On success, the response will be 204 No Content with an empty body.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param course_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type course_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param topic_id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type topic_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param entry_id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type entry_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param forced_read_state:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) A boolean value to set the entry&#8217;s forced_read_state. No change is made if this argument is not specified.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type forced_read_state:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">boolean or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Mark entry as unread</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with void data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.discussion_topics.mark_entry_as_unread_groups">
+<tt class="descclassname">canvas_sdk.methods.discussion_topics.</tt><tt class="descname">mark_entry_as_unread_groups</tt><big>(</big><em>request_ctx</em>, <em>group_id</em>, <em>topic_id</em>, <em>entry_id</em>, <em>forced_read_state=None</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/discussion_topics.html#mark_entry_as_unread_groups"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.discussion_topics.mark_entry_as_unread_groups" title="Permalink to this definition">¶</a></dt>
+<dd><p>Mark a discussion entry as unread.</p>
+<p>No request fields are necessary.</p>
+<p>On success, the response will be 204 No Content with an empty body.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param group_id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type group_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param topic_id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type topic_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param entry_id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type entry_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param forced_read_state:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) A boolean value to set the entry&#8217;s forced_read_state. No change is made if this argument is not specified.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type forced_read_state:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">boolean or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Mark entry as unread</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with void data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.discussion_topics.mark_topic_as_read_collection_items">
+<tt class="descclassname">canvas_sdk.methods.discussion_topics.</tt><tt class="descname">mark_topic_as_read_collection_items</tt><big>(</big><em>request_ctx</em>, <em>collection_item_id</em>, <em>topic_id</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/discussion_topics.html#mark_topic_as_read_collection_items"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.discussion_topics.mark_topic_as_read_collection_items" title="Permalink to this definition">¶</a></dt>
+<dd><p>Mark the initial text of the discussion topic as read.</p>
+<p>No request fields are necessary.</p>
+<p>On success, the response will be 204 No Content with an empty body.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param collection_item_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type collection_item_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param topic_id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type topic_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Mark topic as read</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with void data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.discussion_topics.mark_topic_as_read_courses">
+<tt class="descclassname">canvas_sdk.methods.discussion_topics.</tt><tt class="descname">mark_topic_as_read_courses</tt><big>(</big><em>request_ctx</em>, <em>course_id</em>, <em>topic_id</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/discussion_topics.html#mark_topic_as_read_courses"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.discussion_topics.mark_topic_as_read_courses" title="Permalink to this definition">¶</a></dt>
+<dd><p>Mark the initial text of the discussion topic as read.</p>
+<p>No request fields are necessary.</p>
+<p>On success, the response will be 204 No Content with an empty body.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param course_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type course_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param topic_id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type topic_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Mark topic as read</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with void data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.discussion_topics.mark_topic_as_read_groups">
+<tt class="descclassname">canvas_sdk.methods.discussion_topics.</tt><tt class="descname">mark_topic_as_read_groups</tt><big>(</big><em>request_ctx</em>, <em>group_id</em>, <em>topic_id</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/discussion_topics.html#mark_topic_as_read_groups"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.discussion_topics.mark_topic_as_read_groups" title="Permalink to this definition">¶</a></dt>
+<dd><p>Mark the initial text of the discussion topic as read.</p>
+<p>No request fields are necessary.</p>
+<p>On success, the response will be 204 No Content with an empty body.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param group_id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type group_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param topic_id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type topic_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Mark topic as read</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with void data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.discussion_topics.mark_topic_as_unread_collection_items">
+<tt class="descclassname">canvas_sdk.methods.discussion_topics.</tt><tt class="descname">mark_topic_as_unread_collection_items</tt><big>(</big><em>request_ctx</em>, <em>collection_item_id</em>, <em>topic_id</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/discussion_topics.html#mark_topic_as_unread_collection_items"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.discussion_topics.mark_topic_as_unread_collection_items" title="Permalink to this definition">¶</a></dt>
+<dd><p>Mark the initial text of the discussion topic as unread.</p>
+<p>No request fields are necessary.</p>
+<p>On success, the response will be 204 No Content with an empty body.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param collection_item_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type collection_item_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param topic_id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type topic_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Mark topic as unread</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with void data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.discussion_topics.mark_topic_as_unread_courses">
+<tt class="descclassname">canvas_sdk.methods.discussion_topics.</tt><tt class="descname">mark_topic_as_unread_courses</tt><big>(</big><em>request_ctx</em>, <em>course_id</em>, <em>topic_id</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/discussion_topics.html#mark_topic_as_unread_courses"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.discussion_topics.mark_topic_as_unread_courses" title="Permalink to this definition">¶</a></dt>
+<dd><p>Mark the initial text of the discussion topic as unread.</p>
+<p>No request fields are necessary.</p>
+<p>On success, the response will be 204 No Content with an empty body.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param course_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type course_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param topic_id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type topic_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Mark topic as unread</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with void data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.discussion_topics.mark_topic_as_unread_groups">
+<tt class="descclassname">canvas_sdk.methods.discussion_topics.</tt><tt class="descname">mark_topic_as_unread_groups</tt><big>(</big><em>request_ctx</em>, <em>group_id</em>, <em>topic_id</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/discussion_topics.html#mark_topic_as_unread_groups"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.discussion_topics.mark_topic_as_unread_groups" title="Permalink to this definition">¶</a></dt>
+<dd><p>Mark the initial text of the discussion topic as unread.</p>
+<p>No request fields are necessary.</p>
+<p>On success, the response will be 204 No Content with an empty body.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param group_id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type group_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param topic_id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type topic_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Mark topic as unread</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with void data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.discussion_topics.post_entry_collection_items">
+<tt class="descclassname">canvas_sdk.methods.discussion_topics.</tt><tt class="descname">post_entry_collection_items</tt><big>(</big><em>request_ctx</em>, <em>collection_item_id</em>, <em>topic_id</em>, <em>message</em>, <em>attachment=None</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/discussion_topics.html#post_entry_collection_items"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.discussion_topics.post_entry_collection_items" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a new entry in a discussion topic. Returns a json representation of
+the created entry (see documentation for &#8216;entries&#8217; method) on success.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param collection_item_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type collection_item_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param topic_id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type topic_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param message:</th><td class="field-body">(required) The body of the entry.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type message:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param attachment:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) a multipart/form-data form-field-style attachment. Attachments larger than 1 kilobyte are subject to quota restrictions.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type attachment:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Post an entry</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with void data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.discussion_topics.post_entry_courses">
+<tt class="descclassname">canvas_sdk.methods.discussion_topics.</tt><tt class="descname">post_entry_courses</tt><big>(</big><em>request_ctx</em>, <em>course_id</em>, <em>topic_id</em>, <em>message</em>, <em>attachment=None</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/discussion_topics.html#post_entry_courses"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.discussion_topics.post_entry_courses" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a new entry in a discussion topic. Returns a json representation of
+the created entry (see documentation for &#8216;entries&#8217; method) on success.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param course_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type course_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param topic_id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type topic_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param message:</th><td class="field-body">(required) The body of the entry.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type message:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param attachment:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) a multipart/form-data form-field-style attachment. Attachments larger than 1 kilobyte are subject to quota restrictions.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type attachment:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Post an entry</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with void data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.discussion_topics.post_entry_groups">
+<tt class="descclassname">canvas_sdk.methods.discussion_topics.</tt><tt class="descname">post_entry_groups</tt><big>(</big><em>request_ctx</em>, <em>group_id</em>, <em>topic_id</em>, <em>message</em>, <em>attachment=None</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/discussion_topics.html#post_entry_groups"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.discussion_topics.post_entry_groups" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a new entry in a discussion topic. Returns a json representation of
+the created entry (see documentation for &#8216;entries&#8217; method) on success.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param group_id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type group_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param topic_id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type topic_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param message:</th><td class="field-body">(required) The body of the entry.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type message:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param attachment:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) a multipart/form-data form-field-style attachment. Attachments larger than 1 kilobyte are subject to quota restrictions.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type attachment:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Post an entry</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with void data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.discussion_topics.post_reply_collection_items">
+<tt class="descclassname">canvas_sdk.methods.discussion_topics.</tt><tt class="descname">post_reply_collection_items</tt><big>(</big><em>request_ctx</em>, <em>collection_item_id</em>, <em>topic_id</em>, <em>entry_id</em>, <em>message</em>, <em>attachment=None</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/discussion_topics.html#post_reply_collection_items"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.discussion_topics.post_reply_collection_items" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a reply to an entry in a discussion topic. Returns a json
+representation of the created reply (see documentation for &#8216;replies&#8217;
+method) on success.</p>
+<p>May require (depending on the topic) that the user has posted in the topic.
+If it is required, and the user has not posted, will respond with a 403
+Forbidden status and the body &#8216;require_initial_post&#8217;.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param collection_item_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type collection_item_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param topic_id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type topic_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param entry_id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type entry_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param message:</th><td class="field-body">(required) The body of the entry.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type message:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param attachment:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) a multipart/form-data form-field-style attachment. Attachments larger than 1 kilobyte are subject to quota restrictions.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type attachment:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Post a reply</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with void data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.discussion_topics.post_reply_courses">
+<tt class="descclassname">canvas_sdk.methods.discussion_topics.</tt><tt class="descname">post_reply_courses</tt><big>(</big><em>request_ctx</em>, <em>course_id</em>, <em>topic_id</em>, <em>entry_id</em>, <em>message</em>, <em>attachment=None</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/discussion_topics.html#post_reply_courses"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.discussion_topics.post_reply_courses" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a reply to an entry in a discussion topic. Returns a json
+representation of the created reply (see documentation for &#8216;replies&#8217;
+method) on success.</p>
+<p>May require (depending on the topic) that the user has posted in the topic.
+If it is required, and the user has not posted, will respond with a 403
+Forbidden status and the body &#8216;require_initial_post&#8217;.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param course_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type course_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param topic_id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type topic_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param entry_id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type entry_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param message:</th><td class="field-body">(required) The body of the entry.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type message:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param attachment:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) a multipart/form-data form-field-style attachment. Attachments larger than 1 kilobyte are subject to quota restrictions.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type attachment:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Post a reply</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with void data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.discussion_topics.post_reply_groups">
+<tt class="descclassname">canvas_sdk.methods.discussion_topics.</tt><tt class="descname">post_reply_groups</tt><big>(</big><em>request_ctx</em>, <em>group_id</em>, <em>topic_id</em>, <em>entry_id</em>, <em>message</em>, <em>attachment=None</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/discussion_topics.html#post_reply_groups"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.discussion_topics.post_reply_groups" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a reply to an entry in a discussion topic. Returns a json
+representation of the created reply (see documentation for &#8216;replies&#8217;
+method) on success.</p>
+<p>May require (depending on the topic) that the user has posted in the topic.
+If it is required, and the user has not posted, will respond with a 403
+Forbidden status and the body &#8216;require_initial_post&#8217;.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param group_id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type group_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param topic_id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type topic_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param entry_id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type entry_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param message:</th><td class="field-body">(required) The body of the entry.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type message:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param attachment:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) a multipart/form-data form-field-style attachment. Attachments larger than 1 kilobyte are subject to quota restrictions.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type attachment:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Post a reply</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with void data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.discussion_topics.reorder_pinned_topics_collection_items">
+<tt class="descclassname">canvas_sdk.methods.discussion_topics.</tt><tt class="descname">reorder_pinned_topics_collection_items</tt><big>(</big><em>request_ctx</em>, <em>collection_item_id</em>, <em>order=None</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/discussion_topics.html#reorder_pinned_topics_collection_items"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.discussion_topics.reorder_pinned_topics_collection_items" title="Permalink to this definition">¶</a></dt>
+<dd><p>Puts the pinned discussion topics in the specified order.
+All pinned topics should be included.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param collection_item_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type collection_item_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param order:</th><td class="field-body">(optional) The ids of the pinned discussion topics in the desired order. (For example, &#8220;order=104,102,103&#8221;.)</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type order:</th><td class="field-body">integer or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Reorder pinned topics</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with void data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.discussion_topics.reorder_pinned_topics_courses">
+<tt class="descclassname">canvas_sdk.methods.discussion_topics.</tt><tt class="descname">reorder_pinned_topics_courses</tt><big>(</big><em>request_ctx</em>, <em>course_id</em>, <em>order=None</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/discussion_topics.html#reorder_pinned_topics_courses"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.discussion_topics.reorder_pinned_topics_courses" title="Permalink to this definition">¶</a></dt>
+<dd><p>Puts the pinned discussion topics in the specified order.
+All pinned topics should be included.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param course_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type course_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param order:</th><td class="field-body">(optional) The ids of the pinned discussion topics in the desired order. (For example, &#8220;order=104,102,103&#8221;.)</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type order:</th><td class="field-body">integer or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Reorder pinned topics</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with void data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.discussion_topics.reorder_pinned_topics_groups">
+<tt class="descclassname">canvas_sdk.methods.discussion_topics.</tt><tt class="descname">reorder_pinned_topics_groups</tt><big>(</big><em>request_ctx</em>, <em>group_id</em>, <em>order=None</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/discussion_topics.html#reorder_pinned_topics_groups"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.discussion_topics.reorder_pinned_topics_groups" title="Permalink to this definition">¶</a></dt>
+<dd><p>Puts the pinned discussion topics in the specified order.
+All pinned topics should be included.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param group_id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type group_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param order:</th><td class="field-body">(optional) The ids of the pinned discussion topics in the desired order. (For example, &#8220;order=104,102,103&#8221;.)</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type order:</th><td class="field-body">integer or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Reorder pinned topics</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with void data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.discussion_topics.subscribe_to_topic_collection_items">
+<tt class="descclassname">canvas_sdk.methods.discussion_topics.</tt><tt class="descname">subscribe_to_topic_collection_items</tt><big>(</big><em>request_ctx</em>, <em>collection_item_id</em>, <em>topic_id</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/discussion_topics.html#subscribe_to_topic_collection_items"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.discussion_topics.subscribe_to_topic_collection_items" title="Permalink to this definition">¶</a></dt>
+<dd><p>Subscribe to a topic to receive notifications about new entries</p>
+<p>On success, the response will be 204 No Content with an empty body</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param collection_item_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type collection_item_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param topic_id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type topic_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Subscribe to a topic</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with void data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.discussion_topics.subscribe_to_topic_courses">
+<tt class="descclassname">canvas_sdk.methods.discussion_topics.</tt><tt class="descname">subscribe_to_topic_courses</tt><big>(</big><em>request_ctx</em>, <em>course_id</em>, <em>topic_id</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/discussion_topics.html#subscribe_to_topic_courses"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.discussion_topics.subscribe_to_topic_courses" title="Permalink to this definition">¶</a></dt>
+<dd><p>Subscribe to a topic to receive notifications about new entries</p>
+<p>On success, the response will be 204 No Content with an empty body</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param course_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type course_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param topic_id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type topic_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Subscribe to a topic</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with void data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.discussion_topics.subscribe_to_topic_groups">
+<tt class="descclassname">canvas_sdk.methods.discussion_topics.</tt><tt class="descname">subscribe_to_topic_groups</tt><big>(</big><em>request_ctx</em>, <em>group_id</em>, <em>topic_id</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/discussion_topics.html#subscribe_to_topic_groups"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.discussion_topics.subscribe_to_topic_groups" title="Permalink to this definition">¶</a></dt>
+<dd><p>Subscribe to a topic to receive notifications about new entries</p>
+<p>On success, the response will be 204 No Content with an empty body</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param group_id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type group_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param topic_id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type topic_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Subscribe to a topic</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with void data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.discussion_topics.unsubscribe_from_topic_collection_items">
+<tt class="descclassname">canvas_sdk.methods.discussion_topics.</tt><tt class="descname">unsubscribe_from_topic_collection_items</tt><big>(</big><em>request_ctx</em>, <em>collection_item_id</em>, <em>topic_id</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/discussion_topics.html#unsubscribe_from_topic_collection_items"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.discussion_topics.unsubscribe_from_topic_collection_items" title="Permalink to this definition">¶</a></dt>
+<dd><p>Unsubscribe from a topic to stop receiving notifications about new entries</p>
+<p>On success, the response will be 204 No Content with an empty body</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param collection_item_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type collection_item_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param topic_id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type topic_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Unsubscribe from a topic</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with void data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.discussion_topics.unsubscribe_from_topic_courses">
+<tt class="descclassname">canvas_sdk.methods.discussion_topics.</tt><tt class="descname">unsubscribe_from_topic_courses</tt><big>(</big><em>request_ctx</em>, <em>course_id</em>, <em>topic_id</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/discussion_topics.html#unsubscribe_from_topic_courses"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.discussion_topics.unsubscribe_from_topic_courses" title="Permalink to this definition">¶</a></dt>
+<dd><p>Unsubscribe from a topic to stop receiving notifications about new entries</p>
+<p>On success, the response will be 204 No Content with an empty body</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param course_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type course_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param topic_id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type topic_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Unsubscribe from a topic</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with void data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.discussion_topics.unsubscribe_from_topic_groups">
+<tt class="descclassname">canvas_sdk.methods.discussion_topics.</tt><tt class="descname">unsubscribe_from_topic_groups</tt><big>(</big><em>request_ctx</em>, <em>group_id</em>, <em>topic_id</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/discussion_topics.html#unsubscribe_from_topic_groups"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.discussion_topics.unsubscribe_from_topic_groups" title="Permalink to this definition">¶</a></dt>
+<dd><p>Unsubscribe from a topic to stop receiving notifications about new entries</p>
+<p>On success, the response will be 204 No Content with an empty body</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param group_id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type group_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param topic_id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type topic_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Unsubscribe from a topic</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with void data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.discussion_topics.update_entry_collection_items">
+<tt class="descclassname">canvas_sdk.methods.discussion_topics.</tt><tt class="descname">update_entry_collection_items</tt><big>(</big><em>request_ctx</em>, <em>collection_item_id</em>, <em>topic_id</em>, <em>id</em>, <em>message</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/discussion_topics.html#update_entry_collection_items"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.discussion_topics.update_entry_collection_items" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update an existing discussion entry.</p>
+<p>The entry must have been created by the current user, or the current user
+must have admin rights to the discussion. If the edit is not allowed, a 401 will be returned.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param collection_item_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type collection_item_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param topic_id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type topic_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param message:</th><td class="field-body">(required) The updated body of the entry.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type message:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Update an entry</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with void data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.discussion_topics.update_entry_courses">
+<tt class="descclassname">canvas_sdk.methods.discussion_topics.</tt><tt class="descname">update_entry_courses</tt><big>(</big><em>request_ctx</em>, <em>course_id</em>, <em>topic_id</em>, <em>id</em>, <em>message</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/discussion_topics.html#update_entry_courses"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.discussion_topics.update_entry_courses" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update an existing discussion entry.</p>
+<p>The entry must have been created by the current user, or the current user
+must have admin rights to the discussion. If the edit is not allowed, a 401 will be returned.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param course_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type course_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param topic_id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type topic_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param message:</th><td class="field-body">(required) The updated body of the entry.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type message:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Update an entry</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with void data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.discussion_topics.update_entry_groups">
+<tt class="descclassname">canvas_sdk.methods.discussion_topics.</tt><tt class="descname">update_entry_groups</tt><big>(</big><em>request_ctx</em>, <em>group_id</em>, <em>topic_id</em>, <em>id</em>, <em>message</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/discussion_topics.html#update_entry_groups"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.discussion_topics.update_entry_groups" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update an existing discussion entry.</p>
+<p>The entry must have been created by the current user, or the current user
+must have admin rights to the discussion. If the edit is not allowed, a 401 will be returned.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param group_id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type group_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param topic_id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type topic_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param message:</th><td class="field-body">(required) The updated body of the entry.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type message:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Update an entry</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with void data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.discussion_topics.update_topic_collection_items">
+<tt class="descclassname">canvas_sdk.methods.discussion_topics.</tt><tt class="descname">update_topic_collection_items</tt><big>(</big><em>request_ctx</em>, <em>collection_item_id</em>, <em>topic_id</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/discussion_topics.html#update_topic_collection_items"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.discussion_topics.update_topic_collection_items" title="Permalink to this definition">¶</a></dt>
+<dd><p>Accepts the same parameters as create</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param collection_item_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type collection_item_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param topic_id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type topic_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Update a topic</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with void data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.discussion_topics.update_topic_courses">
+<tt class="descclassname">canvas_sdk.methods.discussion_topics.</tt><tt class="descname">update_topic_courses</tt><big>(</big><em>request_ctx</em>, <em>course_id</em>, <em>topic_id</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/discussion_topics.html#update_topic_courses"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.discussion_topics.update_topic_courses" title="Permalink to this definition">¶</a></dt>
+<dd><p>Accepts the same parameters as create</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param course_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type course_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param topic_id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type topic_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Update a topic</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with void data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.discussion_topics.update_topic_groups">
+<tt class="descclassname">canvas_sdk.methods.discussion_topics.</tt><tt class="descname">update_topic_groups</tt><big>(</big><em>request_ctx</em>, <em>group_id</em>, <em>topic_id</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/discussion_topics.html#update_topic_groups"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.discussion_topics.update_topic_groups" title="Permalink to this definition">¶</a></dt>
+<dd><p>Accepts the same parameters as create</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param group_id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type group_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param topic_id:</th><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type topic_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Update a topic</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with void data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="canvas_sdk.methods.custom_gradebook_columns.html"
+                        title="previous chapter">canvas_sdk.methods.custom_gradebook_columns module</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="canvas_sdk.methods.enrollment_terms.html"
+                        title="next chapter">canvas_sdk.methods.enrollment_terms module</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/canvas_sdk.methods.discussion_topics.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="canvas_sdk.methods.enrollment_terms.html" title="canvas_sdk.methods.enrollment_terms module"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="canvas_sdk.methods.custom_gradebook_columns.html" title="canvas_sdk.methods.custom_gradebook_columns module"
+             >previous</a> |</li>
+        <li><a href="index.html">Canvas_SDK 0.0.1 documentation</a> &raquo;</li>
+          <li><a href="canvas_sdk.html" >canvas_sdk package</a> &raquo;</li>
+          <li><a href="canvas_sdk.methods.html" >canvas_sdk.methods package</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, Harvard.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

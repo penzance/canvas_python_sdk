@@ -1,0 +1,239 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>canvas_sdk.methods.search module &mdash; Canvas_SDK 0.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Canvas_SDK 0.0.1 documentation" href="index.html" />
+    <link rel="up" title="canvas_sdk.methods package" href="canvas_sdk.methods.html" />
+    <link rel="next" title="canvas_sdk.methods.sections module" href="canvas_sdk.methods.sections.html" />
+    <link rel="prev" title="canvas_sdk.methods.roles module" href="canvas_sdk.methods.roles.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="canvas_sdk.methods.sections.html" title="canvas_sdk.methods.sections module"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="canvas_sdk.methods.roles.html" title="canvas_sdk.methods.roles module"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Canvas_SDK 0.0.1 documentation</a> &raquo;</li>
+          <li><a href="canvas_sdk.html" >canvas_sdk package</a> &raquo;</li>
+          <li><a href="canvas_sdk.methods.html" accesskey="U">canvas_sdk.methods package</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-canvas_sdk.methods.search">
+<span id="canvas-sdk-methods-search-module"></span><h1>canvas_sdk.methods.search module<a class="headerlink" href="#module-canvas_sdk.methods.search" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="canvas_sdk.methods.search.find_recipients_conversations">
+<tt class="descclassname">canvas_sdk.methods.search.</tt><tt class="descname">find_recipients_conversations</tt><big>(</big><em>request_ctx</em>, <em>search</em>, <em>context</em>, <em>exclude</em>, <em>type</em>, <em>user_id</em>, <em>from_conversation_id</em>, <em>permissions</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/search.html#find_recipients_conversations"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.search.find_recipients_conversations" title="Permalink to this definition">¶</a></dt>
+<dd><p>Find valid recipients (users, courses and groups) that the current user
+can send messages to. The /api/v1/search/recipients path is the preferred
+endpoint, /api/v1/conversations/find_recipients is deprecated.</p>
+<p>Pagination is supported.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param search:</th><td class="field-body">(required) Search terms used for matching users/courses/groups (e.g. &#8220;bob smith&#8221;). If multiple terms are given (separated via whitespace), only results matching all terms will be returned.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type search:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param context:</th><td class="field-body">(required) Limit the search to a particular course/group (e.g. &#8220;course_3&#8221; or &#8220;group_4&#8221;).</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type context:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param exclude:</th><td class="field-body">(required) Array of ids to exclude from the search. These may be user ids or course/group ids prefixed with &#8220;<a href="#id1"><span class="problematic" id="id2">course_</span></a>&#8221; or &#8220;<a href="#id3"><span class="problematic" id="id4">group_</span></a>&#8221; respectively, e.g. exclude[]=1&amp;exclude[]=2&amp;exclude[]=course_3</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type exclude:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param type:</th><td class="field-body">(required) Limit the search just to users or contexts (groups/courses).</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type type:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param user_id:</th><td class="field-body">(required) Search for a specific user id. This ignores the other above parameters, and will never return more than one result.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type user_id:</th><td class="field-body">integer</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param from_conversation_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) When searching by user_id, only users that could be normally messaged by this user will be returned. This parameter allows you to specify a conversation that will be referenced for a shared context &#8211; if both the current user and the searched user are in the conversation, the user will be returned. This is used to start new side conversations.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type from_conversation_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">integer</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param permissions:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) Array of permission strings to be checked for each matched context (e.g. &#8220;send_messages&#8221;). This argument determines which permissions may be returned in the response; it won&#8217;t prevent contexts from being returned if they don&#8217;t grant the permission(s).</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type permissions:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Find recipients</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with void data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.search.find_recipients_search">
+<tt class="descclassname">canvas_sdk.methods.search.</tt><tt class="descname">find_recipients_search</tt><big>(</big><em>request_ctx</em>, <em>search</em>, <em>context</em>, <em>exclude</em>, <em>type</em>, <em>user_id</em>, <em>from_conversation_id</em>, <em>permissions</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/search.html#find_recipients_search"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.search.find_recipients_search" title="Permalink to this definition">¶</a></dt>
+<dd><p>Find valid recipients (users, courses and groups) that the current user
+can send messages to. The /api/v1/search/recipients path is the preferred
+endpoint, /api/v1/conversations/find_recipients is deprecated.</p>
+<p>Pagination is supported.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param search:</th><td class="field-body">(required) Search terms used for matching users/courses/groups (e.g. &#8220;bob smith&#8221;). If multiple terms are given (separated via whitespace), only results matching all terms will be returned.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type search:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param context:</th><td class="field-body">(required) Limit the search to a particular course/group (e.g. &#8220;course_3&#8221; or &#8220;group_4&#8221;).</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type context:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param exclude:</th><td class="field-body">(required) Array of ids to exclude from the search. These may be user ids or course/group ids prefixed with &#8220;<a href="#id5"><span class="problematic" id="id6">course_</span></a>&#8221; or &#8220;<a href="#id7"><span class="problematic" id="id8">group_</span></a>&#8221; respectively, e.g. exclude[]=1&amp;exclude[]=2&amp;exclude[]=course_3</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type exclude:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param type:</th><td class="field-body">(required) Limit the search just to users or contexts (groups/courses).</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type type:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param user_id:</th><td class="field-body">(required) Search for a specific user id. This ignores the other above parameters, and will never return more than one result.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type user_id:</th><td class="field-body">integer</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param from_conversation_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) When searching by user_id, only users that could be normally messaged by this user will be returned. This parameter allows you to specify a conversation that will be referenced for a shared context &#8211; if both the current user and the searched user are in the conversation, the user will be returned. This is used to start new side conversations.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type from_conversation_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">integer</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param permissions:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) Array of permission strings to be checked for each matched context (e.g. &#8220;send_messages&#8221;). This argument determines which permissions may be returned in the response; it won&#8217;t prevent contexts from being returned if they don&#8217;t grant the permission(s).</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type permissions:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Find recipients</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with void data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="canvas_sdk.methods.roles.html"
+                        title="previous chapter">canvas_sdk.methods.roles module</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="canvas_sdk.methods.sections.html"
+                        title="next chapter">canvas_sdk.methods.sections module</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/canvas_sdk.methods.search.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="canvas_sdk.methods.sections.html" title="canvas_sdk.methods.sections module"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="canvas_sdk.methods.roles.html" title="canvas_sdk.methods.roles module"
+             >previous</a> |</li>
+        <li><a href="index.html">Canvas_SDK 0.0.1 documentation</a> &raquo;</li>
+          <li><a href="canvas_sdk.html" >canvas_sdk package</a> &raquo;</li>
+          <li><a href="canvas_sdk.methods.html" >canvas_sdk.methods package</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, Harvard.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

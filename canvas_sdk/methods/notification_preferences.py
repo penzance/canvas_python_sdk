@@ -166,7 +166,7 @@ def update_preference_type(request_ctx, type, address, notification, notificatio
     return response
 
 
-def update_multiple_preferences_communication_channel_id(request_ctx, communication_channel_id, frequency, **request_kwargs):
+def update_multiple_preferences_communication_channel_id(request_ctx, communication_channel_id, notification_preferences_X_frequency, **request_kwargs):
     """
     Change the preferences for multiple notifications for a single communication channel at once
 
@@ -183,7 +183,7 @@ def update_multiple_preferences_communication_channel_id(request_ctx, communicat
 
     path = '/v1/users/self/communication_channels/{communication_channel_id}/notification_preferences'
     payload = {
-        'notification_preferences[<X>][frequency]' : notification_preferences[<X>][frequency],
+        'notification_preferences[X][frequency]' : notification_preferences_X_frequency,
     }
     url = request_ctx.base_api_url + path.format(communication_channel_id=communication_channel_id)
     response = client.put(request_ctx, url, payload=payload, **request_kwargs)
@@ -191,7 +191,7 @@ def update_multiple_preferences_communication_channel_id(request_ctx, communicat
     return response
 
 
-def update_multiple_preferences_type(request_ctx, type, address, frequency, **request_kwargs):
+def update_multiple_preferences_type(request_ctx, type, address, notification_preferences_X_frequency, **request_kwargs):
     """
     Change the preferences for multiple notifications for a single communication channel at once
 
@@ -210,7 +210,7 @@ def update_multiple_preferences_type(request_ctx, type, address, frequency, **re
 
     path = '/v1/users/self/communication_channels/{type}/{address}/notification_preferences'
     payload = {
-        'notification_preferences[<X>][frequency]' : notification_preferences[<X>][frequency],
+        'notification_preferences[X][frequency]' : notification_preferences_X_frequency,
     }
     url = request_ctx.base_api_url + path.format(type=type, address=address)
     response = client.put(request_ctx, url, payload=payload, **request_kwargs)

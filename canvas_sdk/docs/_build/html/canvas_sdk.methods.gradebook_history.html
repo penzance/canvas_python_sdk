@@ -1,0 +1,292 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>canvas_sdk.methods.gradebook_history module &mdash; Canvas_SDK 0.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Canvas_SDK 0.0.1 documentation" href="index.html" />
+    <link rel="up" title="canvas_sdk.methods package" href="canvas_sdk.methods.html" />
+    <link rel="next" title="canvas_sdk.methods.grading_standards module" href="canvas_sdk.methods.grading_standards.html" />
+    <link rel="prev" title="canvas_sdk.methods.grade_change_log module" href="canvas_sdk.methods.grade_change_log.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="canvas_sdk.methods.grading_standards.html" title="canvas_sdk.methods.grading_standards module"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="canvas_sdk.methods.grade_change_log.html" title="canvas_sdk.methods.grade_change_log module"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Canvas_SDK 0.0.1 documentation</a> &raquo;</li>
+          <li><a href="canvas_sdk.html" >canvas_sdk package</a> &raquo;</li>
+          <li><a href="canvas_sdk.methods.html" accesskey="U">canvas_sdk.methods package</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-canvas_sdk.methods.gradebook_history">
+<span id="canvas-sdk-methods-gradebook-history-module"></span><h1>canvas_sdk.methods.gradebook_history module<a class="headerlink" href="#module-canvas_sdk.methods.gradebook_history" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="canvas_sdk.methods.gradebook_history.days_in_gradebook_history_for_this_course">
+<tt class="descclassname">canvas_sdk.methods.gradebook_history.</tt><tt class="descname">days_in_gradebook_history_for_this_course</tt><big>(</big><em>request_ctx</em>, <em>course_id</em>, <em>per_page=None</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/gradebook_history.html#days_in_gradebook_history_for_this_course"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.gradebook_history.days_in_gradebook_history_for_this_course" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a map of dates to grader/assignment groups</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param course_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) The id of the contextual course for this API call</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type course_id:</th><td class="field-body">integer</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param per_page:</th><td class="field-body">(optional) Set how many results canvas should return, defaults to config.LIMIT_PER_PAGE</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type per_page:</th><td class="field-body">integer or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Days in gradebook history for this course</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with array data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.gradebook_history.details_for_given_date_in_gradebook_history_for_this_course">
+<tt class="descclassname">canvas_sdk.methods.gradebook_history.</tt><tt class="descname">details_for_given_date_in_gradebook_history_for_this_course</tt><big>(</big><em>request_ctx</em>, <em>course_id</em>, <em>date</em>, <em>per_page=None</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/gradebook_history.html#details_for_given_date_in_gradebook_history_for_this_course"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.gradebook_history.details_for_given_date_in_gradebook_history_for_this_course" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the graders who worked on this day, along with the assignments they worked on.
+More details can be obtained by selecting a grader and assignment and calling the
+&#8216;submissions&#8217; api endpoint for a given date.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param course_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) The id of the contextual course for this API call</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type course_id:</th><td class="field-body">integer</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param date:</th><td class="field-body">(required) The date for which you would like to see detailed information</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type date:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param per_page:</th><td class="field-body">(optional) Set how many results canvas should return, defaults to config.LIMIT_PER_PAGE</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type per_page:</th><td class="field-body">integer or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Details for a given date in gradebook history for this course</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with array data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.gradebook_history.list_uncollated_submission_versions">
+<tt class="descclassname">canvas_sdk.methods.gradebook_history.</tt><tt class="descname">list_uncollated_submission_versions</tt><big>(</big><em>request_ctx</em>, <em>course_id</em>, <em>assignment_id=None</em>, <em>user_id=None</em>, <em>ascending=None</em>, <em>per_page=None</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/gradebook_history.html#list_uncollated_submission_versions"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.gradebook_history.list_uncollated_submission_versions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gives a paginated, uncollated list of submission versions for all matching
+submissions in the context. This SubmissionVersion objects will not include
+the +new_grade+ or +previous_grade+ keys, only the +grade+; same for
++graded_at+ and +grader+.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param course_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) The id of the contextual course for this API call</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type course_id:</th><td class="field-body">integer</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param assignment_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) The ID of the assignment for which you want to see submissions. If absent, versions of submissions from any assignment in the course are included.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type assignment_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">integer or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param user_id:</th><td class="field-body">(optional) The ID of the user for which you want to see submissions. If absent, versions of submissions from any user in the course are included.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type user_id:</th><td class="field-body">integer or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param ascending:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) Returns submission versions in ascending date order (oldest first). If absent, returns submission versions in descending date order (newest first).</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type ascending:</th><td class="field-body">boolean or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param per_page:</th><td class="field-body">(optional) Set how many results canvas should return, defaults to config.LIMIT_PER_PAGE</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type per_page:</th><td class="field-body">integer or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">List uncollated submission versions</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with array data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.gradebook_history.lists_submissions">
+<tt class="descclassname">canvas_sdk.methods.gradebook_history.</tt><tt class="descname">lists_submissions</tt><big>(</big><em>request_ctx</em>, <em>course_id</em>, <em>date</em>, <em>grader_id</em>, <em>assignment_id</em>, <em>per_page=None</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/gradebook_history.html#lists_submissions"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.gradebook_history.lists_submissions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gives a nested list of submission versions</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param course_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) The id of the contextual course for this API call</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type course_id:</th><td class="field-body">integer</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param date:</th><td class="field-body">(required) The date for which you would like to see submissions</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type date:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param grader_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) The ID of the grader for which you want to see submissions</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type grader_id:</th><td class="field-body">integer</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param assignment_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) The ID of the assignment for which you want to see submissions</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type assignment_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">integer</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param per_page:</th><td class="field-body">(optional) Set how many results canvas should return, defaults to config.LIMIT_PER_PAGE</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type per_page:</th><td class="field-body">integer or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Lists submissions</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with array data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="canvas_sdk.methods.grade_change_log.html"
+                        title="previous chapter">canvas_sdk.methods.grade_change_log module</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="canvas_sdk.methods.grading_standards.html"
+                        title="next chapter">canvas_sdk.methods.grading_standards module</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/canvas_sdk.methods.gradebook_history.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="canvas_sdk.methods.grading_standards.html" title="canvas_sdk.methods.grading_standards module"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="canvas_sdk.methods.grade_change_log.html" title="canvas_sdk.methods.grade_change_log module"
+             >previous</a> |</li>
+        <li><a href="index.html">Canvas_SDK 0.0.1 documentation</a> &raquo;</li>
+          <li><a href="canvas_sdk.html" >canvas_sdk package</a> &raquo;</li>
+          <li><a href="canvas_sdk.methods.html" >canvas_sdk.methods package</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, Harvard.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,957 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>canvas_sdk.methods.external_tools module &mdash; Canvas_SDK 0.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Canvas_SDK 0.0.1 documentation" href="index.html" />
+    <link rel="up" title="canvas_sdk.methods package" href="canvas_sdk.methods.html" />
+    <link rel="next" title="canvas_sdk.methods.favorites module" href="canvas_sdk.methods.favorites.html" />
+    <link rel="prev" title="canvas_sdk.methods.enrollments module" href="canvas_sdk.methods.enrollments.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="canvas_sdk.methods.favorites.html" title="canvas_sdk.methods.favorites module"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="canvas_sdk.methods.enrollments.html" title="canvas_sdk.methods.enrollments module"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Canvas_SDK 0.0.1 documentation</a> &raquo;</li>
+          <li><a href="canvas_sdk.html" >canvas_sdk package</a> &raquo;</li>
+          <li><a href="canvas_sdk.methods.html" accesskey="U">canvas_sdk.methods package</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-canvas_sdk.methods.external_tools">
+<span id="canvas-sdk-methods-external-tools-module"></span><h1>canvas_sdk.methods.external_tools module<a class="headerlink" href="#module-canvas_sdk.methods.external_tools" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="canvas_sdk.methods.external_tools.create_external_tool_accounts">
+<tt class="descclassname">canvas_sdk.methods.external_tools.</tt><tt class="descname">create_external_tool_accounts</tt><big>(</big><em>request_ctx</em>, <em>account_id</em>, <em>name</em>, <em>privacy_level</em>, <em>consumer_key</em>, <em>shared_secret</em>, <em>description=None</em>, <em>url=None</em>, <em>domain=None</em>, <em>icon_url=None</em>, <em>text=None</em>, <em>custom_fields=None</em>, <em>account_navigation_url=None</em>, <em>account_navigation_enabled=None</em>, <em>account_navigation_text=None</em>, <em>user_navigation_url=None</em>, <em>user_navigation_enabled=None</em>, <em>user_navigation_text=None</em>, <em>course_navigation_url=None</em>, <em>course_navigation_enabled=None</em>, <em>course_navigation_text=None</em>, <em>course_navigation_visibility=None</em>, <em>course_navigation_default=None</em>, <em>editor_button_url=None</em>, <em>editor_button_enabled=None</em>, <em>editor_button_icon_url=None</em>, <em>editor_button_selection_width=None</em>, <em>editor_button_selection_height=None</em>, <em>resource_selection_url=None</em>, <em>resource_selection_enabled=None</em>, <em>resource_selection_icon_url=None</em>, <em>resource_selection_selection_width=None</em>, <em>resource_selection_selection_height=None</em>, <em>config_type=None</em>, <em>config_xml=None</em>, <em>config_url=None</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/external_tools.html#create_external_tool_accounts"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.external_tools.create_external_tool_accounts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create an external tool in the specified course/account.
+The created tool will be returned, see the &#8220;show&#8221; endpoint for an example.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param account_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type account_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param name:</th><td class="field-body">(required) The name of the tool</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type name:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param privacy_level:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) What information to send to the external tool.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type privacy_level:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param consumer_key:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) The consumer key for the external tool</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type consumer_key:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param shared_secret:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) The shared secret with the external tool</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type shared_secret:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param description:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) A description of the tool</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type description:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param url:</th><td class="field-body">(optional) The url to match links against. Either &#8220;url&#8221; or &#8220;domain&#8221; should be set, not both.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type url:</th><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param domain:</th><td class="field-body">(optional) The domain to match links against. Either &#8220;url&#8221; or &#8220;domain&#8221; should be set, not both.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type domain:</th><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param icon_url:</th><td class="field-body">(optional) The url of the icon to show for this tool</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type icon_url:</th><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param text:</th><td class="field-body">(optional) The default text to show for this tool</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type text:</th><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param custom_fields:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) Custom fields that will be sent to the tool consumer, specified as custom_fields[field_name]</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type custom_fields:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param account_navigation_url:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) The url of the external tool for account navigation</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type account_navigation_url:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param account_navigation_enabled:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) Set this to enable this feature</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type account_navigation_enabled:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">boolean or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param account_navigation_text:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) The text that will show on the left-tab in the account navigation</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type account_navigation_text:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param user_navigation_url:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) The url of the external tool for user navigation</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type user_navigation_url:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param user_navigation_enabled:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) Set this to enable this feature</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type user_navigation_enabled:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">boolean or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param user_navigation_text:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) The text that will show on the left-tab in the user navigation</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type user_navigation_text:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param course_navigation_url:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) The url of the external tool for course navigation</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type course_navigation_url:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param course_navigation_enabled:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) Set this to enable this feature</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type course_navigation_enabled:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">boolean or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param course_navigation_text:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) The text that will show on the left-tab in the course navigation</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type course_navigation_text:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param course_navigation_visibility:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) Who will see the navigation tab. &#8220;admins&#8221; for course admins, &#8220;members&#8221; for students, null for everyone</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type course_navigation_visibility:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param course_navigation_default:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) Whether the navigation option will show in the course by default or whether the teacher will have to explicitly enable it</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type course_navigation_default:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">boolean or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param editor_button_url:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) The url of the external tool</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type editor_button_url:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param editor_button_enabled:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) Set this to enable this feature</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type editor_button_enabled:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">boolean or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param editor_button_icon_url:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) The url of the icon to show in the WYSIWYG editor</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type editor_button_icon_url:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param editor_button_selection_width:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) The width of the dialog the tool is launched in</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type editor_button_selection_width:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param editor_button_selection_height:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) The height of the dialog the tool is launched in</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type editor_button_selection_height:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param resource_selection_url:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) The url of the external tool</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type resource_selection_url:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param resource_selection_enabled:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) Set this to enable this feature</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type resource_selection_enabled:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">boolean or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param resource_selection_icon_url:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) The url of the icon to show in the module external tool list</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type resource_selection_icon_url:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param resource_selection_selection_width:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) The width of the dialog the tool is launched in</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type resource_selection_selection_width:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param resource_selection_selection_height:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) The height of the dialog the tool is launched in</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type resource_selection_selection_height:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param config_type:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) Configuration can be passed in as CC xml instead of using query parameters. If this value is &#8220;by_url&#8221; or &#8220;by_xml&#8221; then an xml configuration will be expected in either the &#8220;config_xml&#8221; or &#8220;config_url&#8221; parameter. Note that the name parameter overrides the tool name provided in the xml</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type config_type:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param config_xml:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) XML tool configuration, as specified in the CC xml specification. This is required if &#8220;config_type&#8221; is set to &#8220;by_xml&#8221;</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type config_xml:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param config_url:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) URL where the server can retrieve an XML tool configuration, as specified in the CC xml specification. This is required if &#8220;config_type&#8221; is set to &#8220;by_url&#8221;</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type config_url:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Create an external tool</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with void data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.external_tools.create_external_tool_courses">
+<tt class="descclassname">canvas_sdk.methods.external_tools.</tt><tt class="descname">create_external_tool_courses</tt><big>(</big><em>request_ctx</em>, <em>course_id</em>, <em>name</em>, <em>privacy_level</em>, <em>consumer_key</em>, <em>shared_secret</em>, <em>description=None</em>, <em>url=None</em>, <em>domain=None</em>, <em>icon_url=None</em>, <em>text=None</em>, <em>custom_fields=None</em>, <em>account_navigation_url=None</em>, <em>account_navigation_enabled=None</em>, <em>account_navigation_text=None</em>, <em>user_navigation_url=None</em>, <em>user_navigation_enabled=None</em>, <em>user_navigation_text=None</em>, <em>course_navigation_url=None</em>, <em>course_navigation_enabled=None</em>, <em>course_navigation_text=None</em>, <em>course_navigation_visibility=None</em>, <em>course_navigation_default=None</em>, <em>editor_button_url=None</em>, <em>editor_button_enabled=None</em>, <em>editor_button_icon_url=None</em>, <em>editor_button_selection_width=None</em>, <em>editor_button_selection_height=None</em>, <em>resource_selection_url=None</em>, <em>resource_selection_enabled=None</em>, <em>resource_selection_icon_url=None</em>, <em>resource_selection_selection_width=None</em>, <em>resource_selection_selection_height=None</em>, <em>config_type=None</em>, <em>config_xml=None</em>, <em>config_url=None</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/external_tools.html#create_external_tool_courses"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.external_tools.create_external_tool_courses" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create an external tool in the specified course/account.
+The created tool will be returned, see the &#8220;show&#8221; endpoint for an example.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param course_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type course_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param name:</th><td class="field-body">(required) The name of the tool</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type name:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param privacy_level:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) What information to send to the external tool.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type privacy_level:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param consumer_key:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) The consumer key for the external tool</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type consumer_key:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param shared_secret:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) The shared secret with the external tool</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type shared_secret:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param description:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) A description of the tool</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type description:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param url:</th><td class="field-body">(optional) The url to match links against. Either &#8220;url&#8221; or &#8220;domain&#8221; should be set, not both.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type url:</th><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param domain:</th><td class="field-body">(optional) The domain to match links against. Either &#8220;url&#8221; or &#8220;domain&#8221; should be set, not both.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type domain:</th><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param icon_url:</th><td class="field-body">(optional) The url of the icon to show for this tool</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type icon_url:</th><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param text:</th><td class="field-body">(optional) The default text to show for this tool</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type text:</th><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param custom_fields:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) Custom fields that will be sent to the tool consumer, specified as custom_fields[field_name]</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type custom_fields:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param account_navigation_url:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) The url of the external tool for account navigation</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type account_navigation_url:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param account_navigation_enabled:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) Set this to enable this feature</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type account_navigation_enabled:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">boolean or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param account_navigation_text:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) The text that will show on the left-tab in the account navigation</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type account_navigation_text:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param user_navigation_url:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) The url of the external tool for user navigation</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type user_navigation_url:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param user_navigation_enabled:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) Set this to enable this feature</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type user_navigation_enabled:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">boolean or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param user_navigation_text:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) The text that will show on the left-tab in the user navigation</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type user_navigation_text:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param course_navigation_url:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) The url of the external tool for course navigation</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type course_navigation_url:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param course_navigation_enabled:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) Set this to enable this feature</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type course_navigation_enabled:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">boolean or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param course_navigation_text:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) The text that will show on the left-tab in the course navigation</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type course_navigation_text:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param course_navigation_visibility:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) Who will see the navigation tab. &#8220;admins&#8221; for course admins, &#8220;members&#8221; for students, null for everyone</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type course_navigation_visibility:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param course_navigation_default:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) Whether the navigation option will show in the course by default or whether the teacher will have to explicitly enable it</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type course_navigation_default:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">boolean or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param editor_button_url:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) The url of the external tool</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type editor_button_url:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param editor_button_enabled:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) Set this to enable this feature</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type editor_button_enabled:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">boolean or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param editor_button_icon_url:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) The url of the icon to show in the WYSIWYG editor</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type editor_button_icon_url:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param editor_button_selection_width:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) The width of the dialog the tool is launched in</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type editor_button_selection_width:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param editor_button_selection_height:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) The height of the dialog the tool is launched in</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type editor_button_selection_height:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param resource_selection_url:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) The url of the external tool</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type resource_selection_url:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param resource_selection_enabled:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) Set this to enable this feature</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type resource_selection_enabled:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">boolean or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param resource_selection_icon_url:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) The url of the icon to show in the module external tool list</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type resource_selection_icon_url:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param resource_selection_selection_width:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) The width of the dialog the tool is launched in</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type resource_selection_selection_width:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param resource_selection_selection_height:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) The height of the dialog the tool is launched in</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type resource_selection_selection_height:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param config_type:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) Configuration can be passed in as CC xml instead of using query parameters. If this value is &#8220;by_url&#8221; or &#8220;by_xml&#8221; then an xml configuration will be expected in either the &#8220;config_xml&#8221; or &#8220;config_url&#8221; parameter. Note that the name parameter overrides the tool name provided in the xml</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type config_type:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param config_xml:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) XML tool configuration, as specified in the CC xml specification. This is required if &#8220;config_type&#8221; is set to &#8220;by_xml&#8221;</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type config_xml:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param config_url:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) URL where the server can retrieve an XML tool configuration, as specified in the CC xml specification. This is required if &#8220;config_type&#8221; is set to &#8220;by_url&#8221;</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type config_url:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Create an external tool</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with void data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.external_tools.delete_external_tool_accounts">
+<tt class="descclassname">canvas_sdk.methods.external_tools.</tt><tt class="descname">delete_external_tool_accounts</tt><big>(</big><em>request_ctx</em>, <em>account_id</em>, <em>external_tool_id</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/external_tools.html#delete_external_tool_accounts"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.external_tools.delete_external_tool_accounts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove the specified external tool</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param account_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type account_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param external_tool_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type external_tool_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Delete an external tool</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with void data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.external_tools.delete_external_tool_courses">
+<tt class="descclassname">canvas_sdk.methods.external_tools.</tt><tt class="descname">delete_external_tool_courses</tt><big>(</big><em>request_ctx</em>, <em>course_id</em>, <em>external_tool_id</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/external_tools.html#delete_external_tool_courses"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.external_tools.delete_external_tool_courses" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove the specified external tool</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param course_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type course_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param external_tool_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type external_tool_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Delete an external tool</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with void data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.external_tools.edit_external_tool_accounts">
+<tt class="descclassname">canvas_sdk.methods.external_tools.</tt><tt class="descname">edit_external_tool_accounts</tt><big>(</big><em>request_ctx</em>, <em>account_id</em>, <em>external_tool_id</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/external_tools.html#edit_external_tool_accounts"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.external_tools.edit_external_tool_accounts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update the specified external tool. Uses same parameters as create</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param account_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type account_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param external_tool_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type external_tool_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Edit an external tool</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with void data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.external_tools.edit_external_tool_courses">
+<tt class="descclassname">canvas_sdk.methods.external_tools.</tt><tt class="descname">edit_external_tool_courses</tt><big>(</big><em>request_ctx</em>, <em>course_id</em>, <em>external_tool_id</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/external_tools.html#edit_external_tool_courses"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.external_tools.edit_external_tool_courses" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update the specified external tool. Uses same parameters as create</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param course_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type course_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param external_tool_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type external_tool_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Edit an external tool</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with void data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.external_tools.get_sessionless_launch_url_for_external_tool_accounts">
+<tt class="descclassname">canvas_sdk.methods.external_tools.</tt><tt class="descname">get_sessionless_launch_url_for_external_tool_accounts</tt><big>(</big><em>request_ctx</em>, <em>account_id</em>, <em>id=None</em>, <em>url=None</em>, <em>assignment_id=None</em>, <em>launch_type=None</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/external_tools.html#get_sessionless_launch_url_for_external_tool_accounts"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.external_tools.get_sessionless_launch_url_for_external_tool_accounts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a sessionless launch url for an external tool.</p>
+<p>Either the id or url must be provided.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param account_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type account_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param id:</th><td class="field-body">(optional) The external id of the tool to launch.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type id:</th><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param url:</th><td class="field-body">(optional) The LTI launch url for the external tool.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type url:</th><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param assignment_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) The assignment id for an assignment launch.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type assignment_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param launch_type:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) The type of launch to perform on the external tool.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type launch_type:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Get a sessionless launch url for an external tool.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with void data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.external_tools.get_sessionless_launch_url_for_external_tool_courses">
+<tt class="descclassname">canvas_sdk.methods.external_tools.</tt><tt class="descname">get_sessionless_launch_url_for_external_tool_courses</tt><big>(</big><em>request_ctx</em>, <em>course_id</em>, <em>id=None</em>, <em>url=None</em>, <em>assignment_id=None</em>, <em>launch_type=None</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/external_tools.html#get_sessionless_launch_url_for_external_tool_courses"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.external_tools.get_sessionless_launch_url_for_external_tool_courses" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a sessionless launch url for an external tool.</p>
+<p>Either the id or url must be provided.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param course_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type course_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param id:</th><td class="field-body">(optional) The external id of the tool to launch.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type id:</th><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param url:</th><td class="field-body">(optional) The LTI launch url for the external tool.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type url:</th><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param assignment_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) The assignment id for an assignment launch.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type assignment_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param launch_type:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) The type of launch to perform on the external tool.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type launch_type:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Get a sessionless launch url for an external tool.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with void data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.external_tools.get_single_external_tool_accounts">
+<tt class="descclassname">canvas_sdk.methods.external_tools.</tt><tt class="descname">get_single_external_tool_accounts</tt><big>(</big><em>request_ctx</em>, <em>account_id</em>, <em>external_tool_id</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/external_tools.html#get_single_external_tool_accounts"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.external_tools.get_single_external_tool_accounts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the specified external tool.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param account_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type account_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param external_tool_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type external_tool_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Get a single external tool</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with void data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.external_tools.get_single_external_tool_courses">
+<tt class="descclassname">canvas_sdk.methods.external_tools.</tt><tt class="descname">get_single_external_tool_courses</tt><big>(</big><em>request_ctx</em>, <em>course_id</em>, <em>external_tool_id</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/external_tools.html#get_single_external_tool_courses"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.external_tools.get_single_external_tool_courses" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the specified external tool.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param course_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type course_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param external_tool_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type external_tool_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Get a single external tool</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with void data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.external_tools.list_external_tools_accounts">
+<tt class="descclassname">canvas_sdk.methods.external_tools.</tt><tt class="descname">list_external_tools_accounts</tt><big>(</big><em>request_ctx</em>, <em>account_id</em>, <em>search_term=None</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/external_tools.html#list_external_tools_accounts"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.external_tools.list_external_tools_accounts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the paginated list of external tools for the current context.
+See the get request docs for a single tool for a list of properties on an external tool.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param account_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type account_id:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param search_term:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) The partial name of the tools to match and return.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type search_term:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">List external tools</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with void data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="canvas_sdk.methods.external_tools.list_external_tools_courses">
+<tt class="descclassname">canvas_sdk.methods.external_tools.</tt><tt class="descname">list_external_tools_courses</tt><big>(</big><em>request_ctx</em>, <em>course_id</em>, <em>search_term=None</em>, <em>**request_kwargs</em><big>)</big><a class="reference internal" href="_modules/canvas_sdk/methods/external_tools.html#list_external_tools_courses"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#canvas_sdk.methods.external_tools.list_external_tools_courses" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the paginated list of external tools for the current context.
+See the get request docs for a single tool for a list of properties on an external tool.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param request_ctx:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The request context</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type request_ctx:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">:class:RequestContext</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param course_id:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(required) ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type course_id:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param search_term:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) The partial name of the tools to match and return.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type search_term:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">string or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">List external tools</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">requests.Response (with void data)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="canvas_sdk.methods.enrollments.html"
+                        title="previous chapter">canvas_sdk.methods.enrollments module</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="canvas_sdk.methods.favorites.html"
+                        title="next chapter">canvas_sdk.methods.favorites module</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/canvas_sdk.methods.external_tools.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="canvas_sdk.methods.favorites.html" title="canvas_sdk.methods.favorites module"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="canvas_sdk.methods.enrollments.html" title="canvas_sdk.methods.enrollments module"
+             >previous</a> |</li>
+        <li><a href="index.html">Canvas_SDK 0.0.1 documentation</a> &raquo;</li>
+          <li><a href="canvas_sdk.html" >canvas_sdk package</a> &raquo;</li>
+          <li><a href="canvas_sdk.methods.html" >canvas_sdk.methods package</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, Harvard.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

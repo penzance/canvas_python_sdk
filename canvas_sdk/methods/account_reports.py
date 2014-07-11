@@ -39,7 +39,7 @@ def start_report(request_ctx, account_id, report, parameters, **request_kwargs):
 
     path = '/v1/accounts/{account_id}/reports/{report}'
     payload = {
-        '[parameters]' : [parameters],
+        '[parameters]' : parameters,
     }
     url = request_ctx.base_api_url + path.format(account_id=account_id, report=report)
     response = client.post(request_ctx, url, payload=payload, **request_kwargs)
