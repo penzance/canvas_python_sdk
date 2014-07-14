@@ -30,7 +30,7 @@ def list_your_groups(request_ctx, context_type=None, per_page=None, **request_kw
     return response
 
 
-def list_the_groups_available_in_context_accounts(request_ctx, account_id, per_page=None, **request_kwargs):
+def list_groups_available_in_context_accounts(request_ctx, account_id, per_page=None, **request_kwargs):
     """
     Returns the list of active groups in the given context that are visible to user.
 
@@ -57,7 +57,7 @@ def list_the_groups_available_in_context_accounts(request_ctx, account_id, per_p
     return response
 
 
-def list_the_groups_available_in_context_courses(request_ctx, course_id, per_page=None, **request_kwargs):
+def list_groups_available_in_context_courses(request_ctx, course_id, per_page=None, **request_kwargs):
     """
     Returns the list of active groups in the given context that are visible to user.
 

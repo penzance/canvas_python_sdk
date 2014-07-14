@@ -156,6 +156,26 @@ def list_files_folders(request_ctx, id, content_types=None, search_term=None, in
     return response
 
 
+def get_quota_information(request_ctx, id, **request_kwargs):
+    """
+    Determine the URL that should be used for inline preview of the file.
+
+        :param request_ctx: The request context
+        :type request_ctx: :class:RequestContext
+        :param id: (required) ID
+        :type id: string
+        :return: Get quota information
+        :rtype: requests.Response (with void data)
+
+    """
+
+    path = '/v1/files/{id}/public_url'
+    url = request_ctx.base_api_url + path.format(id=id)
+    response = client.get(request_ctx, url, **request_kwargs)
+
+    return response
+
+
 def get_file(request_ctx, id, include=None, **request_kwargs):
     """
     Returns the standard attachment json object
@@ -268,6 +288,204 @@ def list_folders(request_ctx, id, per_page=None, **request_kwargs):
         'per_page' : per_page,
     }
     url = request_ctx.base_api_url + path.format(id=id)
+    response = client.get(request_ctx, url, payload=payload, **request_kwargs)
+
+    return response
+
+
+def resolve_path_courses_full_path(request_ctx, course_id, full_path, per_page=None, **request_kwargs):
+    """
+    Given the full path to a folder, returns a list of all Folders in the path hierarchy,
+    starting at the root folder, and ending at the requested folder. The given path is
+    relative to the context's root folder and does not include the root folder's name
+    (e.g., "course files"). If an empty path is given, the context's root folder alone
+    is returned. Otherwise, if no folder exists with the given full path, a Not Found
+    error is returned.
+
+        :param request_ctx: The request context
+        :type request_ctx: :class:RequestContext
+        :param course_id: (required) ID
+        :type course_id: string
+        :param full_path: (required) ID
+        :type full_path: string
+        :param per_page: (optional) Set how many results canvas should return, defaults to config.LIMIT_PER_PAGE
+        :type per_page: integer or None
+        :return: Resolve path
+        :rtype: requests.Response (with array data)
+
+    """
+
+    if per_page is None:
+        per_page = request_ctx.per_page
+    path = '/v1/courses/{course_id}/folders/by_path/{full_path}'
+    payload = {
+        'per_page' : per_page,
+    }
+    url = request_ctx.base_api_url + path.format(course_id=course_id, full_path=full_path)
+    response = client.get(request_ctx, url, payload=payload, **request_kwargs)
+
+    return response
+
+
+def resolve_path_courses(request_ctx, course_id, per_page=None, **request_kwargs):
+    """
+    Given the full path to a folder, returns a list of all Folders in the path hierarchy,
+    starting at the root folder, and ending at the requested folder. The given path is
+    relative to the context's root folder and does not include the root folder's name
+    (e.g., "course files"). If an empty path is given, the context's root folder alone
+    is returned. Otherwise, if no folder exists with the given full path, a Not Found
+    error is returned.
+
+        :param request_ctx: The request context
+        :type request_ctx: :class:RequestContext
+        :param course_id: (required) ID
+        :type course_id: string
+        :param per_page: (optional) Set how many results canvas should return, defaults to config.LIMIT_PER_PAGE
+        :type per_page: integer or None
+        :return: Resolve path
+        :rtype: requests.Response (with array data)
+
+    """
+
+    if per_page is None:
+        per_page = request_ctx.per_page
+    path = '/v1/courses/{course_id}/folders/by_path'
+    payload = {
+        'per_page' : per_page,
+    }
+    url = request_ctx.base_api_url + path.format(course_id=course_id)
+    response = client.get(request_ctx, url, payload=payload, **request_kwargs)
+
+    return response
+
+
+def resolve_path_users_full_path(request_ctx, user_id, full_path, per_page=None, **request_kwargs):
+    """
+    Given the full path to a folder, returns a list of all Folders in the path hierarchy,
+    starting at the root folder, and ending at the requested folder. The given path is
+    relative to the context's root folder and does not include the root folder's name
+    (e.g., "course files"). If an empty path is given, the context's root folder alone
+    is returned. Otherwise, if no folder exists with the given full path, a Not Found
+    error is returned.
+
+        :param request_ctx: The request context
+        :type request_ctx: :class:RequestContext
+        :param user_id: (required) ID
+        :type user_id: string
+        :param full_path: (required) ID
+        :type full_path: string
+        :param per_page: (optional) Set how many results canvas should return, defaults to config.LIMIT_PER_PAGE
+        :type per_page: integer or None
+        :return: Resolve path
+        :rtype: requests.Response (with array data)
+
+    """
+
+    if per_page is None:
+        per_page = request_ctx.per_page
+    path = '/v1/users/{user_id}/folders/by_path/{full_path}'
+    payload = {
+        'per_page' : per_page,
+    }
+    url = request_ctx.base_api_url + path.format(user_id=user_id, full_path=full_path)
+    response = client.get(request_ctx, url, payload=payload, **request_kwargs)
+
+    return response
+
+
+def resolve_path_users(request_ctx, user_id, per_page=None, **request_kwargs):
+    """
+    Given the full path to a folder, returns a list of all Folders in the path hierarchy,
+    starting at the root folder, and ending at the requested folder. The given path is
+    relative to the context's root folder and does not include the root folder's name
+    (e.g., "course files"). If an empty path is given, the context's root folder alone
+    is returned. Otherwise, if no folder exists with the given full path, a Not Found
+    error is returned.
+
+        :param request_ctx: The request context
+        :type request_ctx: :class:RequestContext
+        :param user_id: (required) ID
+        :type user_id: string
+        :param per_page: (optional) Set how many results canvas should return, defaults to config.LIMIT_PER_PAGE
+        :type per_page: integer or None
+        :return: Resolve path
+        :rtype: requests.Response (with array data)
+
+    """
+
+    if per_page is None:
+        per_page = request_ctx.per_page
+    path = '/v1/users/{user_id}/folders/by_path'
+    payload = {
+        'per_page' : per_page,
+    }
+    url = request_ctx.base_api_url + path.format(user_id=user_id)
+    response = client.get(request_ctx, url, payload=payload, **request_kwargs)
+
+    return response
+
+
+def resolve_path_groups_full_path(request_ctx, group_id, full_path, per_page=None, **request_kwargs):
+    """
+    Given the full path to a folder, returns a list of all Folders in the path hierarchy,
+    starting at the root folder, and ending at the requested folder. The given path is
+    relative to the context's root folder and does not include the root folder's name
+    (e.g., "course files"). If an empty path is given, the context's root folder alone
+    is returned. Otherwise, if no folder exists with the given full path, a Not Found
+    error is returned.
+
+        :param request_ctx: The request context
+        :type request_ctx: :class:RequestContext
+        :param group_id: (required) ID
+        :type group_id: string
+        :param full_path: (required) ID
+        :type full_path: string
+        :param per_page: (optional) Set how many results canvas should return, defaults to config.LIMIT_PER_PAGE
+        :type per_page: integer or None
+        :return: Resolve path
+        :rtype: requests.Response (with array data)
+
+    """
+
+    if per_page is None:
+        per_page = request_ctx.per_page
+    path = '/v1/groups/{group_id}/folders/by_path/{full_path}'
+    payload = {
+        'per_page' : per_page,
+    }
+    url = request_ctx.base_api_url + path.format(group_id=group_id, full_path=full_path)
+    response = client.get(request_ctx, url, payload=payload, **request_kwargs)
+
+    return response
+
+
+def resolve_path_groups(request_ctx, group_id, per_page=None, **request_kwargs):
+    """
+    Given the full path to a folder, returns a list of all Folders in the path hierarchy,
+    starting at the root folder, and ending at the requested folder. The given path is
+    relative to the context's root folder and does not include the root folder's name
+    (e.g., "course files"). If an empty path is given, the context's root folder alone
+    is returned. Otherwise, if no folder exists with the given full path, a Not Found
+    error is returned.
+
+        :param request_ctx: The request context
+        :type request_ctx: :class:RequestContext
+        :param group_id: (required) ID
+        :type group_id: string
+        :param per_page: (optional) Set how many results canvas should return, defaults to config.LIMIT_PER_PAGE
+        :type per_page: integer or None
+        :return: Resolve path
+        :rtype: requests.Response (with array data)
+
+    """
+
+    if per_page is None:
+        per_page = request_ctx.per_page
+    path = '/v1/groups/{group_id}/folders/by_path'
+    payload = {
+        'per_page' : per_page,
+    }
+    url = request_ctx.base_api_url + path.format(group_id=group_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
 
     return response

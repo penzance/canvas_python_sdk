@@ -391,14 +391,12 @@ def main(argv=None):
     for api in apis:
         path = api['path']
         url = base_api_url + path
-        #match = re.match(r'\/(\w+)\.json', path)
-        #file_name = match.group(1)
         file_name, ext = path.split('.')
-        python_file_name = file_name + '.py'
-        python_file = open(METHODS_DIR + '/' + python_file_name, 'w')
-        print 'Creating '+METHODS_DIR + '/' + python_file_name + '...'
-        python_file_content = build_module(url)
-        python_file.write(python_file_content)
+        python_file_name = METHODS_DIR + file_name + '.py'
+        with open(python_file_name, 'w') as python_file:
+            print 'Creating '+ python_file_name + '...'
+            python_file_content = build_module(url)
+            python_file.write(python_file_content)
         python_file.close()
 
 

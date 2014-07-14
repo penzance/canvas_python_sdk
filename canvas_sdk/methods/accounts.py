@@ -48,7 +48,7 @@ def get_single_account(request_ctx, id, **request_kwargs):
     return response
 
 
-def get_the_sub_accounts_of_account(request_ctx, account_id, recursive=None, per_page=None, **request_kwargs):
+def get_sub_accounts_of_account(request_ctx, account_id, recursive=None, per_page=None, **request_kwargs):
     """
     List accounts that are sub-accounts of the given account.
 

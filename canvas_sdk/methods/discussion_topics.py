@@ -727,7 +727,7 @@ def get_single_topic_collection_items(request_ctx, collection_item_id, topic_id,
     return response
 
 
-def get_the_full_topic_courses(request_ctx, course_id, topic_id, **request_kwargs):
+def get_full_topic_courses(request_ctx, course_id, topic_id, **request_kwargs):
     """
     Return a cached structure of the discussion topic, containing all entries,
     their authors, and their message bodies.
@@ -777,7 +777,7 @@ def get_the_full_topic_courses(request_ctx, course_id, topic_id, **request_kwarg
     return response
 
 
-def get_the_full_topic_groups(request_ctx, group_id, topic_id, **request_kwargs):
+def get_full_topic_groups(request_ctx, group_id, topic_id, **request_kwargs):
     """
     Return a cached structure of the discussion topic, containing all entries,
     their authors, and their message bodies.
@@ -827,7 +827,7 @@ def get_the_full_topic_groups(request_ctx, group_id, topic_id, **request_kwargs)
     return response
 
 
-def get_the_full_topic_collection_items(request_ctx, collection_item_id, topic_id, **request_kwargs):
+def get_full_topic_collection_items(request_ctx, collection_item_id, topic_id, **request_kwargs):
     """
     Return a cached structure of the discussion topic, containing all entries,
     their authors, and their message bodies.

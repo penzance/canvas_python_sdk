@@ -64,7 +64,7 @@ def get_single_quiz_submission(request_ctx, course_id, quiz_id, id, include, **r
     return response
 
 
-def create_the_quiz_submission_start_quiz_taking_session(request_ctx, course_id, quiz_id, access_code=None, preview=None, **request_kwargs):
+def create_quiz_submission_start_quiz_taking_session(request_ctx, course_id, quiz_id, access_code=None, preview=None, **request_kwargs):
     """
     Start taking a Quiz by creating a QuizSubmission which you can use to answer
     questions and submit your answers.
@@ -147,7 +147,7 @@ def update_student_question_scores_and_comments(request_ctx, course_id, quiz_id,
     return response
 
 
-def complete_the_quiz_submission_turn_it_in(request_ctx, course_id, quiz_id, id, attempt, validation_token, access_code=None, **request_kwargs):
+def complete_quiz_submission_turn_it_in(request_ctx, course_id, quiz_id, id, attempt, validation_token, access_code=None, **request_kwargs):
     """
     Complete the quiz submission by marking it as complete and grading it. When
     the quiz submission has been marked as complete, no further modifications

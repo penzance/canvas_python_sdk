@@ -113,13 +113,17 @@ def get_all_outcome_groups_for_context_courses(request_ctx, course_id, per_page=
     return response
 
 
-def get_all_outcome_links_for_context_accounts(request_ctx, account_id, per_page=None, **request_kwargs):
+def get_all_outcome_links_for_context_accounts(request_ctx, account_id, outcome_style=None, outcome_group_style=None, per_page=None, **request_kwargs):
     """
 
         :param request_ctx: The request context
         :type request_ctx: :class:RequestContext
         :param account_id: (required) ID
         :type account_id: string
+        :param outcome_style: (optional) The detail level of the outcomes. Defaults to "abbrev". Specify "full" for more information.
+        :type outcome_style: string or None
+        :param outcome_group_style: (optional) The detail level of the outcome groups. Defaults to "abbrev". Specify "full" for more information.
+        :type outcome_group_style: string or None
         :param per_page: (optional) Set how many results canvas should return, defaults to config.LIMIT_PER_PAGE
         :type per_page: integer or None
         :return: Get all outcome links for context
@@ -131,6 +135,8 @@ def get_all_outcome_links_for_context_accounts(request_ctx, account_id, per_page
         per_page = request_ctx.per_page
     path = '/v1/accounts/{account_id}/outcome_group_links'
     payload = {
+        'outcome_style' : outcome_style,
+        'outcome_group_style' : outcome_group_style,
         'per_page' : per_page,
     }
     url = request_ctx.base_api_url + path.format(account_id=account_id)
@@ -139,13 +145,17 @@ def get_all_outcome_links_for_context_accounts(request_ctx, account_id, per_page
     return response
 
 
-def get_all_outcome_links_for_context_courses(request_ctx, course_id, per_page=None, **request_kwargs):
+def get_all_outcome_links_for_context_courses(request_ctx, course_id, outcome_style=None, outcome_group_style=None, per_page=None, **request_kwargs):
     """
 
         :param request_ctx: The request context
         :type request_ctx: :class:RequestContext
         :param course_id: (required) ID
         :type course_id: string
+        :param outcome_style: (optional) The detail level of the outcomes. Defaults to "abbrev". Specify "full" for more information.
+        :type outcome_style: string or None
+        :param outcome_group_style: (optional) The detail level of the outcome groups. Defaults to "abbrev". Specify "full" for more information.
+        :type outcome_group_style: string or None
         :param per_page: (optional) Set how many results canvas should return, defaults to config.LIMIT_PER_PAGE
         :type per_page: integer or None
         :return: Get all outcome links for context
@@ -157,6 +167,8 @@ def get_all_outcome_links_for_context_courses(request_ctx, course_id, per_page=N
         per_page = request_ctx.per_page
     path = '/v1/courses/{course_id}/outcome_group_links'
     payload = {
+        'outcome_style' : outcome_style,
+        'outcome_group_style' : outcome_group_style,
         'per_page' : per_page,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id)
@@ -514,7 +526,7 @@ def list_linked_outcomes_courses(request_ctx, course_id, id, per_page=None, **re
     return response
 
 
-def create_link_outcome_global(request_ctx, id, outcome_id=None, title=None, description=None, vendor_guid=None, mastery_points=None, ratings_description=None, ratings_points=None, **request_kwargs):
+def create_link_outcome_global(request_ctx, id, outcome_id=None, title=None, display_name=None, description=None, vendor_guid=None, mastery_points=None, ratings_description=None, ratings_points=None, **request_kwargs):
     """
     Link an outcome into the outcome group. The outcome to link can either be
     specified by a PUT to the link URL for a specific outcome (the outcome_id
@@ -547,6 +559,8 @@ def create_link_outcome_global(request_ctx, id, outcome_id=None, title=None, des
         :type outcome_id: integer or None
         :param title: (optional) The title of the new outcome. Required if outcome_id is absent.
         :type title: string or None
+        :param display_name: (optional) A friendly name shown in reports for outcomes with cryptic titles, such as common core standards names.
+        :type display_name: string or None
         :param description: (optional) The description of the new outcome.
         :type description: string or None
         :param vendor_guid: (optional) A custom GUID for the learning standard.
@@ -566,6 +580,7 @@ def create_link_outcome_global(request_ctx, id, outcome_id=None, title=None, des
     payload = {
         'outcome_id' : outcome_id,
         'title' : title,
+        'display_name' : display_name,
         'description' : description,
         'vendor_guid' : vendor_guid,
         'mastery_points' : mastery_points,
@@ -578,7 +593,7 @@ def create_link_outcome_global(request_ctx, id, outcome_id=None, title=None, des
     return response
 
 
-def create_link_outcome_global_outcome_id(request_ctx, id, outcome_id=None, title=None, description=None, vendor_guid=None, mastery_points=None, ratings_description=None, ratings_points=None, **request_kwargs):
+def create_link_outcome_global_outcome_id(request_ctx, id, outcome_id=None, title=None, display_name=None, description=None, vendor_guid=None, mastery_points=None, ratings_description=None, ratings_points=None, **request_kwargs):
     """
     Link an outcome into the outcome group. The outcome to link can either be
     specified by a PUT to the link URL for a specific outcome (the outcome_id
@@ -611,6 +626,8 @@ def create_link_outcome_global_outcome_id(request_ctx, id, outcome_id=None, titl
         :type outcome_id: integer or None
         :param title: (optional) The title of the new outcome. Required if outcome_id is absent.
         :type title: string or None
+        :param display_name: (optional) A friendly name shown in reports for outcomes with cryptic titles, such as common core standards names.
+        :type display_name: string or None
         :param description: (optional) The description of the new outcome.
         :type description: string or None
         :param vendor_guid: (optional) A custom GUID for the learning standard.
@@ -629,6 +646,7 @@ def create_link_outcome_global_outcome_id(request_ctx, id, outcome_id=None, titl
     path = '/v1/global/outcome_groups/{id}/outcomes/{outcome_id}'
     payload = {
         'title' : title,
+        'display_name' : display_name,
         'description' : description,
         'vendor_guid' : vendor_guid,
         'mastery_points' : mastery_points,
@@ -641,7 +659,7 @@ def create_link_outcome_global_outcome_id(request_ctx, id, outcome_id=None, titl
     return response
 
 
-def create_link_outcome_accounts(request_ctx, account_id, id, outcome_id=None, title=None, description=None, vendor_guid=None, mastery_points=None, ratings_description=None, ratings_points=None, **request_kwargs):
+def create_link_outcome_accounts(request_ctx, account_id, id, outcome_id=None, title=None, display_name=None, description=None, vendor_guid=None, mastery_points=None, ratings_description=None, ratings_points=None, **request_kwargs):
     """
     Link an outcome into the outcome group. The outcome to link can either be
     specified by a PUT to the link URL for a specific outcome (the outcome_id
@@ -676,6 +694,8 @@ def create_link_outcome_accounts(request_ctx, account_id, id, outcome_id=None, t
         :type outcome_id: integer or None
         :param title: (optional) The title of the new outcome. Required if outcome_id is absent.
         :type title: string or None
+        :param display_name: (optional) A friendly name shown in reports for outcomes with cryptic titles, such as common core standards names.
+        :type display_name: string or None
         :param description: (optional) The description of the new outcome.
         :type description: string or None
         :param vendor_guid: (optional) A custom GUID for the learning standard.
@@ -695,6 +715,7 @@ def create_link_outcome_accounts(request_ctx, account_id, id, outcome_id=None, t
     payload = {
         'outcome_id' : outcome_id,
         'title' : title,
+        'display_name' : display_name,
         'description' : description,
         'vendor_guid' : vendor_guid,
         'mastery_points' : mastery_points,
@@ -707,7 +728,7 @@ def create_link_outcome_accounts(request_ctx, account_id, id, outcome_id=None, t
     return response
 
 
-def create_link_outcome_accounts_outcome_id(request_ctx, account_id, id, outcome_id=None, title=None, description=None, vendor_guid=None, mastery_points=None, ratings_description=None, ratings_points=None, **request_kwargs):
+def create_link_outcome_accounts_outcome_id(request_ctx, account_id, id, outcome_id=None, title=None, display_name=None, description=None, vendor_guid=None, mastery_points=None, ratings_description=None, ratings_points=None, **request_kwargs):
     """
     Link an outcome into the outcome group. The outcome to link can either be
     specified by a PUT to the link URL for a specific outcome (the outcome_id
@@ -742,6 +763,8 @@ def create_link_outcome_accounts_outcome_id(request_ctx, account_id, id, outcome
         :type outcome_id: integer or None
         :param title: (optional) The title of the new outcome. Required if outcome_id is absent.
         :type title: string or None
+        :param display_name: (optional) A friendly name shown in reports for outcomes with cryptic titles, such as common core standards names.
+        :type display_name: string or None
         :param description: (optional) The description of the new outcome.
         :type description: string or None
         :param vendor_guid: (optional) A custom GUID for the learning standard.
@@ -760,6 +783,7 @@ def create_link_outcome_accounts_outcome_id(request_ctx, account_id, id, outcome
     path = '/v1/accounts/{account_id}/outcome_groups/{id}/outcomes/{outcome_id}'
     payload = {
         'title' : title,
+        'display_name' : display_name,
         'description' : description,
         'vendor_guid' : vendor_guid,
         'mastery_points' : mastery_points,
@@ -772,7 +796,7 @@ def create_link_outcome_accounts_outcome_id(request_ctx, account_id, id, outcome
     return response
 
 
-def create_link_outcome_courses(request_ctx, course_id, id, outcome_id=None, title=None, description=None, vendor_guid=None, mastery_points=None, ratings_description=None, ratings_points=None, **request_kwargs):
+def create_link_outcome_courses(request_ctx, course_id, id, outcome_id=None, title=None, display_name=None, description=None, vendor_guid=None, mastery_points=None, ratings_description=None, ratings_points=None, **request_kwargs):
     """
     Link an outcome into the outcome group. The outcome to link can either be
     specified by a PUT to the link URL for a specific outcome (the outcome_id
@@ -807,6 +831,8 @@ def create_link_outcome_courses(request_ctx, course_id, id, outcome_id=None, tit
         :type outcome_id: integer or None
         :param title: (optional) The title of the new outcome. Required if outcome_id is absent.
         :type title: string or None
+        :param display_name: (optional) A friendly name shown in reports for outcomes with cryptic titles, such as common core standards names.
+        :type display_name: string or None
         :param description: (optional) The description of the new outcome.
         :type description: string or None
         :param vendor_guid: (optional) A custom GUID for the learning standard.
@@ -826,6 +852,7 @@ def create_link_outcome_courses(request_ctx, course_id, id, outcome_id=None, tit
     payload = {
         'outcome_id' : outcome_id,
         'title' : title,
+        'display_name' : display_name,
         'description' : description,
         'vendor_guid' : vendor_guid,
         'mastery_points' : mastery_points,
@@ -838,7 +865,7 @@ def create_link_outcome_courses(request_ctx, course_id, id, outcome_id=None, tit
     return response
 
 
-def create_link_outcome_courses_outcome_id(request_ctx, course_id, id, outcome_id=None, title=None, description=None, vendor_guid=None, mastery_points=None, ratings_description=None, ratings_points=None, **request_kwargs):
+def create_link_outcome_courses_outcome_id(request_ctx, course_id, id, outcome_id=None, title=None, display_name=None, description=None, vendor_guid=None, mastery_points=None, ratings_description=None, ratings_points=None, **request_kwargs):
     """
     Link an outcome into the outcome group. The outcome to link can either be
     specified by a PUT to the link URL for a specific outcome (the outcome_id
@@ -873,6 +900,8 @@ def create_link_outcome_courses_outcome_id(request_ctx, course_id, id, outcome_i
         :type outcome_id: integer or None
         :param title: (optional) The title of the new outcome. Required if outcome_id is absent.
         :type title: string or None
+        :param display_name: (optional) A friendly name shown in reports for outcomes with cryptic titles, such as common core standards names.
+        :type display_name: string or None
         :param description: (optional) The description of the new outcome.
         :type description: string or None
         :param vendor_guid: (optional) A custom GUID for the learning standard.
@@ -891,6 +920,7 @@ def create_link_outcome_courses_outcome_id(request_ctx, course_id, id, outcome_i
     path = '/v1/courses/{course_id}/outcome_groups/{id}/outcomes/{outcome_id}'
     payload = {
         'title' : title,
+        'display_name' : display_name,
         'description' : description,
         'vendor_guid' : vendor_guid,
         'mastery_points' : mastery_points,

@@ -9,7 +9,7 @@ def make_account_admin(request_ctx, account_id, user_id, role=None, send_confirm
         :param account_id: (required) ID
         :type account_id: string
         :param user_id: (required) The id of the user to promote.
-        :type user_id: string
+        :type user_id: integer
         :param role: (optional) The user's admin relationship with the account will be created with the given role. Defaults to 'AccountAdmin'.
         :type role: string or None
         :param send_confirmation: (optional) Send a notification email to the new admin if true. Default is true.
@@ -58,7 +58,7 @@ def remove_account_admin(request_ctx, account_id, user_id, role=None, **request_
     return response
 
 
-def list_account_admins(request_ctx, account_id, per_page=None, **request_kwargs):
+def list_account_admins(request_ctx, account_id, user_id=None, per_page=None, **request_kwargs):
     """
     List the admins in the account
 
@@ -66,6 +66,8 @@ def list_account_admins(request_ctx, account_id, per_page=None, **request_kwargs
         :type request_ctx: :class:RequestContext
         :param account_id: (required) ID
         :type account_id: string
+        :param user_id: (optional) Scope the results to those with user IDs equal to any of the IDs specified here.
+        :type user_id: [integer] or None
         :param per_page: (optional) Set how many results canvas should return, defaults to config.LIMIT_PER_PAGE
         :type per_page: integer or None
         :return: List account admins
@@ -77,6 +79,7 @@ def list_account_admins(request_ctx, account_id, per_page=None, **request_kwargs
         per_page = request_ctx.per_page
     path = '/v1/accounts/{account_id}/admins'
     payload = {
+        'user_id' : user_id,
         'per_page' : per_page,
     }
     url = request_ctx.base_api_url + path.format(account_id=account_id)

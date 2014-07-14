@@ -20,7 +20,7 @@ def show_outcome(request_ctx, id, **request_kwargs):
     return response
 
 
-def update_outcome(request_ctx, id, title=None, description=None, vendor_guid=None, mastery_points=None, ratings_description=None, ratings_points=None, **request_kwargs):
+def update_outcome(request_ctx, id, title=None, display_name=None, description=None, vendor_guid=None, mastery_points=None, ratings_description=None, ratings_points=None, **request_kwargs):
     """
     Modify an existing outcome. Fields not provided are left as is;
     unrecognized fields are ignored.
@@ -41,6 +41,8 @@ def update_outcome(request_ctx, id, title=None, description=None, vendor_guid=No
         :type id: string
         :param title: (optional) The new outcome title.
         :type title: string or None
+        :param display_name: (optional) A friendly name shown in reports for outcomes with cryptic titles, such as common core standards names.
+        :type display_name: string or None
         :param description: (optional) The new outcome description.
         :type description: string or None
         :param vendor_guid: (optional) A custom GUID for the learning standard.
@@ -59,6 +61,7 @@ def update_outcome(request_ctx, id, title=None, description=None, vendor_guid=No
     path = '/v1/outcomes/{id}'
     payload = {
         'title' : title,
+        'display_name' : display_name,
         'description' : description,
         'vendor_guid' : vendor_guid,
         'mastery_points' : mastery_points,

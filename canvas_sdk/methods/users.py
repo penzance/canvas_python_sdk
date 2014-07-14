@@ -30,7 +30,7 @@ def list_users_in_account(request_ctx, account_id, search_term=None, per_page=No
     return response
 
 
-def list_the_activity_stream_self(request_ctx, **request_kwargs):
+def list_activity_stream_self(request_ctx, **request_kwargs):
     """
     Returns the current user's global activity stream, paginated.
     
@@ -138,7 +138,7 @@ def list_the_activity_stream_self(request_ctx, **request_kwargs):
     return response
 
 
-def list_the_activity_stream_activity_stream(request_ctx, **request_kwargs):
+def list_activity_stream_activity_stream(request_ctx, **request_kwargs):
     """
     Returns the current user's global activity stream, paginated.
     
@@ -264,7 +264,7 @@ def activity_stream_summary(request_ctx, **request_kwargs):
     return response
 
 
-def list_the_todo_items(request_ctx, **request_kwargs):
+def list_todo_items(request_ctx, **request_kwargs):
     """
     Returns the current user's list of todo items, as seen on the user dashboard.
     

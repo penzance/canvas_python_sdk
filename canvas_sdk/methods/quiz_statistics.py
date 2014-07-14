@@ -1,6 +1,6 @@
 from canvas_sdk import client, utils
 
-def fetching_the_latest_quiz_statistics(request_ctx, course_id, quiz_id, all_versions, **request_kwargs):
+def fetching_latest_quiz_statistics(request_ctx, course_id, quiz_id, all_versions, **request_kwargs):
     """
     This endpoint provides statistics for all quiz versions, or for a specific
     quiz version, in which case the output is guaranteed to represent the

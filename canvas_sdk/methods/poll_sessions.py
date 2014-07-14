@@ -20,7 +20,7 @@ def list_poll_sessions_for_poll(request_ctx, poll_id, **request_kwargs):
     return response
 
 
-def get_the_results_for_single_poll_session(request_ctx, poll_id, id, **request_kwargs):
+def get_results_for_single_poll_session(request_ctx, poll_id, id, **request_kwargs):
     """
     Returns the poll session with the given id
 
