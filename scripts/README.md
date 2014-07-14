@@ -34,7 +34,7 @@ Examples
 --------
 
 ```
-$ python generate_sdk_methods.py -h or --help ( print the text above )
+$ python generate_sdk_methods.py -h or --help ( print the help message )
 ```
 
 ```
