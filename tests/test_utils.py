@@ -218,6 +218,44 @@ class TestUtils(unittest.TestCase):
         self.assertEqual(
             results, expected_json, "The json list of data returned by get_all function should be the fully concatenated list of json")
 
+    def test_masquerade_returns_function_response(self):
+        """
+        Assert that result of call to masquerade is the API function response.
+        """
+        mock_function = mock.Mock(name='mock-function')
+        results = utils.masquerade(self.req_ctx, mock_function, "test-user-id")
+        self.assertEqual(
+            results, mock_function.return_value, "Masquerading should return result of API method call")
+
+    def test_masquerade_makes_function_call_with_context(self):
+        """
+        Assert that masquerade calls the API function with the request_context.
+        """
+        mock_function = mock.Mock(name='mock-function')
+        utils.masquerade(self.req_ctx, mock_function, "test-user-id")
+        mock_function.assert_called_once_with(self.req_ctx, params=mock.ANY)
+
+    def test_masquerade_makes_function_call_with_user_id_params_kwarg(self):
+        """
+        Assert that masquerade adds a "params" keyword argument containing the 'as_user_id' parameter.
+        """
+        as_user_id = "test-user-id"
+        mock_function = mock.Mock(name='mock-function')
+        utils.masquerade(self.req_ctx, mock_function, as_user_id)
+        mock_function.assert_called_once_with(mock.ANY, params={'as_user_id': as_user_id})
+
+    def test_masquerade_makes_function_call_with_merged_user_id_params_kwarg(self):
+        """
+        Assert that masquerade will merge the 'as_user_id' parameter into an existing "params" kwarg
+        that was passed in to the call.
+        """
+        params_kwarg = {'params': {'foo': 'bar'}}
+        as_user_id = "test-user-id"
+        mock_function = mock.Mock(name='mock-function')
+        utils.masquerade(self.req_ctx, mock_function, as_user_id, **params_kwarg)
+        mock_function.assert_called_once_with(
+            mock.ANY, params={'as_user_id': as_user_id, 'foo': 'bar'})
+
     @patch('canvas_sdk.utils.get_all_list_data')
     def test_get_count_calls_get_all_list_data_with_request_context_and_function(self, mock_get_all):
         """
