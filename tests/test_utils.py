@@ -217,3 +217,73 @@ class TestUtils(unittest.TestCase):
         results = utils.get_all_list_data(self.req_ctx, mock_function)
         self.assertEqual(
             results, expected_json, "The json list of data returned by get_all function should be the fully concatenated list of json")
+
+    def test_masquerade_returns_function_response(self):
+        """
+        Assert that result of call to masquerade is the API function response.
+        """
+        mock_function = mock.Mock(name='mock-function')
+        results = utils.masquerade(self.req_ctx, mock_function, "test-user-id")
+        self.assertEqual(
+            results, mock_function.return_value, "Masquerading should return result of API method call")
+
+    def test_masquerade_makes_function_call_with_context(self):
+        """
+        Assert that masquerade calls the API function with the request_context.
+        """
+        mock_function = mock.Mock(name='mock-function')
+        utils.masquerade(self.req_ctx, mock_function, "test-user-id")
+        mock_function.assert_called_once_with(self.req_ctx, params=mock.ANY)
+
+    def test_masquerade_makes_function_call_with_user_id_params_kwarg(self):
+        """
+        Assert that masquerade adds a "params" keyword argument containing the 'as_user_id' parameter.
+        """
+        as_user_id = "test-user-id"
+        mock_function = mock.Mock(name='mock-function')
+        utils.masquerade(self.req_ctx, mock_function, as_user_id)
+        mock_function.assert_called_once_with(mock.ANY, params={'as_user_id': as_user_id})
+
+    def test_masquerade_makes_function_call_with_merged_user_id_params_kwarg(self):
+        """
+        Assert that masquerade will merge the 'as_user_id' parameter into an existing "params" kwarg
+        that was passed in to the call.
+        """
+        params_kwarg = {'params': {'foo': 'bar'}}
+        as_user_id = "test-user-id"
+        mock_function = mock.Mock(name='mock-function')
+        utils.masquerade(self.req_ctx, mock_function, as_user_id, **params_kwarg)
+        mock_function.assert_called_once_with(
+            mock.ANY, params={'as_user_id': as_user_id, 'foo': 'bar'})
+
+    @patch('canvas_sdk.utils.get_all_list_data')
+    def test_get_count_calls_get_all_list_data_with_request_context_and_function(self, mock_get_all):
+        """
+        Assert that call to get_count makes a call to get_all_list_data with context and function
+        """
+        mock_function = mock.Mock(name='mock-function')
+        utils.get_count(self.req_ctx, mock_function)
+        mock_get_all.assert_called_once_with(self.req_ctx, mock_function)
+
+    @patch('canvas_sdk.utils.get_all_list_data')
+    def test_get_count_calls_get_all_list_data_with_args_and_kwargs(self, mock_get_all):
+        """
+        Assert that call to get_count makes a call to get_all_list_data with args and kwargs
+        """
+        mock_function = mock.Mock(name='mock-function')
+        arg1, arg2 = 'arg1', 'arg2'
+        kwargs = {'kwarg1': 'val1', 'kwarg2': 'val2'}
+
+        utils.get_count(self.req_ctx, mock_function, arg1, arg2, **kwargs)
+        mock_get_all.assert_called_once_with(mock.ANY, mock.ANY, arg1, arg2, **kwargs)
+
+    @patch('canvas_sdk.utils.get_all_list_data')
+    def test_get_count_returns_length_of_get_all_list_data(self, mock_get_all):
+        """
+        Assert that call to get_count makes a call to get_all_list_data with args and kwargs
+        """
+        mock_get_all.return_value = [1, 2, 3, 4, 5]
+        mock_function = mock.Mock(name='mock-function')
+
+        result = utils.get_count(self.req_ctx, mock_function)
+        self.assertEqual(result, 5, "The result of get_count should match length of result set")

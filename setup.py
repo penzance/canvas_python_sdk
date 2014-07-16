@@ -1,5 +1,5 @@
 import os
-from setuptools import setup
+from setuptools import setup, find_packages
 
 version_file = open(os.path.join(os.path.dirname(__file__), 'VERSION'))
 version = version_file.read().strip()
@@ -12,7 +12,7 @@ setup(
     author='Harvard University',
     author_email='some_email_tbd@Harvard.edu',
     url='https://github.com/Harvard-University-iCommons/canvas_python_sdk',
-    packages=['canvas_sdk'],
+    packages=find_packages(exclude=["*.tests", "*.tests.*", "tests.*", "tests"]),
     long_description=README,
     classifiers=[
         "License :: OSI Approved :: MIT License",
@@ -27,7 +27,8 @@ setup(
     keywords='canvas api sdk LMS',
     license='MIT',
     install_requires=[
-        'requests>=2.3.0'
+        'requests>=2.3.0',
+        'sphinx>=1.2.0',
     ],
     test_suite='tests',
     tests_require=[

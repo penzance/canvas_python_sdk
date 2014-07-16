@@ -162,7 +162,7 @@ class TestSections(unittest.TestCase):
         Assert that request_context.per_page is called when no user value passed in
         """
         sections.edit_section(self.req_ctx, self.section_id)
-        mock_client_put.assert_called_once_with(self.req_ctx, mock.ANY)
+        mock_client_put.assert_called_once_with(self.req_ctx, mock.ANY, payload=mock.ANY)
 
     @patch('canvas_sdk.methods.sections.client.put')
     def test_edit_section_put_called_called_with_absolute_url(self, mock_client_put):
@@ -171,7 +171,24 @@ class TestSections(unittest.TestCase):
         """
         sections.edit_section(self.req_ctx, self.section_id)
         mock_client_put.assert_called_once_with(
-            mock.ANY, self.req_ctx.base_api_url + '/v1/sections/%s' % self.section_id)
+            mock.ANY, self.req_ctx.base_api_url + '/v1/sections/%s' % self.section_id, payload=mock.ANY)
+
+    @patch('canvas_sdk.methods.sections.client.put')
+    def test_edit_section_put_called_with_user_arg_values(self, mock_client_put):
+        """
+        Assert that client 'put' called with user's arg values for payload data
+        """
+        sis_section_id = '123ABCD'
+        start_at = '2011-01-01T01:00Z'
+        end_at = '2011-02-01T01:00Z'
+        sections.edit_section(self.req_ctx, self.section_id, self.course_name, sis_section_id, start_at, end_at)
+        mock_client_put.assert_called_once_with(
+            mock.ANY, mock.ANY, payload={
+                'course_section[name]': self.course_name,
+                'course_section[sis_section_id]': sis_section_id,
+                'course_section[start_at]': start_at,
+                'course_section[end_at]': end_at}
+        )
 
     @patch('canvas_sdk.methods.sections.client.put')
     def test_edit_section_put_called_with_request_kwargs(self, mock_client_put):
@@ -180,7 +197,7 @@ class TestSections(unittest.TestCase):
         """
         sections.edit_section(self.req_ctx, self.section_id, **self.test_request_kwargs)
         mock_client_put.assert_called_once_with(
-            mock.ANY, mock.ANY, **self.test_request_kwargs)
+            mock.ANY, mock.ANY, payload=mock.ANY, **self.test_request_kwargs)
 
     @patch('canvas_sdk.methods.sections.client.put')
     def test_edit_section_returns_result_from_put(self, mock_client_put):
