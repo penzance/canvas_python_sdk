@@ -1,4 +1,4 @@
 include README.md
+include LICENSE
 include VERSION
-include .gitignore
-recursive-include tests *.py
+graft tests

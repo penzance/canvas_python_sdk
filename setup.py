@@ -26,6 +26,7 @@ setup(
     ],
     keywords='canvas api sdk LMS',
     license='MIT',
+    zip_safe=False,
     install_requires=[
         'requests>=2.3.0',
         'sphinx>=1.2.0',
