@@ -7,6 +7,7 @@ import os
 import sys
 import errno
 import argparse
+import keyword
 
 """
 Constants for python indentation
@@ -15,6 +16,11 @@ NONE = 0
 FOUR = 4
 EIGHT = 8
 TWELVE = 12
+
+"""
+Append to the begining if we encounter a python keyword
+"""
+PREPEND_STR = 'var_'
 
 """
 Current working directory 
@@ -27,6 +33,8 @@ The script will create a new directory relative to the CWD called
 """
 METHODS_DIR = BASE_DIR+'/canvas_sdk/methods'
 
+def check_param(param):
+    return PREPEND_STR+param if keyword.iskeyword(param) else param
 
 def line_format(line, spacing):
     '''
@@ -48,7 +56,7 @@ def clean_param(param):
         param = param.replace("<", "")
     if '>' in param:
         param = param.replace(">", "")
-    return param
+    return check_param(param)
 
 
 def flatten_param(param):
