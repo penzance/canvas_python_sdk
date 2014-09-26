@@ -359,8 +359,7 @@ def main(argv=None):
     """
     Default to instructure if no url is given
     """
-    #base_canvas_url = 'https://canvas.instructure.com'
-    base_canvas_url = 'https://canvas.harvard.edu/'
+    base_canvas_url = 'https://canvas.instructure.com'
     if 'url' in args:
         url = args['url']
 
