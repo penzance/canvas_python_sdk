@@ -56,7 +56,7 @@ def clean_param(param):
         param = param.replace("<", "")
     if '>' in param:
         param = param.replace(">", "")
-    return check_param(param)
+    return param
 
 
 def flatten_param(param):
@@ -87,7 +87,7 @@ def build_payload(parameters):
             field_name = param['name']
             field = flatten_param(field_name)
             field_name = clean_param(field_name)
-            payload.append("'{0}' : {1},".format(field_name, field))
+            payload.append("'{0}' : {1},".format(field_name, check_param(field)))
     return payload
 
 
@@ -97,7 +97,7 @@ def format_parameter(param, required):
     paramter list of the methods calls we are creating
     """
 
-    param_string = flatten_param(param)
+    param_string = check_param(flatten_param(param))
     if not required:
         param_string += '=None'
     return param_string
@@ -129,7 +129,7 @@ def get_parameter_descriptions(parameters):
     lines = []
     opt_lines = []
     for param in parameters:
-        param_name = flatten_param(param['name'])
+        param_name = check_param(flatten_param(param['name']))
         if param['required']:
             required = 'required'
             lines.append(':param {0}: ({1}) {2}'.format(param_name, required, 
@@ -175,7 +175,7 @@ def check_for_enums(parameters):
     validate_enums = []
     for param in parameters:
         if 'enum' in param:
-            param_name = flatten_param(param['name'])
+            param_name = check_param(flatten_param(param['name']))
             param_enum = param['enum']
             enum_line = param_name + '_types = ('
             enums = ", ".join("'{0}'".format(p) for p in param_enum)
@@ -359,8 +359,8 @@ def main(argv=None):
     """
     Default to instructure if no url is given
     """
-    base_canvas_url = 'https://canvas.instructure.com'
-    
+    #base_canvas_url = 'https://canvas.instructure.com'
+    base_canvas_url = 'https://canvas.harvard.edu/'
     if 'url' in args:
         url = args['url']
 
