@@ -100,6 +100,8 @@ def create_new_course(request_ctx, account_id, course_name=None, course_course_c
 
     """
 
+    account_id = utils.format_sis_id('account_id', account_id)
+    course_term_id = utils.format_sis_id('term_id', course_term_id)
     path = '/v1/accounts/{account_id}/courses'
     payload = {
         'course[name]' : course_name,
@@ -151,6 +153,7 @@ def upload_file(request_ctx, course_id, **request_kwargs):
 
     """
 
+    course_id = utils.format_sis_id('course_id', course_id)
     path = '/v1/courses/{course_id}/files'
     url = request_ctx.base_api_url + path.format(course_id=course_id)
     response = client.post(request_ctx, url, **request_kwargs)
@@ -176,6 +179,7 @@ def list_students(request_ctx, course_id, per_page=None, **request_kwargs):
 
     """
 
+    course_id = utils.format_sis_id('course_id', course_id)
     if per_page is None:
         per_page = request_ctx.per_page
     path = '/v1/courses/{course_id}/students'
@@ -213,6 +217,8 @@ def list_users_in_course_users(request_ctx, course_id, search_term=None, enrollm
 
     """
 
+    course_id = utils.format_sis_id('course_id', course_id)
+    user_id = utils.format_sis_id('user_id', course_id)
     if per_page is None:
         per_page = request_ctx.per_page
     enrollment_type_types = ('teacher', 'student', 'ta', 'observer', 'designer')
@@ -259,6 +265,8 @@ def list_users_in_course_search_users(request_ctx, course_id, search_term=None, 
 
     """
 
+    course_id = utils.format_sis_id('course_id', course_id)
+    user_id = utils.format_sis_id('user_id', course_id)
     if per_page is None:
         per_page = request_ctx.per_page
     enrollment_type_types = ('teacher', 'student', 'ta', 'observer', 'designer')
@@ -298,6 +306,7 @@ def list_recently_logged_in_students(request_ctx, course_id, per_page=None, **re
 
     """
 
+    course_id = utils.format_sis_id('course_id', course_id)
     if per_page is None:
         per_page = request_ctx.per_page
     path = '/v1/courses/{course_id}/recent_students'
@@ -328,6 +337,7 @@ def get_single_user(request_ctx, course_id, id, **request_kwargs):
 
     """
 
+    course_id = utils.format_sis_id('course_id', course_id)
     path = '/v1/courses/{course_id}/users/{id}'
     url = request_ctx.base_api_url + path.format(course_id=course_id, id=id)
     response = client.get(request_ctx, url, **request_kwargs)
@@ -350,6 +360,7 @@ def preview_processed_html(request_ctx, course_id, html=None, **request_kwargs):
 
     """
 
+    course_id = utils.format_sis_id('course_id', course_id)
     path = '/v1/courses/{course_id}/preview_html'
     payload = {
         'html' : html,
@@ -376,6 +387,7 @@ def course_activity_stream(request_ctx, course_id, **request_kwargs):
 
     """
 
+    course_id = utils.format_sis_id('course_id', course_id)
     path = '/v1/courses/{course_id}/activity_stream'
     url = request_ctx.base_api_url + path.format(course_id=course_id)
     response = client.get(request_ctx, url, **request_kwargs)
@@ -399,6 +411,7 @@ def course_activity_stream_summary(request_ctx, course_id, **request_kwargs):
 
     """
 
+    course_id = utils.format_sis_id('course_id', course_id)
     path = '/v1/courses/{course_id}/activity_stream/summary'
     url = request_ctx.base_api_url + path.format(course_id=course_id)
     response = client.get(request_ctx, url, **request_kwargs)
@@ -468,6 +481,7 @@ def get_course_settings(request_ctx, course_id, **request_kwargs):
 
     """
 
+    course_id = utils.format_sis_id('course_id', course_id)
     path = '/v1/courses/{course_id}/settings'
     url = request_ctx.base_api_url + path.format(course_id=course_id)
     response = client.get(request_ctx, url, **request_kwargs)
@@ -494,6 +508,7 @@ def update_course_settings(request_ctx, course_id, allow_student_discussion_topi
 
     """
 
+    course_id = utils.format_sis_id('course_id', course_id)
     path = '/v1/courses/{course_id}/settings'
     payload = {
         'allow_student_discussion_topics' : allow_student_discussion_topics,
@@ -554,6 +569,7 @@ def get_single_course_accounts(request_ctx, account_id, id, include=None, **requ
 
     """
 
+    account_id = utils.format_sis_id('account_id', account_id)
     include_types = ('all_courses', 'permissions')
     utils.validate_attr_is_acceptable(include, include_types)
     path = '/v1/accounts/{account_id}/courses/{id}'
@@ -613,6 +629,7 @@ def update_courses(request_ctx, account_id, course_ids=None, event=None, **reque
 
     """
 
+    account_id = utils.format_sis_id('account_id', account_id)
     path = '/v1/accounts/{account_id}/courses'
     payload = {
         'course_ids' : course_ids,
@@ -641,6 +658,7 @@ def get_course_copy_status(request_ctx, course_id, id, **request_kwargs):
 
     """
 
+    course_id = utils.format_sis_id('course_id', course_id)
     path = '/v1/courses/{course_id}/course_copy/{id}'
     url = request_ctx.base_api_url + path.format(course_id=course_id, id=id)
     response = client.get(request_ctx, url, **request_kwargs)
@@ -672,7 +690,8 @@ def copy_course_content(request_ctx, course_id, source_course=None, var_except=N
         :rtype: requests.Response (with void data)
 
     """
-
+    
+    course_id = utils.format_sis_id('course_id', course_id)
     var_except_types = ('course_settings', 'assignments', 'external_tools', 'files', 'topics', 'calendar_events', 'quizzes', 'wiki_pages', 'modules', 'outcomes')
     only_types = ('course_settings', 'assignments', 'external_tools', 'files', 'topics', 'calendar_events', 'quizzes', 'wiki_pages', 'modules', 'outcomes')
     utils.validate_attr_is_acceptable(var_except, var_except_types)
