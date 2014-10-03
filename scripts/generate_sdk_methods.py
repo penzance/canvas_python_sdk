@@ -71,10 +71,17 @@ def flatten_param(param):
 
     return param
 
+
+def is_array_param(param):
+    """
+    Determines if a parameter should be treated as an array
+    """
+    return param.get('tags') and param['tags']['type'] == 'array'
+
  
 def build_payload(parameters):
     """
-    build_payload creates a list of parameters to be used in the payload of 
+    build_payload creates a list of parameters to be used in the payload of
     the api call
     """
     payload = []
@@ -82,11 +89,11 @@ def build_payload(parameters):
         """
         Do not include path parameters in the payload
         """
-
-        if param['paramType'] not in 'path':
-            field_name = param['name']
+        if param['paramType'] != 'path':
+            field_name = clean_param(param['name'])
             field = flatten_param(field_name)
-            field_name = clean_param(field_name)
+            if is_array_param(param):
+                field_name += '[]'
             payload.append("'{0}' : {1},".format(field_name, check_param(field)))
     return payload
 
