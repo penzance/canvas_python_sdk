@@ -1,6 +1,8 @@
 """
 if you ran the generate_sdk_methods.py script you will need to
-replace the coresponding methods in content_migraions.py with these.
+replace the coresponding methods in courses.py with these. You need
+to also check to see if there were any other changes, it may not be a simple
+cut and paste.
 """
 
 

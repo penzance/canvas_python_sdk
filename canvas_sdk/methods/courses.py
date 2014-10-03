@@ -648,7 +648,7 @@ def get_course_copy_status(request_ctx, course_id, id, **request_kwargs):
     return response
 
 
-def copy_course_content(request_ctx, course_id, source_course, except, only, **request_kwargs):
+def copy_course_content(request_ctx, course_id, source_course, var_except, only, **request_kwargs):
     """
     DEPRECATED: Please use the `ContentMigrationsController#create <https://github.com/instructure/canvas-lms/blob/master/app/controllers/content_migrations_controller.rb>`_
     
@@ -675,12 +675,12 @@ def copy_course_content(request_ctx, course_id, source_course, except, only, **r
 
     except_types = ('course_settings', 'assignments', 'external_tools', 'files', 'topics', 'calendar_events', 'quizzes', 'wiki_pages', 'modules', 'outcomes')
     only_types = ('course_settings', 'assignments', 'external_tools', 'files', 'topics', 'calendar_events', 'quizzes', 'wiki_pages', 'modules', 'outcomes')
-    utils.validate_attr_is_acceptable(except, except_types)
+    utils.validate_attr_is_acceptable(var_except, except_types)
     utils.validate_attr_is_acceptable(only, only_types)
     path = '/v1/courses/{course_id}/course_copy'
     payload = {
         'source_course' : source_course,
-        'except' : except,
+        'except' : var_except,
         'only' : only,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id)
