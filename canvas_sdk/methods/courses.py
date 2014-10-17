@@ -1,17 +1,17 @@
 from canvas_sdk import client, utils
 
-def list_your_courses(request_ctx, enrollment_type=None, enrollment_role=None, include=None, state=None, per_page=None, **request_kwargs):
+def list_your_courses(request_ctx, include, enrollment_type=None, enrollment_role=None, state=None, per_page=None, **request_kwargs):
     """
     Returns the list of active courses for the current user.
 
         :param request_ctx: The request context
         :type request_ctx: :class:RequestContext
+        :param include: (required) - "needs_grading_count": Optional information to include with each Course. When needs_grading_count is given, and the current user has grading rights, the total number of submissions needing grading for all assignments is returned. - "syllabus_body": Optional information to include with each Course. When syllabus_body is given the user-generated html for the course syllabus is returned. - "total_scores": Optional information to include with each Course. When total_scores is given, any enrollments with type 'student' will also include the fields 'calculated_current_score', 'calculated_final_score', 'calculated_current_grade', and 'calculated_final_grade'. calculated_current_score is the student's score in the course, ignoring ungraded assignments. calculated_final_score is the student's score in the course including ungraded assignments with a score of 0. calculated_current_grade is the letter grade equivalent of calculated_current_score (if available). calculated_final_grade is the letter grade equivalent of calculated_final_score (if available). This argument is ignored if the course is configured to hide final grades. - "term": Optional information to include with each Course. When term is given, the information for the enrollment term for each course is returned. - "course_progress": Optional information to include with each Course. When course_progress is given, each course will include a 'course_progress' object with the fields: 'requirement_count', an integer specifying the total number of requirements in the course, 'requirement_completed_count', an integer specifying the total number of requirements in this course that have been completed, and 'next_requirement_url', a string url to the next requirement item, and 'completed_at', the date the course was completed (null if incomplete). 'next_requirement_url' will be null if all requirements have been completed or the current module does not require sequential progress. "course_progress" will return an error message if the course is not module based or the user is not enrolled as a student in the course. - "sections": Section enrollment information to include with each Course. Returns an array of hashes containing the section ID (id), section name (name), start and end dates (start_at, end_at), as well as the enrollment type (enrollment_role, e.g. 'StudentEnrollment').
+        :type include: string
         :param enrollment_type: (optional) When set, only return courses where the user is enrolled as this type. For example, set to "teacher" to return only courses where the user is enrolled as a Teacher. This argument is ignored if enrollment_role is given.
         :type enrollment_type: string or None
         :param enrollment_role: (optional) When set, only return courses where the user is enrolled with the specified course-level role. This can be a role created with the {api:RoleOverridesController#add_role Add Role API} or a base role type of 'StudentEnrollment', 'TeacherEnrollment', 'TaEnrollment', 'ObserverEnrollment', or 'DesignerEnrollment'.
         :type enrollment_role: string or None
-        :param include: (optional) - "needs_grading_count": Optional information to include with each Course. When needs_grading_count is given, and the current user has grading rights, the total number of submissions needing grading for all assignments is returned. - "syllabus_body": Optional information to include with each Course. When syllabus_body is given the user-generated html for the course syllabus is returned. - "total_scores": Optional information to include with each Course. When total_scores is given, any enrollments with type 'student' will also include the fields 'calculated_current_score', 'calculated_final_score', 'calculated_current_grade', and 'calculated_final_grade'. calculated_current_score is the student's score in the course, ignoring ungraded assignments. calculated_final_score is the student's score in the course including ungraded assignments with a score of 0. calculated_current_grade is the letter grade equivalent of calculated_current_score (if available). calculated_final_grade is the letter grade equivalent of calculated_final_score (if available). This argument is ignored if the course is configured to hide final grades. - "term": Optional information to include with each Course. When term is given, the information for the enrollment term for each course is returned. - "course_progress": Optional information to include with each Course. When course_progress is given, each course will include a 'course_progress' object with the fields: 'requirement_count', an integer specifying the total number of requirements in the course, 'requirement_completed_count', an integer specifying the total number of requirements in this course that have been completed, and 'next_requirement_url', a string url to the next requirement item, and 'completed_at', the date the course was completed (null if incomplete). 'next_requirement_url' will be null if all requirements have been completed or the current module does not require sequential progress. "course_progress" will return an error message if the course is not module based or the user is not enrolled as a student in the course. - "sections": Section enrollment information to include with each Course. Returns an array of hashes containing the section ID (id), section name (name), start and end dates (start_at, end_at), as well as the enrollment type (enrollment_role, e.g. 'StudentEnrollment').
-        :type include: string or None
         :param state: (optional) If set, only return courses that are in the given state(s). By default, "available" is returned for students and observers, and anything except "deleted", for all other enrollment types
         :type state: string or None
         :param per_page: (optional) Set how many results canvas should return, defaults to config.LIMIT_PER_PAGE
@@ -33,8 +33,8 @@ def list_your_courses(request_ctx, enrollment_type=None, enrollment_role=None, i
     payload = {
         'enrollment_type' : enrollment_type,
         'enrollment_role' : enrollment_role,
-        'include' : include,
-        'state' : state,
+        'include[]' : include,
+        'state[]' : state,
         'per_page' : per_page,
     }
     url = request_ctx.base_api_url + path.format()
@@ -100,8 +100,6 @@ def create_new_course(request_ctx, account_id, course_name=None, course_course_c
 
     """
 
-    account_id = utils.format_sis_id('account_id', account_id)
-    course_term_id = utils.format_sis_id('term_id', course_term_id)
     path = '/v1/accounts/{account_id}/courses'
     payload = {
         'course[name]' : course_name,
@@ -153,7 +151,6 @@ def upload_file(request_ctx, course_id, **request_kwargs):
 
     """
 
-    course_id = utils.format_sis_id('course_id', course_id)
     path = '/v1/courses/{course_id}/files'
     url = request_ctx.base_api_url + path.format(course_id=course_id)
     response = client.post(request_ctx, url, **request_kwargs)
@@ -179,7 +176,6 @@ def list_students(request_ctx, course_id, per_page=None, **request_kwargs):
 
     """
 
-    course_id = utils.format_sis_id('course_id', course_id)
     if per_page is None:
         per_page = request_ctx.per_page
     path = '/v1/courses/{course_id}/students'
@@ -192,7 +188,7 @@ def list_students(request_ctx, course_id, per_page=None, **request_kwargs):
     return response
 
 
-def list_users_in_course_users(request_ctx, course_id, search_term=None, enrollment_type=None, enrollment_role=None, include=None, user_id=None, per_page=None, **request_kwargs):
+def list_users_in_course_users(request_ctx, course_id, include, search_term=None, enrollment_type=None, enrollment_role=None, user_id=None, per_page=None, **request_kwargs):
     """
     Returns the list of users in this course. And optionally the user's enrollments in the course.
 
@@ -200,14 +196,14 @@ def list_users_in_course_users(request_ctx, course_id, search_term=None, enrollm
         :type request_ctx: :class:RequestContext
         :param course_id: (required) ID
         :type course_id: string
+        :param include: (required) - "email": Optional user email. - "enrollments": Optionally include with each Course the user's current and invited enrollments. If the user is enrolled as a student, and the account has permission to manage or view all grades, each enrollment will include a 'grades' key with 'current_score', 'final_score', 'current_grade' and 'final_grade' values. - "locked": Optionally include whether an enrollment is locked. - "avatar_url": Optionally include avatar_url. - "test_student": Optionally include the course's Test Student, if present. Default is to not include Test Student.
+        :type include: string
         :param search_term: (optional) The partial name or full ID of the users to match and return in the results list.
         :type search_term: string or None
         :param enrollment_type: (optional) When set, only return users where the user is enrolled as this type. This argument is ignored if enrollment_role is given.
         :type enrollment_type: string or None
         :param enrollment_role: (optional) When set, only return users enrolled with the specified course-level role. This can be a role created with the {api:RoleOverridesController#add_role Add Role API} or a base role type of 'StudentEnrollment', 'TeacherEnrollment', 'TaEnrollment', 'ObserverEnrollment', or 'DesignerEnrollment'.
         :type enrollment_role: string or None
-        :param include: (optional) - "email": Optional user email. - "enrollments": Optionally include with each Course the user's current and invited enrollments. If the user is enrolled as a student, and the account has permission to manage or view all grades, each enrollment will include a 'grades' key with 'current_score', 'final_score', 'current_grade' and 'final_grade' values. - "locked": Optionally include whether an enrollment is locked. - "avatar_url": Optionally include avatar_url. - "test_student": Optionally include the course's Test Student, if present. Default is to not include Test Student.
-        :type include: string or None
         :param user_id: (optional) If included, the user will be queried and if the user is part of the users set, the page parameter will be modified so that the page containing user_id will be returned.
         :type user_id: string or None
         :param per_page: (optional) Set how many results canvas should return, defaults to config.LIMIT_PER_PAGE
@@ -217,8 +213,6 @@ def list_users_in_course_users(request_ctx, course_id, search_term=None, enrollm
 
     """
 
-    course_id = utils.format_sis_id('course_id', course_id)
-    user_id = utils.format_sis_id('user_id', course_id)
     if per_page is None:
         per_page = request_ctx.per_page
     enrollment_type_types = ('teacher', 'student', 'ta', 'observer', 'designer')
@@ -230,7 +224,7 @@ def list_users_in_course_users(request_ctx, course_id, search_term=None, enrollm
         'search_term' : search_term,
         'enrollment_type' : enrollment_type,
         'enrollment_role' : enrollment_role,
-        'include' : include,
+        'include[]' : include,
         'user_id' : user_id,
         'per_page' : per_page,
     }
@@ -240,7 +234,7 @@ def list_users_in_course_users(request_ctx, course_id, search_term=None, enrollm
     return response
 
 
-def list_users_in_course_search_users(request_ctx, course_id, search_term=None, enrollment_type=None, enrollment_role=None, include=None, user_id=None, per_page=None, **request_kwargs):
+def list_users_in_course_search_users(request_ctx, course_id, include, search_term=None, enrollment_type=None, enrollment_role=None, user_id=None, per_page=None, **request_kwargs):
     """
     Returns the list of users in this course. And optionally the user's enrollments in the course.
 
@@ -248,14 +242,14 @@ def list_users_in_course_search_users(request_ctx, course_id, search_term=None, 
         :type request_ctx: :class:RequestContext
         :param course_id: (required) ID
         :type course_id: string
+        :param include: (required) - "email": Optional user email. - "enrollments": Optionally include with each Course the user's current and invited enrollments. If the user is enrolled as a student, and the account has permission to manage or view all grades, each enrollment will include a 'grades' key with 'current_score', 'final_score', 'current_grade' and 'final_grade' values. - "locked": Optionally include whether an enrollment is locked. - "avatar_url": Optionally include avatar_url. - "test_student": Optionally include the course's Test Student, if present. Default is to not include Test Student.
+        :type include: string
         :param search_term: (optional) The partial name or full ID of the users to match and return in the results list.
         :type search_term: string or None
         :param enrollment_type: (optional) When set, only return users where the user is enrolled as this type. This argument is ignored if enrollment_role is given.
         :type enrollment_type: string or None
         :param enrollment_role: (optional) When set, only return users enrolled with the specified course-level role. This can be a role created with the {api:RoleOverridesController#add_role Add Role API} or a base role type of 'StudentEnrollment', 'TeacherEnrollment', 'TaEnrollment', 'ObserverEnrollment', or 'DesignerEnrollment'.
         :type enrollment_role: string or None
-        :param include: (optional) - "email": Optional user email. - "enrollments": Optionally include with each Course the user's current and invited enrollments. If the user is enrolled as a student, and the account has permission to manage or view all grades, each enrollment will include a 'grades' key with 'current_score', 'final_score', 'current_grade' and 'final_grade' values. - "locked": Optionally include whether an enrollment is locked. - "avatar_url": Optionally include avatar_url. - "test_student": Optionally include the course's Test Student, if present. Default is to not include Test Student.
-        :type include: string or None
         :param user_id: (optional) If included, the user will be queried and if the user is part of the users set, the page parameter will be modified so that the page containing user_id will be returned.
         :type user_id: string or None
         :param per_page: (optional) Set how many results canvas should return, defaults to config.LIMIT_PER_PAGE
@@ -265,8 +259,6 @@ def list_users_in_course_search_users(request_ctx, course_id, search_term=None, 
 
     """
 
-    course_id = utils.format_sis_id('course_id', course_id)
-    user_id = utils.format_sis_id('user_id', course_id)
     if per_page is None:
         per_page = request_ctx.per_page
     enrollment_type_types = ('teacher', 'student', 'ta', 'observer', 'designer')
@@ -278,7 +270,7 @@ def list_users_in_course_search_users(request_ctx, course_id, search_term=None, 
         'search_term' : search_term,
         'enrollment_type' : enrollment_type,
         'enrollment_role' : enrollment_role,
-        'include' : include,
+        'include[]' : include,
         'user_id' : user_id,
         'per_page' : per_page,
     }
@@ -306,7 +298,6 @@ def list_recently_logged_in_students(request_ctx, course_id, per_page=None, **re
 
     """
 
-    course_id = utils.format_sis_id('course_id', course_id)
     if per_page is None:
         per_page = request_ctx.per_page
     path = '/v1/courses/{course_id}/recent_students'
@@ -337,7 +328,6 @@ def get_single_user(request_ctx, course_id, id, **request_kwargs):
 
     """
 
-    course_id = utils.format_sis_id('course_id', course_id)
     path = '/v1/courses/{course_id}/users/{id}'
     url = request_ctx.base_api_url + path.format(course_id=course_id, id=id)
     response = client.get(request_ctx, url, **request_kwargs)
@@ -345,7 +335,7 @@ def get_single_user(request_ctx, course_id, id, **request_kwargs):
     return response
 
 
-def preview_processed_html(request_ctx, course_id, html=None, **request_kwargs):
+def preview_processed_html(request_ctx, course_id, html, **request_kwargs):
     """
     Preview html content processed for this course
 
@@ -353,14 +343,13 @@ def preview_processed_html(request_ctx, course_id, html=None, **request_kwargs):
         :type request_ctx: :class:RequestContext
         :param course_id: (required) ID
         :type course_id: string
-        :param html: (optional) The html content to process
-        :type html: string or None
+        :param html: (required) The html content to process
+        :type html: string
         :return: Preview processed html
         :rtype: requests.Response (with void data)
 
     """
 
-    course_id = utils.format_sis_id('course_id', course_id)
     path = '/v1/courses/{course_id}/preview_html'
     payload = {
         'html' : html,
@@ -387,7 +376,6 @@ def course_activity_stream(request_ctx, course_id, **request_kwargs):
 
     """
 
-    course_id = utils.format_sis_id('course_id', course_id)
     path = '/v1/courses/{course_id}/activity_stream'
     url = request_ctx.base_api_url + path.format(course_id=course_id)
     response = client.get(request_ctx, url, **request_kwargs)
@@ -411,7 +399,6 @@ def course_activity_stream_summary(request_ctx, course_id, **request_kwargs):
 
     """
 
-    course_id = utils.format_sis_id('course_id', course_id)
     path = '/v1/courses/{course_id}/activity_stream/summary'
     url = request_ctx.base_api_url + path.format(course_id=course_id)
     response = client.get(request_ctx, url, **request_kwargs)
@@ -441,7 +428,7 @@ def course_todo_items(request_ctx, course_id, **request_kwargs):
     return response
 
 
-def conclude_course(request_ctx, id, event=None, **request_kwargs):
+def conclude_course(request_ctx, id, event, **request_kwargs):
     """
     Delete or conclude an existing course
 
@@ -449,8 +436,8 @@ def conclude_course(request_ctx, id, event=None, **request_kwargs):
         :type request_ctx: :class:RequestContext
         :param id: (required) ID
         :type id: string
-        :param event: (optional) The action to take on the course.
-        :type event: string or None
+        :param event: (required) The action to take on the course.
+        :type event: string
         :return: Conclude a course
         :rtype: requests.Response (with void data)
 
@@ -481,7 +468,6 @@ def get_course_settings(request_ctx, course_id, **request_kwargs):
 
     """
 
-    course_id = utils.format_sis_id('course_id', course_id)
     path = '/v1/courses/{course_id}/settings'
     url = request_ctx.base_api_url + path.format(course_id=course_id)
     response = client.get(request_ctx, url, **request_kwargs)
@@ -489,7 +475,7 @@ def get_course_settings(request_ctx, course_id, **request_kwargs):
     return response
 
 
-def update_course_settings(request_ctx, course_id, allow_student_discussion_topics=None, allow_student_forum_attachments=None, allow_student_discussion_editing=None, **request_kwargs):
+def update_course_settings(request_ctx, course_id, allow_student_discussion_topics, allow_student_forum_attachments, allow_student_discussion_editing, **request_kwargs):
     """
     Can update the following course settings:
 
@@ -497,18 +483,17 @@ def update_course_settings(request_ctx, course_id, allow_student_discussion_topi
         :type request_ctx: :class:RequestContext
         :param course_id: (required) ID
         :type course_id: string
-        :param allow_student_discussion_topics: (optional) no description
-        :type allow_student_discussion_topics: boolean or None
-        :param allow_student_forum_attachments: (optional) no description
-        :type allow_student_forum_attachments: boolean or None
-        :param allow_student_discussion_editing: (optional) no description
-        :type allow_student_discussion_editing: boolean or None
+        :param allow_student_discussion_topics: (required) no description
+        :type allow_student_discussion_topics: boolean
+        :param allow_student_forum_attachments: (required) no description
+        :type allow_student_forum_attachments: boolean
+        :param allow_student_discussion_editing: (required) no description
+        :type allow_student_discussion_editing: boolean
         :return: Update course settings
         :rtype: requests.Response (with void data)
 
     """
 
-    course_id = utils.format_sis_id('course_id', course_id)
     path = '/v1/courses/{course_id}/settings'
     payload = {
         'allow_student_discussion_topics' : allow_student_discussion_topics,
@@ -521,7 +506,7 @@ def update_course_settings(request_ctx, course_id, allow_student_discussion_topi
     return response
 
 
-def get_single_course_courses(request_ctx, id, include=None, **request_kwargs):
+def get_single_course_courses(request_ctx, id, include, **request_kwargs):
     """
     Return information on a single course.
     
@@ -531,8 +516,8 @@ def get_single_course_courses(request_ctx, id, include=None, **request_kwargs):
         :type request_ctx: :class:RequestContext
         :param id: (required) ID
         :type id: string
-        :param include: (optional) - "all_courses": Also search recently deleted courses. - "permissions": Include permissions the current user has for the course.
-        :type include: string or None
+        :param include: (required) - "all_courses": Also search recently deleted courses. - "permissions": Include permissions the current user has for the course.
+        :type include: string
         :return: Get a single course
         :rtype: requests.Response (with Course data)
 
@@ -542,7 +527,7 @@ def get_single_course_courses(request_ctx, id, include=None, **request_kwargs):
     utils.validate_attr_is_acceptable(include, include_types)
     path = '/v1/courses/{id}'
     payload = {
-        'include' : include,
+        'include[]' : include,
     }
     url = request_ctx.base_api_url + path.format(id=id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -550,7 +535,7 @@ def get_single_course_courses(request_ctx, id, include=None, **request_kwargs):
     return response
 
 
-def get_single_course_accounts(request_ctx, account_id, id, include=None, **request_kwargs):
+def get_single_course_accounts(request_ctx, account_id, id, include, **request_kwargs):
     """
     Return information on a single course.
     
@@ -562,19 +547,18 @@ def get_single_course_accounts(request_ctx, account_id, id, include=None, **requ
         :type account_id: string
         :param id: (required) ID
         :type id: string
-        :param include: (optional) - "all_courses": Also search recently deleted courses. - "permissions": Include permissions the current user has for the course.
-        :type include: string or None
+        :param include: (required) - "all_courses": Also search recently deleted courses. - "permissions": Include permissions the current user has for the course.
+        :type include: string
         :return: Get a single course
         :rtype: requests.Response (with Course data)
 
     """
 
-    account_id = utils.format_sis_id('account_id', account_id)
     include_types = ('all_courses', 'permissions')
     utils.validate_attr_is_acceptable(include, include_types)
     path = '/v1/accounts/{account_id}/courses/{id}'
     payload = {
-        'include' : include,
+        'include[]' : include,
     }
     url = request_ctx.base_api_url + path.format(account_id=account_id, id=id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -611,7 +595,7 @@ def update_course(request_ctx, id, course_grading_standard_id=None, **request_kw
     return response
 
 
-def update_courses(request_ctx, account_id, course_ids=None, event=None, **request_kwargs):
+def update_courses(request_ctx, account_id, course_ids, event, **request_kwargs):
     """
     Update multiple courses in an account.  Operates asynchronously; use the `ProgressController#show <https://github.com/instructure/canvas-lms/blob/master/app/controllers/progress_controller.rb>`_
     to query the status of an operation.
@@ -620,19 +604,18 @@ def update_courses(request_ctx, account_id, course_ids=None, event=None, **reque
         :type request_ctx: :class:RequestContext
         :param account_id: (required) ID
         :type account_id: string
-        :param course_ids: (optional) List of ids of courses to update. At most 500 courses may be updated in one call.
-        :type course_ids: string or None
-        :param event: (optional) The action to take on each course. Must be one of 'offer', 'conclude', 'delete', or 'undelete'. * 'offer' makes a course visible to students. This action is also called "publish" on the web site. * 'conclude' prevents future enrollments and makes a course read-only for all participants. The course still appears in prior-enrollment lists. * 'delete' completely removes the course from the web site (including course menus and prior-enrollment lists). All enrollments are deleted. Course content may be physically deleted at a future date. * 'undelete' attempts to recover a course that has been deleted. (Recovery is not guaranteed; please conclude rather than delete a course if there is any possibility the course will be used again.) The recovered course will be unpublished. Deleted enrollments will not be recovered.
-        :type event: string or None
+        :param course_ids: (required) List of ids of courses to update. At most 500 courses may be updated in one call.
+        :type course_ids: string
+        :param event: (required) The action to take on each course. Must be one of 'offer', 'conclude', 'delete', or 'undelete'. * 'offer' makes a course visible to students. This action is also called "publish" on the web site. * 'conclude' prevents future enrollments and makes a course read-only for all participants. The course still appears in prior-enrollment lists. * 'delete' completely removes the course from the web site (including course menus and prior-enrollment lists). All enrollments are deleted. Course content may be physically deleted at a future date. * 'undelete' attempts to recover a course that has been deleted. (Recovery is not guaranteed; please conclude rather than delete a course if there is any possibility the course will be used again.) The recovered course will be unpublished. Deleted enrollments will not be recovered.
+        :type event: string
         :return: Update courses
         :rtype: requests.Response (with Progress data)
 
     """
 
-    account_id = utils.format_sis_id('account_id', account_id)
     path = '/v1/accounts/{account_id}/courses'
     payload = {
-        'course_ids' : course_ids,
+        'course_ids[]' : course_ids,
         'event' : event,
     }
     url = request_ctx.base_api_url + path.format(account_id=account_id)
@@ -658,7 +641,6 @@ def get_course_copy_status(request_ctx, course_id, id, **request_kwargs):
 
     """
 
-    course_id = utils.format_sis_id('course_id', course_id)
     path = '/v1/courses/{course_id}/course_copy/{id}'
     url = request_ctx.base_api_url + path.format(course_id=course_id, id=id)
     response = client.get(request_ctx, url, **request_kwargs)
@@ -666,7 +648,7 @@ def get_course_copy_status(request_ctx, course_id, id, **request_kwargs):
     return response
 
 
-def copy_course_content(request_ctx, course_id, source_course=None, var_except=None, only=None, **request_kwargs):
+def copy_course_content(request_ctx, course_id, source_course, var_except, only, **request_kwargs):
     """
     DEPRECATED: Please use the `ContentMigrationsController#create <https://github.com/instructure/canvas-lms/blob/master/app/controllers/content_migrations_controller.rb>`_
     
@@ -680,18 +662,17 @@ def copy_course_content(request_ctx, course_id, source_course=None, var_except=N
         :type request_ctx: :class:RequestContext
         :param course_id: (required) ID
         :type course_id: string
-        :param source_course: (optional) ID or SIS-ID of the course to copy the content from
-        :type source_course: string or None
-        :param var_except: (optional) A list of the course content types to exclude, all areas not listed will be copied.
-        :type var_except: string or None
-        :param only: (optional) A list of the course content types to copy, all areas not listed will not be copied.
-        :type only: string or None
+        :param source_course: (required) ID or SIS-ID of the course to copy the content from
+        :type source_course: string
+        :param var_except: (required) A list of the course content types to exclude, all areas not listed will be copied.
+        :type var_except: string
+        :param only: (required) A list of the course content types to copy, all areas not listed will not be copied.
+        :type only: string
         :return: Copy course content
         :rtype: requests.Response (with void data)
 
     """
-    
-    course_id = utils.format_sis_id('course_id', course_id)
+
     var_except_types = ('course_settings', 'assignments', 'external_tools', 'files', 'topics', 'calendar_events', 'quizzes', 'wiki_pages', 'modules', 'outcomes')
     only_types = ('course_settings', 'assignments', 'external_tools', 'files', 'topics', 'calendar_events', 'quizzes', 'wiki_pages', 'modules', 'outcomes')
     utils.validate_attr_is_acceptable(var_except, var_except_types)
@@ -699,8 +680,8 @@ def copy_course_content(request_ctx, course_id, source_course=None, var_except=N
     path = '/v1/courses/{course_id}/course_copy'
     payload = {
         'source_course' : source_course,
-        'except' : var_except,
-        'only' : only,
+        'except[]' : var_except,
+        'only[]' : only,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id)
     response = client.post(request_ctx, url, payload=payload, **request_kwargs)

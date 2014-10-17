@@ -5,55 +5,6 @@ from collections import defaultdict
 The util module contains helper methods for the SDK
 """
 
-"""
-The following dictionary is a lookup table for sis id's.
-Throughout the API, objects are referenced by internal IDs. You can also reference 
-objects by SIS ID, by prepending the SIS ID with the name of the SIS field, like 
-sis_course_id:. For instance, to retrieve the list of assignments for a course 
-with SIS ID of A1234:
-
-    /api/v1/courses/sis_course_id:A1234/assignments
-
-See the online docs: https://canvas.instructure.com/doc/api/file.object_ids.html
-"""
-
-SIS_ID_LOOKUP = {
-    'course_id'  : 'sis_course_id:',
-    'login_id'   : 'sis_login_id:',
-    'term_id'    : 'sis_term_id:',
-    'user_id'    : 'sis_user_id:',
-    'account_id' : 'sis_account_id:',
-    'section_id' : 'sis_section_id:',
-    'group_id'   : 'sis_group_id:',
-}
-
-def format_sis_id(param_name, value):
-    """
-    fix sis id's that are passed into the sdk. This method checks
-    to see if the id is a string. if it is, it checks to see that it
-    does not contain 'sis_' already. If it does not, it will append
-    'sis_' to the param_name and append the value to the end like this:
-
-    param_name = 'account_id'
-    value = 'ext'
-    format_sis_id(param_name, value)
-    return string 'sis_account_id:ext'
-
-    if the value is not a string it just gets returned
-
-    """
-
-    if not value:
-        return None
-    if not param_name:
-        return None
-    if isinstance(value, str):
-        new_value = SIS_ID_LOOKUP.get(param_name, value)
-        if new_value not in value:
-            return new_value+value
-    return value
-
-
 def validate_attr_is_acceptable(value, acceptable_values=[], allow_none=True):
     """
     Test an input value against a list of acceptable values.  A value of None may or may

@@ -532,17 +532,7 @@ def get_content_migration_users(request_ctx, user_id, id, **request_kwargs):
     return response
 
 
-def create_content_migration_accounts(request_ctx, account_id, migration_type, 
-    pre_attachment_name, settings_file_url, 
-    pre_attachment_size=None, pre_attachment_content_type=None, 
-    pre_attachment_parent_folder_id=None, pre_attachment_parent_folder_path=None,
-    pre_attachment_folder=None, pre_attachment_on_duplicate=None,
-    settings_source_course_id=None, settings_folder_id=None, 
-    settings_overwrite_quizzes=None, settings_question_bank_id=None, 
-    settings_question_bank_name=None, date_shift_options_shift_dates=None, 
-    date_shift_options_old_start_date=None, date_shift_options_old_end_date=None, 
-    date_shift_options_new_start_date=None, date_shift_options_new_end_date=None, 
-    date_shift_options_day_substitutions_X=None, **request_kwargs):
+def create_content_migration_accounts(request_ctx, account_id, migration_type, pre_attachment_name, settings_file_url, pre_attachment_content_type=None, pre_attachment_parent_folder_id=None, pre_attachment_parent_folder_path=None, pre_attachment_folder=None, pre_attachment_on_duplicate=None, settings_source_course_id=None, settings_folder_id=None, settings_overwrite_quizzes=None, settings_question_bank_id=None, settings_question_bank_name=None, date_shift_options_shift_dates=None, date_shift_options_old_start_date=None, date_shift_options_old_end_date=None, date_shift_options_new_start_date=None, date_shift_options_new_end_date=None, date_shift_options_day_substitutions_X=None, **request_kwargs):
     """
     Create a content migration. If the migration requires a file to be uploaded
     the actual processing of the file will start once the file upload process is completed.
@@ -582,8 +572,6 @@ def create_content_migration_accounts(request_ctx, account_id, migration_type,
         :type pre_attachment_name: string
         :param settings_file_url: (required) (optional) A URL to download the file from. Must not require authentication.
         :type settings_file_url: string
-        :param pre_attachment_size: (optional) The size of the file, in bytes. This field is recommended, as it will let you find out if there's a quota issue before uploading the raw file.
-        :type pre_attachment_size: string or None
         :param pre_attachment_content_type: (optional) The content type of the file. If not given, it will be guessed based on the file extension.
         :type pre_attachment_content_type: string or None
         :param pre_attachment_parent_folder_id: (optional) The id of the folder to store the file in. If this and parent_folder_path are sent an error will be returned. If neither is given, a default folder will be used.
@@ -625,11 +613,10 @@ def create_content_migration_accounts(request_ctx, account_id, migration_type,
     payload = {
         'migration_type' : migration_type,
         'pre_attachment[name]' : pre_attachment_name,
-        'pre_attachment[size]' : pre_attachment_size,
         'pre_attachment[content_type]' : pre_attachment_content_type,
         'pre_attachment[parent_folder_id]' : pre_attachment_parent_folder_id,
-        'pre_attachment[folder]' : pre_attachment_folder,
         'pre_attachment[parent_folder_path]' : pre_attachment_parent_folder_path,
+        'pre_attachment[folder]' : pre_attachment_folder,
         'pre_attachment[on_duplicate]' : pre_attachment_on_duplicate,
         'settings[file_url]' : settings_file_url,
         'settings[source_course_id]' : settings_source_course_id,
@@ -650,17 +637,7 @@ def create_content_migration_accounts(request_ctx, account_id, migration_type,
     return response
 
 
-def create_content_migration_courses(request_ctx, course_id, migration_type, 
-    pre_attachment_name, settings_file_url, 
-    pre_attachment_size=None, pre_attachment_content_type=None, 
-    pre_attachment_parent_folder_id=None, pre_attachment_parent_folder_path=None,
-    pre_attachment_folder=None, pre_attachment_on_duplicate=None,
-    settings_source_course_id=None, settings_folder_id=None, 
-    settings_overwrite_quizzes=None, settings_question_bank_id=None, 
-    settings_question_bank_name=None, date_shift_options_shift_dates=None, 
-    date_shift_options_old_start_date=None, date_shift_options_old_end_date=None, 
-    date_shift_options_new_start_date=None, date_shift_options_new_end_date=None, 
-    date_shift_options_day_substitutions_X=None, **request_kwargs):
+def create_content_migration_courses(request_ctx, course_id, migration_type, pre_attachment_name, settings_file_url, pre_attachment_content_type=None, pre_attachment_parent_folder_id=None, pre_attachment_parent_folder_path=None, pre_attachment_folder=None, pre_attachment_on_duplicate=None, settings_source_course_id=None, settings_folder_id=None, settings_overwrite_quizzes=None, settings_question_bank_id=None, settings_question_bank_name=None, date_shift_options_shift_dates=None, date_shift_options_old_start_date=None, date_shift_options_old_end_date=None, date_shift_options_new_start_date=None, date_shift_options_new_end_date=None, date_shift_options_day_substitutions_X=None, **request_kwargs):
     """
     Create a content migration. If the migration requires a file to be uploaded
     the actual processing of the file will start once the file upload process is completed.
@@ -700,8 +677,6 @@ def create_content_migration_courses(request_ctx, course_id, migration_type,
         :type pre_attachment_name: string
         :param settings_file_url: (required) (optional) A URL to download the file from. Must not require authentication.
         :type settings_file_url: string
-        :param pre_attachment_size: (optional) The size of the file, in bytes. This field is recommended, as it will let you find out if there's a quota issue before uploading the raw file.
-        :type pre_attachment_size: string or None
         :param pre_attachment_content_type: (optional) The content type of the file. If not given, it will be guessed based on the file extension.
         :type pre_attachment_content_type: string or None
         :param pre_attachment_parent_folder_id: (optional) The id of the folder to store the file in. If this and parent_folder_path are sent an error will be returned. If neither is given, a default folder will be used.
@@ -743,11 +718,10 @@ def create_content_migration_courses(request_ctx, course_id, migration_type,
     payload = {
         'migration_type' : migration_type,
         'pre_attachment[name]' : pre_attachment_name,
-        'pre_attachment[size]' : pre_attachment_size,
         'pre_attachment[content_type]' : pre_attachment_content_type,
         'pre_attachment[parent_folder_id]' : pre_attachment_parent_folder_id,
-        'pre_attachment[folder]' : pre_attachment_folder,
         'pre_attachment[parent_folder_path]' : pre_attachment_parent_folder_path,
+        'pre_attachment[folder]' : pre_attachment_folder,
         'pre_attachment[on_duplicate]' : pre_attachment_on_duplicate,
         'settings[file_url]' : settings_file_url,
         'settings[source_course_id]' : settings_source_course_id,
@@ -768,17 +742,7 @@ def create_content_migration_courses(request_ctx, course_id, migration_type,
     return response
 
 
-def create_content_migration_groups(request_ctx, group_id, migration_type, 
-    pre_attachment_name, settings_file_url, 
-    pre_attachment_size=None, pre_attachment_content_type=None, 
-    pre_attachment_parent_folder_id=None, pre_attachment_parent_folder_path=None,
-    pre_attachment_folder=None, pre_attachment_on_duplicate=None, 
-    settings_source_course_id=None, settings_folder_id=None, 
-    settings_overwrite_quizzes=None, settings_question_bank_id=None, 
-    settings_question_bank_name=None, date_shift_options_shift_dates=None, 
-    date_shift_options_old_start_date=None, date_shift_options_old_end_date=None, 
-    date_shift_options_new_start_date=None, date_shift_options_new_end_date=None, 
-    date_shift_options_day_substitutions_X=None, **request_kwargs):
+def create_content_migration_groups(request_ctx, group_id, migration_type, pre_attachment_name, settings_file_url, pre_attachment_content_type=None, pre_attachment_parent_folder_id=None, pre_attachment_parent_folder_path=None, pre_attachment_folder=None, pre_attachment_on_duplicate=None, settings_source_course_id=None, settings_folder_id=None, settings_overwrite_quizzes=None, settings_question_bank_id=None, settings_question_bank_name=None, date_shift_options_shift_dates=None, date_shift_options_old_start_date=None, date_shift_options_old_end_date=None, date_shift_options_new_start_date=None, date_shift_options_new_end_date=None, date_shift_options_day_substitutions_X=None, **request_kwargs):
     """
     Create a content migration. If the migration requires a file to be uploaded
     the actual processing of the file will start once the file upload process is completed.
@@ -818,8 +782,6 @@ def create_content_migration_groups(request_ctx, group_id, migration_type,
         :type pre_attachment_name: string
         :param settings_file_url: (required) (optional) A URL to download the file from. Must not require authentication.
         :type settings_file_url: string
-        :param pre_attachment_size: (optional) The size of the file, in bytes. This field is recommended, as it will let you find out if there's a quota issue before uploading the raw file.
-        :type pre_attachment_size: string or None
         :param pre_attachment_content_type: (optional) The content type of the file. If not given, it will be guessed based on the file extension.
         :type pre_attachment_content_type: string or None
         :param pre_attachment_parent_folder_id: (optional) The id of the folder to store the file in. If this and parent_folder_path are sent an error will be returned. If neither is given, a default folder will be used.
@@ -861,11 +823,10 @@ def create_content_migration_groups(request_ctx, group_id, migration_type,
     payload = {
         'migration_type' : migration_type,
         'pre_attachment[name]' : pre_attachment_name,
-        'pre_attachment[size]' : pre_attachment_size,
         'pre_attachment[content_type]' : pre_attachment_content_type,
         'pre_attachment[parent_folder_id]' : pre_attachment_parent_folder_id,
-        'pre_attachment[folder]' : pre_attachment_folder,
         'pre_attachment[parent_folder_path]' : pre_attachment_parent_folder_path,
+        'pre_attachment[folder]' : pre_attachment_folder,
         'pre_attachment[on_duplicate]' : pre_attachment_on_duplicate,
         'settings[file_url]' : settings_file_url,
         'settings[source_course_id]' : settings_source_course_id,
@@ -886,17 +847,7 @@ def create_content_migration_groups(request_ctx, group_id, migration_type,
     return response
 
 
-def create_content_migration_users(request_ctx, user_id, migration_type, 
-    pre_attachment_name, settings_file_url, 
-    pre_attachment_size=None, pre_attachment_content_type=None, 
-    pre_attachment_parent_folder_id=None, pre_attachment_parent_folder_path=None,
-    pre_attachment_folder=None, pre_attachment_on_duplicate=None, 
-    settings_source_course_id=None, settings_folder_id=None, 
-    settings_overwrite_quizzes=None, settings_question_bank_id=None, 
-    settings_question_bank_name=None, date_shift_options_shift_dates=None, 
-    date_shift_options_old_start_date=None, date_shift_options_old_end_date=None, 
-    date_shift_options_new_start_date=None, date_shift_options_new_end_date=None, 
-    date_shift_options_day_substitutions_X=None, **request_kwargs):
+def create_content_migration_users(request_ctx, user_id, migration_type, pre_attachment_name, settings_file_url, pre_attachment_content_type=None, pre_attachment_parent_folder_id=None, pre_attachment_parent_folder_path=None, pre_attachment_folder=None, pre_attachment_on_duplicate=None, settings_source_course_id=None, settings_folder_id=None, settings_overwrite_quizzes=None, settings_question_bank_id=None, settings_question_bank_name=None, date_shift_options_shift_dates=None, date_shift_options_old_start_date=None, date_shift_options_old_end_date=None, date_shift_options_new_start_date=None, date_shift_options_new_end_date=None, date_shift_options_day_substitutions_X=None, **request_kwargs):
     """
     Create a content migration. If the migration requires a file to be uploaded
     the actual processing of the file will start once the file upload process is completed.
@@ -936,8 +887,6 @@ def create_content_migration_users(request_ctx, user_id, migration_type,
         :type pre_attachment_name: string
         :param settings_file_url: (required) (optional) A URL to download the file from. Must not require authentication.
         :type settings_file_url: string
-        :param pre_attachment_size: (optional) The size of the file, in bytes. This field is recommended, as it will let you find out if there's a quota issue before uploading the raw file.
-        :type pre_attachment_size: string or None
         :param pre_attachment_content_type: (optional) The content type of the file. If not given, it will be guessed based on the file extension.
         :type pre_attachment_content_type: string or None
         :param pre_attachment_parent_folder_id: (optional) The id of the folder to store the file in. If this and parent_folder_path are sent an error will be returned. If neither is given, a default folder will be used.
@@ -979,11 +928,10 @@ def create_content_migration_users(request_ctx, user_id, migration_type,
     payload = {
         'migration_type' : migration_type,
         'pre_attachment[name]' : pre_attachment_name,
-        'pre_attachment[size]' : pre_attachment_size,
         'pre_attachment[content_type]' : pre_attachment_content_type,
         'pre_attachment[parent_folder_id]' : pre_attachment_parent_folder_id,
-        'pre_attachment[folder]' : pre_attachment_folder,
         'pre_attachment[parent_folder_path]' : pre_attachment_parent_folder_path,
+        'pre_attachment[folder]' : pre_attachment_folder,
         'pre_attachment[on_duplicate]' : pre_attachment_on_duplicate,
         'settings[file_url]' : settings_file_url,
         'settings[source_course_id]' : settings_source_course_id,
