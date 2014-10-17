@@ -57,7 +57,7 @@ class TestSections(unittest.TestCase):
         per_page_default = self.req_ctx.per_page
         sections.list_course_sections(self.req_ctx, self.course_id)
         mock_client_get.assert_called_once_with(
-            mock.ANY, mock.ANY, payload={'include': None, 'per_page': per_page_default})
+            mock.ANY, mock.ANY, payload={'include[]': None, 'per_page': per_page_default})
 
     @patch('canvas_sdk.methods.sections.utils.validate_attr_is_acceptable')
     @patch('canvas_sdk.methods.sections.client.get')
@@ -69,7 +69,7 @@ class TestSections(unittest.TestCase):
         per_page = 60
         sections.list_course_sections(self.req_ctx, self.course_id, include, per_page)
         mock_client_get.assert_called_once_with(
-            mock.ANY, mock.ANY, payload={'include': include, 'per_page': per_page})
+            mock.ANY, mock.ANY, payload={'include[]': include, 'per_page': per_page})
 
     @patch('canvas_sdk.methods.sections.utils.validate_attr_is_acceptable')
     @patch('canvas_sdk.methods.sections.client.get')
