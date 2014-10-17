@@ -8,6 +8,7 @@ import sys
 import errno
 import argparse
 import keyword
+import pprint
 
 """
 Constants for python indentation
@@ -33,8 +34,57 @@ The script will create a new directory relative to the CWD called
 """
 METHODS_DIR = BASE_DIR+'/canvas_sdk/methods'
 
+"""
+parameters to replace the pre_attachment[*] parameter in the Canvas meta api
+"""
+pre_attachment_content_type = {
+  u'description': u'The content type of the file. If not given, it will be guessed based on the file extension.',
+  u'format': None,
+  u'name': u'pre_attachment[content_type]',
+  u'paramType': u'form',
+  u'required': False,
+  u'type': u'string', }
+
+pre_attachment_parent_folder_id = {
+  u'description': u'The id of the folder to store the file in. If this and parent_folder_path are sent an error will be returned. If neither is given, a default folder will be used.',
+  u'format': None,
+  u'name': u'pre_attachment[parent_folder_id]',
+  u'paramType': u'form',
+  u'required': False,
+  u'type': u'string', }
+
+pre_attachment_parent_folder_path = {
+  u'description': u'The path of the folder to store the file in. The path separator is the forward slash `/`, never a back slash. The folder will be created if it does not already exist. This parameter only applies to file uploads in a context that has folders, such as a user, a course, or a group. If this and parent_folder_id are sent an error will be returned. If neither is given, a default folder will be used.',
+  u'format': None,
+  u'name': u'pre_attachment[parent_folder_path]',
+  u'paramType': u'form',
+  u'required': False,
+  u'type': u'string', }
+
+pre_attachment_folder = {
+  u'description': u'[deprecated] Use parent_folder_path instead.',
+  u'format': None,
+  u'name': u'pre_attachment[folder]',
+  u'paramType': u'form',
+  u'required': False,
+  u'type': u'string', }
+
+pre_attachment_on_duplicate = {
+  u'description': u"How to handle duplicate filenames. If `overwrite`, then this file upload will overwrite any other file in the folder with the same name. If `rename`, then this file will be renamed if another file in the folder exists with the given name. If no parameter is given, the default is `overwrite`. This doesn't apply to file uploads in a context that doesn't have folders.",
+  u'format': None,
+  u'name': u'pre_attachment[on_duplicate]',
+  u'paramType': u'form',
+  u'required': False,
+  u'type': u'string', }
+
+
 def check_param(param):
+    """
+    check if a param is a python reserved word. if so append the PREPEND_STR and return. 
+    If not just return the param
+    """
     return PREPEND_STR+param if keyword.iskeyword(param) else param
+
 
 def line_format(line, spacing):
     '''
@@ -212,13 +262,30 @@ def format_api_string(match):
     rst_string = '`'+controller_cc+'#'+section+' <https://github.com/instructure/canvas-lms/blob/master/app/controllers/'+controller+'.rb>`_'
     return rst_string
 
+def check_for_pre_attachment_param(parameters):
+    """
+    check the parameter list for the pre_attachment[*] parameter.
+    This param is not correct, it's simply a placeholder for the
+    params defined on this page: https://canvas.instructure.com/doc/api/file.file_uploads.html
+    They are content_type, parent_folder_id, parent_folder_path, folder, and on_duplicate
+    """
+    for idx, param in enumerate(parameters):
+        if param['name'] == 'pre_attachment[*]':
+            del parameters[idx]
+            parameters.insert(idx, pre_attachment_content_type)
+            parameters.insert(idx + 1, pre_attachment_parent_folder_id)
+            parameters.insert(idx + 2, pre_attachment_parent_folder_path)
+            parameters.insert(idx + 3, pre_attachment_folder)
+            parameters.insert(idx + 4, pre_attachment_on_duplicate)
+            break
+    return parameters
 
 def build_method(method_name, description, parameters, api_path, http_method, summary, return_type):
     """
     build method is used build the methods of the class we are processing.
     """
-    
     allow_per_page = False
+    parameters = check_for_pre_attachment_param(parameters)
     arg_list = get_parameters(parameters)
     param_descriptions = get_parameter_descriptions(parameters)
     payload = build_payload(parameters)
