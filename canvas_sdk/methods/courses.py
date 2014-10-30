@@ -33,8 +33,8 @@ def list_your_courses(request_ctx, include, enrollment_type=None, enrollment_rol
     payload = {
         'enrollment_type' : enrollment_type,
         'enrollment_role' : enrollment_role,
-        'include' : include,
-        'state' : state,
+        'include[]' : include,
+        'state[]' : state,
         'per_page' : per_page,
     }
     url = request_ctx.base_api_url + path.format()
@@ -43,7 +43,7 @@ def list_your_courses(request_ctx, include, enrollment_type=None, enrollment_rol
     return response
 
 
-def create_new_course(request_ctx, account_id, course_name=None, course_course_code=None, course_start_at=None, course_end_at=None, course_license=None, course_is_public=None, course_public_syllabus=None, course_public_description=None, course_allow_student_wiki_edits=None, course_allow_wiki_comments=None, course_allow_student_forum_attachments=None, course_open_enrollment=None, course_self_enrollment=None, course_restrict_enrollments_to_course_dates=None, course_enroll_me=None, course_term_id=None, course_sis_course_id=None, course_integration_id=None, course_hide_final_grades=None, course_apply_assignment_group_weights=None, offer=None, course_syllabus_body=None, **request_kwargs):
+def create_new_course(request_ctx, account_id, course_name=None, course_course_code=None, course_start_at=None, course_end_at=None, course_license=None, course_is_public=None, course_public_syllabus=None, course_public_description=None, course_allow_student_wiki_edits=None, course_allow_wiki_comments=None, course_allow_student_forum_attachments=None, course_open_enrollment=None, course_self_enrollment=None, course_restrict_enrollments_to_course_dates=None, course_term_id=None, course_sis_course_id=None, course_integration_id=None, course_hide_final_grades=None, course_apply_assignment_group_weights=None, offer=None, enroll_me=None, course_syllabus_body=None, **request_kwargs):
     """
     Create a new course
 
@@ -79,8 +79,6 @@ def create_new_course(request_ctx, account_id, course_name=None, course_course_c
         :type course_self_enrollment: boolean or None
         :param course_restrict_enrollments_to_course_dates: (optional) Set to true to restrict user enrollments to the start and end dates of the course.
         :type course_restrict_enrollments_to_course_dates: boolean or None
-        :param course_enroll_me: (optional) Set to true to enroll the current user as the teacher.
-        :type course_enroll_me: boolean or None
         :param course_term_id: (optional) The unique ID of the term to create to course in.
         :type course_term_id: integer or None
         :param course_sis_course_id: (optional) The unique SIS identifier.
@@ -93,6 +91,8 @@ def create_new_course(request_ctx, account_id, course_name=None, course_course_c
         :type course_apply_assignment_group_weights: boolean or None
         :param offer: (optional) If this option is set to true, the course will be available to students immediately.
         :type offer: boolean or None
+        :param enroll_me: (optional) Set to true to enroll the current user as the teacher.
+        :type enroll_me: boolean or None
         :param course_syllabus_body: (optional) The syllabus body for the course
         :type course_syllabus_body: string or None
         :return: Create a new course
@@ -116,13 +116,13 @@ def create_new_course(request_ctx, account_id, course_name=None, course_course_c
         'course[open_enrollment]' : course_open_enrollment,
         'course[self_enrollment]' : course_self_enrollment,
         'course[restrict_enrollments_to_course_dates]' : course_restrict_enrollments_to_course_dates,
-        'course[enroll_me]' : course_enroll_me,
         'course[term_id]' : course_term_id,
         'course[sis_course_id]' : course_sis_course_id,
         'course[integration_id]' : course_integration_id,
         'course[hide_final_grades]' : course_hide_final_grades,
         'course[apply_assignment_group_weights]' : course_apply_assignment_group_weights,
         'offer' : offer,
+        'enroll_me' : enroll_me,
         'course[syllabus_body]' : course_syllabus_body,
     }
     url = request_ctx.base_api_url + path.format(account_id=account_id)
@@ -224,7 +224,7 @@ def list_users_in_course_users(request_ctx, course_id, include, search_term=None
         'search_term' : search_term,
         'enrollment_type' : enrollment_type,
         'enrollment_role' : enrollment_role,
-        'include' : include,
+        'include[]' : include,
         'user_id' : user_id,
         'per_page' : per_page,
     }
@@ -270,7 +270,7 @@ def list_users_in_course_search_users(request_ctx, course_id, include, search_te
         'search_term' : search_term,
         'enrollment_type' : enrollment_type,
         'enrollment_role' : enrollment_role,
-        'include' : include,
+        'include[]' : include,
         'user_id' : user_id,
         'per_page' : per_page,
     }
@@ -527,7 +527,7 @@ def get_single_course_courses(request_ctx, id, include, **request_kwargs):
     utils.validate_attr_is_acceptable(include, include_types)
     path = '/v1/courses/{id}'
     payload = {
-        'include' : include,
+        'include[]' : include,
     }
     url = request_ctx.base_api_url + path.format(id=id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -558,7 +558,7 @@ def get_single_course_accounts(request_ctx, account_id, id, include, **request_k
     utils.validate_attr_is_acceptable(include, include_types)
     path = '/v1/accounts/{account_id}/courses/{id}'
     payload = {
-        'include' : include,
+        'include[]' : include,
     }
     url = request_ctx.base_api_url + path.format(account_id=account_id, id=id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -615,7 +615,7 @@ def update_courses(request_ctx, account_id, course_ids, event, **request_kwargs)
 
     path = '/v1/accounts/{account_id}/courses'
     payload = {
-        'course_ids' : course_ids,
+        'course_ids[]' : course_ids,
         'event' : event,
     }
     url = request_ctx.base_api_url + path.format(account_id=account_id)
@@ -648,7 +648,7 @@ def get_course_copy_status(request_ctx, course_id, id, **request_kwargs):
     return response
 
 
-def copy_course_content(request_ctx, course_id, source_course, except, only, **request_kwargs):
+def copy_course_content(request_ctx, course_id, source_course, var_except, only, **request_kwargs):
     """
     DEPRECATED: Please use the `ContentMigrationsController#create <https://github.com/instructure/canvas-lms/blob/master/app/controllers/content_migrations_controller.rb>`_
     
@@ -664,8 +664,8 @@ def copy_course_content(request_ctx, course_id, source_course, except, only, **r
         :type course_id: string
         :param source_course: (required) ID or SIS-ID of the course to copy the content from
         :type source_course: string
-        :param except: (required) A list of the course content types to exclude, all areas not listed will be copied.
-        :type except: string
+        :param var_except: (required) A list of the course content types to exclude, all areas not listed will be copied.
+        :type var_except: string
         :param only: (required) A list of the course content types to copy, all areas not listed will not be copied.
         :type only: string
         :return: Copy course content
@@ -673,15 +673,15 @@ def copy_course_content(request_ctx, course_id, source_course, except, only, **r
 
     """
 
-    except_types = ('course_settings', 'assignments', 'external_tools', 'files', 'topics', 'calendar_events', 'quizzes', 'wiki_pages', 'modules', 'outcomes')
+    var_except_types = ('course_settings', 'assignments', 'external_tools', 'files', 'topics', 'calendar_events', 'quizzes', 'wiki_pages', 'modules', 'outcomes')
     only_types = ('course_settings', 'assignments', 'external_tools', 'files', 'topics', 'calendar_events', 'quizzes', 'wiki_pages', 'modules', 'outcomes')
-    utils.validate_attr_is_acceptable(except, except_types)
+    utils.validate_attr_is_acceptable(var_except, var_except_types)
     utils.validate_attr_is_acceptable(only, only_types)
     path = '/v1/courses/{course_id}/course_copy'
     payload = {
         'source_course' : source_course,
-        'except' : except,
-        'only' : only,
+        'except[]' : var_except,
+        'only[]' : only,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id)
     response = client.post(request_ctx, url, payload=payload, **request_kwargs)

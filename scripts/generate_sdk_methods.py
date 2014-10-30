@@ -7,6 +7,8 @@ import os
 import sys
 import errno
 import argparse
+import keyword
+import pprint
 
 """
 Constants for python indentation
@@ -15,6 +17,11 @@ NONE = 0
 FOUR = 4
 EIGHT = 8
 TWELVE = 12
+
+"""
+Append to the begining if we encounter a python keyword
+"""
+PREPEND_STR = 'var_'
 
 """
 Current working directory 
@@ -26,6 +33,57 @@ The script will create a new directory relative to the CWD called
 /canvas_sdk/methods
 """
 METHODS_DIR = BASE_DIR+'/canvas_sdk/methods'
+
+"""
+parameters to replace the pre_attachment[*] parameter in the Canvas meta api
+"""
+pre_attachment_content_type = {
+  u'description': u'The content type of the file. If not given, it will be guessed based on the file extension.',
+  u'format': None,
+  u'name': u'pre_attachment[content_type]',
+  u'paramType': u'form',
+  u'required': False,
+  u'type': u'string', }
+
+pre_attachment_parent_folder_id = {
+  u'description': u'The id of the folder to store the file in. If this and parent_folder_path are sent an error will be returned. If neither is given, a default folder will be used.',
+  u'format': None,
+  u'name': u'pre_attachment[parent_folder_id]',
+  u'paramType': u'form',
+  u'required': False,
+  u'type': u'string', }
+
+pre_attachment_parent_folder_path = {
+  u'description': u'The path of the folder to store the file in. The path separator is the forward slash `/`, never a back slash. The folder will be created if it does not already exist. This parameter only applies to file uploads in a context that has folders, such as a user, a course, or a group. If this and parent_folder_id are sent an error will be returned. If neither is given, a default folder will be used.',
+  u'format': None,
+  u'name': u'pre_attachment[parent_folder_path]',
+  u'paramType': u'form',
+  u'required': False,
+  u'type': u'string', }
+
+pre_attachment_folder = {
+  u'description': u'[deprecated] Use parent_folder_path instead.',
+  u'format': None,
+  u'name': u'pre_attachment[folder]',
+  u'paramType': u'form',
+  u'required': False,
+  u'type': u'string', }
+
+pre_attachment_on_duplicate = {
+  u'description': u"How to handle duplicate filenames. If `overwrite`, then this file upload will overwrite any other file in the folder with the same name. If `rename`, then this file will be renamed if another file in the folder exists with the given name. If no parameter is given, the default is `overwrite`. This doesn't apply to file uploads in a context that doesn't have folders.",
+  u'format': None,
+  u'name': u'pre_attachment[on_duplicate]',
+  u'paramType': u'form',
+  u'required': False,
+  u'type': u'string', }
+
+
+def check_param(param):
+    """
+    check if a param is a python reserved word. if so append the PREPEND_STR and return. 
+    If not just return the param
+    """
+    return PREPEND_STR+param if keyword.iskeyword(param) else param
 
 
 def line_format(line, spacing):
@@ -63,10 +121,17 @@ def flatten_param(param):
 
     return param
 
+
+def is_array_param(param):
+    """
+    Determines if a parameter should be treated as an array
+    """
+    return param.get('tags') and param['tags']['type'] == 'array'
+
  
 def build_payload(parameters):
     """
-    build_payload creates a list of parameters to be used in the payload of 
+    build_payload creates a list of parameters to be used in the payload of
     the api call
     """
     payload = []
@@ -74,12 +139,12 @@ def build_payload(parameters):
         """
         Do not include path parameters in the payload
         """
-
-        if param['paramType'] not in 'path':
-            field_name = param['name']
+        if param['paramType'] != 'path':
+            field_name = clean_param(param['name'])
             field = flatten_param(field_name)
-            field_name = clean_param(field_name)
-            payload.append("'{0}' : {1},".format(field_name, field))
+            if is_array_param(param):
+                field_name += '[]'
+            payload.append("'{0}' : {1},".format(field_name, check_param(field)))
     return payload
 
 
@@ -89,7 +154,7 @@ def format_parameter(param, required):
     paramter list of the methods calls we are creating
     """
 
-    param_string = flatten_param(param)
+    param_string = check_param(flatten_param(param))
     if not required:
         param_string += '=None'
     return param_string
@@ -121,7 +186,7 @@ def get_parameter_descriptions(parameters):
     lines = []
     opt_lines = []
     for param in parameters:
-        param_name = flatten_param(param['name'])
+        param_name = check_param(flatten_param(param['name']))
         if param['required']:
             required = 'required'
             lines.append(':param {0}: ({1}) {2}'.format(param_name, required, 
@@ -167,7 +232,7 @@ def check_for_enums(parameters):
     validate_enums = []
     for param in parameters:
         if 'enum' in param:
-            param_name = flatten_param(param['name'])
+            param_name = check_param(flatten_param(param['name']))
             param_enum = param['enum']
             enum_line = param_name + '_types = ('
             enums = ", ".join("'{0}'".format(p) for p in param_enum)
@@ -197,13 +262,30 @@ def format_api_string(match):
     rst_string = '`'+controller_cc+'#'+section+' <https://github.com/instructure/canvas-lms/blob/master/app/controllers/'+controller+'.rb>`_'
     return rst_string
 
+def check_for_pre_attachment_param(parameters):
+    """
+    check the parameter list for the pre_attachment[*] parameter.
+    This param is not correct, it's simply a placeholder for the
+    params defined on this page: https://canvas.instructure.com/doc/api/file.file_uploads.html
+    They are content_type, parent_folder_id, parent_folder_path, folder, and on_duplicate
+    """
+    for idx, param in enumerate(parameters):
+        if param['name'] == 'pre_attachment[*]':
+            del parameters[idx]
+            parameters.insert(idx, pre_attachment_content_type)
+            parameters.insert(idx + 1, pre_attachment_parent_folder_id)
+            parameters.insert(idx + 2, pre_attachment_parent_folder_path)
+            parameters.insert(idx + 3, pre_attachment_folder)
+            parameters.insert(idx + 4, pre_attachment_on_duplicate)
+            break
+    return parameters
 
 def build_method(method_name, description, parameters, api_path, http_method, summary, return_type):
     """
     build method is used build the methods of the class we are processing.
     """
-    
     allow_per_page = False
+    parameters = check_for_pre_attachment_param(parameters)
     arg_list = get_parameters(parameters)
     param_descriptions = get_parameter_descriptions(parameters)
     payload = build_payload(parameters)
@@ -352,7 +434,6 @@ def main(argv=None):
     Default to instructure if no url is given
     """
     base_canvas_url = 'https://canvas.instructure.com'
-    
     if 'url' in args:
         url = args['url']
 

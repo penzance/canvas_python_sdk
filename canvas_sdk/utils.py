@@ -5,7 +5,6 @@ from collections import defaultdict
 The util module contains helper methods for the SDK
 """
 
-
 def validate_attr_is_acceptable(value, acceptable_values=[], allow_none=True):
     """
     Test an input value against a list of acceptable values.  A value of None may or may
