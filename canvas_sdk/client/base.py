@@ -1,6 +1,7 @@
 import requests
 from requests.exceptions import HTTPError
 from .auth import OAuth2Bearer
+from canvas_sdk.exceptions import CanvasAPIError
 
 RETRY_ERROR_CODES = (
     requests.codes['conflict'],  # 409
@@ -111,14 +112,16 @@ def call(action, url, request_context, params=None, data=None, max_retries=None,
             # raise an http exception if one occured
             response.raise_for_status()
 
-            # Otherwise, return raw response
-            return response
-
         except HTTPError as http_error:
             # Need to check its an error code that can be retried
             status_code = http_error.response.status_code
-            if status_code in RETRY_ERROR_CODES and retry < retries:
-                # continue in a retry loop until max_retries
-                continue
-            # Otherwise, re-raise the exception
-            raise
+            # If we can't retry the request, raise a CanvasAPIError
+            if status_code not in RETRY_ERROR_CODES or retry >= retries:
+                error_json = http_error.response.json()
+                raise CanvasAPIError(
+                    status_code=status_code,
+                    msg=str(error_json),
+                    error_json=error_json,
+                )
+        else:
+            return response
