@@ -1,9 +1,10 @@
 import unittest
 import mock
 from mock import patch
+from requests.exceptions import HTTPError
 from canvas_sdk import client
 from canvas_sdk.client import base
-from requests.exceptions import HTTPError
+from canvas_sdk.exceptions import CanvasAPIError
 
 
 class TestBase(unittest.TestCase):
@@ -33,15 +34,23 @@ class TestBase(unittest.TestCase):
         self.payload = {'foo': 'bar'}
         self.request_kwargs = {'headers': {'my': 'header'}, 'timeout': 30}
 
-    def make_retry_call_with_error_code(self, http_error_code, max_retries=None):
+    def make_retry_call_with_error_code(self, http_error_code, max_retries=None, error_json=None):
         """
         Makes a call that will raise an http error in order to potentially trigger
-        the request being retried up to "max_retries" times.
+        the request being retried up to "max_retries" times.  Otherwise, a CanvasAPIError is expected
+        to be raised by the underlying call method.  Return the exception in order to do any additional
+        assertions.
         """
         self.session.request.return_value.raise_for_status.side_effect = HTTPError(
-            response=mock.MagicMock(status_code=http_error_code))
-        with self.assertRaises(HTTPError):
+            response=mock.MagicMock(
+                status_code=http_error_code,
+                json=mock.Mock(return_value=error_json or {}),
+            )
+        )
+        with self.assertRaises(CanvasAPIError) as canvas_error:
             base.call("GET", self.url, self.req_ctx, max_retries=max_retries)
+
+        return canvas_error.exception
 
     def test_merge_or_create_key_value_for_dictionary_no_value(self):
         """
@@ -461,3 +470,32 @@ class TestBase(unittest.TestCase):
         self.make_retry_call_with_error_code(503)
         self.assertEqual(max_retries + 1, self.session.request.call_count,
                          "The number of retries should have defaulted back to value in request context")
+
+    @patch('canvas_sdk.client.base.RETRY_ERROR_CODES', (503,))
+    def test_call_raises_canvas_api_error_with_attributes_on_non_retry_status(self):
+        """
+        Test that the CanvasAPIError that gets raised when an HTTPError gets thrown contains the expected
+        status code from the response.
+        """
+        error_json = {'This is some error in json format!'}
+        error_status_code = 404
+        canvas_error = self.make_retry_call_with_error_code(error_status_code, max_retries=1, error_json=error_json)
+        
+        self.assertEqual(canvas_error.status_code, error_status_code)
+        self.assertEqual(canvas_error.error_json, error_json)
+        self.assertEqual(canvas_error.error_msg, str(error_json))
+
+    @patch('canvas_sdk.client.base.RETRY_ERROR_CODES', (503,))
+    def test_call_raises_canvas_api_error_with_attributes_after_retries_exhausted(self):
+        """
+        Test that the CanvasAPIError that gets raised after retriable HTTPErrors are exhausted, and that
+        the error contains the expected status code from the response.
+        """
+        max_retries = 3
+        error_code = 503
+        error_json = {'This is some error in json format!'}
+        canvas_error = self.make_retry_call_with_error_code(error_code, max_retries=max_retries, error_json=error_json)
+
+        self.assertEqual(canvas_error.status_code, error_code)
+        self.assertEqual(canvas_error.error_json, error_json)
+        self.assertEqual(canvas_error.error_msg, str(error_json))
