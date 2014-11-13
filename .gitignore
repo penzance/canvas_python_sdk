@@ -65,3 +65,6 @@ docs/_build/
 
 # Submlime
 *.sublime-workspace
+
+# PyCharm IDE metadata
+.idea/
