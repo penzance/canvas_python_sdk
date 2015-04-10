@@ -1,6 +1,6 @@
 from canvas_sdk import client, utils
 
-def (request_ctx, name=None, domain=None, latitude=None, longitude=None, **request_kwargs):
+def search_account_domains(request_ctx, name=None, domain=None, latitude=None, longitude=None, **request_kwargs):
     """
     Returns a list of up to 5 matching account domains
     
