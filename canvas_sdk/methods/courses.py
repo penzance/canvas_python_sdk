@@ -637,7 +637,7 @@ def update_course(request_ctx, id, course_account_id, course_name=None, course_c
         'course[end_at]' : course_end_at,
         'course[license]' : course_license,
         'course[is_public]' : course_is_public,
-        'course[course_is_public_to_auth_users]' : course_is_public_to_auth_users,
+        'course[is_public_to_auth_users]' : course_is_public_to_auth_users,
         'course[public_syllabus]' : course_public_syllabus,
         'course[public_description]' : course_public_description,
         'course[allow_student_wiki_edits]' : course_allow_student_wiki_edits,
