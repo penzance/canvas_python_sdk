@@ -28,7 +28,9 @@ setup(
     license='MIT',
     zip_safe=False,
     install_requires=[
-        'requests>=2.3.0',
+        # requests 2.6.1 and higher has bug (https://github.com/kennethreitz/requests/issues/2568)
+        # if SDK is required in a project affected by the above bug, it will need to also be pinned to 2.6.0
+        'requests==2.6.0',
         'sphinx>=1.2.0',
     ],
     test_suite='tests',
