@@ -26,7 +26,7 @@ def create_new_course(request_ctx, account_id, course_name=None, course_course_c
         :type course_license: string or None
         :param course_is_public: (optional) Set to true if course if public.
         :type course_is_public: boolean or None
-        :param course_is_public_to_auth_users: (optional) Set to true if course if public to autorized users.
+        :param course_is_public_to_auth_users: (optional) Set to true if course is public to authorized users.
         :type course_is_public_to_auth_users: boolean or None
         :param course_public_syllabus: (optional) Set to true to make the course syllabus public.
         :type course_public_syllabus: boolean or None
@@ -122,6 +122,8 @@ def update_course(request_ctx, id, course_account_id=None, course_name=None, cou
         :type course_license: string or None
         :param course_is_public: (optional) Set to true if course if public.
         :type course_is_public: boolean or None
+        :param course_is_public_to_auth_users: (optional) Set to true if course is public to authorized users.
+        :type course_is_public_to_auth_users: boolean or None
         :param course_public_syllabus: (optional) Set to true to make the course syllabus public.
         :type course_public_syllabus: boolean or None
         :param course_public_description: (optional) A publicly visible description of the course.
