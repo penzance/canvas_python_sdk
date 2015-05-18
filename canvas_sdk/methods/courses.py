@@ -43,7 +43,7 @@ def list_your_courses(request_ctx, include, enrollment_type=None, enrollment_rol
     return response
 
 
-def create_new_course(request_ctx, account_id, course_name=None, course_course_code=None, course_start_at=None, course_end_at=None, course_license=None, course_is_public=None, course_public_syllabus=None, course_public_description=None, course_allow_student_wiki_edits=None, course_allow_wiki_comments=None, course_allow_student_forum_attachments=None, course_open_enrollment=None, course_self_enrollment=None, course_restrict_enrollments_to_course_dates=None, course_term_id=None, course_sis_course_id=None, course_integration_id=None, course_hide_final_grades=None, course_apply_assignment_group_weights=None, offer=None, enroll_me=None, course_syllabus_body=None, **request_kwargs):
+def create_new_course(request_ctx, account_id, course_name=None, course_course_code=None, course_start_at=None, course_end_at=None, course_license=None, course_is_public=None, course_is_public_to_auth_users=None, course_public_syllabus=None, course_public_description=None, course_allow_student_wiki_edits=None, course_allow_wiki_comments=None, course_allow_student_forum_attachments=None, course_open_enrollment=None, course_self_enrollment=None, course_restrict_enrollments_to_course_dates=None, course_term_id=None, course_sis_course_id=None, course_integration_id=None, course_hide_final_grades=None, course_apply_assignment_group_weights=None, offer=None, enroll_me=None, course_syllabus_body=None, **request_kwargs):
     """
     Create a new course
 
@@ -63,6 +63,8 @@ def create_new_course(request_ctx, account_id, course_name=None, course_course_c
         :type course_license: string or None
         :param course_is_public: (optional) Set to true if course if public.
         :type course_is_public: boolean or None
+        :param course_is_public_to_auth_users: (optional) Set to true if course is public to authorized users.
+        :type course_is_public_to_auth_users: boolean or None
         :param course_public_syllabus: (optional) Set to true to make the course syllabus public.
         :type course_public_syllabus: boolean or None
         :param course_public_description: (optional) A publicly visible description of the course.
@@ -108,6 +110,7 @@ def create_new_course(request_ctx, account_id, course_name=None, course_course_c
         'course[end_at]' : course_end_at,
         'course[license]' : course_license,
         'course[is_public]' : course_is_public,
+        'course[is_public_to_auth_users]' : course_is_public_to_auth_users,
         'course[public_syllabus]' : course_public_syllabus,
         'course[public_description]' : course_public_description,
         'course[allow_student_wiki_edits]' : course_allow_student_wiki_edits,
@@ -592,6 +595,8 @@ def update_course(request_ctx, id, course_account_id=None, course_name=None, cou
         :type course_license: string or None
         :param course_is_public: (optional) Set to true if course if public.
         :type course_is_public: boolean or None
+        :param course_is_public_to_auth_users: (optional) Set to true if course is public to authorized users.
+        :type course_is_public_to_auth_users: boolean or None
         :param course_public_syllabus: (optional) Set to true to make the course syllabus public.
         :type course_public_syllabus: boolean or None
         :param course_public_description: (optional) A publicly visible description of the course.
