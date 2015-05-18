@@ -28,7 +28,7 @@ setup(
     license='MIT',
     zip_safe=False,
     install_requires=[
-        'requests>=2.3.0',
+        'requests',
         'sphinx>=1.2.0',
     ],
     test_suite='tests',
