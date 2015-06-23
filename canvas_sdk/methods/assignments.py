@@ -1,3 +1,5 @@
+import json
+
 from canvas_sdk import client, utils
 
 def delete_assignment(request_ctx, course_id, id, **request_kwargs):
@@ -163,36 +165,38 @@ def create_assignment(request_ctx, course_id, assignment_name, assignment_submis
     utils.validate_attr_is_acceptable(assignment_submission_types, assignment_submission_types_types)
     utils.validate_attr_is_acceptable(assignment_grading_type, assignment_grading_type_types)
     path = '/v1/courses/{course_id}/assignments'
-    payload = {
-        'assignment[name]' : assignment_name,
-        'assignment[position]' : assignment_position,
-        'assignment[submission_types]' : assignment_submission_types,
-        'assignment[allowed_extensions]' : assignment_allowed_extensions,
-        'assignment[turnitin_enabled]' : assignment_turnitin_enabled,
-        'assignment[integration_data]' : assignment_integration_data,
-        'assignment[integration_id]' : assignment_integration_id,
-        'assignment[turnitin_settings]' : assignment_turnitin_settings,
-        'assignment[peer_reviews]' : assignment_peer_reviews,
-        'assignment[automatic_peer_reviews]' : assignment_automatic_peer_reviews,
-        'assignment[notify_of_update]' : assignment_notify_of_update,
-        'assignment[group_category_id]' : assignment_group_category_id,
-        'assignment[grade_group_students_individually]' : assignment_grade_group_students_individually,
-        'assignment[external_tool_tag_attributes]' : assignment_external_tool_tag_attributes,
-        'assignment[points_possible]' : assignment_points_possible,
-        'assignment[grading_type]' : assignment_grading_type,
-        'assignment[due_at]' : assignment_due_at,
-        'assignment[lock_at]' : assignment_lock_at,
-        'assignment[unlock_at]' : assignment_unlock_at,
-        'assignment[description]' : assignment_description,
-        'assignment[assignment_group_id]' : assignment_assignment_group_id,
-        'assignment[muted]' : assignment_muted,
-        'assignment[assignment_overrides]' : assignment_assignment_overrides,
-        'assignment[only_visible_to_overrides]' : assignment_only_visible_to_overrides,
-        'assignment[published]' : assignment_published,
-        'assignment[grading_standard_id]' : assignment_grading_standard_id,
-    }
+    payload = {'assignment': {
+        'name' : assignment_name,
+        'position' : assignment_position,
+        'submission_types' : [assignment_submission_types],
+        'allowed_extensions' : assignment_allowed_extensions,
+        'turnitin_enabled' : assignment_turnitin_enabled,
+        'integration_data' : assignment_integration_data,
+        'integration_id' : assignment_integration_id,
+        'turnitin_settings' : assignment_turnitin_settings,
+        'peer_reviews' : assignment_peer_reviews,
+        'automatic_peer_reviews' : assignment_automatic_peer_reviews,
+        'notify_of_update' : assignment_notify_of_update,
+        'group_category_id' : assignment_group_category_id,
+        'grade_group_students_individually' : assignment_grade_group_students_individually,
+        'external_tool_tag_attributes' : assignment_external_tool_tag_attributes,
+        'points_possible' : assignment_points_possible,
+        'grading_type' : assignment_grading_type,
+        'due_at' : assignment_due_at,
+        'lock_at' : assignment_lock_at,
+        'unlock_at' : assignment_unlock_at,
+        'description' : assignment_description,
+        'group_id' : assignment_assignment_group_id,
+        'muted' : assignment_muted,
+        'overrides' : assignment_assignment_overrides,
+        'only_visible_to_overrides' : assignment_only_visible_to_overrides,
+        'published' : assignment_published,
+        'grading_standard_id' : assignment_grading_standard_id,
+    }}
+    headers = {'Content-Type': 'application/json'}
     url = request_ctx.base_api_url + path.format(course_id=course_id)
-    response = client.post(request_ctx, url, payload=payload, **request_kwargs)
+    response = client.post(request_ctx, url, payload=json.dumps(payload),
+                           headers=headers, **request_kwargs)
 
     return response
 
@@ -272,34 +276,36 @@ def edit_assignment(request_ctx, course_id, id, assignment_name=None, assignment
     utils.validate_attr_is_acceptable(assignment_submission_types, assignment_submission_types_types)
     utils.validate_attr_is_acceptable(assignment_grading_type, assignment_grading_type_types)
     path = '/v1/courses/{course_id}/assignments/{id}'
-    payload = {
-        'assignment[name]' : assignment_name,
-        'assignment[position]' : assignment_position,
-        'assignment[submission_types]' : assignment_submission_types,
-        'assignment[allowed_extensions]' : assignment_allowed_extensions,
-        'assignment[turnitin_enabled]' : assignment_turnitin_enabled,
-        'assignment[turnitin_settings]' : assignment_turnitin_settings,
-        'assignment[peer_reviews]' : assignment_peer_reviews,
-        'assignment[automatic_peer_reviews]' : assignment_automatic_peer_reviews,
-        'assignment[notify_of_update]' : assignment_notify_of_update,
-        'assignment[group_category_id]' : assignment_group_category_id,
-        'assignment[grade_group_students_individually]' : assignment_grade_group_students_individually,
-        'assignment[external_tool_tag_attributes]' : assignment_external_tool_tag_attributes,
-        'assignment[points_possible]' : assignment_points_possible,
-        'assignment[grading_type]' : assignment_grading_type,
-        'assignment[due_at]' : assignment_due_at,
-        'assignment[lock_at]' : assignment_lock_at,
-        'assignment[unlock_at]' : assignment_unlock_at,
-        'assignment[description]' : assignment_description,
-        'assignment[assignment_group_id]' : assignment_assignment_group_id,
-        'assignment[muted]' : assignment_muted,
-        'assignment[assignment_overrides]' : assignment_assignment_overrides,
-        'assignment[only_visible_to_overrides]' : assignment_only_visible_to_overrides,
-        'assignment[published]' : assignment_published,
-        'assignment[grading_standard_id]' : assignment_grading_standard_id,
-    }
+    payload = {'assignment': {
+        'name' : assignment_name,
+        'position' : assignment_position,
+        'submission_types' : [assignment_submission_types],
+        'allowed_extensions' : assignment_allowed_extensions,
+        'turnitin_enabled' : assignment_turnitin_enabled,
+        'turnitin_settings' : assignment_turnitin_settings,
+        'peer_reviews' : assignment_peer_reviews,
+        'automatic_peer_reviews' : assignment_automatic_peer_reviews,
+        'notify_of_update' : assignment_notify_of_update,
+        'group_category_id' : assignment_group_category_id,
+        'grade_group_students_individually' : assignment_grade_group_students_individually,
+        'external_tool_tag_attributes' : assignment_external_tool_tag_attributes,
+        'points_possible' : assignment_points_possible,
+        'grading_type' : assignment_grading_type,
+        'due_at' : assignment_due_at,
+        'lock_at' : assignment_lock_at,
+        'unlock_at' : assignment_unlock_at,
+        'description' : assignment_description,
+        'assignment_group_id' : assignment_assignment_group_id,
+        'muted' : assignment_muted,
+        'assignment_overrides' : assignment_assignment_overrides,
+        'only_visible_to_overrides' : assignment_only_visible_to_overrides,
+        'published' : assignment_published,
+        'grading_standard_id' : assignment_grading_standard_id,
+    }}
+    headers = {'Content-Type': 'application/json'}
     url = request_ctx.base_api_url + path.format(course_id=course_id, id=id)
-    response = client.put(request_ctx, url, payload=payload, **request_kwargs)
+    response = client.put(request_ctx, url, payload=json.dumps(payload),
+                          headers=headers, **request_kwargs)
 
     return response
 
