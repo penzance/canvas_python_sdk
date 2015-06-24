@@ -166,7 +166,7 @@ def create_assignment(request_ctx, course_id, assignment_name, assignment_submis
     payload = {
         'assignment[name]' : assignment_name,
         'assignment[position]' : assignment_position,
-        'assignment[submission_types]' : assignment_submission_types,
+        'assignment[submission_types][]' : assignment_submission_types,
         'assignment[allowed_extensions]' : assignment_allowed_extensions,
         'assignment[turnitin_enabled]' : assignment_turnitin_enabled,
         'assignment[integration_data]' : assignment_integration_data,
@@ -177,7 +177,6 @@ def create_assignment(request_ctx, course_id, assignment_name, assignment_submis
         'assignment[notify_of_update]' : assignment_notify_of_update,
         'assignment[group_category_id]' : assignment_group_category_id,
         'assignment[grade_group_students_individually]' : assignment_grade_group_students_individually,
-        'assignment[external_tool_tag_attributes]' : assignment_external_tool_tag_attributes,
         'assignment[points_possible]' : assignment_points_possible,
         'assignment[grading_type]' : assignment_grading_type,
         'assignment[due_at]' : assignment_due_at,
@@ -191,6 +190,8 @@ def create_assignment(request_ctx, course_id, assignment_name, assignment_submis
         'assignment[published]' : assignment_published,
         'assignment[grading_standard_id]' : assignment_grading_standard_id,
     }
+    for attribute, value in (assignment_external_tool_tag_attributes or {}).iteritems():
+        payload['assignment[external_tool_tag_attributes][{}]'.format(attribute)] = value
     url = request_ctx.base_api_url + path.format(course_id=course_id)
     response = client.post(request_ctx, url, payload=payload, **request_kwargs)
 
@@ -275,7 +276,7 @@ def edit_assignment(request_ctx, course_id, id, assignment_name=None, assignment
     payload = {
         'assignment[name]' : assignment_name,
         'assignment[position]' : assignment_position,
-        'assignment[submission_types]' : assignment_submission_types,
+        'assignment[submission_types][]' : assignment_submission_types,
         'assignment[allowed_extensions]' : assignment_allowed_extensions,
         'assignment[turnitin_enabled]' : assignment_turnitin_enabled,
         'assignment[turnitin_settings]' : assignment_turnitin_settings,
@@ -284,7 +285,6 @@ def edit_assignment(request_ctx, course_id, id, assignment_name=None, assignment
         'assignment[notify_of_update]' : assignment_notify_of_update,
         'assignment[group_category_id]' : assignment_group_category_id,
         'assignment[grade_group_students_individually]' : assignment_grade_group_students_individually,
-        'assignment[external_tool_tag_attributes]' : assignment_external_tool_tag_attributes,
         'assignment[points_possible]' : assignment_points_possible,
         'assignment[grading_type]' : assignment_grading_type,
         'assignment[due_at]' : assignment_due_at,
@@ -298,6 +298,8 @@ def edit_assignment(request_ctx, course_id, id, assignment_name=None, assignment
         'assignment[published]' : assignment_published,
         'assignment[grading_standard_id]' : assignment_grading_standard_id,
     }
+    for attribute, value in (assignment_external_tool_tag_attributes or {}).iteritems():
+        payload['assignment[external_tool_tag_attributes][{}]'.format(attribute)] = value
     url = request_ctx.base_api_url + path.format(course_id=course_id, id=id)
     response = client.put(request_ctx, url, payload=payload, **request_kwargs)
 
