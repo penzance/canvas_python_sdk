@@ -1,5 +1,3 @@
-import collections
-
 from canvas_sdk import client
 from collections import defaultdict
 
