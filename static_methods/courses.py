@@ -6,6 +6,52 @@ because the Canvas documentation is not up to date or for some other reason.
 Copy methods in this file to overwrite the same methods in the courses.py module in the methods folder.
 """
 
+
+def list_your_courses(request_ctx, include, enrollment_type=None, enrollment_role=None, state=None, per_page=None, as_user_id=None, **request_kwargs):
+    """
+    Returns the list of active courses for the current user.
+
+        :param request_ctx: The request context
+        :type request_ctx: :class:RequestContext
+        :param include: (required) - "needs_grading_count": Optional information to include with each Course. When needs_grading_count is given, and the current user has grading rights, the total number of submissions needing grading for all assignments is returned. - "syllabus_body": Optional information to include with each Course. When syllabus_body is given the user-generated html for the course syllabus is returned. - "total_scores": Optional information to include with each Course. When total_scores is given, any enrollments with type 'student' will also include the fields 'calculated_current_score', 'calculated_final_score', 'calculated_current_grade', and 'calculated_final_grade'. calculated_current_score is the student's score in the course, ignoring ungraded assignments. calculated_final_score is the student's score in the course including ungraded assignments with a score of 0. calculated_current_grade is the letter grade equivalent of calculated_current_score (if available). calculated_final_grade is the letter grade equivalent of calculated_final_score (if available). This argument is ignored if the course is configured to hide final grades. - "term": Optional information to include with each Course. When term is given, the information for the enrollment term for each course is returned. - "course_progress": Optional information to include with each Course. When course_progress is given, each course will include a 'course_progress' object with the fields: 'requirement_count', an integer specifying the total number of requirements in the course, 'requirement_completed_count', an integer specifying the total number of requirements in this course that have been completed, and 'next_requirement_url', a string url to the next requirement item, and 'completed_at', the date the course was completed (null if incomplete). 'next_requirement_url' will be null if all requirements have been completed or the current module does not require sequential progress. "course_progress" will return an error message if the course is not module based or the user is not enrolled as a student in the course. - "sections": Section enrollment information to include with each Course. Returns an array of hashes containing the section ID (id), section name (name), start and end dates (start_at, end_at), as well as the enrollment type (enrollment_role, e.g. 'StudentEnrollment').
+        :type include: string
+        :param enrollment_type: (optional) When set, only return courses where the user is enrolled as this type. For example, set to "teacher" to return only courses where the user is enrolled as a Teacher. This argument is ignored if enrollment_role is given.
+        :type enrollment_type: string or None
+        :param enrollment_role: (optional) When set, only return courses where the user is enrolled with the specified course-level role. This can be a role created with the {api:RoleOverridesController#add_role Add Role API} or a base role type of 'StudentEnrollment', 'TeacherEnrollment', 'TaEnrollment', 'ObserverEnrollment', or 'DesignerEnrollment'.
+        :type enrollment_role: string or None
+        :param state: (optional) If set, only return courses that are in the given state(s). By default, "available" is returned for students and observers, and anything except "deleted", for all other enrollment types
+        :type state: string or None
+        :param per_page: (optional) Set how many results canvas should return, defaults to config.LIMIT_PER_PAGE
+        :type per_page: integer or None
+        :return: List your courses
+        :rtype: requests.Response (with array data)
+
+    """
+
+    if per_page is None:
+        per_page = request_ctx.per_page
+    enrollment_type_types = ('teacher', 'student', 'ta', 'observer', 'designer')
+    include_types = ('needs_grading_count', 'syllabus_body', 'total_scores', 'term', 'course_progress', 'sections')
+    state_types = ('unpublished', 'available', 'completed', 'deleted')
+    utils.validate_attr_is_acceptable(enrollment_type, enrollment_type_types)
+    utils.validate_attr_is_acceptable(include, include_types)
+    utils.validate_attr_is_acceptable(state, state_types)
+    path = '/v1/courses'
+    payload = {
+        'enrollment_type' : enrollment_type,
+        'enrollment_role' : enrollment_role,
+        'include[]' : include,
+        'state[]' : state,
+        'per_page' : per_page,
+    }
+    if as_user_id:
+        payload['as_user_id'] = as_user_id
+    url = request_ctx.base_api_url + path.format()
+    response = client.get(request_ctx, url, payload=payload, **request_kwargs)
+
+    return response
+
+
 def create_new_course(request_ctx, account_id, course_name=None, course_course_code=None, course_start_at=None, course_end_at=None, course_license=None, course_is_public=None, course_is_public_to_auth_users=None, course_public_syllabus=None, course_public_description=None, course_allow_student_wiki_edits=None, course_allow_wiki_comments=None, course_allow_student_forum_attachments=None, course_open_enrollment=None, course_self_enrollment=None, course_restrict_enrollments_to_course_dates=None, course_term_id=None, course_sis_course_id=None, course_integration_id=None, course_hide_final_grades=None, course_apply_assignment_group_weights=None, offer=None, enroll_me=None, course_syllabus_body=None, **request_kwargs):
     """
     Create a new course

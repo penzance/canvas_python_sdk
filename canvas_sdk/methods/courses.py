@@ -1,6 +1,7 @@
 from canvas_sdk import client, utils
 
-def list_your_courses(request_ctx, include, enrollment_type=None, enrollment_role=None, state=None, per_page=None, **request_kwargs):
+
+def list_your_courses(request_ctx, include, enrollment_type=None, enrollment_role=None, state=None, per_page=None, as_user_id=None, **request_kwargs):
     """
     Returns the list of active courses for the current user.
 
@@ -37,6 +38,8 @@ def list_your_courses(request_ctx, include, enrollment_type=None, enrollment_rol
         'state[]' : state,
         'per_page' : per_page,
     }
+    if as_user_id:
+        payload['as_user_id'] = as_user_id
     url = request_ctx.base_api_url + path.format()
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
 
