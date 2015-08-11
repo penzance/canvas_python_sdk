@@ -294,7 +294,7 @@ def build_method(method_name, description, parameters, api_path, http_method, su
     """
     If the method returns an array, allow the per_page parameter for paging
     """
-    if return_type == 'array':
+    if return_type == 'array' or (method_name.startswith("list_") and http_method == "GET"):
         arg_list.append('per_page=None')
         param_descriptions.append(':param per_page: (optional) Set how many results canvas should return, defaults to config.LIMIT_PER_PAGE')
         param_descriptions.append(':type per_page: integer or None')

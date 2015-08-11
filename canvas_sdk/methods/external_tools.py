@@ -1,6 +1,6 @@
 from canvas_sdk import client, utils
 
-def list_external_tools_courses(request_ctx, course_id, search_term=None, **request_kwargs):
+def list_external_tools_courses(request_ctx, course_id, search_term=None, selectable=None, per_page=None, **request_kwargs):
     """
     Returns the paginated list of external tools for the current context.
     See the get request docs for a single tool for a list of properties on an external tool.
@@ -11,14 +11,22 @@ def list_external_tools_courses(request_ctx, course_id, search_term=None, **requ
         :type course_id: string
         :param search_term: (optional) The partial name of the tools to match and return.
         :type search_term: string or None
+        :param selectable: (optional) If true, then only tools that are meant to be selectable are returned
+        :type selectable: boolean or None
+        :param per_page: (optional) Set how many results canvas should return, defaults to config.LIMIT_PER_PAGE
+        :type per_page: integer or None
         :return: List external tools
         :rtype: requests.Response (with void data)
 
     """
 
+    if per_page is None:
+        per_page = request_ctx.per_page
     path = '/v1/courses/{course_id}/external_tools'
     payload = {
         'search_term' : search_term,
+        'selectable' : selectable,
+        'per_page' : per_page,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -26,7 +34,7 @@ def list_external_tools_courses(request_ctx, course_id, search_term=None, **requ
     return response
 
 
-def list_external_tools_accounts(request_ctx, account_id, search_term=None, **request_kwargs):
+def list_external_tools_accounts(request_ctx, account_id, search_term=None, selectable=None, per_page=None, **request_kwargs):
     """
     Returns the paginated list of external tools for the current context.
     See the get request docs for a single tool for a list of properties on an external tool.
@@ -37,14 +45,22 @@ def list_external_tools_accounts(request_ctx, account_id, search_term=None, **re
         :type account_id: string
         :param search_term: (optional) The partial name of the tools to match and return.
         :type search_term: string or None
+        :param selectable: (optional) If true, then only tools that are meant to be selectable are returned
+        :type selectable: boolean or None
+        :param per_page: (optional) Set how many results canvas should return, defaults to config.LIMIT_PER_PAGE
+        :type per_page: integer or None
         :return: List external tools
         :rtype: requests.Response (with void data)
 
     """
 
+    if per_page is None:
+        per_page = request_ctx.per_page
     path = '/v1/accounts/{account_id}/external_tools'
     payload = {
         'search_term' : search_term,
+        'selectable' : selectable,
+        'per_page' : per_page,
     }
     url = request_ctx.base_api_url + path.format(account_id=account_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -168,7 +184,7 @@ def get_single_external_tool_accounts(request_ctx, account_id, external_tool_id,
     return response
 
 
-def create_external_tool_courses(request_ctx, course_id, name, privacy_level, consumer_key, shared_secret, description=None, url=None, domain=None, icon_url=None, text=None, custom_fields=None, account_navigation_url=None, account_navigation_enabled=None, account_navigation_text=None, user_navigation_url=None, user_navigation_enabled=None, user_navigation_text=None, course_navigation_url=None, course_navigation_enabled=None, course_navigation_text=None, course_navigation_visibility=None, course_navigation_default=None, editor_button_url=None, editor_button_enabled=None, editor_button_icon_url=None, editor_button_selection_width=None, editor_button_selection_height=None, resource_selection_url=None, resource_selection_enabled=None, resource_selection_icon_url=None, resource_selection_selection_width=None, resource_selection_selection_height=None, config_type=None, config_xml=None, config_url=None, **request_kwargs):
+def create_external_tool_courses(request_ctx, course_id, name, privacy_level, consumer_key, shared_secret, description=None, url=None, domain=None, icon_url=None, text=None, not_selectable=None, custom_fields=None, account_navigation_url=None, account_navigation_enabled=None, account_navigation_text=None, user_navigation_url=None, user_navigation_enabled=None, user_navigation_text=None, course_navigation_url=None, course_navigation_enabled=None, course_navigation_text=None, course_navigation_visibility=None, course_navigation_default=None, editor_button_url=None, editor_button_enabled=None, editor_button_icon_url=None, editor_button_selection_width=None, editor_button_selection_height=None, resource_selection_url=None, resource_selection_enabled=None, resource_selection_icon_url=None, resource_selection_selection_width=None, resource_selection_selection_height=None, config_type=None, config_xml=None, config_url=None, **request_kwargs):
     """
     Create an external tool in the specified course/account.
     The created tool will be returned, see the "show" endpoint for an example.
@@ -195,6 +211,8 @@ def create_external_tool_courses(request_ctx, course_id, name, privacy_level, co
         :type icon_url: string or None
         :param text: (optional) The default text to show for this tool
         :type text: string or None
+        :param not_selectable: (optional) Default: false, if set to true the tool won't show up in the external tool selection UI in modules and assignments
+        :type not_selectable: boolean or None
         :param custom_fields: (optional) Custom fields that will be sent to the tool consumer, specified as custom_fields[field_name]
         :type custom_fields: string or None
         :param account_navigation_url: (optional) The url of the external tool for account navigation
@@ -265,6 +283,7 @@ def create_external_tool_courses(request_ctx, course_id, name, privacy_level, co
         'domain' : domain,
         'icon_url' : icon_url,
         'text' : text,
+        'not_selectable' : not_selectable,
         'custom_fields' : custom_fields,
         'account_navigation[url]' : account_navigation_url,
         'account_navigation[enabled]' : account_navigation_enabled,
@@ -297,7 +316,7 @@ def create_external_tool_courses(request_ctx, course_id, name, privacy_level, co
     return response
 
 
-def create_external_tool_accounts(request_ctx, account_id, name, privacy_level, consumer_key, shared_secret, description=None, url=None, domain=None, icon_url=None, text=None, custom_fields=None, account_navigation_url=None, account_navigation_enabled=None, account_navigation_text=None, user_navigation_url=None, user_navigation_enabled=None, user_navigation_text=None, course_navigation_url=None, course_navigation_enabled=None, course_navigation_text=None, course_navigation_visibility=None, course_navigation_default=None, editor_button_url=None, editor_button_enabled=None, editor_button_icon_url=None, editor_button_selection_width=None, editor_button_selection_height=None, resource_selection_url=None, resource_selection_enabled=None, resource_selection_icon_url=None, resource_selection_selection_width=None, resource_selection_selection_height=None, config_type=None, config_xml=None, config_url=None, **request_kwargs):
+def create_external_tool_accounts(request_ctx, account_id, name, privacy_level, consumer_key, shared_secret, description=None, url=None, domain=None, icon_url=None, text=None, not_selectable=None, custom_fields=None, account_navigation_url=None, account_navigation_enabled=None, account_navigation_text=None, user_navigation_url=None, user_navigation_enabled=None, user_navigation_text=None, course_navigation_url=None, course_navigation_enabled=None, course_navigation_text=None, course_navigation_visibility=None, course_navigation_default=None, editor_button_url=None, editor_button_enabled=None, editor_button_icon_url=None, editor_button_selection_width=None, editor_button_selection_height=None, resource_selection_url=None, resource_selection_enabled=None, resource_selection_icon_url=None, resource_selection_selection_width=None, resource_selection_selection_height=None, config_type=None, config_xml=None, config_url=None, **request_kwargs):
     """
     Create an external tool in the specified course/account.
     The created tool will be returned, see the "show" endpoint for an example.
@@ -324,6 +343,8 @@ def create_external_tool_accounts(request_ctx, account_id, name, privacy_level, 
         :type icon_url: string or None
         :param text: (optional) The default text to show for this tool
         :type text: string or None
+        :param not_selectable: (optional) Default: false, if set to true the tool won't show up in the external tool selection UI in modules and assignments
+        :type not_selectable: boolean or None
         :param custom_fields: (optional) Custom fields that will be sent to the tool consumer, specified as custom_fields[field_name]
         :type custom_fields: string or None
         :param account_navigation_url: (optional) The url of the external tool for account navigation
@@ -394,6 +415,7 @@ def create_external_tool_accounts(request_ctx, account_id, name, privacy_level, 
         'domain' : domain,
         'icon_url' : icon_url,
         'text' : text,
+        'not_selectable' : not_selectable,
         'custom_fields' : custom_fields,
         'account_navigation[url]' : account_navigation_url,
         'account_navigation[enabled]' : account_navigation_enabled,
