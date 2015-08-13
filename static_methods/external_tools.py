@@ -124,7 +124,7 @@ def edit_external_tool_courses(request_ctx, course_id, external_tool_id, name=No
         'config_url' : config_url,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id, external_tool_id=external_tool_id)
-    response = client.put(request_ctx, url, **request_kwargs)
+    response = client.put(request_ctx, url, payload=payload, **request_kwargs)
 
     return response
 
