@@ -140,11 +140,11 @@ def create_new_course(request_ctx, account_id, course_name=None, course_course_c
 def upload_file(request_ctx, course_id, **request_kwargs):
     """
     Upload a file to the course.
-    
+
     This API endpoint is the first step in uploading a file to a course.
     See the {file:file_uploads.html File Upload Documentation} for details on
     the file upload workflow.
-    
+
     Only those with the "Manage Files" permission on a course can upload files
     to the course. By default, this is Teachers, TAs and Designers.
 
@@ -167,7 +167,7 @@ def upload_file(request_ctx, course_id, **request_kwargs):
 def list_students(request_ctx, course_id, per_page=None, **request_kwargs):
     """
     Returns the list of students enrolled in this course.
-    
+
     DEPRECATED: Please use the `CoursesController#users <https://github.com/instructure/canvas-lms/blob/master/app/controllers/courses_controller.rb>`_ endpoint
     and pass "student" as the enrollment_type.
 
@@ -319,7 +319,7 @@ def list_recently_logged_in_students(request_ctx, course_id, per_page=None, **re
 def get_single_user(request_ctx, course_id, id, **request_kwargs):
     """
     Return information on a single user.
-    
+
     Accepts the same include[] parameters as the :users: action, and returns a
     single user with the same fields as that action.
 
@@ -369,7 +369,7 @@ def preview_processed_html(request_ctx, course_id, html, **request_kwargs):
 def course_activity_stream(request_ctx, course_id, **request_kwargs):
     """
     Returns the current user's course-specific activity stream, paginated.
-    
+
     For full documentation, see the API documentation for the user activity
     stream, in the user api.
 
@@ -392,7 +392,7 @@ def course_activity_stream(request_ctx, course_id, **request_kwargs):
 def course_activity_stream_summary(request_ctx, course_id, **request_kwargs):
     """
     Returns a summary of the current user's course-specific activity stream.
-    
+
     For full documentation, see the API documentation for the user activity
     stream summary, in the user api.
 
@@ -415,7 +415,7 @@ def course_activity_stream_summary(request_ctx, course_id, **request_kwargs):
 def course_todo_items(request_ctx, course_id, **request_kwargs):
     """
     Returns the current user's course-specific todo items.
-    
+
     For full documentation, see the API documentation for the user todo items, in the user api.
 
         :param request_ctx: The request context
@@ -515,7 +515,7 @@ def update_course_settings(request_ctx, course_id, allow_student_discussion_topi
 def get_single_course_courses(request_ctx, id, include, **request_kwargs):
     """
     Return information on a single course.
-    
+
     Accepts the same include[] parameters as the list action plus:
 
         :param request_ctx: The request context
@@ -544,7 +544,7 @@ def get_single_course_courses(request_ctx, id, include, **request_kwargs):
 def get_single_course_accounts(request_ctx, account_id, id, include, **request_kwargs):
     """
     Return information on a single course.
-    
+
     Accepts the same include[] parameters as the list action plus:
 
         :param request_ctx: The request context
@@ -572,7 +572,7 @@ def get_single_course_accounts(request_ctx, account_id, id, include, **request_k
     return response
 
 
-def update_course(request_ctx, id, course_account_id=None, course_name=None, course_course_code=None, course_start_at=None, course_end_at=None, course_license=None, course_is_public=None, course_is_public_to_auth_users=None, course_public_syllabus=None, course_public_description=None, course_allow_student_wiki_edits=None, course_allow_wiki_comments=None, course_allow_student_forum_attachments=None, course_open_enrollment=None, course_self_enrollment=None, course_restrict_enrollments_to_course_dates=None, course_term_id=None, course_sis_course_id=None, course_integration_id=None, course_hide_final_grades=None, course_apply_assignment_group_weights=None, offer=None, course_syllabus_body=None, course_grading_standard_id=None, course_course_format=None, **request_kwargs):
+def update_course(request_ctx, id, course_account_id=None, course_name=None, course_course_code=None, course_start_at=None, course_end_at=None, course_license=None, course_is_public=None, course_is_public_to_auth_users=None, course_public_syllabus=None, course_public_description=None, course_allow_student_wiki_edits=None, course_allow_wiki_comments=None, course_allow_student_forum_attachments=None, course_open_enrollment=None, course_self_enrollment=None, course_restrict_enrollments_to_course_dates=None, course_term_id=None, course_sis_course_id=None, course_integration_id=None, course_hide_final_grades=None, course_apply_assignment_group_weights=None, offer=None, course_syllabus_body=None, course_grading_standard_id=None, course_course_format=None, course_event=None, **request_kwargs):
 
     """
     Update an existing course.
@@ -632,6 +632,8 @@ def update_course(request_ctx, id, course_account_id=None, course_name=None, cou
         :type enroll_me: boolean or None
         :param course_syllabus_body: (optional) The syllabus body for the course
         :type course_syllabus_body: string or None
+        :param course_event: (optional) Change the course workflow state: 'claim' for unpublished; 'offer' for published
+        :type course_event: string or None
         :return: Update a course
         :rtype: requests.Response (with void data)
 
@@ -663,6 +665,7 @@ def update_course(request_ctx, id, course_account_id=None, course_name=None, cou
         'course[syllabus_body]' : course_syllabus_body,
         'course[grading_standard_id]' : course_grading_standard_id,
         'course[course_format]' : course_course_format,
+        'course[event]': course_event,
     }
 
     path = '/v1/courses/{id}'
@@ -705,7 +708,7 @@ def update_courses(request_ctx, account_id, course_ids, event, **request_kwargs)
 def get_course_copy_status(request_ctx, course_id, id, **request_kwargs):
     """
     DEPRECATED: Please use the `ContentMigrationsController#create <https://github.com/instructure/canvas-lms/blob/master/app/controllers/content_migrations_controller.rb>`_
-    
+
     Retrieve the status of a course copy
 
         :param request_ctx: The request context
@@ -729,11 +732,11 @@ def get_course_copy_status(request_ctx, course_id, id, **request_kwargs):
 def copy_course_content(request_ctx, course_id, source_course, var_except, only, **request_kwargs):
     """
     DEPRECATED: Please use the `ContentMigrationsController#create <https://github.com/instructure/canvas-lms/blob/master/app/controllers/content_migrations_controller.rb>`_
-    
+
     Copies content from one course into another. The default is to copy all course
     content. You can control specific types to copy by using either the 'except' option
     or the 'only' option.
-    
+
     The response is the same as the course copy status endpoint
 
         :param request_ctx: The request context
@@ -765,5 +768,3 @@ def copy_course_content(request_ctx, course_id, source_course, var_except, only,
     response = client.post(request_ctx, url, payload=payload, **request_kwargs)
 
     return response
-
-
