@@ -84,7 +84,7 @@ def get_sub_accounts_of_account(request_ctx, account_id, recursive=None, per_pag
     return response
 
 
-def list_active_courses_in_account(request_ctx, account_id, with_enrollments=None, published=None, completed=None, by_teachers=None, by_subaccounts=None, hide_enrollmentless_courses=None, state=None, enrollment_term_id=None, search_term=None, per_page=None, **request_kwargs):
+def list_active_courses_in_account(request_ctx, account_id, with_enrollments=None, published=None, completed=None, by_teachers=None, by_subaccounts=None, hide_enrollmentless_courses=None, state=None, enrollment_term_id=None, search_term=None, include=None, per_page=None, **request_kwargs):
     """
     Retrieve the list of courses in this account.
 
@@ -99,17 +99,19 @@ def list_active_courses_in_account(request_ctx, account_id, with_enrollments=Non
         :param completed: (optional) If true, include only completed courses (these may be in state 'completed', or their enrollment term may have ended). If false, exclude completed courses. If not present, do not filter on completed status.
         :type completed: boolean or None
         :param by_teachers: (optional) List of User IDs of teachers; if supplied, include only courses taught by one of the referenced users.
-        :type by_teachers: integer or None
+        :type by_teachers: array or None
         :param by_subaccounts: (optional) List of Account IDs; if supplied, include only courses associated with one of the referenced subaccounts.
-        :type by_subaccounts: integer or None
+        :type by_subaccounts: array or None
         :param hide_enrollmentless_courses: (optional) If present, only return courses that have at least one enrollment. Equivalent to 'with_enrollments=true'; retained for compatibility.
         :type hide_enrollmentless_courses: boolean or None
         :param state: (optional) If set, only return courses that are in the given state(s). By default, all states but "deleted" are returned.
-        :type state: string or None
+        :type state: array or None
         :param enrollment_term_id: (optional) If set, only includes courses from the specified term.
         :type enrollment_term_id: integer or None
         :param search_term: (optional) The partial course name, code, or full ID to match and return in the results list. Must be at least 3 characters.
         :type search_term: string or None
+        :param include: (optional) - All explanations can be seen in the {api:CoursesController#index Course API index documentation}
+        :type include: array or None
         :param per_page: (optional) Set how many results canvas should return, defaults to config.LIMIT_PER_PAGE
         :type per_page: integer or None
         :return: List active courses in an account
@@ -120,7 +122,9 @@ def list_active_courses_in_account(request_ctx, account_id, with_enrollments=Non
     if per_page is None:
         per_page = request_ctx.per_page
     state_types = ('created', 'claimed', 'available', 'completed', 'deleted', 'all')
+    include_types = ('needs_grading_count', 'syllabus_body', 'total_scores', 'term', 'course_progress', 'sections', 'storage_quota_used_mb')
     utils.validate_attr_is_acceptable(state, state_types)
+    utils.validate_attr_is_acceptable(include, include_types)
     path = '/v1/accounts/{account_id}/courses'
     payload = {
         'with_enrollments' : with_enrollments,
@@ -132,6 +136,7 @@ def list_active_courses_in_account(request_ctx, account_id, with_enrollments=Non
         'state' : state,
         'enrollment_term_id' : enrollment_term_id,
         'search_term' : search_term,
+        'include' : include,
         'per_page' : per_page,
     }
     url = request_ctx.base_api_url + path.format(account_id=account_id)
@@ -214,5 +219,3 @@ def create_new_sub_account(request_ctx, account_id, account_name, account_defaul
     response = client.post(request_ctx, url, payload=payload, **request_kwargs)
 
     return response
-
-
