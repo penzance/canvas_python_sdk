@@ -768,3 +768,24 @@ def copy_course_content(request_ctx, course_id, source_course, var_except, only,
     response = client.post(request_ctx, url, payload=payload, **request_kwargs)
 
     return response
+
+
+
+def reset_content(request_ctx, course_id, **request_kwargs):
+    """
+    Deletes the current course, and creates a new equivalent course with no content, but all sections and users moved over.
+
+        :param request_ctx: The request context
+        :type request_ctx: :class:RequestContext
+        :param course_id: (required) ID
+        :type course_id: string
+        :return: Upload a file
+        :rtype: requests.Response (with void data)
+
+    """
+
+    path = '/v1/courses/{course_id}/reset_content'
+    url = request_ctx.base_api_url + path.format(course_id=course_id)
+    response = client.post(request_ctx, url, **request_kwargs)
+
+    return response

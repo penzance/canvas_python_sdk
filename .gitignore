@@ -61,7 +61,8 @@ coverage.xml
 *.mo
 
 # Sphinx documentation
-docs/_build/
+canvas_sdk/docs
+
 
 # Submlime
 *.sublime-workspace
