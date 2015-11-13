@@ -71,7 +71,7 @@ def list_external_tools_accounts(request_ctx, account_id, search_term=None, sele
 def get_sessionless_launch_url_for_external_tool_courses(request_ctx, course_id, id=None, url=None, assignment_id=None, launch_type=None, **request_kwargs):
     """
     Returns a sessionless launch url for an external tool.
-    
+
     Either the id or url must be provided.
 
         :param request_ctx: The request context
@@ -107,7 +107,7 @@ def get_sessionless_launch_url_for_external_tool_courses(request_ctx, course_id,
 def get_sessionless_launch_url_for_external_tool_accounts(request_ctx, account_id, id=None, url=None, assignment_id=None, launch_type=None, **request_kwargs):
     """
     Returns a sessionless launch url for an external tool.
-    
+
     Either the id or url must be provided.
 
         :param request_ctx: The request context
@@ -749,5 +749,4 @@ def delete_external_tool_accounts(request_ctx, account_id, external_tool_id, **r
     response = client.delete(request_ctx, url, **request_kwargs)
 
     return response
-
 

@@ -1,6 +1,5 @@
 from canvas_sdk import client, utils
 
-
 def list_your_courses(request_ctx, include, enrollment_type=None, enrollment_role=None, state=None, per_page=None, as_user_id=None, **request_kwargs):
     """
     Returns the list of active courses for the current user.

@@ -1,25 +1,25 @@
 {
-	"build_systems":
-	[
-		{
-			"name": "Anaconda Python Builder",
-			"selector": "source.python",
-			"shell_cmd": "python -u \"$file\""
-		}
-	],
-	"folders":
-	[
-		{
-			"follow_symlinks": true,
-			"path": "./"
-		}
-	],
-	"settings":
-	{
-		"tab_size": 4,
-		"test_command": "python -m unittest discover",
-		"test_delimiter": ".",
-		"test_virtualenv": "~/.virtualenvs/canvas_python_sdk",
-		"translate_tabs_to_spaces": true
-	}
+  "build_systems":
+  [
+    {
+      "name": "Anaconda Python Builder",
+      "selector": "source.python",
+      "shell_cmd": "python -u \"$file\""
+    }
+  ],
+  "folders":
+  [
+    {
+      "follow_symlinks": true,
+      "path": "./"
+    }
+  ],
+  "settings":
+  {
+    "tab_size": 4,
+    "test_command": "python -m unittest discover",
+    "test_delimiter": ".",
+    "test_virtualenv": "~/.virtualenvs/canvas_python_sdk",
+    "translate_tabs_to_spaces": true
+  }
 }
