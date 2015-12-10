@@ -23,6 +23,22 @@ def validate_attr_is_acceptable(value, acceptable_values=[], allow_none=True):
                 raise AttributeError("%s must be one of %s" % (v, acceptable_values))
 
 
+# todo: unit test
+def validate_any(param_choices, *args, **kwargs):
+    """
+    If all of the arguments are None or blank strings, an Attribute error is
+    raised (configurable with accept_blank kwarg), otherwise nothing is returned
+    """
+    accept_blank = kwargs.pop('accept_blank', False)
+    args_to_check = args
+    if not accept_blank:
+        args_to_check = [a for a in args if a and a != '']
+    if not any(args_to_check):
+        raise AttributeError(
+            "One of the following parameters must be included: "
+            "%s" % param_choices)
+
+
 def get_next(request_context, response):
     """
     Generator function that will iterate over a given response's "next" header links.

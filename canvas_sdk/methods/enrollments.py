@@ -169,7 +169,7 @@ def enrollment_by_id(request_ctx, account_id, id, **request_kwargs):
     return response
 
 
-def enroll_user_courses(request_ctx, course_id, enrollment_user_id, enrollment_type, enrollment_role=None, enrollment_enrollment_state=None, enrollment_course_section_id=None, enrollment_limit_privileges_to_course_section=None, enrollment_notify=None, enrollment_self_enrollment_code=None, **request_kwargs):
+def enroll_user_courses(request_ctx, course_id, enrollment_user_id, enrollment_type=None, enrollment_role=None, enrollment_enrollment_state=None, enrollment_course_section_id=None, enrollment_limit_privileges_to_course_section=None, enrollment_notify=None, enrollment_self_enrollment_code=None, **request_kwargs):
     """
     Create a new user enrollment for a course or section.
 
@@ -200,8 +200,10 @@ def enroll_user_courses(request_ctx, course_id, enrollment_user_id, enrollment_t
 
     enrollment_type_types = ('StudentEnrollment', 'TeacherEnrollment', 'TaEnrollment', 'ObserverEnrollment', 'DesignerEnrollment')
     enrollment_enrollment_state_types = ('active', 'invited')
+    enrollment_role_type_choices = ('enrollment_role', 'enrollment_type')
     utils.validate_attr_is_acceptable(enrollment_type, enrollment_type_types)
     utils.validate_attr_is_acceptable(enrollment_enrollment_state, enrollment_enrollment_state_types)
+    utils.validate_any(enrollment_role_type_choices, enrollment_role, enrollment_type)
     path = '/v1/courses/{course_id}/enrollments'
     payload = {
         'enrollment[user_id]' : enrollment_user_id,
@@ -219,7 +221,7 @@ def enroll_user_courses(request_ctx, course_id, enrollment_user_id, enrollment_t
     return response
 
 
-def enroll_user_sections(request_ctx, section_id, enrollment_user_id, enrollment_type, enrollment_role=None, enrollment_enrollment_state=None, enrollment_course_section_id=None, enrollment_limit_privileges_to_course_section=None, enrollment_notify=None, enrollment_self_enrollment_code=None, **request_kwargs):
+def enroll_user_sections(request_ctx, section_id, enrollment_user_id, enrollment_type=None, enrollment_role=None, enrollment_enrollment_state=None, enrollment_course_section_id=None, enrollment_limit_privileges_to_course_section=None, enrollment_notify=None, enrollment_self_enrollment_code=None, **request_kwargs):
     """
     Create a new user enrollment for a course or section.
 
@@ -250,8 +252,10 @@ def enroll_user_sections(request_ctx, section_id, enrollment_user_id, enrollment
 
     enrollment_type_types = ('StudentEnrollment', 'TeacherEnrollment', 'TaEnrollment', 'ObserverEnrollment', 'DesignerEnrollment')
     enrollment_enrollment_state_types = ('active', 'invited')
+    enrollment_role_type_choices = ('enrollment_role', 'enrollment_type')
     utils.validate_attr_is_acceptable(enrollment_type, enrollment_type_types)
     utils.validate_attr_is_acceptable(enrollment_enrollment_state, enrollment_enrollment_state_types)
+    utils.validate_any(enrollment_role_type_choices, enrollment_role, enrollment_type)
     path = '/v1/sections/{section_id}/enrollments'
     payload = {
         'enrollment[user_id]' : enrollment_user_id,
