@@ -23,17 +23,13 @@ def validate_attr_is_acceptable(value, acceptable_values=[], allow_none=True):
                 raise AttributeError("%s must be one of %s" % (v, acceptable_values))
 
 
-# todo: unit test
 def validate_any(param_choices, *args, **kwargs):
     """
-    If all of the arguments are None or blank strings, an Attribute error is
-    raised (configurable with accept_blank kwarg), otherwise nothing is returned
+    If all of the arguments are falsy (e.g. None or blank strings), an
+    Attribute error is raised, otherwise nothing is returned. param_choices
+    should be list of variable names for feedback on a validation failure.
     """
-    accept_blank = kwargs.pop('accept_blank', False)
-    args_to_check = args
-    if not accept_blank:
-        args_to_check = [a for a in args if a and a != '']
-    if not any(args_to_check):
+    if not any(args):
         raise AttributeError(
             "One of the following parameters must be included: "
             "%s" % param_choices)
