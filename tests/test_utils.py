@@ -22,6 +22,30 @@ class TestUtils(unittest.TestCase):
         response.json.return_value = json_data if json_data else mock.DEFAULT
         return response
 
+    def test_validate_any_invalid_input(self):
+        """
+        validate_any should fail if no arguments are falsy
+        """
+        self.assertRaises(AttributeError,
+                          utils.validate_any,
+                          [], None, None)
+        self.assertRaises(AttributeError,
+                          utils.validate_any,
+                          [], None, None, '')
+        self.assertRaises(AttributeError,
+                          utils.validate_any,
+                          [])
+
+    def test_validate_any_valid_input(self):
+        """
+        validate_any should pass if any arguments are truthy
+        """
+        try:
+            utils.validate_any([], 'a', None)
+            utils.validate_any([], 'a', 2)
+        except AttributeError:
+            self.fail()
+
     def test_validate_attr_is_acceptable_raises_attributeerror(self):
         """
         Assert that validate_attr_is_acceptable raises an AttributeError if the given

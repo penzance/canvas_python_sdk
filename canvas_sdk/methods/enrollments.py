@@ -169,7 +169,7 @@ def enrollment_by_id(request_ctx, account_id, id, **request_kwargs):
     return response
 
 
-def enroll_user_courses(request_ctx, course_id, enrollment_user_id, enrollment_type, enrollment_role=None, enrollment_enrollment_state=None, enrollment_course_section_id=None, enrollment_limit_privileges_to_course_section=None, enrollment_notify=None, enrollment_self_enrollment_code=None, **request_kwargs):
+def enroll_user_courses(request_ctx, course_id, enrollment_user_id, enrollment_type=None, enrollment_role=None, enrollment_role_id=None, enrollment_enrollment_state=None, enrollment_course_section_id=None, enrollment_limit_privileges_to_course_section=None, enrollment_notify=None, enrollment_self_enrollment_code=None, enrollment_self_enrolled=None, **request_kwargs):
     """
     Create a new user enrollment for a course or section.
 
@@ -181,8 +181,10 @@ def enroll_user_courses(request_ctx, course_id, enrollment_user_id, enrollment_t
         :type enrollment_user_id: string
         :param enrollment_type: (required) Enroll the user as a student, teacher, TA, observer, or designer. If no value is given, the type will be inferred by enrollment[role] if supplied, otherwise 'StudentEnrollment' will be used.
         :type enrollment_type: string
-        :param enrollment_role: (optional) Assigns a custom course-level role to the user.
+        :param enrollment_role: (optional) Deprecated. Assigns a custom course-level role to the user.
         :type enrollment_role: string or None
+        :param enrollment_role_id: (optional) Assigns a custom course-level role to the user.
+        :type enrollment_role_id: string or None
         :param enrollment_enrollment_state: (optional) If set to 'active,' student will be immediately enrolled in the course. Otherwise they will be required to accept a course invitation. Default is 'invited.'
         :type enrollment_enrollment_state: string or None
         :param enrollment_course_section_id: (optional) The ID of the course section to enroll the student in. If the section-specific URL is used, this argument is redundant and will be ignored.
@@ -193,6 +195,8 @@ def enroll_user_courses(request_ctx, course_id, enrollment_user_id, enrollment_t
         :type enrollment_notify: boolean or None
         :param enrollment_self_enrollment_code: (optional) If the current user is not allowed to manage enrollments in this course, but the course allows self-enrollment, the user can self- enroll as a student in the default section by passing in a valid code. When self-enrolling, the user_id must be 'self'. The enrollment_state will be set to 'active' and all other arguments will be ignored.
         :type enrollment_self_enrollment_code: string or None
+        :param enrollment_self_enrolled: (optional) If true, marks the enrollment as a self-enrollment, which gives students the ability to drop the course if desired. Defaults to false.
+        :type enrollment_self_enrolled: Boolean
         :return: Enroll a user
         :rtype: requests.Response (with Enrollment data)
 
@@ -200,18 +204,23 @@ def enroll_user_courses(request_ctx, course_id, enrollment_user_id, enrollment_t
 
     enrollment_type_types = ('StudentEnrollment', 'TeacherEnrollment', 'TaEnrollment', 'ObserverEnrollment', 'DesignerEnrollment')
     enrollment_enrollment_state_types = ('active', 'invited')
+    enrollment_role_type_choices = ('enrollment_role', 'enrollment_role_id', 'enrollment_type')
     utils.validate_attr_is_acceptable(enrollment_type, enrollment_type_types)
     utils.validate_attr_is_acceptable(enrollment_enrollment_state, enrollment_enrollment_state_types)
+    utils.validate_any(enrollment_role_type_choices,
+                       enrollment_role, enrollment_role_id, enrollment_type)
     path = '/v1/courses/{course_id}/enrollments'
     payload = {
-        'enrollment[user_id]' : enrollment_user_id,
-        'enrollment[type]' : enrollment_type,
-        'enrollment[role]' : enrollment_role,
-        'enrollment[enrollment_state]' : enrollment_enrollment_state,
-        'enrollment[course_section_id]' : enrollment_course_section_id,
-        'enrollment[limit_privileges_to_course_section]' : enrollment_limit_privileges_to_course_section,
-        'enrollment[notify]' : enrollment_notify,
-        'enrollment[self_enrollment_code]' : enrollment_self_enrollment_code,
+        'enrollment[user_id]': enrollment_user_id,
+        'enrollment[type]': enrollment_type,
+        'enrollment[role]': enrollment_role,
+        'enrollment[role_id]': enrollment_role_id,
+        'enrollment[enrollment_state]': enrollment_enrollment_state,
+        'enrollment[course_section_id]': enrollment_course_section_id,
+        'enrollment[limit_privileges_to_course_section]': enrollment_limit_privileges_to_course_section,
+        'enrollment[notify]': enrollment_notify,
+        'enrollment[self_enrollment_code]': enrollment_self_enrollment_code,
+        'enrollment[self_enrolled]': enrollment_self_enrolled,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id)
     response = client.post(request_ctx, url, payload=payload, **request_kwargs)
@@ -219,7 +228,7 @@ def enroll_user_courses(request_ctx, course_id, enrollment_user_id, enrollment_t
     return response
 
 
-def enroll_user_sections(request_ctx, section_id, enrollment_user_id, enrollment_type, enrollment_role=None, enrollment_enrollment_state=None, enrollment_course_section_id=None, enrollment_limit_privileges_to_course_section=None, enrollment_notify=None, enrollment_self_enrollment_code=None, **request_kwargs):
+def enroll_user_sections(request_ctx, section_id, enrollment_user_id, enrollment_type=None, enrollment_role=None, enrollment_role_id=None, enrollment_enrollment_state=None, enrollment_course_section_id=None, enrollment_limit_privileges_to_course_section=None, enrollment_notify=None, enrollment_self_enrollment_code=None, enrollment_self_enrolled=None, **request_kwargs):
     """
     Create a new user enrollment for a course or section.
 
@@ -231,8 +240,10 @@ def enroll_user_sections(request_ctx, section_id, enrollment_user_id, enrollment
         :type enrollment_user_id: string
         :param enrollment_type: (required) Enroll the user as a student, teacher, TA, observer, or designer. If no value is given, the type will be inferred by enrollment[role] if supplied, otherwise 'StudentEnrollment' will be used.
         :type enrollment_type: string
-        :param enrollment_role: (optional) Assigns a custom course-level role to the user.
+        :param enrollment_role: (optional) Deprecated. Assigns a custom course-level role to the user.
         :type enrollment_role: string or None
+        :param enrollment_role_id: (optional) Assigns a custom course-level role to the user.
+        :type enrollment_role_id: string or None
         :param enrollment_enrollment_state: (optional) If set to 'active,' student will be immediately enrolled in the course. Otherwise they will be required to accept a course invitation. Default is 'invited.'
         :type enrollment_enrollment_state: string or None
         :param enrollment_course_section_id: (optional) The ID of the course section to enroll the student in. If the section-specific URL is used, this argument is redundant and will be ignored.
@@ -243,6 +254,8 @@ def enroll_user_sections(request_ctx, section_id, enrollment_user_id, enrollment
         :type enrollment_notify: boolean or None
         :param enrollment_self_enrollment_code: (optional) If the current user is not allowed to manage enrollments in this course, but the course allows self-enrollment, the user can self- enroll as a student in the default section by passing in a valid code. When self-enrolling, the user_id must be 'self'. The enrollment_state will be set to 'active' and all other arguments will be ignored.
         :type enrollment_self_enrollment_code: string or None
+        :param enrollment_self_enrolled: (optional) If true, marks the enrollment as a self-enrollment, which gives students the ability to drop the course if desired. Defaults to false.
+        :type enrollment_self_enrolled: Boolean
         :return: Enroll a user
         :rtype: requests.Response (with Enrollment data)
 
@@ -250,18 +263,23 @@ def enroll_user_sections(request_ctx, section_id, enrollment_user_id, enrollment
 
     enrollment_type_types = ('StudentEnrollment', 'TeacherEnrollment', 'TaEnrollment', 'ObserverEnrollment', 'DesignerEnrollment')
     enrollment_enrollment_state_types = ('active', 'invited')
+    enrollment_role_type_choices = ('enrollment_role', 'enrollment_role_id', 'enrollment_type')
     utils.validate_attr_is_acceptable(enrollment_type, enrollment_type_types)
     utils.validate_attr_is_acceptable(enrollment_enrollment_state, enrollment_enrollment_state_types)
+    utils.validate_any(enrollment_role_type_choices,
+                       enrollment_role, enrollment_role_id, enrollment_type)
     path = '/v1/sections/{section_id}/enrollments'
     payload = {
-        'enrollment[user_id]' : enrollment_user_id,
-        'enrollment[type]' : enrollment_type,
-        'enrollment[role]' : enrollment_role,
-        'enrollment[enrollment_state]' : enrollment_enrollment_state,
-        'enrollment[course_section_id]' : enrollment_course_section_id,
-        'enrollment[limit_privileges_to_course_section]' : enrollment_limit_privileges_to_course_section,
-        'enrollment[notify]' : enrollment_notify,
-        'enrollment[self_enrollment_code]' : enrollment_self_enrollment_code,
+        'enrollment[user_id]': enrollment_user_id,
+        'enrollment[type]': enrollment_type,
+        'enrollment[role]': enrollment_role,
+        'enrollment[role_id]': enrollment_role_id,
+        'enrollment[enrollment_state]': enrollment_enrollment_state,
+        'enrollment[course_section_id]': enrollment_course_section_id,
+        'enrollment[limit_privileges_to_course_section]': enrollment_limit_privileges_to_course_section,
+        'enrollment[notify]': enrollment_notify,
+        'enrollment[self_enrollment_code]': enrollment_self_enrollment_code,
+        'enrollment[self_enrolled]': enrollment_self_enrolled,
     }
     url = request_ctx.base_api_url + path.format(section_id=section_id)
     response = client.post(request_ctx, url, payload=payload, **request_kwargs)
