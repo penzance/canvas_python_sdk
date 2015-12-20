@@ -315,7 +315,7 @@ def create_module_item(request_ctx, course_id, module_id, module_item_type, modu
     return response
 
 
-def update_module_item(request_ctx, course_id, module_id, id, module_item_completion_requirement_min_score=None, module_item_title=None, module_item_position=None, module_item_indent=None, module_item_external_url=None, module_item_new_tab=None, module_item_completion_requirement_type=None, module_item_published=None, module_item_module_id=None, **request_kwargs):
+def update_module_item(request_ctx, course_id, module_id, id, module_item_type, module_item_completion_requirement_min_score=None, module_item_title=None, module_item_position=None, module_item_indent=None, module_item_external_url=None, module_item_new_tab=None, module_item_completion_requirement_type=None, module_item_published=None, module_item_module_id=None, **request_kwargs):
     """
     Update and return an existing module item
 
@@ -350,6 +350,8 @@ def update_module_item(request_ctx, course_id, module_id, id, module_item_comple
 
     """
 
+    module_item_type_types = ('File', 'Page', 'Discussion', 'Assignment', 'Quiz', 'SubHeader', 'ExternalUrl', 'ExternalTool')
+    utils.validate_attr_is_acceptable(module_item_type, module_item_type_types)
     module_item_completion_requirement_type_types = ('must_view', 'must_contribute', 'must_submit', 'min_score')
     utils.validate_attr_is_acceptable(module_item_completion_requirement_type, module_item_completion_requirement_type_types)
     if module_item_type in ('ExternalUrl', 'ExternalTool') and module_item_external_url is None:
