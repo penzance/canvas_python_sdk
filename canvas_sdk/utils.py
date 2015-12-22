@@ -23,6 +23,18 @@ def validate_attr_is_acceptable(value, acceptable_values=[], allow_none=True):
                 raise AttributeError("%s must be one of %s" % (v, acceptable_values))
 
 
+def validate_any(param_choices, *args, **kwargs):
+    """
+    If all of the arguments are falsy (e.g. None or blank strings), an
+    Attribute error is raised, otherwise nothing is returned. param_choices
+    should be list of variable names for feedback on a validation failure.
+    """
+    if not any(args):
+        raise AttributeError(
+            "One of the following parameters must be included: "
+            "%s" % param_choices)
+
+
 def get_next(request_context, response):
     """
     Generator function that will iterate over a given response's "next" header links.
