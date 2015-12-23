@@ -29,7 +29,7 @@ setup(
     zip_safe=False,
     install_requires=[
         'requests',
-        'sphinx=1.2.0',
+        'sphinx==1.2.0',
     ],
     test_suite='tests',
     tests_require=[
