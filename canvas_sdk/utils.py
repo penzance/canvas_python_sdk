@@ -32,7 +32,7 @@ def validate_any(param_choices, *args, **kwargs):
     if not any(args):
         raise AttributeError(
             "One of the following parameters must be included: "
-            "%s" % param_choices)
+            "%s" % (param_choices,))
 
 
 def get_next(request_context, response):

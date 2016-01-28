@@ -46,6 +46,30 @@ class TestUtils(unittest.TestCase):
         except AttributeError:
             self.fail()
 
+    def test_validate_any_param_choices(self):
+        """
+        validate_any shouldn't care how many values are in param_choices,
+        or whether param_choices is a list or tuple.
+        """
+        self.assertRaises(AttributeError,
+                          utils.validate_any,
+                          [], None, None)
+        self.assertRaises(AttributeError,
+                          utils.validate_any,
+                          ['one'], None, None)
+        self.assertRaises(AttributeError,
+                          utils.validate_any,
+                          ['one', 'two'], None, None)
+        self.assertRaises(AttributeError,
+                          utils.validate_any,
+                          (), None, None)
+        self.assertRaises(AttributeError,
+                          utils.validate_any,
+                          ('one'), None, None)
+        self.assertRaises(AttributeError,
+                          utils.validate_any,
+                          ('one', 'two'), None, None)
+
     def test_validate_attr_is_acceptable_raises_attributeerror(self):
         """
         Assert that validate_attr_is_acceptable raises an AttributeError if the given
