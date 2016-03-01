@@ -1,15 +1,15 @@
 from canvas_sdk import client, utils
 
-def list_enrollments_courses(request_ctx, course_id, type=None, role=None, state=None, user_id=None, per_page=None, **request_kwargs):
+def list_enrollments_courses(request_ctx, course_id, type=None, role=None, role_id=None, state=None, user_id=None, per_page=None, **request_kwargs):
     """
     Depending on the URL given, return either (1) all of the enrollments in
     a course, (2) all of the enrollments in a section or (3) all of a user's
     enrollments. This includes student, teacher, TA, and observer enrollments.
-    
+
     If a user has multiple enrollments in a context (e.g. as a teacher
     and a student or in multiple course sections), each enrollment will be
     listed separately.
-    
+
     note: Currently, only an admin user can return other users' enrollments. A
     user can, however, return his/her own enrollments.
 
@@ -21,6 +21,8 @@ def list_enrollments_courses(request_ctx, course_id, type=None, role=None, state
         :type type: string or None
         :param role: (optional) A list of enrollment roles to return. Accepted values include course-level roles created by the {api:RoleOverridesController#add_role Add Role API} as well as the base enrollment types accepted by the `type` argument above.
         :type role: string or None
+        :param role_id: (optional) A list of enrollment role IDs to return. Accepted values include course-level the numeric IDs of the roles created by the {api:RoleOverridesController#add_role Add Role API} as well as the base enrollment types accepted by the `type` argument above.
+        :type role_id: integer or None
         :param state: (optional) Filter by enrollment state. If omitted, 'active' and 'invited' enrollments are returned. When querying a user's enrollments (either via user_id argument or via user enrollments endpoint), the following additional synthetic states are supported: "current_and_invited"|"current_and_future"|"current_and_concluded"
         :type state: string or None
         :param user_id: (optional) Filter by user_id (only valid for course or section enrollment queries). If set to the current user's id, this is a way to determine if the user has any enrollments in the course or section, independent of whether the user has permission to view other people on the roster.
@@ -40,6 +42,7 @@ def list_enrollments_courses(request_ctx, course_id, type=None, role=None, state
     payload = {
         'type[]' : type,
         'role[]' : role,
+        'role_id[]' : role_id,
         'state[]' : state,
         'user_id' : user_id,
         'per_page' : per_page,
@@ -50,16 +53,16 @@ def list_enrollments_courses(request_ctx, course_id, type=None, role=None, state
     return response
 
 
-def list_enrollments_sections(request_ctx, section_id, type=None, role=None, state=None, user_id=None, per_page=None, **request_kwargs):
+def list_enrollments_sections(request_ctx, section_id, type=None, role=None, role_id=None, state=None, user_id=None, per_page=None, **request_kwargs):
     """
     Depending on the URL given, return either (1) all of the enrollments in
     a course, (2) all of the enrollments in a section or (3) all of a user's
     enrollments. This includes student, teacher, TA, and observer enrollments.
-    
+
     If a user has multiple enrollments in a context (e.g. as a teacher
     and a student or in multiple course sections), each enrollment will be
     listed separately.
-    
+
     note: Currently, only an admin user can return other users' enrollments. A
     user can, however, return his/her own enrollments.
 
@@ -71,6 +74,8 @@ def list_enrollments_sections(request_ctx, section_id, type=None, role=None, sta
         :type type: string or None
         :param role: (optional) A list of enrollment roles to return. Accepted values include course-level roles created by the {api:RoleOverridesController#add_role Add Role API} as well as the base enrollment types accepted by the `type` argument above.
         :type role: string or None
+        :param role_id: (optional) A list of enrollment role IDs to return. Accepted values include course-level the numeric IDs of the roles created by the {api:RoleOverridesController#add_role Add Role API} as well as the base enrollment types accepted by the `type` argument above.
+        :type role_id: integer or None
         :param state: (optional) Filter by enrollment state. If omitted, 'active' and 'invited' enrollments are returned. When querying a user's enrollments (either via user_id argument or via user enrollments endpoint), the following additional synthetic states are supported: "current_and_invited"|"current_and_future"|"current_and_concluded"
         :type state: string or None
         :param user_id: (optional) Filter by user_id (only valid for course or section enrollment queries). If set to the current user's id, this is a way to determine if the user has any enrollments in the course or section, independent of whether the user has permission to view other people on the roster.
@@ -90,6 +95,7 @@ def list_enrollments_sections(request_ctx, section_id, type=None, role=None, sta
     payload = {
         'type[]' : type,
         'role[]' : role,
+        'role_id[]' : role_id,
         'state[]' : state,
         'user_id' : user_id,
         'per_page' : per_page,
@@ -100,16 +106,16 @@ def list_enrollments_sections(request_ctx, section_id, type=None, role=None, sta
     return response
 
 
-def list_enrollments_users(request_ctx, user_id, type=None, role=None, state=None, per_page=None, **request_kwargs):
+def list_enrollments_users(request_ctx, user_id, type=None, role=None, role_id=None, state=None, per_page=None, **request_kwargs):
     """
     Depending on the URL given, return either (1) all of the enrollments in
     a course, (2) all of the enrollments in a section or (3) all of a user's
     enrollments. This includes student, teacher, TA, and observer enrollments.
-    
+
     If a user has multiple enrollments in a context (e.g. as a teacher
     and a student or in multiple course sections), each enrollment will be
     listed separately.
-    
+
     note: Currently, only an admin user can return other users' enrollments. A
     user can, however, return his/her own enrollments.
 
@@ -121,6 +127,8 @@ def list_enrollments_users(request_ctx, user_id, type=None, role=None, state=Non
         :type type: string or None
         :param role: (optional) A list of enrollment roles to return. Accepted values include course-level roles created by the {api:RoleOverridesController#add_role Add Role API} as well as the base enrollment types accepted by the `type` argument above.
         :type role: string or None
+        :param role_id: (optional) A list of enrollment role IDs to return. Accepted values include course-level the numeric IDs of the roles created by the {api:RoleOverridesController#add_role Add Role API} as well as the base enrollment types accepted by the `type` argument above.
+        :type role_id: integer or None
         :param state: (optional) Filter by enrollment state. If omitted, 'active' and 'invited' enrollments are returned. When querying a user's enrollments (either via user_id argument or via user enrollments endpoint), the following additional synthetic states are supported: "current_and_invited"|"current_and_future"|"current_and_concluded"
         :type state: string or None
         :param per_page: (optional) Set how many results canvas should return, defaults to config.LIMIT_PER_PAGE
@@ -138,6 +146,7 @@ def list_enrollments_users(request_ctx, user_id, type=None, role=None, state=Non
     payload = {
         'type[]' : type,
         'role[]' : role,
+        'role_id[]' : role_id,
         'state[]' : state,
         'per_page' : per_page,
     }
@@ -314,5 +323,3 @@ def conclude_enrollment(request_ctx, course_id, id, task=None, **request_kwargs)
     response = client.delete(request_ctx, url, payload=payload, **request_kwargs)
 
     return response
-
-
