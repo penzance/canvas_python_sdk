@@ -81,7 +81,7 @@ def index_of_reports(request_ctx, account_id, report, per_page=None, **request_k
     return response
 
 
-def status_of_report(request_ctx, account_id, report, id, report_id, **request_kwargs):
+def status_of_report(request_ctx, account_id, report, id, **request_kwargs):
     """
     Returns the status of a report.
 
@@ -93,19 +93,14 @@ def status_of_report(request_ctx, account_id, report, id, report_id, **request_k
         :type report: string
         :param id: (required) ID
         :type id: string
-        :param report_id: (required) The report id.
-        :type report_id: integer
         :return: Status of a Report
         :rtype: requests.Response (with Report data)
 
     """
 
     path = '/v1/accounts/{account_id}/reports/{report}/{id}'
-    payload = {
-        'report_id' : report_id,
-    }
     url = request_ctx.base_api_url + path.format(account_id=account_id, report=report, id=id)
-    response = client.get(request_ctx, url, payload=payload, **request_kwargs)
+    response = client.get(request_ctx, url, **request_kwargs)
 
     return response
 
