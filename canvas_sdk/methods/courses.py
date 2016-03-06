@@ -194,7 +194,7 @@ def list_students(request_ctx, course_id, per_page=None, **request_kwargs):
     return response
 
 
-def list_users_in_course_users(request_ctx, course_id, include, search_term=None, enrollment_type=None, enrollment_role=None, user_id=None, per_page=None, **request_kwargs):
+def list_users_in_course_users(request_ctx, course_id, search_term=None, enrollment_type=None, enrollment_role=None, enrollment_role_id=None, include=None, user_id=None, user_ids=None, enrollment_state=None, per_page=None, **request_kwargs):
     """
     Returns the list of users in this course. And optionally the user's enrollments in the course.
 
@@ -202,16 +202,47 @@ def list_users_in_course_users(request_ctx, course_id, include, search_term=None
         :type request_ctx: :class:RequestContext
         :param course_id: (required) ID
         :type course_id: string
-        :param include: (required) - "email": Optional user email. - "enrollments": Optionally include with each Course the user's current and invited enrollments. If the user is enrolled as a student, and the account has permission to manage or view all grades, each enrollment will include a 'grades' key with 'current_score', 'final_score', 'current_grade' and 'final_grade' values. - "locked": Optionally include whether an enrollment is locked. - "avatar_url": Optionally include avatar_url. - "test_student": Optionally include the course's Test Student, if present. Default is to not include Test Student.
-        :type include: string
         :param search_term: (optional) The partial name or full ID of the users to match and return in the results list.
         :type search_term: string or None
-        :param enrollment_type: (optional) When set, only return users where the user is enrolled as this type. This argument is ignored if enrollment_role is given.
-        :type enrollment_type: string or None
-        :param enrollment_role: (optional) When set, only return users enrolled with the specified course-level role. This can be a role created with the {api:RoleOverridesController#add_role Add Role API} or a base role type of 'StudentEnrollment', 'TeacherEnrollment', 'TaEnrollment', 'ObserverEnrollment', or 'DesignerEnrollment'.
+        :param enrollment_type: (optional) When set, only return users where the user is enrolled as this type.
+This argument is ignored if enrollment_role is given.
+        :type enrollment_type: array or None
+        :param enrollment_role: (optional) Deprecated
+When set, only return users enrolled with the specified course-level role.  This can be
+a role created with the {api:RoleOverridesController#add_role Add Role API} or a
+base role type of 'StudentEnrollment', 'TeacherEnrollment', 'TaEnrollment',
+'ObserverEnrollment', or 'DesignerEnrollment'.
         :type enrollment_role: string or None
-        :param user_id: (optional) If included, the user will be queried and if the user is part of the users set, the page parameter will be modified so that the page containing user_id will be returned.
+        :param enrollment_role_id: (optional) When set, only return courses where the user is enrolled with the specified
+course-level role.  This can be a role created with the
+{api:RoleOverridesController#add_role Add Role API} or a built_in role id with type
+'StudentEnrollment', 'TeacherEnrollment', 'TaEnrollment', 'ObserverEnrollment',
+or 'DesignerEnrollment'.
+        :type enrollment_role_id: integer or None
+        :param include: (optional) - "email": Optional user email.
+- "enrollments":
+Optionally include with each Course the user's current and invited
+enrollments. If the user is enrolled as a student, and the account has
+permission to manage or view all grades, each enrollment will include a
+'grades' key with 'current_score', 'final_score', 'current_grade' and
+'final_grade' values.
+- "locked": Optionally include whether an enrollment is locked.
+- "avatar_url": Optionally include avatar_url.
+- "bio": Optionally include each user's bio.
+- "test_student": Optionally include the course's Test Student,
+if present. Default is to not include Test Student.
+        :type include: array or None
+        :param user_id: (optional) If included, the user will be queried and if the user is part of the
+users set, the page parameter will be modified so that the page
+containing user_id will be returned.
         :type user_id: string or None
+        :param user_ids: (optional) If included, the course users set will only include users with IDs
+specified by the param. Note: this will not work in conjunction
+with the "user_id" argument but multiple user_ids can be included.
+        :type user_ids: array or None
+        :param enrollment_state: (optional) When set, only return users where the enrollment workflow state is of one of the given types.
+"active" and "invited" enrollments are returned by default.
+        :type enrollment_state: array or None
         :param per_page: (optional) Set how many results canvas should return, defaults to config.LIMIT_PER_PAGE
         :type per_page: integer or None
         :return: List users in course
@@ -222,16 +253,21 @@ def list_users_in_course_users(request_ctx, course_id, include, search_term=None
     if per_page is None:
         per_page = request_ctx.per_page
     enrollment_type_types = ('teacher', 'student', 'ta', 'observer', 'designer')
-    include_types = ('email', 'enrollments', 'locked', 'avatar_url', 'test_student')
+    include_types = ('email', 'enrollments', 'locked', 'avatar_url', 'test_student', 'bio')
+    enrollment_state_types = ('active', 'invited', 'rejected', 'completed', 'inactive')
     utils.validate_attr_is_acceptable(enrollment_type, enrollment_type_types)
     utils.validate_attr_is_acceptable(include, include_types)
+    utils.validate_attr_is_acceptable(enrollment_state, enrollment_state_types)
     path = '/v1/courses/{course_id}/users'
     payload = {
         'search_term' : search_term,
         'enrollment_type' : enrollment_type,
         'enrollment_role' : enrollment_role,
-        'include[]' : include,
+        'enrollment_role_id' : enrollment_role_id,
+        'include' : include,
         'user_id' : user_id,
+        'user_ids' : user_ids,
+        'enrollment_state' : enrollment_state,
         'per_page' : per_page,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id)
