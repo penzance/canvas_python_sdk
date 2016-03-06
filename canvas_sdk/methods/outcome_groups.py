@@ -120,9 +120,11 @@ def get_all_outcome_links_for_context_accounts(request_ctx, account_id, outcome_
         :type request_ctx: :class:RequestContext
         :param account_id: (required) ID
         :type account_id: string
-        :param outcome_style: (optional) The detail level of the outcomes. Defaults to "abbrev". Specify "full" for more information.
+        :param outcome_style: (optional) The detail level of the outcomes. Defaults to "abbrev".
+Specify "full" for more information.
         :type outcome_style: string or None
-        :param outcome_group_style: (optional) The detail level of the outcome groups. Defaults to "abbrev". Specify "full" for more information.
+        :param outcome_group_style: (optional) The detail level of the outcome groups. Defaults to "abbrev".
+Specify "full" for more information.
         :type outcome_group_style: string or None
         :param per_page: (optional) Set how many results canvas should return, defaults to config.LIMIT_PER_PAGE
         :type per_page: integer or None
@@ -152,9 +154,11 @@ def get_all_outcome_links_for_context_courses(request_ctx, course_id, outcome_st
         :type request_ctx: :class:RequestContext
         :param course_id: (required) ID
         :type course_id: string
-        :param outcome_style: (optional) The detail level of the outcomes. Defaults to "abbrev". Specify "full" for more information.
+        :param outcome_style: (optional) The detail level of the outcomes. Defaults to "abbrev".
+Specify "full" for more information.
         :type outcome_style: string or None
-        :param outcome_group_style: (optional) The detail level of the outcome groups. Defaults to "abbrev". Specify "full" for more information.
+        :param outcome_group_style: (optional) The detail level of the outcome groups. Defaults to "abbrev".
+Specify "full" for more information.
         :type outcome_group_style: string or None
         :param per_page: (optional) Set how many results canvas should return, defaults to config.LIMIT_PER_PAGE
         :type per_page: integer or None
@@ -526,7 +530,7 @@ def list_linked_outcomes_courses(request_ctx, course_id, id, per_page=None, **re
     return response
 
 
-def create_link_outcome_global(request_ctx, id, outcome_id=None, title=None, display_name=None, description=None, vendor_guid=None, mastery_points=None, ratings_description=None, ratings_points=None, **request_kwargs):
+def create_link_outcome_global(request_ctx, id, outcome_id=None, title=None, display_name=None, description=None, vendor_guid=None, mastery_points=None, ratings_description=None, ratings_points=None, calculation_method=None, calculation_int=None, **request_kwargs):
     """
     Link an outcome into the outcome group. The outcome to link can either be
     specified by a PUT to the link URL for a specific outcome (the outcome_id
@@ -540,8 +544,8 @@ def create_link_outcome_global(request_ctx, id, outcome_id=None, title=None, dis
     
     If defining a new outcome, the outcome is created in the outcome group's
     context using the provided title, description, ratings, and mastery points;
-    the title is required but all other fields are optional. The new outcome is
-    then linked into the outcome group.
+    the title is required but all other fields are optional. The new outcome
+    is then linked into the outcome group.
     
     If ratings are provided when creating a new outcome, an embedded rubric
     criterion is included in the new outcome. This criterion's mastery_points
@@ -559,7 +563,8 @@ def create_link_outcome_global(request_ctx, id, outcome_id=None, title=None, dis
         :type outcome_id: integer or None
         :param title: (optional) The title of the new outcome. Required if outcome_id is absent.
         :type title: string or None
-        :param display_name: (optional) A friendly name shown in reports for outcomes with cryptic titles, such as common core standards names.
+        :param display_name: (optional) A friendly name shown in reports for outcomes with cryptic titles,
+such as common core standards names.
         :type display_name: string or None
         :param description: (optional) The description of the new outcome.
         :type description: string or None
@@ -568,14 +573,20 @@ def create_link_outcome_global(request_ctx, id, outcome_id=None, title=None, dis
         :param mastery_points: (optional) The mastery threshold for the embedded rubric criterion.
         :type mastery_points: integer or None
         :param ratings_description: (optional) The description of a rating level for the embedded rubric criterion.
-        :type ratings_description: string or None
+        :type ratings_description: array or None
         :param ratings_points: (optional) The points corresponding to a rating level for the embedded rubric criterion.
-        :type ratings_points: integer or None
+        :type ratings_points: array or None
+        :param calculation_method: (optional) The new calculation method.  Defaults to "highest"
+        :type calculation_method: string or None
+        :param calculation_int: (optional) The new calculation int.  Only applies if the calculation_method is "decaying_average" or "n_mastery"
+        :type calculation_int: integer or None
         :return: Create/link an outcome
         :rtype: requests.Response (with OutcomeLink data)
 
     """
 
+    calculation_method_types = ('decaying_average', 'n_mastery', 'latest', 'highest')
+    utils.validate_attr_is_acceptable(calculation_method, calculation_method_types)
     path = '/v1/global/outcome_groups/{id}/outcomes'
     payload = {
         'outcome_id' : outcome_id,
@@ -586,6 +597,8 @@ def create_link_outcome_global(request_ctx, id, outcome_id=None, title=None, dis
         'mastery_points' : mastery_points,
         'ratings[description]' : ratings_description,
         'ratings[points]' : ratings_points,
+        'calculation_method' : calculation_method,
+        'calculation_int' : calculation_int,
     }
     url = request_ctx.base_api_url + path.format(id=id)
     response = client.post(request_ctx, url, payload=payload, **request_kwargs)
@@ -593,7 +606,7 @@ def create_link_outcome_global(request_ctx, id, outcome_id=None, title=None, dis
     return response
 
 
-def create_link_outcome_global_outcome_id(request_ctx, id, outcome_id=None, title=None, display_name=None, description=None, vendor_guid=None, mastery_points=None, ratings_description=None, ratings_points=None, **request_kwargs):
+def create_link_outcome_global_outcome_id(request_ctx, id, outcome_id, title=None, display_name=None, description=None, vendor_guid=None, mastery_points=None, ratings_description=None, ratings_points=None, calculation_method=None, calculation_int=None, **request_kwargs):
     """
     Link an outcome into the outcome group. The outcome to link can either be
     specified by a PUT to the link URL for a specific outcome (the outcome_id
@@ -607,8 +620,8 @@ def create_link_outcome_global_outcome_id(request_ctx, id, outcome_id=None, titl
     
     If defining a new outcome, the outcome is created in the outcome group's
     context using the provided title, description, ratings, and mastery points;
-    the title is required but all other fields are optional. The new outcome is
-    then linked into the outcome group.
+    the title is required but all other fields are optional. The new outcome
+    is then linked into the outcome group.
     
     If ratings are provided when creating a new outcome, an embedded rubric
     criterion is included in the new outcome. This criterion's mastery_points
@@ -622,11 +635,12 @@ def create_link_outcome_global_outcome_id(request_ctx, id, outcome_id=None, titl
         :type request_ctx: :class:RequestContext
         :param id: (required) ID
         :type id: string
-        :param outcome_id: (optional) The ID of the existing outcome to link.
-        :type outcome_id: integer or None
+        :param outcome_id: (required) The ID of the existing outcome to link.
+        :type outcome_id: integer
         :param title: (optional) The title of the new outcome. Required if outcome_id is absent.
         :type title: string or None
-        :param display_name: (optional) A friendly name shown in reports for outcomes with cryptic titles, such as common core standards names.
+        :param display_name: (optional) A friendly name shown in reports for outcomes with cryptic titles,
+such as common core standards names.
         :type display_name: string or None
         :param description: (optional) The description of the new outcome.
         :type description: string or None
@@ -635,14 +649,20 @@ def create_link_outcome_global_outcome_id(request_ctx, id, outcome_id=None, titl
         :param mastery_points: (optional) The mastery threshold for the embedded rubric criterion.
         :type mastery_points: integer or None
         :param ratings_description: (optional) The description of a rating level for the embedded rubric criterion.
-        :type ratings_description: string or None
+        :type ratings_description: array or None
         :param ratings_points: (optional) The points corresponding to a rating level for the embedded rubric criterion.
-        :type ratings_points: integer or None
+        :type ratings_points: array or None
+        :param calculation_method: (optional) The new calculation method.  Defaults to "highest"
+        :type calculation_method: string or None
+        :param calculation_int: (optional) The new calculation int.  Only applies if the calculation_method is "decaying_average" or "n_mastery"
+        :type calculation_int: integer or None
         :return: Create/link an outcome
         :rtype: requests.Response (with OutcomeLink data)
 
     """
 
+    calculation_method_types = ('decaying_average', 'n_mastery', 'latest', 'highest')
+    utils.validate_attr_is_acceptable(calculation_method, calculation_method_types)
     path = '/v1/global/outcome_groups/{id}/outcomes/{outcome_id}'
     payload = {
         'title' : title,
@@ -652,6 +672,8 @@ def create_link_outcome_global_outcome_id(request_ctx, id, outcome_id=None, titl
         'mastery_points' : mastery_points,
         'ratings[description]' : ratings_description,
         'ratings[points]' : ratings_points,
+        'calculation_method' : calculation_method,
+        'calculation_int' : calculation_int,
     }
     url = request_ctx.base_api_url + path.format(id=id, outcome_id=outcome_id)
     response = client.put(request_ctx, url, payload=payload, **request_kwargs)
@@ -659,7 +681,7 @@ def create_link_outcome_global_outcome_id(request_ctx, id, outcome_id=None, titl
     return response
 
 
-def create_link_outcome_accounts(request_ctx, account_id, id, outcome_id=None, title=None, display_name=None, description=None, vendor_guid=None, mastery_points=None, ratings_description=None, ratings_points=None, **request_kwargs):
+def create_link_outcome_accounts(request_ctx, account_id, id, outcome_id=None, title=None, display_name=None, description=None, vendor_guid=None, mastery_points=None, ratings_description=None, ratings_points=None, calculation_method=None, calculation_int=None, **request_kwargs):
     """
     Link an outcome into the outcome group. The outcome to link can either be
     specified by a PUT to the link URL for a specific outcome (the outcome_id
@@ -673,8 +695,8 @@ def create_link_outcome_accounts(request_ctx, account_id, id, outcome_id=None, t
     
     If defining a new outcome, the outcome is created in the outcome group's
     context using the provided title, description, ratings, and mastery points;
-    the title is required but all other fields are optional. The new outcome is
-    then linked into the outcome group.
+    the title is required but all other fields are optional. The new outcome
+    is then linked into the outcome group.
     
     If ratings are provided when creating a new outcome, an embedded rubric
     criterion is included in the new outcome. This criterion's mastery_points
@@ -694,7 +716,8 @@ def create_link_outcome_accounts(request_ctx, account_id, id, outcome_id=None, t
         :type outcome_id: integer or None
         :param title: (optional) The title of the new outcome. Required if outcome_id is absent.
         :type title: string or None
-        :param display_name: (optional) A friendly name shown in reports for outcomes with cryptic titles, such as common core standards names.
+        :param display_name: (optional) A friendly name shown in reports for outcomes with cryptic titles,
+such as common core standards names.
         :type display_name: string or None
         :param description: (optional) The description of the new outcome.
         :type description: string or None
@@ -703,14 +726,20 @@ def create_link_outcome_accounts(request_ctx, account_id, id, outcome_id=None, t
         :param mastery_points: (optional) The mastery threshold for the embedded rubric criterion.
         :type mastery_points: integer or None
         :param ratings_description: (optional) The description of a rating level for the embedded rubric criterion.
-        :type ratings_description: string or None
+        :type ratings_description: array or None
         :param ratings_points: (optional) The points corresponding to a rating level for the embedded rubric criterion.
-        :type ratings_points: integer or None
+        :type ratings_points: array or None
+        :param calculation_method: (optional) The new calculation method.  Defaults to "highest"
+        :type calculation_method: string or None
+        :param calculation_int: (optional) The new calculation int.  Only applies if the calculation_method is "decaying_average" or "n_mastery"
+        :type calculation_int: integer or None
         :return: Create/link an outcome
         :rtype: requests.Response (with OutcomeLink data)
 
     """
 
+    calculation_method_types = ('decaying_average', 'n_mastery', 'latest', 'highest')
+    utils.validate_attr_is_acceptable(calculation_method, calculation_method_types)
     path = '/v1/accounts/{account_id}/outcome_groups/{id}/outcomes'
     payload = {
         'outcome_id' : outcome_id,
@@ -721,6 +750,8 @@ def create_link_outcome_accounts(request_ctx, account_id, id, outcome_id=None, t
         'mastery_points' : mastery_points,
         'ratings[description]' : ratings_description,
         'ratings[points]' : ratings_points,
+        'calculation_method' : calculation_method,
+        'calculation_int' : calculation_int,
     }
     url = request_ctx.base_api_url + path.format(account_id=account_id, id=id)
     response = client.post(request_ctx, url, payload=payload, **request_kwargs)
@@ -728,7 +759,7 @@ def create_link_outcome_accounts(request_ctx, account_id, id, outcome_id=None, t
     return response
 
 
-def create_link_outcome_accounts_outcome_id(request_ctx, account_id, id, outcome_id=None, title=None, display_name=None, description=None, vendor_guid=None, mastery_points=None, ratings_description=None, ratings_points=None, **request_kwargs):
+def create_link_outcome_accounts_outcome_id(request_ctx, account_id, id, outcome_id, title=None, display_name=None, description=None, vendor_guid=None, mastery_points=None, ratings_description=None, ratings_points=None, calculation_method=None, calculation_int=None, **request_kwargs):
     """
     Link an outcome into the outcome group. The outcome to link can either be
     specified by a PUT to the link URL for a specific outcome (the outcome_id
@@ -742,8 +773,8 @@ def create_link_outcome_accounts_outcome_id(request_ctx, account_id, id, outcome
     
     If defining a new outcome, the outcome is created in the outcome group's
     context using the provided title, description, ratings, and mastery points;
-    the title is required but all other fields are optional. The new outcome is
-    then linked into the outcome group.
+    the title is required but all other fields are optional. The new outcome
+    is then linked into the outcome group.
     
     If ratings are provided when creating a new outcome, an embedded rubric
     criterion is included in the new outcome. This criterion's mastery_points
@@ -759,11 +790,12 @@ def create_link_outcome_accounts_outcome_id(request_ctx, account_id, id, outcome
         :type account_id: string
         :param id: (required) ID
         :type id: string
-        :param outcome_id: (optional) The ID of the existing outcome to link.
-        :type outcome_id: integer or None
+        :param outcome_id: (required) The ID of the existing outcome to link.
+        :type outcome_id: integer
         :param title: (optional) The title of the new outcome. Required if outcome_id is absent.
         :type title: string or None
-        :param display_name: (optional) A friendly name shown in reports for outcomes with cryptic titles, such as common core standards names.
+        :param display_name: (optional) A friendly name shown in reports for outcomes with cryptic titles,
+such as common core standards names.
         :type display_name: string or None
         :param description: (optional) The description of the new outcome.
         :type description: string or None
@@ -772,14 +804,20 @@ def create_link_outcome_accounts_outcome_id(request_ctx, account_id, id, outcome
         :param mastery_points: (optional) The mastery threshold for the embedded rubric criterion.
         :type mastery_points: integer or None
         :param ratings_description: (optional) The description of a rating level for the embedded rubric criterion.
-        :type ratings_description: string or None
+        :type ratings_description: array or None
         :param ratings_points: (optional) The points corresponding to a rating level for the embedded rubric criterion.
-        :type ratings_points: integer or None
+        :type ratings_points: array or None
+        :param calculation_method: (optional) The new calculation method.  Defaults to "highest"
+        :type calculation_method: string or None
+        :param calculation_int: (optional) The new calculation int.  Only applies if the calculation_method is "decaying_average" or "n_mastery"
+        :type calculation_int: integer or None
         :return: Create/link an outcome
         :rtype: requests.Response (with OutcomeLink data)
 
     """
 
+    calculation_method_types = ('decaying_average', 'n_mastery', 'latest', 'highest')
+    utils.validate_attr_is_acceptable(calculation_method, calculation_method_types)
     path = '/v1/accounts/{account_id}/outcome_groups/{id}/outcomes/{outcome_id}'
     payload = {
         'title' : title,
@@ -789,6 +827,8 @@ def create_link_outcome_accounts_outcome_id(request_ctx, account_id, id, outcome
         'mastery_points' : mastery_points,
         'ratings[description]' : ratings_description,
         'ratings[points]' : ratings_points,
+        'calculation_method' : calculation_method,
+        'calculation_int' : calculation_int,
     }
     url = request_ctx.base_api_url + path.format(account_id=account_id, id=id, outcome_id=outcome_id)
     response = client.put(request_ctx, url, payload=payload, **request_kwargs)
@@ -796,7 +836,7 @@ def create_link_outcome_accounts_outcome_id(request_ctx, account_id, id, outcome
     return response
 
 
-def create_link_outcome_courses(request_ctx, course_id, id, outcome_id=None, title=None, display_name=None, description=None, vendor_guid=None, mastery_points=None, ratings_description=None, ratings_points=None, **request_kwargs):
+def create_link_outcome_courses(request_ctx, course_id, id, outcome_id=None, title=None, display_name=None, description=None, vendor_guid=None, mastery_points=None, ratings_description=None, ratings_points=None, calculation_method=None, calculation_int=None, **request_kwargs):
     """
     Link an outcome into the outcome group. The outcome to link can either be
     specified by a PUT to the link URL for a specific outcome (the outcome_id
@@ -810,8 +850,8 @@ def create_link_outcome_courses(request_ctx, course_id, id, outcome_id=None, tit
     
     If defining a new outcome, the outcome is created in the outcome group's
     context using the provided title, description, ratings, and mastery points;
-    the title is required but all other fields are optional. The new outcome is
-    then linked into the outcome group.
+    the title is required but all other fields are optional. The new outcome
+    is then linked into the outcome group.
     
     If ratings are provided when creating a new outcome, an embedded rubric
     criterion is included in the new outcome. This criterion's mastery_points
@@ -831,7 +871,8 @@ def create_link_outcome_courses(request_ctx, course_id, id, outcome_id=None, tit
         :type outcome_id: integer or None
         :param title: (optional) The title of the new outcome. Required if outcome_id is absent.
         :type title: string or None
-        :param display_name: (optional) A friendly name shown in reports for outcomes with cryptic titles, such as common core standards names.
+        :param display_name: (optional) A friendly name shown in reports for outcomes with cryptic titles,
+such as common core standards names.
         :type display_name: string or None
         :param description: (optional) The description of the new outcome.
         :type description: string or None
@@ -840,14 +881,20 @@ def create_link_outcome_courses(request_ctx, course_id, id, outcome_id=None, tit
         :param mastery_points: (optional) The mastery threshold for the embedded rubric criterion.
         :type mastery_points: integer or None
         :param ratings_description: (optional) The description of a rating level for the embedded rubric criterion.
-        :type ratings_description: string or None
+        :type ratings_description: array or None
         :param ratings_points: (optional) The points corresponding to a rating level for the embedded rubric criterion.
-        :type ratings_points: integer or None
+        :type ratings_points: array or None
+        :param calculation_method: (optional) The new calculation method.  Defaults to "highest"
+        :type calculation_method: string or None
+        :param calculation_int: (optional) The new calculation int.  Only applies if the calculation_method is "decaying_average" or "n_mastery"
+        :type calculation_int: integer or None
         :return: Create/link an outcome
         :rtype: requests.Response (with OutcomeLink data)
 
     """
 
+    calculation_method_types = ('decaying_average', 'n_mastery', 'latest', 'highest')
+    utils.validate_attr_is_acceptable(calculation_method, calculation_method_types)
     path = '/v1/courses/{course_id}/outcome_groups/{id}/outcomes'
     payload = {
         'outcome_id' : outcome_id,
@@ -858,6 +905,8 @@ def create_link_outcome_courses(request_ctx, course_id, id, outcome_id=None, tit
         'mastery_points' : mastery_points,
         'ratings[description]' : ratings_description,
         'ratings[points]' : ratings_points,
+        'calculation_method' : calculation_method,
+        'calculation_int' : calculation_int,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id, id=id)
     response = client.post(request_ctx, url, payload=payload, **request_kwargs)
@@ -865,7 +914,7 @@ def create_link_outcome_courses(request_ctx, course_id, id, outcome_id=None, tit
     return response
 
 
-def create_link_outcome_courses_outcome_id(request_ctx, course_id, id, outcome_id=None, title=None, display_name=None, description=None, vendor_guid=None, mastery_points=None, ratings_description=None, ratings_points=None, **request_kwargs):
+def create_link_outcome_courses_outcome_id(request_ctx, course_id, id, outcome_id, title=None, display_name=None, description=None, vendor_guid=None, mastery_points=None, ratings_description=None, ratings_points=None, calculation_method=None, calculation_int=None, **request_kwargs):
     """
     Link an outcome into the outcome group. The outcome to link can either be
     specified by a PUT to the link URL for a specific outcome (the outcome_id
@@ -879,8 +928,8 @@ def create_link_outcome_courses_outcome_id(request_ctx, course_id, id, outcome_i
     
     If defining a new outcome, the outcome is created in the outcome group's
     context using the provided title, description, ratings, and mastery points;
-    the title is required but all other fields are optional. The new outcome is
-    then linked into the outcome group.
+    the title is required but all other fields are optional. The new outcome
+    is then linked into the outcome group.
     
     If ratings are provided when creating a new outcome, an embedded rubric
     criterion is included in the new outcome. This criterion's mastery_points
@@ -896,11 +945,12 @@ def create_link_outcome_courses_outcome_id(request_ctx, course_id, id, outcome_i
         :type course_id: string
         :param id: (required) ID
         :type id: string
-        :param outcome_id: (optional) The ID of the existing outcome to link.
-        :type outcome_id: integer or None
+        :param outcome_id: (required) The ID of the existing outcome to link.
+        :type outcome_id: integer
         :param title: (optional) The title of the new outcome. Required if outcome_id is absent.
         :type title: string or None
-        :param display_name: (optional) A friendly name shown in reports for outcomes with cryptic titles, such as common core standards names.
+        :param display_name: (optional) A friendly name shown in reports for outcomes with cryptic titles,
+such as common core standards names.
         :type display_name: string or None
         :param description: (optional) The description of the new outcome.
         :type description: string or None
@@ -909,14 +959,20 @@ def create_link_outcome_courses_outcome_id(request_ctx, course_id, id, outcome_i
         :param mastery_points: (optional) The mastery threshold for the embedded rubric criterion.
         :type mastery_points: integer or None
         :param ratings_description: (optional) The description of a rating level for the embedded rubric criterion.
-        :type ratings_description: string or None
+        :type ratings_description: array or None
         :param ratings_points: (optional) The points corresponding to a rating level for the embedded rubric criterion.
-        :type ratings_points: integer or None
+        :type ratings_points: array or None
+        :param calculation_method: (optional) The new calculation method.  Defaults to "highest"
+        :type calculation_method: string or None
+        :param calculation_int: (optional) The new calculation int.  Only applies if the calculation_method is "decaying_average" or "n_mastery"
+        :type calculation_int: integer or None
         :return: Create/link an outcome
         :rtype: requests.Response (with OutcomeLink data)
 
     """
 
+    calculation_method_types = ('decaying_average', 'n_mastery', 'latest', 'highest')
+    utils.validate_attr_is_acceptable(calculation_method, calculation_method_types)
     path = '/v1/courses/{course_id}/outcome_groups/{id}/outcomes/{outcome_id}'
     payload = {
         'title' : title,
@@ -926,6 +982,8 @@ def create_link_outcome_courses_outcome_id(request_ctx, course_id, id, outcome_i
         'mastery_points' : mastery_points,
         'ratings[description]' : ratings_description,
         'ratings[points]' : ratings_points,
+        'calculation_method' : calculation_method,
+        'calculation_int' : calculation_int,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id, id=id, outcome_id=outcome_id)
     response = client.put(request_ctx, url, payload=payload, **request_kwargs)

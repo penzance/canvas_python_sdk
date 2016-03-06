@@ -40,7 +40,7 @@ def show_front_page_groups(request_ctx, group_id, **request_kwargs):
     return response
 
 
-def update_create_front_page_courses(request_ctx, course_id, wiki_page_body, wiki_page_title=None, wiki_page_hide_from_students=None, wiki_page_editing_roles=None, wiki_page_notify_of_update=None, wiki_page_published=None, **request_kwargs):
+def update_create_front_page_courses(request_ctx, course_id, wiki_page_title=None, wiki_page_body=None, wiki_page_editing_roles=None, wiki_page_notify_of_update=None, wiki_page_published=None, **request_kwargs):
     """
     Update the title or contents of the front page
 
@@ -48,17 +48,22 @@ def update_create_front_page_courses(request_ctx, course_id, wiki_page_body, wik
         :type request_ctx: :class:RequestContext
         :param course_id: (required) ID
         :type course_id: string
-        :param wiki_page_body: (required) The content for the new page.
-        :type wiki_page_body: string
-        :param wiki_page_title: (optional) The title for the new page. NOTE: changing a page's title will change its url. The updated url will be returned in the result.
+        :param wiki_page_title: (optional) The title for the new page. NOTE: changing a page's title will change its
+url. The updated url will be returned in the result.
         :type wiki_page_title: string or None
-        :param wiki_page_hide_from_students: (optional) Whether the page should be hidden from students. *Note:* when draft state is enabled, attempts to set +hide_from_students+ will be ignored and the value returned will always be the inverse of the +published+ value.
-        :type wiki_page_hide_from_students: boolean or None
-        :param wiki_page_editing_roles: (optional) Which user roles are allowed to edit this page. Any combination of these roles is allowed (separated by commas). "teachers":: Allows editing by teachers in the course. "students":: Allows editing by students in the course. "members":: For group wikis, allows editing by members of the group. "public":: Allows editing by any user.
+        :param wiki_page_body: (optional) The content for the new page.
+        :type wiki_page_body: string or None
+        :param wiki_page_editing_roles: (optional) Which user roles are allowed to edit this page. Any combination
+of these roles is allowed (separated by commas).
+
+"teachers":: Allows editing by teachers in the course.
+"students":: Allows editing by students in the course.
+"members":: For group wikis, allows editing by members of the group.
+"public":: Allows editing by any user.
         :type wiki_page_editing_roles: string or None
         :param wiki_page_notify_of_update: (optional) Whether participants should be notified when this page changes.
         :type wiki_page_notify_of_update: boolean or None
-        :param wiki_page_published: (optional) Whether the page is published (true) or draft state (false). *Note:* when draft state is disabled, attempts to set +published+ will be ignored and the value returned will always be the inverse of the +hide_from_students+ value.
+        :param wiki_page_published: (optional) Whether the page is published (true) or draft state (false).
         :type wiki_page_published: boolean or None
         :return: Update/create front page
         :rtype: requests.Response (with Page data)
@@ -71,7 +76,6 @@ def update_create_front_page_courses(request_ctx, course_id, wiki_page_body, wik
     payload = {
         'wiki_page[title]' : wiki_page_title,
         'wiki_page[body]' : wiki_page_body,
-        'wiki_page[hide_from_students]' : wiki_page_hide_from_students,
         'wiki_page[editing_roles]' : wiki_page_editing_roles,
         'wiki_page[notify_of_update]' : wiki_page_notify_of_update,
         'wiki_page[published]' : wiki_page_published,
@@ -82,7 +86,7 @@ def update_create_front_page_courses(request_ctx, course_id, wiki_page_body, wik
     return response
 
 
-def update_create_front_page_groups(request_ctx, group_id, wiki_page_body, wiki_page_title=None, wiki_page_hide_from_students=None, wiki_page_editing_roles=None, wiki_page_notify_of_update=None, wiki_page_published=None, **request_kwargs):
+def update_create_front_page_groups(request_ctx, group_id, wiki_page_title=None, wiki_page_body=None, wiki_page_editing_roles=None, wiki_page_notify_of_update=None, wiki_page_published=None, **request_kwargs):
     """
     Update the title or contents of the front page
 
@@ -90,17 +94,22 @@ def update_create_front_page_groups(request_ctx, group_id, wiki_page_body, wiki_
         :type request_ctx: :class:RequestContext
         :param group_id: (required) ID
         :type group_id: string
-        :param wiki_page_body: (required) The content for the new page.
-        :type wiki_page_body: string
-        :param wiki_page_title: (optional) The title for the new page. NOTE: changing a page's title will change its url. The updated url will be returned in the result.
+        :param wiki_page_title: (optional) The title for the new page. NOTE: changing a page's title will change its
+url. The updated url will be returned in the result.
         :type wiki_page_title: string or None
-        :param wiki_page_hide_from_students: (optional) Whether the page should be hidden from students. *Note:* when draft state is enabled, attempts to set +hide_from_students+ will be ignored and the value returned will always be the inverse of the +published+ value.
-        :type wiki_page_hide_from_students: boolean or None
-        :param wiki_page_editing_roles: (optional) Which user roles are allowed to edit this page. Any combination of these roles is allowed (separated by commas). "teachers":: Allows editing by teachers in the course. "students":: Allows editing by students in the course. "members":: For group wikis, allows editing by members of the group. "public":: Allows editing by any user.
+        :param wiki_page_body: (optional) The content for the new page.
+        :type wiki_page_body: string or None
+        :param wiki_page_editing_roles: (optional) Which user roles are allowed to edit this page. Any combination
+of these roles is allowed (separated by commas).
+
+"teachers":: Allows editing by teachers in the course.
+"students":: Allows editing by students in the course.
+"members":: For group wikis, allows editing by members of the group.
+"public":: Allows editing by any user.
         :type wiki_page_editing_roles: string or None
         :param wiki_page_notify_of_update: (optional) Whether participants should be notified when this page changes.
         :type wiki_page_notify_of_update: boolean or None
-        :param wiki_page_published: (optional) Whether the page is published (true) or draft state (false). *Note:* when draft state is disabled, attempts to set +published+ will be ignored and the value returned will always be the inverse of the +hide_from_students+ value.
+        :param wiki_page_published: (optional) Whether the page is published (true) or draft state (false).
         :type wiki_page_published: boolean or None
         :return: Update/create front page
         :rtype: requests.Response (with Page data)
@@ -113,7 +122,6 @@ def update_create_front_page_groups(request_ctx, group_id, wiki_page_body, wiki_
     payload = {
         'wiki_page[title]' : wiki_page_title,
         'wiki_page[body]' : wiki_page_body,
-        'wiki_page[hide_from_students]' : wiki_page_hide_from_students,
         'wiki_page[editing_roles]' : wiki_page_editing_roles,
         'wiki_page[notify_of_update]' : wiki_page_notify_of_update,
         'wiki_page[published]' : wiki_page_published,
@@ -138,7 +146,8 @@ def list_pages_courses(request_ctx, course_id, sort=None, order=None, search_ter
         :type order: string or None
         :param search_term: (optional) The partial title of the pages to match and return.
         :type search_term: string or None
-        :param published: (optional) If true, include only published paqes. If false, exclude published pages. If not present, do not filter on published status.
+        :param published: (optional) If true, include only published paqes. If false, exclude published
+pages. If not present, do not filter on published status.
         :type published: boolean or None
         :param per_page: (optional) Set how many results canvas should return, defaults to config.LIMIT_PER_PAGE
         :type per_page: integer or None
@@ -181,7 +190,8 @@ def list_pages_groups(request_ctx, group_id, sort=None, order=None, search_term=
         :type order: string or None
         :param search_term: (optional) The partial title of the pages to match and return.
         :type search_term: string or None
-        :param published: (optional) If true, include only published paqes. If false, exclude published pages. If not present, do not filter on published status.
+        :param published: (optional) If true, include only published paqes. If false, exclude published
+pages. If not present, do not filter on published status.
         :type published: boolean or None
         :param per_page: (optional) Set how many results canvas should return, defaults to config.LIMIT_PER_PAGE
         :type per_page: integer or None
@@ -210,7 +220,7 @@ def list_pages_groups(request_ctx, group_id, sort=None, order=None, search_term=
     return response
 
 
-def create_page_courses(request_ctx, course_id, wiki_page_title, wiki_page_body, wiki_page_hide_from_students, wiki_page_notify_of_update, wiki_page_editing_roles=None, wiki_page_published=None, wiki_page_front_page=None, **request_kwargs):
+def create_page_courses(request_ctx, course_id, wiki_page_title, wiki_page_body=None, wiki_page_editing_roles=None, wiki_page_notify_of_update=None, wiki_page_published=None, wiki_page_front_page=None, **request_kwargs):
     """
     Create a new wiki page
 
@@ -220,15 +230,19 @@ def create_page_courses(request_ctx, course_id, wiki_page_title, wiki_page_body,
         :type course_id: string
         :param wiki_page_title: (required) The title for the new page.
         :type wiki_page_title: string
-        :param wiki_page_body: (required) The content for the new page.
-        :type wiki_page_body: string
-        :param wiki_page_hide_from_students: (required) Whether the page should be hidden from students. *Note:* when draft state is enabled, attempts to set +hide_from_students+ will be ignored and the value returned will always be the inverse of the +published+ value.
-        :type wiki_page_hide_from_students: boolean
-        :param wiki_page_notify_of_update: (required) Whether participants should be notified when this page changes.
-        :type wiki_page_notify_of_update: boolean
-        :param wiki_page_editing_roles: (optional) Which user roles are allowed to edit this page. Any combination of these roles is allowed (separated by commas). "teachers":: Allows editing by teachers in the course. "students":: Allows editing by students in the course. "members":: For group wikis, allows editing by members of the group. "public":: Allows editing by any user.
+        :param wiki_page_body: (optional) The content for the new page.
+        :type wiki_page_body: string or None
+        :param wiki_page_editing_roles: (optional) Which user roles are allowed to edit this page. Any combination
+of these roles is allowed (separated by commas).
+
+"teachers":: Allows editing by teachers in the course.
+"students":: Allows editing by students in the course.
+"members":: For group wikis, allows editing by members of the group.
+"public":: Allows editing by any user.
         :type wiki_page_editing_roles: string or None
-        :param wiki_page_published: (optional) Whether the page is published (true) or draft state (false). *Note:* when draft state is disabled, attempts to set +published+ will be ignored and the value returned will always be the inverse of the +hide_from_students+ value.
+        :param wiki_page_notify_of_update: (optional) Whether participants should be notified when this page changes.
+        :type wiki_page_notify_of_update: boolean or None
+        :param wiki_page_published: (optional) Whether the page is published (true) or draft state (false).
         :type wiki_page_published: boolean or None
         :param wiki_page_front_page: (optional) Set an unhidden page as the front page (if true)
         :type wiki_page_front_page: boolean or None
@@ -243,7 +257,6 @@ def create_page_courses(request_ctx, course_id, wiki_page_title, wiki_page_body,
     payload = {
         'wiki_page[title]' : wiki_page_title,
         'wiki_page[body]' : wiki_page_body,
-        'wiki_page[hide_from_students]' : wiki_page_hide_from_students,
         'wiki_page[editing_roles]' : wiki_page_editing_roles,
         'wiki_page[notify_of_update]' : wiki_page_notify_of_update,
         'wiki_page[published]' : wiki_page_published,
@@ -255,7 +268,7 @@ def create_page_courses(request_ctx, course_id, wiki_page_title, wiki_page_body,
     return response
 
 
-def create_page_groups(request_ctx, group_id, wiki_page_title, wiki_page_body, wiki_page_hide_from_students, wiki_page_notify_of_update, wiki_page_editing_roles=None, wiki_page_published=None, wiki_page_front_page=None, **request_kwargs):
+def create_page_groups(request_ctx, group_id, wiki_page_title, wiki_page_body=None, wiki_page_editing_roles=None, wiki_page_notify_of_update=None, wiki_page_published=None, wiki_page_front_page=None, **request_kwargs):
     """
     Create a new wiki page
 
@@ -265,15 +278,19 @@ def create_page_groups(request_ctx, group_id, wiki_page_title, wiki_page_body, w
         :type group_id: string
         :param wiki_page_title: (required) The title for the new page.
         :type wiki_page_title: string
-        :param wiki_page_body: (required) The content for the new page.
-        :type wiki_page_body: string
-        :param wiki_page_hide_from_students: (required) Whether the page should be hidden from students. *Note:* when draft state is enabled, attempts to set +hide_from_students+ will be ignored and the value returned will always be the inverse of the +published+ value.
-        :type wiki_page_hide_from_students: boolean
-        :param wiki_page_notify_of_update: (required) Whether participants should be notified when this page changes.
-        :type wiki_page_notify_of_update: boolean
-        :param wiki_page_editing_roles: (optional) Which user roles are allowed to edit this page. Any combination of these roles is allowed (separated by commas). "teachers":: Allows editing by teachers in the course. "students":: Allows editing by students in the course. "members":: For group wikis, allows editing by members of the group. "public":: Allows editing by any user.
+        :param wiki_page_body: (optional) The content for the new page.
+        :type wiki_page_body: string or None
+        :param wiki_page_editing_roles: (optional) Which user roles are allowed to edit this page. Any combination
+of these roles is allowed (separated by commas).
+
+"teachers":: Allows editing by teachers in the course.
+"students":: Allows editing by students in the course.
+"members":: For group wikis, allows editing by members of the group.
+"public":: Allows editing by any user.
         :type wiki_page_editing_roles: string or None
-        :param wiki_page_published: (optional) Whether the page is published (true) or draft state (false). *Note:* when draft state is disabled, attempts to set +published+ will be ignored and the value returned will always be the inverse of the +hide_from_students+ value.
+        :param wiki_page_notify_of_update: (optional) Whether participants should be notified when this page changes.
+        :type wiki_page_notify_of_update: boolean or None
+        :param wiki_page_published: (optional) Whether the page is published (true) or draft state (false).
         :type wiki_page_published: boolean or None
         :param wiki_page_front_page: (optional) Set an unhidden page as the front page (if true)
         :type wiki_page_front_page: boolean or None
@@ -288,7 +305,6 @@ def create_page_groups(request_ctx, group_id, wiki_page_title, wiki_page_body, w
     payload = {
         'wiki_page[title]' : wiki_page_title,
         'wiki_page[body]' : wiki_page_body,
-        'wiki_page[hide_from_students]' : wiki_page_hide_from_students,
         'wiki_page[editing_roles]' : wiki_page_editing_roles,
         'wiki_page[notify_of_update]' : wiki_page_notify_of_update,
         'wiki_page[published]' : wiki_page_published,
@@ -344,7 +360,7 @@ def show_page_groups(request_ctx, group_id, url, **request_kwargs):
     return response
 
 
-def update_create_page_courses(request_ctx, course_id, url, wiki_page_title, wiki_page_body, wiki_page_hide_from_students, wiki_page_notify_of_update, wiki_page_editing_roles=None, wiki_page_published=None, wiki_page_front_page=None, **request_kwargs):
+def update_create_page_courses(request_ctx, course_id, url, wiki_page_title=None, wiki_page_body=None, wiki_page_editing_roles=None, wiki_page_notify_of_update=None, wiki_page_published=None, wiki_page_front_page=None, **request_kwargs):
     """
     Update the title or contents of a wiki page
 
@@ -354,17 +370,22 @@ def update_create_page_courses(request_ctx, course_id, url, wiki_page_title, wik
         :type course_id: string
         :param url: (required) ID
         :type url: string
-        :param wiki_page_title: (required) The title for the new page. NOTE: changing a page's title will change its url. The updated url will be returned in the result.
-        :type wiki_page_title: string
-        :param wiki_page_body: (required) The content for the new page.
-        :type wiki_page_body: string
-        :param wiki_page_hide_from_students: (required) Whether the page should be hidden from students. *Note:* when draft state is enabled, attempts to set +hide_from_students+ will be ignored and the value returned will always be the inverse of the +published+ value.
-        :type wiki_page_hide_from_students: boolean
-        :param wiki_page_notify_of_update: (required) Whether participants should be notified when this page changes.
-        :type wiki_page_notify_of_update: boolean
-        :param wiki_page_editing_roles: (optional) Which user roles are allowed to edit this page. Any combination of these roles is allowed (separated by commas). "teachers":: Allows editing by teachers in the course. "students":: Allows editing by students in the course. "members":: For group wikis, allows editing by members of the group. "public":: Allows editing by any user.
+        :param wiki_page_title: (optional) The title for the new page. NOTE: changing a page's title will change its
+url. The updated url will be returned in the result.
+        :type wiki_page_title: string or None
+        :param wiki_page_body: (optional) The content for the new page.
+        :type wiki_page_body: string or None
+        :param wiki_page_editing_roles: (optional) Which user roles are allowed to edit this page. Any combination
+of these roles is allowed (separated by commas).
+
+"teachers":: Allows editing by teachers in the course.
+"students":: Allows editing by students in the course.
+"members":: For group wikis, allows editing by members of the group.
+"public":: Allows editing by any user.
         :type wiki_page_editing_roles: string or None
-        :param wiki_page_published: (optional) Whether the page is published (true) or draft state (false). *Note:* when draft state is disabled, attempts to set +published+ will be ignored and the value returned will always be the inverse of the +hide_from_students+ value.
+        :param wiki_page_notify_of_update: (optional) Whether participants should be notified when this page changes.
+        :type wiki_page_notify_of_update: boolean or None
+        :param wiki_page_published: (optional) Whether the page is published (true) or draft state (false).
         :type wiki_page_published: boolean or None
         :param wiki_page_front_page: (optional) Set an unhidden page as the front page (if true)
         :type wiki_page_front_page: boolean or None
@@ -379,7 +400,6 @@ def update_create_page_courses(request_ctx, course_id, url, wiki_page_title, wik
     payload = {
         'wiki_page[title]' : wiki_page_title,
         'wiki_page[body]' : wiki_page_body,
-        'wiki_page[hide_from_students]' : wiki_page_hide_from_students,
         'wiki_page[editing_roles]' : wiki_page_editing_roles,
         'wiki_page[notify_of_update]' : wiki_page_notify_of_update,
         'wiki_page[published]' : wiki_page_published,
@@ -391,7 +411,7 @@ def update_create_page_courses(request_ctx, course_id, url, wiki_page_title, wik
     return response
 
 
-def update_create_page_groups(request_ctx, group_id, url, wiki_page_title, wiki_page_body, wiki_page_hide_from_students, wiki_page_notify_of_update, wiki_page_editing_roles=None, wiki_page_published=None, wiki_page_front_page=None, **request_kwargs):
+def update_create_page_groups(request_ctx, group_id, url, wiki_page_title=None, wiki_page_body=None, wiki_page_editing_roles=None, wiki_page_notify_of_update=None, wiki_page_published=None, wiki_page_front_page=None, **request_kwargs):
     """
     Update the title or contents of a wiki page
 
@@ -401,17 +421,22 @@ def update_create_page_groups(request_ctx, group_id, url, wiki_page_title, wiki_
         :type group_id: string
         :param url: (required) ID
         :type url: string
-        :param wiki_page_title: (required) The title for the new page. NOTE: changing a page's title will change its url. The updated url will be returned in the result.
-        :type wiki_page_title: string
-        :param wiki_page_body: (required) The content for the new page.
-        :type wiki_page_body: string
-        :param wiki_page_hide_from_students: (required) Whether the page should be hidden from students. *Note:* when draft state is enabled, attempts to set +hide_from_students+ will be ignored and the value returned will always be the inverse of the +published+ value.
-        :type wiki_page_hide_from_students: boolean
-        :param wiki_page_notify_of_update: (required) Whether participants should be notified when this page changes.
-        :type wiki_page_notify_of_update: boolean
-        :param wiki_page_editing_roles: (optional) Which user roles are allowed to edit this page. Any combination of these roles is allowed (separated by commas). "teachers":: Allows editing by teachers in the course. "students":: Allows editing by students in the course. "members":: For group wikis, allows editing by members of the group. "public":: Allows editing by any user.
+        :param wiki_page_title: (optional) The title for the new page. NOTE: changing a page's title will change its
+url. The updated url will be returned in the result.
+        :type wiki_page_title: string or None
+        :param wiki_page_body: (optional) The content for the new page.
+        :type wiki_page_body: string or None
+        :param wiki_page_editing_roles: (optional) Which user roles are allowed to edit this page. Any combination
+of these roles is allowed (separated by commas).
+
+"teachers":: Allows editing by teachers in the course.
+"students":: Allows editing by students in the course.
+"members":: For group wikis, allows editing by members of the group.
+"public":: Allows editing by any user.
         :type wiki_page_editing_roles: string or None
-        :param wiki_page_published: (optional) Whether the page is published (true) or draft state (false). *Note:* when draft state is disabled, attempts to set +published+ will be ignored and the value returned will always be the inverse of the +hide_from_students+ value.
+        :param wiki_page_notify_of_update: (optional) Whether participants should be notified when this page changes.
+        :type wiki_page_notify_of_update: boolean or None
+        :param wiki_page_published: (optional) Whether the page is published (true) or draft state (false).
         :type wiki_page_published: boolean or None
         :param wiki_page_front_page: (optional) Set an unhidden page as the front page (if true)
         :type wiki_page_front_page: boolean or None
@@ -426,7 +451,6 @@ def update_create_page_groups(request_ctx, group_id, url, wiki_page_title, wiki_
     payload = {
         'wiki_page[title]' : wiki_page_title,
         'wiki_page[body]' : wiki_page_body,
-        'wiki_page[hide_from_students]' : wiki_page_hide_from_students,
         'wiki_page[editing_roles]' : wiki_page_editing_roles,
         'wiki_page[notify_of_update]' : wiki_page_notify_of_update,
         'wiki_page[published]' : wiki_page_published,
@@ -666,7 +690,9 @@ def revert_to_revision_courses(request_ctx, course_id, url, revision_id, **reque
         :type course_id: string
         :param url: (required) ID
         :type url: string
-        :param revision_id: (required) The revision to revert to (use the {api:WikiPagesApiController#revisions List Revisions API} to see available revisions)
+        :param revision_id: (required) The revision to revert to (use the
+{api:WikiPagesApiController#revisions List Revisions API} to see
+available revisions)
         :type revision_id: integer
         :return: Revert to revision
         :rtype: requests.Response (with PageRevision data)
@@ -690,7 +716,9 @@ def revert_to_revision_groups(request_ctx, group_id, url, revision_id, **request
         :type group_id: string
         :param url: (required) ID
         :type url: string
-        :param revision_id: (required) The revision to revert to (use the {api:WikiPagesApiController#revisions List Revisions API} to see available revisions)
+        :param revision_id: (required) The revision to revert to (use the
+{api:WikiPagesApiController#revisions List Revisions API} to see
+available revisions)
         :type revision_id: integer
         :return: Revert to revision
         :rtype: requests.Response (with PageRevision data)

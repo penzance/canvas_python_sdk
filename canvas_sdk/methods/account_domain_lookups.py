@@ -13,10 +13,10 @@ def search_account_domains(request_ctx, name=None, domain=None, latitude=None, l
         :param domain: (optional) no description
         :type domain: string or None
         :param latitude: (optional) no description
-        :type latitude: string or None
+        :type latitude: Float or None
         :param longitude: (optional) no description
-        :type longitude: string or None
-        :return: 
+        :type longitude: Float or None
+        :return: Search account domains
         :rtype: requests.Response (with void data)
 
     """

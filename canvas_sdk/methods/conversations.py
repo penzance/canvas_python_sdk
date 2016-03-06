@@ -1,21 +1,34 @@
 from canvas_sdk import client, utils
 
-def list_conversations(request_ctx, interleave_submissions, include_all_conversation_ids, scope=None, filter=None, filter_mode=None, per_page=None, **request_kwargs):
+def list_conversations(request_ctx, scope=None, filter=None, filter_mode=None, interleave_submissions=None, include_all_conversation_ids=None, per_page=None, **request_kwargs):
     """
     Returns the list of conversations for the current user, most recent ones first.
 
         :param request_ctx: The request context
         :type request_ctx: :class:RequestContext
-        :param interleave_submissions: (required) (Obsolete) Submissions are no longer linked to conversations. This parameter is ignored.
-        :type interleave_submissions: boolean
-        :param include_all_conversation_ids: (required) Default is false. If true, the top-level element of the response will be an object rather than an array, and will have the keys "conversations" which will contain the paged conversation data, and "conversation_ids" which will contain the ids of all conversations under this scope/filter in the same order.
-        :type include_all_conversation_ids: boolean
-        :param scope: (optional) When set, only return conversations of the specified type. For example, set to "unread" to return only conversations that haven't been read. The default behavior is to return all non-archived conversations (i.e. read and unread).
+        :param scope: (optional) When set, only return conversations of the specified type. For example,
+set to "unread" to return only conversations that haven't been read.
+The default behavior is to return all non-archived conversations (i.e.
+read and unread).
         :type scope: string or None
-        :param filter: (optional) When set, only return conversations for the specified courses, groups or users. The id should be prefixed with its type, e.g. "user_123" or "course_456". Can be an array (by setting "filter[]") or single value (by setting "filter")
-        :type filter: string or None
-        :param filter_mode: (optional) no description
-        :type filter_mode: combine them with this mode or None
+        :param filter: (optional) When set, only return conversations for the specified courses, groups
+or users. The id should be prefixed with its type, e.g. "user_123" or
+"course_456". Can be an array (by setting "filter[]") or single value
+(by setting "filter")
+        :type filter: array or None
+        :param filter_mode: (optional) When filter[] contains multiple filters, combine them with this mode,
+filtering conversations that at have at least all of the contexts ("and")
+or at least one of the contexts ("or")
+        :type filter_mode: string or None
+        :param interleave_submissions: (optional) (Obsolete) Submissions are no
+longer linked to conversations. This parameter is ignored.
+        :type interleave_submissions: boolean or None
+        :param include_all_conversation_ids: (optional) Default is false. If true,
+the top-level element of the response will be an object rather than
+an array, and will have the keys "conversations" which will contain the
+paged conversation data, and "conversation_ids" which will contain the
+ids of all conversations under this scope/filter in the same order.
+        :type include_all_conversation_ids: boolean or None
         :param per_page: (optional) Set how many results canvas should return, defaults to config.LIMIT_PER_PAGE
         :type per_page: integer or None
         :return: List conversations
@@ -26,7 +39,7 @@ def list_conversations(request_ctx, interleave_submissions, include_all_conversa
     if per_page is None:
         per_page = request_ctx.per_page
     scope_types = ('unread', 'starred', 'archived')
-    filter_mode_types = ('and', 'or', 'default or] When filter[] contains multiple filters', 'filtering conversations that at have at least all of the contexts (and) or at least one of the contexts (or)')
+    filter_mode_types = ('and', 'or', 'default or')
     utils.validate_attr_is_acceptable(scope, scope_types)
     utils.validate_attr_is_acceptable(filter_mode, filter_mode_types)
     path = '/v1/conversations'
@@ -44,7 +57,7 @@ def list_conversations(request_ctx, interleave_submissions, include_all_conversa
     return response
 
 
-def create_conversation(request_ctx, recipients, body, group_conversation, attachment_ids, media_comment_id, media_comment_type, mode, subject=None, user_note=None, scope=None, filter=None, filter_mode=None, context_code=None, **request_kwargs):
+def create_conversation(request_ctx, recipients, body, subject=None, group_conversation=None, attachment_ids=None, media_comment_id=None, media_comment_type=None, user_note=None, mode=None, scope=None, filter=None, filter_mode=None, context_code=None, **request_kwargs):
     """
     Create a new conversation with one or more recipients. If there is already
     an existing private conversation with the given recipients, it will be
@@ -52,31 +65,49 @@ def create_conversation(request_ctx, recipients, body, group_conversation, attac
 
         :param request_ctx: The request context
         :type request_ctx: :class:RequestContext
-        :param recipients: (required) An array of recipient ids. These may be user ids or course/group ids prefixed with "course_" or "group_" respectively, e.g. recipients[]=1&recipients[]=2&recipients[]=course_3
-        :type recipients: string
+        :param recipients: (required) An array of recipient ids. These may be user ids or course/group ids
+prefixed with "course_" or "group_" respectively, e.g.
+recipients[]=1&recipients[]=2&recipients[]=course_3
+        :type recipients: array
         :param body: (required) The message to be sent
         :type body: string
-        :param group_conversation: (required) Defaults to false. If true, this will be a group conversation (i.e. all recipients may see all messages and replies). If false, individual private conversations will be started with each recipient.
-        :type group_conversation: boolean
-        :param attachment_ids: (required) An array of attachments ids. These must be files that have been previously uploaded to the sender's "conversation attachments" folder.
-        :type attachment_ids: string
-        :param media_comment_id: (required) Media comment id of an audio of video file to be associated with this message.
-        :type media_comment_id: string
-        :param media_comment_type: (required) Type of the associated media file
-        :type media_comment_type: string
-        :param mode: (required) Determines whether the messages will be created/sent synchronously or asynchronously. Defaults to sync, and this option is ignored if this is a group conversation or there is just one recipient (i.e. it must be a bulk private message). When sent async, the response will be an empty array (batch status can be queried via the {api:ConversationsController#batches batches API})
-        :type mode: string
-        :param subject: (optional) The subject of the conversation. This is ignored when reusing a conversation. Maximum length is 255 characters.
+        :param subject: (optional) The subject of the conversation. This is ignored when reusing a
+conversation. Maximum length is 255 characters.
         :type subject: string or None
-        :param user_note: (optional) Will add a faculty journal entry for each recipient as long as the user making the api call has permission, the recipient is a student and faculty journals are enabled in the account.
+        :param group_conversation: (optional) Defaults to false. If true, this will be a group conversation (i.e. all
+recipients may see all messages and replies). If false, individual private
+conversations will be started with each recipient. Must be set false if the
+number of recipients is over the set maximum (default is 100).
+        :type group_conversation: boolean or None
+        :param attachment_ids: (optional) An array of attachments ids. These must be files that have been previously
+uploaded to the sender's "conversation attachments" folder.
+        :type attachment_ids: array or None
+        :param media_comment_id: (optional) Media comment id of an audio of video file to be associated with this
+message.
+        :type media_comment_id: string or None
+        :param media_comment_type: (optional) Type of the associated media file
+        :type media_comment_type: string or None
+        :param user_note: (optional) Will add a faculty journal entry for each recipient as long as the user
+making the api call has permission, the recipient is a student and
+faculty journals are enabled in the account.
         :type user_note: boolean or None
-        :param scope: (optional) Used when generating "visible" in the API response. See the explanation under the {api:ConversationsController#index index API action}
+        :param mode: (optional) Determines whether the messages will be created/sent synchronously or
+asynchronously. Defaults to sync, and this option is ignored if this is a
+group conversation or there is just one recipient (i.e. it must be a bulk
+private message). When sent async, the response will be an empty array
+(batch status can be queried via the {api:ConversationsController#batches batches API})
+        :type mode: string or None
+        :param scope: (optional) Used when generating "visible" in the API response. See the explanation
+under the {api:ConversationsController#index index API action}
         :type scope: string or None
-        :param filter: (optional) Used when generating "visible" in the API response. See the explanation under the {api:ConversationsController#index index API action}
-        :type filter: string or None
-        :param filter_mode: (optional) no description
+        :param filter: (optional) Used when generating "visible" in the API response. See the explanation
+under the {api:ConversationsController#index index API action}
+        :type filter: array or None
+        :param filter_mode: (optional) Used when generating "visible" in the API response. See the explanation
+under the {api:ConversationsController#index index API action}
         :type filter_mode: string or None
-        :param context_code: (optional) The course or group that is the context for this conversation. Same format as courses or groups in the recipients argument.
+        :param context_code: (optional) The course or group that is the context for this conversation. Same format
+as courses or groups in the recipients argument.
         :type context_code: string or None
         :return: Create a conversation
         :rtype: requests.Response (with void data)
@@ -86,7 +117,7 @@ def create_conversation(request_ctx, recipients, body, group_conversation, attac
     media_comment_type_types = ('audio', 'video')
     mode_types = ('sync', 'async')
     scope_types = ('unread', 'starred', 'archived')
-    filter_mode_types = ('and', 'or', 'default or] Used when generating visible in the API response. See the explanation under the {api:ConversationsController#index index API action}')
+    filter_mode_types = ('and', 'or', 'default or')
     utils.validate_attr_is_acceptable(media_comment_type, media_comment_type_types)
     utils.validate_attr_is_acceptable(mode, mode_types)
     utils.validate_attr_is_acceptable(scope, scope_types)
@@ -133,7 +164,7 @@ def get_running_batches(request_ctx, **request_kwargs):
     return response
 
 
-def get_single_conversation(request_ctx, id, interleave_submissions, auto_mark_as_read, scope=None, filter=None, filter_mode=None, **request_kwargs):
+def get_single_conversation(request_ctx, id, interleave_submissions=None, scope=None, filter=None, filter_mode=None, auto_mark_as_read=None, **request_kwargs):
     """
     Returns information for a single conversation. Response includes all
     fields that are present in the list/index action as well as messages
@@ -143,23 +174,30 @@ def get_single_conversation(request_ctx, id, interleave_submissions, auto_mark_a
         :type request_ctx: :class:RequestContext
         :param id: (required) ID
         :type id: string
-        :param interleave_submissions: (required) (Obsolete) Submissions are no longer linked to conversations. This parameter is ignored.
-        :type interleave_submissions: boolean
-        :param auto_mark_as_read: (required) Default true. If true, unread conversations will be automatically marked as read. This will default to false in a future API release, so clients should explicitly send true if that is the desired behavior.
-        :type auto_mark_as_read: boolean
-        :param scope: (optional) Used when generating "visible" in the API response. See the explanation under the {api:ConversationsController#index index API action}
+        :param interleave_submissions: (optional) (Obsolete) Submissions are no
+longer linked to conversations. This parameter is ignored.
+        :type interleave_submissions: boolean or None
+        :param scope: (optional) Used when generating "visible" in the API response. See the explanation
+under the {api:ConversationsController#index index API action}
         :type scope: string or None
-        :param filter: (optional) Used when generating "visible" in the API response. See the explanation under the {api:ConversationsController#index index API action}
-        :type filter: string or None
-        :param filter_mode: (optional) no description
+        :param filter: (optional) Used when generating "visible" in the API response. See the explanation
+under the {api:ConversationsController#index index API action}
+        :type filter: array or None
+        :param filter_mode: (optional) Used when generating "visible" in the API response. See the explanation
+under the {api:ConversationsController#index index API action}
         :type filter_mode: string or None
+        :param auto_mark_as_read: (optional) Default true. If true, unread
+conversations will be automatically marked as read. This will default
+to false in a future API release, so clients should explicitly send
+true if that is the desired behavior.
+        :type auto_mark_as_read: boolean or None
         :return: Get a single conversation
         :rtype: requests.Response (with void data)
 
     """
 
     scope_types = ('unread', 'starred', 'archived')
-    filter_mode_types = ('and', 'or', 'default or] Used when generating visible in the API response. See the explanation under the {api:ConversationsController#index index API action}')
+    filter_mode_types = ('and', 'or', 'default or')
     utils.validate_attr_is_acceptable(scope, scope_types)
     utils.validate_attr_is_acceptable(filter_mode, filter_mode_types)
     path = '/v1/conversations/{id}'
@@ -176,7 +214,7 @@ def get_single_conversation(request_ctx, id, interleave_submissions, auto_mark_a
     return response
 
 
-def edit_conversation(request_ctx, id, conversation_subject, conversation_workflow_state, conversation_subscribed, conversation_starred, scope=None, filter=None, filter_mode=None, **request_kwargs):
+def edit_conversation(request_ctx, id, conversation_subject=None, conversation_workflow_state=None, conversation_subscribed=None, conversation_starred=None, scope=None, filter=None, filter_mode=None, **request_kwargs):
     """
     Updates attributes for a single conversation.
 
@@ -184,19 +222,25 @@ def edit_conversation(request_ctx, id, conversation_subject, conversation_workfl
         :type request_ctx: :class:RequestContext
         :param id: (required) ID
         :type id: string
-        :param conversation_subject: (required) Change the subject of this conversation
-        :type conversation_subject: string
-        :param conversation_workflow_state: (required) Change the state of this conversation
-        :type conversation_workflow_state: string
-        :param conversation_subscribed: (required) Toggle the current user's subscription to the conversation (only valid for group conversations). If unsubscribed, the user will still have access to the latest messages, but the conversation won't be automatically flagged as unread, nor will it jump to the top of the inbox.
-        :type conversation_subscribed: boolean
-        :param conversation_starred: (required) Toggle the starred state of the current user's view of the conversation.
-        :type conversation_starred: boolean
-        :param scope: (optional) Used when generating "visible" in the API response. See the explanation under the {api:ConversationsController#index index API action}
+        :param conversation_subject: (optional) Change the subject of this conversation
+        :type conversation_subject: string or None
+        :param conversation_workflow_state: (optional) Change the state of this conversation
+        :type conversation_workflow_state: string or None
+        :param conversation_subscribed: (optional) Toggle the current user's subscription to the conversation (only valid for
+group conversations). If unsubscribed, the user will still have access to
+the latest messages, but the conversation won't be automatically flagged
+as unread, nor will it jump to the top of the inbox.
+        :type conversation_subscribed: boolean or None
+        :param conversation_starred: (optional) Toggle the starred state of the current user's view of the conversation.
+        :type conversation_starred: boolean or None
+        :param scope: (optional) Used when generating "visible" in the API response. See the explanation
+under the {api:ConversationsController#index index API action}
         :type scope: string or None
-        :param filter: (optional) Used when generating "visible" in the API response. See the explanation under the {api:ConversationsController#index index API action}
-        :type filter: string or None
-        :param filter_mode: (optional) no description
+        :param filter: (optional) Used when generating "visible" in the API response. See the explanation
+under the {api:ConversationsController#index index API action}
+        :type filter: array or None
+        :param filter_mode: (optional) Used when generating "visible" in the API response. See the explanation
+under the {api:ConversationsController#index index API action}
         :type filter_mode: string or None
         :return: Edit a conversation
         :rtype: requests.Response (with void data)
@@ -205,7 +249,7 @@ def edit_conversation(request_ctx, id, conversation_subject, conversation_workfl
 
     conversation_workflow_state_types = ('read', 'unread', 'archived')
     scope_types = ('unread', 'starred', 'archived')
-    filter_mode_types = ('and', 'or', 'default or] Used when generating visible in the API response. See the explanation under the {api:ConversationsController#index index API action}')
+    filter_mode_types = ('and', 'or', 'default or')
     utils.validate_attr_is_acceptable(conversation_workflow_state, conversation_workflow_state_types)
     utils.validate_attr_is_acceptable(scope, scope_types)
     utils.validate_attr_is_acceptable(filter_mode, filter_mode_types)
@@ -276,8 +320,10 @@ def add_recipients(request_ctx, id, recipients, **request_kwargs):
         :type request_ctx: :class:RequestContext
         :param id: (required) ID
         :type id: string
-        :param recipients: (required) An array of recipient ids. These may be user ids or course/group ids prefixed with "course_" or "group_" respectively, e.g. recipients[]=1&recipients[]=2&recipients[]=course_3
-        :type recipients: string
+        :param recipients: (required) An array of recipient ids. These may be user ids or course/group ids
+prefixed with "course_" or "group_" respectively, e.g.
+recipients[]=1&recipients[]=2&recipients[]=course_3
+        :type recipients: array
         :return: Add recipients
         :rtype: requests.Response (with void data)
 
@@ -293,7 +339,7 @@ def add_recipients(request_ctx, id, recipients, **request_kwargs):
     return response
 
 
-def add_message(request_ctx, id, body, attachment_ids, media_comment_id, media_comment_type, recipients=None, included_messages=None, user_note=None, **request_kwargs):
+def add_message(request_ctx, id, body, attachment_ids=None, media_comment_id=None, media_comment_type=None, recipients=None, included_messages=None, user_note=None, **request_kwargs):
     """
     Add a message to an existing conversation. Response is similar to the
     GET/show action, except that only includes the
@@ -313,17 +359,21 @@ def add_message(request_ctx, id, body, attachment_ids, media_comment_id, media_c
         :type id: string
         :param body: (required) The message to be sent.
         :type body: string
-        :param attachment_ids: (required) An array of attachments ids. These must be files that have been previously uploaded to the sender's "conversation attachments" folder.
-        :type attachment_ids: string
-        :param media_comment_id: (required) Media comment id of an audio of video file to be associated with this message.
-        :type media_comment_id: string
-        :param media_comment_type: (required) Type of the associated media file.
-        :type media_comment_type: string
+        :param attachment_ids: (optional) An array of attachments ids. These must be files that have been previously
+uploaded to the sender's "conversation attachments" folder.
+        :type attachment_ids: array or None
+        :param media_comment_id: (optional) Media comment id of an audio of video file to be associated with this
+message.
+        :type media_comment_id: string or None
+        :param media_comment_type: (optional) Type of the associated media file.
+        :type media_comment_type: string or None
         :param recipients: (optional) no description
-        :type recipients: string or None
+        :type recipients: array or None
         :param included_messages: (optional) no description
-        :type included_messages: string or None
-        :param user_note: (optional) Will add a faculty journal entry for each recipient as long as the user making the api call has permission, the recipient is a student and faculty journals are enabled in the account.
+        :type included_messages: array or None
+        :param user_note: (optional) Will add a faculty journal entry for each recipient as long as the user
+making the api call has permission, the recipient is a student and
+faculty journals are enabled in the account.
         :type user_note: boolean or None
         :return: Add a message
         :rtype: requests.Response (with void data)
@@ -359,7 +409,7 @@ def delete_message(request_ctx, id, remove, **request_kwargs):
         :param id: (required) ID
         :type id: string
         :param remove: (required) Array of message ids to be deleted
-        :type remove: string
+        :type remove: array
         :return: Delete a message
         :rtype: requests.Response (with void data)
 
@@ -383,7 +433,7 @@ def batch_update_conversations(request_ctx, conversation_ids, event, **request_k
         :param request_ctx: The request context
         :type request_ctx: :class:RequestContext
         :param conversation_ids: (required) List of conversations to update. Limited to 500 conversations.
-        :type conversation_ids: string
+        :type conversation_ids: array
         :param event: (required) The action to take on each conversation.
         :type event: string
         :return: Batch update conversations

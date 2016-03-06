@@ -1,6 +1,6 @@
 from canvas_sdk import client, utils
 
-def get_all_quiz_submissions(request_ctx, course_id, quiz_id, include, **request_kwargs):
+def get_all_quiz_submissions(request_ctx, course_id, quiz_id, include=None, **request_kwargs):
     """
     Get a list of all submissions for this quiz.
     
@@ -12,8 +12,8 @@ def get_all_quiz_submissions(request_ctx, course_id, quiz_id, include, **request
         :type course_id: string
         :param quiz_id: (required) ID
         :type quiz_id: string
-        :param include: (required) Associations to include with the quiz submission.
-        :type include: string
+        :param include: (optional) Associations to include with the quiz submission.
+        :type include: array or None
         :return: Get all quiz submissions.
         :rtype: requests.Response (with void data)
 
@@ -31,7 +31,7 @@ def get_all_quiz_submissions(request_ctx, course_id, quiz_id, include, **request
     return response
 
 
-def get_single_quiz_submission(request_ctx, course_id, quiz_id, id, include, **request_kwargs):
+def get_single_quiz_submission(request_ctx, course_id, quiz_id, id, include=None, **request_kwargs):
     """
     Get a single quiz submission.
     
@@ -45,8 +45,8 @@ def get_single_quiz_submission(request_ctx, course_id, quiz_id, id, include, **r
         :type quiz_id: string
         :param id: (required) ID
         :type id: string
-        :param include: (required) Associations to include with the quiz submission.
-        :type include: string
+        :param include: (optional) Associations to include with the quiz submission.
+        :type include: array or None
         :return: Get a single quiz submission.
         :rtype: requests.Response (with void data)
 
@@ -85,7 +85,8 @@ def create_quiz_submission_start_quiz_taking_session(request_ctx, course_id, qui
         :type quiz_id: string
         :param access_code: (optional) Access code for the Quiz, if any.
         :type access_code: string or None
-        :param preview: (optional) Whether this should be a preview QuizSubmission and not count towards the user's course record. Teachers only.
+        :param preview: (optional) Whether this should be a preview QuizSubmission and not count towards
+the user's course record. Teachers only.
         :type preview: boolean or None
         :return: Create the quiz submission (start a quiz-taking session)
         :rtype: requests.Response (with void data)
@@ -124,12 +125,16 @@ def update_student_question_scores_and_comments(request_ctx, course_id, quiz_id,
         :type quiz_id: string
         :param id: (required) ID
         :type id: string
-        :param attempt: (required) The attempt number of the quiz submission that should be updated. This attempt MUST be already completed.
+        :param attempt: (required) The attempt number of the quiz submission that should be updated. This
+attempt MUST be already completed.
         :type attempt: integer
         :param fudge_points: (optional) Amount of positive or negative points to fudge the total score by.
-        :type fudge_points: float or None
-        :param questions: (optional) A set of scores and comments for each question answered by the student. The keys are the question IDs, and the values are hashes of `score` and `comment` entries. See {Appendix: Manual Scoring} for more on this parameter.
-        :type questions: hash or None
+        :type fudge_points: Float or None
+        :param questions: (optional) A set of scores and comments for each question answered by the student.
+The keys are the question IDs, and the values are hashes of `score` and
+`comment` entries. See {Appendix: Manual Scoring} for more on this
+parameter.
+        :type questions: Hash or None
         :return: Update student question scores and comments.
         :rtype: requests.Response (with void data)
 
@@ -171,9 +176,12 @@ def complete_quiz_submission_turn_it_in(request_ctx, course_id, quiz_id, id, att
         :type quiz_id: string
         :param id: (required) ID
         :type id: string
-        :param attempt: (required) The attempt number of the quiz submission that should be completed. Note that this must be the latest attempt index, as earlier attempts can not be modified.
+        :param attempt: (required) The attempt number of the quiz submission that should be completed. Note
+that this must be the latest attempt index, as earlier attempts can not
+be modified.
         :type attempt: integer
-        :param validation_token: (required) The unique validation token you received when this Quiz Submission was created.
+        :param validation_token: (required) The unique validation token you received when this Quiz Submission was
+created.
         :type validation_token: string
         :param access_code: (optional) Access code for the Quiz, if any.
         :type access_code: string or None
@@ -190,6 +198,35 @@ def complete_quiz_submission_turn_it_in(request_ctx, course_id, quiz_id, id, att
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id, quiz_id=quiz_id, id=id)
     response = client.post(request_ctx, url, payload=payload, **request_kwargs)
+
+    return response
+
+
+def get_current_quiz_submission_times(request_ctx, course_id, quiz_id, id, **request_kwargs):
+    """
+    Get the current timing data for the quiz attempt, both the end_at timestamp
+    and the time_left parameter.
+    
+    <b>Responses</b>
+    
+    * <b>200 OK</b> if the request was successful
+
+        :param request_ctx: The request context
+        :type request_ctx: :class:RequestContext
+        :param course_id: (required) ID
+        :type course_id: string
+        :param quiz_id: (required) ID
+        :type quiz_id: string
+        :param id: (required) ID
+        :type id: string
+        :return: Get current quiz submission times.
+        :rtype: requests.Response (with void data)
+
+    """
+
+    path = '/v1/courses/{course_id}/quizzes/{quiz_id}/submissions/{id}/time'
+    url = request_ctx.base_api_url + path.format(course_id=course_id, quiz_id=quiz_id, id=id)
+    response = client.get(request_ctx, url, **request_kwargs)
 
     return response
 

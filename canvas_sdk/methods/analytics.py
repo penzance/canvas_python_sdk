@@ -312,7 +312,7 @@ def get_course_level_participation_data(request_ctx, course_id, **request_kwargs
     return response
 
 
-def get_course_level_assignment_data(request_ctx, course_id, async, **request_kwargs):
+def get_course_level_assignment_data(request_ctx, course_id, async=None, **request_kwargs):
     """
     Returns a list of assignments for the course sorted by due date. For
     each assignment returns basic assignment information, the grade breakdown,
@@ -322,8 +322,13 @@ def get_course_level_assignment_data(request_ctx, course_id, async, **request_kw
         :type request_ctx: :class:RequestContext
         :param course_id: (required) ID
         :type course_id: string
-        :param async: (required) If async is true, then the course_assignments call can happen asynch- ronously and MAY return a response containing a progress_url key instead of an assignments array. If it does, then it is the caller's responsibility to poll the API again to see if the progress is complete. If the data is ready (possibly even on the first async call) then it will be passed back normally, as documented in the example response.
-        :type async: boolean
+        :param async: (optional) If async is true, then the course_assignments call can happen asynch-
+ronously and MAY return a response containing a progress_url key instead
+of an assignments array. If it does, then it is the caller's
+responsibility to poll the API again to see if the progress is complete.
+If the data is ready (possibly even on the first async call) then it
+will be passed back normally, as documented in the example response.
+        :type async: boolean or None
         :return: Get course-level assignment data
         :rtype: requests.Response (with void data)
 
@@ -369,10 +374,11 @@ def get_course_level_student_summary_data(request_ctx, course_id, **request_kwar
 
 def get_user_in_a_course_level_participation_data(request_ctx, course_id, student_id, **request_kwargs):
     """
-    Returns page view hits and participation numbers grouped by day through the
-    entire history of the course. Two hashes are returned, one for page views
-    and one for participations, where the hash keys are dates in the format
-    "YYYY-MM-DD".
+    Returns page view hits grouped by hour, and participation details through the
+    entire history of the course.
+    
+    `page_views` are returned as a hash, where the keys are iso8601 dates, bucketed by the hour.
+    `participations` are returned as an array of hashes, sorted oldest to newest.
 
         :param request_ctx: The request context
         :type request_ctx: :class:RequestContext

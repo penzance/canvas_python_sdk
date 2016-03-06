@@ -1,6 +1,6 @@
 from canvas_sdk import client, utils
 
-def list_questions_in_quiz(request_ctx, course_id, quiz_id, per_page=None, **request_kwargs):
+def list_questions_in_quiz_or_submission(request_ctx, course_id, quiz_id, quiz_submission_id=None, quiz_submission_attempt=None, per_page=None, **request_kwargs):
     """
     Returns the list of QuizQuestions in this quiz.
 
@@ -10,9 +10,18 @@ def list_questions_in_quiz(request_ctx, course_id, quiz_id, per_page=None, **req
         :type course_id: string
         :param quiz_id: (required) ID
         :type quiz_id: string
+        :param quiz_submission_id: (optional) If specified, the endpoint will return the questions that were presented
+for that submission. This is useful if the quiz has been modified after
+the submission was created and the latest quiz version's set of questions
+does not match the submission's.
+NOTE: you must specify quiz_submission_attempt as well if you specify this
+parameter.
+        :type quiz_submission_id: integer or None
+        :param quiz_submission_attempt: (optional) The attempt of the submission you want the questions for.
+        :type quiz_submission_attempt: integer or None
         :param per_page: (optional) Set how many results canvas should return, defaults to config.LIMIT_PER_PAGE
         :type per_page: integer or None
-        :return: List questions in a quiz
+        :return: List questions in a quiz or a submission
         :rtype: requests.Response (with array data)
 
     """
@@ -21,6 +30,8 @@ def list_questions_in_quiz(request_ctx, course_id, quiz_id, per_page=None, **req
         per_page = request_ctx.per_page
     path = '/v1/courses/{course_id}/quizzes/{quiz_id}/questions'
     payload = {
+        'quiz_submission_id' : quiz_submission_id,
+        'quiz_submission_attempt' : quiz_submission_attempt,
         'per_page' : per_page,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id, quiz_id=quiz_id)
@@ -53,7 +64,7 @@ def get_single_quiz_question(request_ctx, course_id, quiz_id, id, **request_kwar
     return response
 
 
-def create_single_quiz_question(request_ctx, course_id, quiz_id, question_question_name, question_question_text, question_question_type, question_quiz_group_id=None, question_position=None, question_points_possible=None, question_correct_comments=None, question_incorrect_comments=None, question_neutral_comments=None, question_text_after_answers=None, question_answers=None, **request_kwargs):
+def create_single_quiz_question(request_ctx, course_id, quiz_id, question_question_name=None, question_question_text=None, question_quiz_group_id=None, question_question_type=None, question_position=None, question_points_possible=None, question_correct_comments=None, question_incorrect_comments=None, question_neutral_comments=None, question_text_after_answers=None, question_answers=None, **request_kwargs):
     """
     Create a new quiz question for this quiz
 
@@ -63,14 +74,14 @@ def create_single_quiz_question(request_ctx, course_id, quiz_id, question_questi
         :type course_id: string
         :param quiz_id: (required) ID
         :type quiz_id: string
-        :param question_question_name: (required) The name of the question.
-        :type question_question_name: string
-        :param question_question_text: (required) The text of the question.
-        :type question_question_text: string
-        :param question_question_type: (required) The type of question. Multiple optional fields depend upon the type of question to be used.
-        :type question_question_type: string
+        :param question_question_name: (optional) The name of the question.
+        :type question_question_name: string or None
+        :param question_question_text: (optional) The text of the question.
+        :type question_question_text: string or None
         :param question_quiz_group_id: (optional) The id of the quiz group to assign the question to.
         :type question_quiz_group_id: integer or None
+        :param question_question_type: (optional) The type of question. Multiple optional fields depend upon the type of question to be used.
+        :type question_question_type: string or None
         :param question_position: (optional) The order in which the question will be displayed in the quiz in relation to other questions.
         :type question_position: integer or None
         :param question_points_possible: (optional) The maximum amount of points received for answering this question correctly.
@@ -84,13 +95,13 @@ def create_single_quiz_question(request_ctx, course_id, quiz_id, question_questi
         :param question_text_after_answers: (optional) no description
         :type question_text_after_answers: string or None
         :param question_answers: (optional) no description
-        :type question_answers: [answer] or None
+        :type question_answers: [Answer] or None
         :return: Create a single quiz question
         :rtype: requests.Response (with QuizQuestion data)
 
     """
 
-    question_question_type_types = ('calculated_question', 'essay_question', 'file_upload_question', 'fill_in_multiple_blanks_question', 'matching_question', 'multiple_answers_question', 'multiple_choice_question', 'multiple_dropdowns_question', 'numerical_question', 'short_answer_question', 'text_only_question')
+    question_question_type_types = ('calculated_question', 'essay_question', 'file_upload_question', 'fill_in_multiple_blanks_question', 'matching_question', 'multiple_answers_question', 'multiple_choice_question', 'multiple_dropdowns_question', 'numerical_question', 'short_answer_question', 'text_only_question', 'true_false_question')
     utils.validate_attr_is_acceptable(question_question_type, question_question_type_types)
     path = '/v1/courses/{course_id}/quizzes/{quiz_id}/questions'
     payload = {
@@ -112,7 +123,7 @@ def create_single_quiz_question(request_ctx, course_id, quiz_id, question_questi
     return response
 
 
-def update_existing_quiz_question(request_ctx, course_id, quiz_id, id, question_question_name, question_question_text, question_question_type, question_quiz_group_id=None, question_position=None, question_points_possible=None, question_correct_comments=None, question_incorrect_comments=None, question_neutral_comments=None, question_text_after_answers=None, question_answers=None, **request_kwargs):
+def update_existing_quiz_question(request_ctx, course_id, quiz_id, id, question_question_name=None, question_question_text=None, question_quiz_group_id=None, question_question_type=None, question_position=None, question_points_possible=None, question_correct_comments=None, question_incorrect_comments=None, question_neutral_comments=None, question_text_after_answers=None, question_answers=None, **request_kwargs):
     """
     Updates an existing quiz question for this quiz
 
@@ -124,14 +135,14 @@ def update_existing_quiz_question(request_ctx, course_id, quiz_id, id, question_
         :type quiz_id: integer
         :param id: (required) The quiz question's unique identifier.
         :type id: integer
-        :param question_question_name: (required) The name of the question.
-        :type question_question_name: string
-        :param question_question_text: (required) The text of the question.
-        :type question_question_text: string
-        :param question_question_type: (required) The type of question. Multiple optional fields depend upon the type of question to be used.
-        :type question_question_type: string
+        :param question_question_name: (optional) The name of the question.
+        :type question_question_name: string or None
+        :param question_question_text: (optional) The text of the question.
+        :type question_question_text: string or None
         :param question_quiz_group_id: (optional) The id of the quiz group to assign the question to.
         :type question_quiz_group_id: integer or None
+        :param question_question_type: (optional) The type of question. Multiple optional fields depend upon the type of question to be used.
+        :type question_question_type: string or None
         :param question_position: (optional) The order in which the question will be displayed in the quiz in relation to other questions.
         :type question_position: integer or None
         :param question_points_possible: (optional) The maximum amount of points received for answering this question correctly.
@@ -145,13 +156,13 @@ def update_existing_quiz_question(request_ctx, course_id, quiz_id, id, question_
         :param question_text_after_answers: (optional) no description
         :type question_text_after_answers: string or None
         :param question_answers: (optional) no description
-        :type question_answers: [answer] or None
+        :type question_answers: [Answer] or None
         :return: Update an existing quiz question
         :rtype: requests.Response (with QuizQuestion data)
 
     """
 
-    question_question_type_types = ('calculated_question', 'essay_question', 'file_upload_question', 'fill_in_multiple_blanks_question', 'matching_question', 'multiple_answers_question', 'multiple_choice_question', 'multiple_dropdowns_question', 'numerical_question', 'short_answer_question', 'text_only_question')
+    question_question_type_types = ('calculated_question', 'essay_question', 'file_upload_question', 'fill_in_multiple_blanks_question', 'matching_question', 'multiple_answers_question', 'multiple_choice_question', 'multiple_dropdowns_question', 'numerical_question', 'short_answer_question', 'text_only_question', 'true_false_question')
     utils.validate_attr_is_acceptable(question_question_type, question_question_type_types)
     path = '/v1/courses/{course_id}/quizzes/{quiz_id}/questions/{id}'
     payload = {
@@ -175,7 +186,7 @@ def update_existing_quiz_question(request_ctx, course_id, quiz_id, id, question_
 
 def delete_quiz_question(request_ctx, course_id, quiz_id, id, **request_kwargs):
     """
-    <b>204 No Content<b> response code is returned if the deletion was successful.
+    <b>204 No Content</b> response code is returned if the deletion was successful.
 
         :param request_ctx: The request context
         :type request_ctx: :class:RequestContext

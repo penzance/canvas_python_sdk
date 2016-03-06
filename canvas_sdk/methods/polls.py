@@ -1,19 +1,26 @@
 from canvas_sdk import client, utils
 
-def list_polls(request_ctx, **request_kwargs):
+def list_polls(request_ctx, per_page=None, **request_kwargs):
     """
     Returns the list of polls for the current user.
 
         :param request_ctx: The request context
         :type request_ctx: :class:RequestContext
+        :param per_page: (optional) Set how many results canvas should return, defaults to config.LIMIT_PER_PAGE
+        :type per_page: integer or None
         :return: List polls
         :rtype: requests.Response (with void data)
 
     """
 
+    if per_page is None:
+        per_page = request_ctx.per_page
     path = '/v1/polls'
+    payload = {
+        'per_page' : per_page,
+    }
     url = request_ctx.base_api_url + path.format()
-    response = client.get(request_ctx, url, **request_kwargs)
+    response = client.get(request_ctx, url, payload=payload, **request_kwargs)
 
     return response
 
@@ -45,9 +52,9 @@ def create_single_poll(request_ctx, polls_question, polls_description=None, **re
         :param request_ctx: The request context
         :type request_ctx: :class:RequestContext
         :param polls_question: (required) The title of the poll.
-        :type polls_question: string
+        :type polls_question: array
         :param polls_description: (optional) A brief description or instructions for the poll.
-        :type polls_description: string or None
+        :type polls_description: array or None
         :return: Create a single poll
         :rtype: requests.Response (with void data)
 
@@ -73,9 +80,9 @@ def update_single_poll(request_ctx, id, polls_question, polls_description=None, 
         :param id: (required) ID
         :type id: string
         :param polls_question: (required) The title of the poll.
-        :type polls_question: string
+        :type polls_question: array
         :param polls_description: (optional) A brief description or instructions for the poll.
-        :type polls_description: string or None
+        :type polls_description: array or None
         :return: Update a single poll
         :rtype: requests.Response (with void data)
 

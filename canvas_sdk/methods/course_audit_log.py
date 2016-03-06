@@ -9,9 +9,9 @@ def query_by_course(request_ctx, course_id, start_time=None, end_time=None, per_
         :param course_id: (required) ID
         :type course_id: string
         :param start_time: (optional) The beginning of the time range from which you want events.
-        :type start_time: datetime or None
+        :type start_time: DateTime or None
         :param end_time: (optional) The end of the time range from which you want events.
-        :type end_time: datetime or None
+        :type end_time: DateTime or None
         :param per_page: (optional) Set how many results canvas should return, defaults to config.LIMIT_PER_PAGE
         :type per_page: integer or None
         :return: Query by course.

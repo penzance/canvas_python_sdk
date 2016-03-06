@@ -2,9 +2,7 @@ from canvas_sdk import client, utils
 
 def list_members_of_collaboration(request_ctx, id, per_page=None, **request_kwargs):
     """
-    Examples
-    
-      curl https://<canvas>/api/v1/courses/1/collaborations/1/members
+    List the collaborators of a given collaboration
 
         :param request_ctx: The request context
         :type request_ctx: :class:RequestContext

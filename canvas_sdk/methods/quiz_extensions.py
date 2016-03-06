@@ -15,15 +15,23 @@ def set_extensions_for_student_quiz_submissions(request_ctx, course_id, quiz_id,
         :type quiz_id: string
         :param user_id: (required) The ID of the user we want to add quiz extensions for.
         :type user_id: integer
-        :param extra_attempts: (optional) Number of times the student is allowed to re-take the quiz over the multiple-attempt limit. This is limited to 1000 attempts or less.
+        :param extra_attempts: (optional) Number of times the student is allowed to re-take the quiz over the
+multiple-attempt limit. This is limited to 1000 attempts or less.
         :type extra_attempts: integer or None
-        :param extra_time: (optional) The number of extra minutes to allow for all attempts. This will add to the existing time limit on the submission. This is limited to 10080 minutes (1 week)
+        :param extra_time: (optional) The number of extra minutes to allow for all attempts. This will
+add to the existing time limit on the submission. This is limited to
+10080 minutes (1 week)
         :type extra_time: integer or None
-        :param manually_unlocked: (optional) Allow the student to take the quiz even if it's locked for everyone else.
+        :param manually_unlocked: (optional) Allow the student to take the quiz even if it's locked for
+everyone else.
         :type manually_unlocked: boolean or None
-        :param extend_from_now: (optional) The number of minutes to extend the quiz from the current time. This is mutually exclusive to extend_from_end_at. This is limited to 1440 minutes (24 hours)
+        :param extend_from_now: (optional) The number of minutes to extend the quiz from the current time. This is
+mutually exclusive to extend_from_end_at. This is limited to 1440
+minutes (24 hours)
         :type extend_from_now: integer or None
-        :param extend_from_end_at: (optional) The number of minutes to extend the quiz beyond the quiz's current ending time. This is mutually exclusive to extend_from_now. This is limited to 1440 minutes (24 hours)
+        :param extend_from_end_at: (optional) The number of minutes to extend the quiz beyond the quiz's current
+ending time. This is mutually exclusive to extend_from_now. This is
+limited to 1440 minutes (24 hours)
         :type extend_from_end_at: integer or None
         :return: Set extensions for student quiz submissions
         :rtype: requests.Response (with void data)

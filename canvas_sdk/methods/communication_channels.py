@@ -28,7 +28,7 @@ def list_user_communication_channels(request_ctx, user_id, per_page=None, **requ
     return response
 
 
-def create_communication_channel(request_ctx, user_id, communication_channel_address, communication_channel_type, skip_confirmation=None, **request_kwargs):
+def create_communication_channel(request_ctx, user_id, communication_channel_address, communication_channel_type, communication_channel_token=None, skip_confirmation=None, **request_kwargs):
     """
     Creates a new communication channel for the specified user.
 
@@ -36,11 +36,23 @@ def create_communication_channel(request_ctx, user_id, communication_channel_add
         :type request_ctx: :class:RequestContext
         :param user_id: (required) ID
         :type user_id: string
-        :param communication_channel_address: (required) An email address or SMS number.
+        :param communication_channel_address: (required) An email address or SMS number. Not required for "push" type channels.
         :type communication_channel_address: string
-        :param communication_channel_type: (required) The type of communication channel. In order to enable push notification support, the server must be properly configured (via sns.yml) to communicate with Amazon Simple Notification Services, and the developer key used to create the access token from this request must have an SNS ARN configured on it.
+        :param communication_channel_type: (required) The type of communication channel.
+
+In order to enable push notification support, the server must be
+properly configured (via sns.yml) to communicate with Amazon
+Simple Notification Services, and the developer key used to create
+the access token from this request must have an SNS ARN configured on
+it.
         :type communication_channel_type: string
-        :param skip_confirmation: (optional) Only valid for site admins and account admins making requests; If true, the channel is automatically validated and no confirmation email or SMS is sent. Otherwise, the user must respond to a confirmation message to confirm the channel.
+        :param communication_channel_token: (optional) A registration id, device token, or equivalent token given to an app when
+registering with a push notification provider. Only valid for "push" type channels.
+        :type communication_channel_token: string or None
+        :param skip_confirmation: (optional) Only valid for site admins and account admins making requests; If true, the channel is
+automatically validated and no confirmation email or SMS is sent.
+Otherwise, the user must respond to a confirmation message to confirm the
+channel.
         :type skip_confirmation: boolean or None
         :return: Create a communication channel
         :rtype: requests.Response (with CommunicationChannel data)
@@ -53,6 +65,7 @@ def create_communication_channel(request_ctx, user_id, communication_channel_add
     payload = {
         'communication_channel[address]' : communication_channel_address,
         'communication_channel[type]' : communication_channel_type,
+        'communication_channel[token]' : communication_channel_token,
         'skip_confirmation' : skip_confirmation,
     }
     url = request_ctx.base_api_url + path.format(user_id=user_id)

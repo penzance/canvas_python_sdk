@@ -54,7 +54,7 @@ def list_external_feeds_groups(request_ctx, group_id, per_page=None, **request_k
     return response
 
 
-def create_external_feed_courses(request_ctx, course_id, url, verbosity, header_match=None, **request_kwargs):
+def create_external_feed_courses(request_ctx, course_id, url, header_match=None, verbosity=None, **request_kwargs):
     """
     Create a new external feed for the course or group.
 
@@ -64,10 +64,10 @@ def create_external_feed_courses(request_ctx, course_id, url, verbosity, header_
         :type course_id: string
         :param url: (required) The url to the external rss or atom feed
         :type url: string
-        :param verbosity: (required) no description
-        :type verbosity: string
         :param header_match: (optional) If given, only feed entries that contain this string in their title will be imported
         :type header_match: boolean or None
+        :param verbosity: (optional) Defaults to "full"
+        :type verbosity: string or None
         :return: Create an external feed
         :rtype: requests.Response (with ExternalFeed data)
 
@@ -87,7 +87,7 @@ def create_external_feed_courses(request_ctx, course_id, url, verbosity, header_
     return response
 
 
-def create_external_feed_groups(request_ctx, group_id, url, verbosity, header_match=None, **request_kwargs):
+def create_external_feed_groups(request_ctx, group_id, url, header_match=None, verbosity=None, **request_kwargs):
     """
     Create a new external feed for the course or group.
 
@@ -97,10 +97,10 @@ def create_external_feed_groups(request_ctx, group_id, url, verbosity, header_ma
         :type group_id: string
         :param url: (required) The url to the external rss or atom feed
         :type url: string
-        :param verbosity: (required) no description
-        :type verbosity: string
         :param header_match: (optional) If given, only feed entries that contain this string in their title will be imported
         :type header_match: boolean or None
+        :param verbosity: (optional) Defaults to "full"
+        :type verbosity: string or None
         :return: Create an external feed
         :rtype: requests.Response (with ExternalFeed data)
 

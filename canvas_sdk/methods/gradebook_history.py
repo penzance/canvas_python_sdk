@@ -102,11 +102,16 @@ def list_uncollated_submission_versions(request_ctx, course_id, assignment_id=No
         :type request_ctx: :class:RequestContext
         :param course_id: (required) The id of the contextual course for this API call
         :type course_id: integer
-        :param assignment_id: (optional) The ID of the assignment for which you want to see submissions. If absent, versions of submissions from any assignment in the course are included.
+        :param assignment_id: (optional) The ID of the assignment for which you want to see submissions. If
+absent, versions of submissions from any assignment in the course are
+included.
         :type assignment_id: integer or None
-        :param user_id: (optional) The ID of the user for which you want to see submissions. If absent, versions of submissions from any user in the course are included.
+        :param user_id: (optional) The ID of the user for which you want to see submissions. If absent,
+versions of submissions from any user in the course are included.
         :type user_id: integer or None
-        :param ascending: (optional) Returns submission versions in ascending date order (oldest first). If absent, returns submission versions in descending date order (newest first).
+        :param ascending: (optional) Returns submission versions in ascending date order (oldest first). If
+absent, returns submission versions in descending date order (newest
+first).
         :type ascending: boolean or None
         :param per_page: (optional) Set how many results canvas should return, defaults to config.LIMIT_PER_PAGE
         :type per_page: integer or None

@@ -35,7 +35,7 @@ def create_single_poll_submission(request_ctx, poll_id, poll_session_id, poll_su
         :param poll_session_id: (required) ID
         :type poll_session_id: string
         :param poll_submissions_poll_choice_id: (required) The chosen poll choice for this submission.
-        :type poll_submissions_poll_choice_id: integer
+        :type poll_submissions_poll_choice_id: array
         :return: Create a single poll submission
         :rtype: requests.Response (with void data)
 

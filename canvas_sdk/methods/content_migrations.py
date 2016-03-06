@@ -566,9 +566,15 @@ def create_content_migration_accounts(request_ctx, account_id, migration_type, p
         :type request_ctx: :class:RequestContext
         :param account_id: (required) ID
         :type account_id: string
-        :param migration_type: (required) The type of the migration. Use the {api:ContentMigrationsController#available_migrators Migrator} endpoint to see all available migrators. Default allowed values: canvas_cartridge_importer, common_cartridge_importer, course_copy_importer, zip_file_importer, qti_converter, moodle_converter
+        :param migration_type: (required) The type of the migration. Use the
+{api:ContentMigrationsController#available_migrators Migrator} endpoint to
+see all available migrators. Default allowed values:
+canvas_cartridge_importer, common_cartridge_importer,
+course_copy_importer, zip_file_importer, qti_converter, moodle_converter
         :type migration_type: string
-        :param pre_attachment_name: (optional) Required if uploading a file. This is the first step in uploading a file to the content migration. See the {file:file_uploads.html File Upload Documentation} for details on the file upload workflow.
+        :param pre_attachment_name: (optional) Required if uploading a file. This is the first step in uploading a file
+to the content migration. See the {file:file_uploads.html File Upload
+Documentation} for details on the file upload workflow.
         :type pre_attachment_name: string or None
         :param pre_attachment_content_type: (optional) The content type of the file. If not given, it will be guessed based on the file extension.
         :type pre_attachment_content_type: string or None
@@ -582,29 +588,35 @@ def create_content_migration_accounts(request_ctx, account_id, migration_type, p
         :type pre_attachment_on_duplicate: string or None
         :param settings_file_url: (optional) A URL to download the file from. Must not require authentication.
         :type settings_file_url: string or None
-        :param settings_source_course_id: (optional) The course to copy from for a course copy migration. (required if doing course copy)
+        :param settings_source_course_id: (optional) The course to copy from for a course copy migration. (required if doing
+course copy)
         :type settings_source_course_id: string or None
         :param settings_folder_id: (optional) The folder to unzip the .zip file into for a zip_file_import.
         :type settings_folder_id: string or None
-        :param settings_overwrite_quizzes: (optional) Whether to overwrite quizzes with the same identifiers between content packages.
+        :param settings_overwrite_quizzes: (optional) Whether to overwrite quizzes with the same identifiers between content
+packages.
         :type settings_overwrite_quizzes: boolean or None
-        :param settings_question_bank_id: (optional) The existing question bank ID to import questions into if not specified in the content package.
+        :param settings_question_bank_id: (optional) The existing question bank ID to import questions into if not specified in
+the content package.
         :type settings_question_bank_id: integer or None
-        :param settings_question_bank_name: (optional) The question bank to import questions into if not specified in the content package, if both bank id and name are set, id will take precedence.
+        :param settings_question_bank_name: (optional) The question bank to import questions into if not specified in the content
+package, if both bank id and name are set, id will take precedence.
         :type settings_question_bank_name: string or None
         :param date_shift_options_shift_dates: (optional) Whether to shift dates in the copied course
         :type date_shift_options_shift_dates: boolean or None
         :param date_shift_options_old_start_date: (optional) The original start date of the source content/course
-        :type date_shift_options_old_start_date: date or None
+        :type date_shift_options_old_start_date: Date or None
         :param date_shift_options_old_end_date: (optional) The original end date of the source content/course
-        :type date_shift_options_old_end_date: date or None
+        :type date_shift_options_old_end_date: Date or None
         :param date_shift_options_new_start_date: (optional) The new start date for the content/course
-        :type date_shift_options_new_start_date: date or None
+        :type date_shift_options_new_start_date: Date or None
         :param date_shift_options_new_end_date: (optional) The new end date for the source content/course
-        :type date_shift_options_new_end_date: date or None
-        :param date_shift_options_day_substitutions_X: (optional) Move anything scheduled for day 'X' to the specified day. (0-Sunday, 1-Monday, 2-Tuesday, 3-Wednesday, 4-Thursday, 5-Friday, 6-Saturday)
+        :type date_shift_options_new_end_date: Date or None
+        :param date_shift_options_day_substitutions_X: (optional) Move anything scheduled for day 'X' to the specified day. (0-Sunday,
+1-Monday, 2-Tuesday, 3-Wednesday, 4-Thursday, 5-Friday, 6-Saturday)
         :type date_shift_options_day_substitutions_X: integer or None
-        :param date_shift_options_remove_dates: (optional) Whether to remove dates in the copied course. Cannot be used in conjunction with *shift_dates*.
+        :param date_shift_options_remove_dates: (optional) Whether to remove dates in the copied course. Cannot be used
+in conjunction with *shift_dates*.
         :type date_shift_options_remove_dates: boolean or None
         :return: Create a content migration
         :rtype: requests.Response (with ContentMigration data)
@@ -674,9 +686,15 @@ def create_content_migration_courses(request_ctx, course_id, migration_type, pre
         :type request_ctx: :class:RequestContext
         :param course_id: (required) ID
         :type course_id: string
-        :param migration_type: (required) The type of the migration. Use the {api:ContentMigrationsController#available_migrators Migrator} endpoint to see all available migrators. Default allowed values: canvas_cartridge_importer, common_cartridge_importer, course_copy_importer, zip_file_importer, qti_converter, moodle_converter
+        :param migration_type: (required) The type of the migration. Use the
+{api:ContentMigrationsController#available_migrators Migrator} endpoint to
+see all available migrators. Default allowed values:
+canvas_cartridge_importer, common_cartridge_importer,
+course_copy_importer, zip_file_importer, qti_converter, moodle_converter
         :type migration_type: string
-        :param pre_attachment_name: (optional) Required if uploading a file. This is the first step in uploading a file to the content migration. See the {file:file_uploads.html File Upload Documentation} for details on the file upload workflow.
+        :param pre_attachment_name: (optional) Required if uploading a file. This is the first step in uploading a file
+to the content migration. See the {file:file_uploads.html File Upload
+Documentation} for details on the file upload workflow.
         :type pre_attachment_name: string or None
         :param pre_attachment_content_type: (optional) The content type of the file. If not given, it will be guessed based on the file extension.
         :type pre_attachment_content_type: string or None
@@ -690,29 +708,35 @@ def create_content_migration_courses(request_ctx, course_id, migration_type, pre
         :type pre_attachment_on_duplicate: string or None
         :param settings_file_url: (optional) A URL to download the file from. Must not require authentication.
         :type settings_file_url: string or None
-        :param settings_source_course_id: (optional) The course to copy from for a course copy migration. (required if doing course copy)
+        :param settings_source_course_id: (optional) The course to copy from for a course copy migration. (required if doing
+course copy)
         :type settings_source_course_id: string or None
         :param settings_folder_id: (optional) The folder to unzip the .zip file into for a zip_file_import.
         :type settings_folder_id: string or None
-        :param settings_overwrite_quizzes: (optional) Whether to overwrite quizzes with the same identifiers between content packages.
+        :param settings_overwrite_quizzes: (optional) Whether to overwrite quizzes with the same identifiers between content
+packages.
         :type settings_overwrite_quizzes: boolean or None
-        :param settings_question_bank_id: (optional) The existing question bank ID to import questions into if not specified in the content package.
+        :param settings_question_bank_id: (optional) The existing question bank ID to import questions into if not specified in
+the content package.
         :type settings_question_bank_id: integer or None
-        :param settings_question_bank_name: (optional) The question bank to import questions into if not specified in the content package, if both bank id and name are set, id will take precedence.
+        :param settings_question_bank_name: (optional) The question bank to import questions into if not specified in the content
+package, if both bank id and name are set, id will take precedence.
         :type settings_question_bank_name: string or None
         :param date_shift_options_shift_dates: (optional) Whether to shift dates in the copied course
         :type date_shift_options_shift_dates: boolean or None
         :param date_shift_options_old_start_date: (optional) The original start date of the source content/course
-        :type date_shift_options_old_start_date: date or None
+        :type date_shift_options_old_start_date: Date or None
         :param date_shift_options_old_end_date: (optional) The original end date of the source content/course
-        :type date_shift_options_old_end_date: date or None
+        :type date_shift_options_old_end_date: Date or None
         :param date_shift_options_new_start_date: (optional) The new start date for the content/course
-        :type date_shift_options_new_start_date: date or None
+        :type date_shift_options_new_start_date: Date or None
         :param date_shift_options_new_end_date: (optional) The new end date for the source content/course
-        :type date_shift_options_new_end_date: date or None
-        :param date_shift_options_day_substitutions_X: (optional) Move anything scheduled for day 'X' to the specified day. (0-Sunday, 1-Monday, 2-Tuesday, 3-Wednesday, 4-Thursday, 5-Friday, 6-Saturday)
+        :type date_shift_options_new_end_date: Date or None
+        :param date_shift_options_day_substitutions_X: (optional) Move anything scheduled for day 'X' to the specified day. (0-Sunday,
+1-Monday, 2-Tuesday, 3-Wednesday, 4-Thursday, 5-Friday, 6-Saturday)
         :type date_shift_options_day_substitutions_X: integer or None
-        :param date_shift_options_remove_dates: (optional) Whether to remove dates in the copied course. Cannot be used in conjunction with *shift_dates*.
+        :param date_shift_options_remove_dates: (optional) Whether to remove dates in the copied course. Cannot be used
+in conjunction with *shift_dates*.
         :type date_shift_options_remove_dates: boolean or None
         :return: Create a content migration
         :rtype: requests.Response (with ContentMigration data)
@@ -782,9 +806,15 @@ def create_content_migration_groups(request_ctx, group_id, migration_type, pre_a
         :type request_ctx: :class:RequestContext
         :param group_id: (required) ID
         :type group_id: string
-        :param migration_type: (required) The type of the migration. Use the {api:ContentMigrationsController#available_migrators Migrator} endpoint to see all available migrators. Default allowed values: canvas_cartridge_importer, common_cartridge_importer, course_copy_importer, zip_file_importer, qti_converter, moodle_converter
+        :param migration_type: (required) The type of the migration. Use the
+{api:ContentMigrationsController#available_migrators Migrator} endpoint to
+see all available migrators. Default allowed values:
+canvas_cartridge_importer, common_cartridge_importer,
+course_copy_importer, zip_file_importer, qti_converter, moodle_converter
         :type migration_type: string
-        :param pre_attachment_name: (optional) Required if uploading a file. This is the first step in uploading a file to the content migration. See the {file:file_uploads.html File Upload Documentation} for details on the file upload workflow.
+        :param pre_attachment_name: (optional) Required if uploading a file. This is the first step in uploading a file
+to the content migration. See the {file:file_uploads.html File Upload
+Documentation} for details on the file upload workflow.
         :type pre_attachment_name: string or None
         :param pre_attachment_content_type: (optional) The content type of the file. If not given, it will be guessed based on the file extension.
         :type pre_attachment_content_type: string or None
@@ -798,29 +828,35 @@ def create_content_migration_groups(request_ctx, group_id, migration_type, pre_a
         :type pre_attachment_on_duplicate: string or None
         :param settings_file_url: (optional) A URL to download the file from. Must not require authentication.
         :type settings_file_url: string or None
-        :param settings_source_course_id: (optional) The course to copy from for a course copy migration. (required if doing course copy)
+        :param settings_source_course_id: (optional) The course to copy from for a course copy migration. (required if doing
+course copy)
         :type settings_source_course_id: string or None
         :param settings_folder_id: (optional) The folder to unzip the .zip file into for a zip_file_import.
         :type settings_folder_id: string or None
-        :param settings_overwrite_quizzes: (optional) Whether to overwrite quizzes with the same identifiers between content packages.
+        :param settings_overwrite_quizzes: (optional) Whether to overwrite quizzes with the same identifiers between content
+packages.
         :type settings_overwrite_quizzes: boolean or None
-        :param settings_question_bank_id: (optional) The existing question bank ID to import questions into if not specified in the content package.
+        :param settings_question_bank_id: (optional) The existing question bank ID to import questions into if not specified in
+the content package.
         :type settings_question_bank_id: integer or None
-        :param settings_question_bank_name: (optional) The question bank to import questions into if not specified in the content package, if both bank id and name are set, id will take precedence.
+        :param settings_question_bank_name: (optional) The question bank to import questions into if not specified in the content
+package, if both bank id and name are set, id will take precedence.
         :type settings_question_bank_name: string or None
         :param date_shift_options_shift_dates: (optional) Whether to shift dates in the copied course
         :type date_shift_options_shift_dates: boolean or None
         :param date_shift_options_old_start_date: (optional) The original start date of the source content/course
-        :type date_shift_options_old_start_date: date or None
+        :type date_shift_options_old_start_date: Date or None
         :param date_shift_options_old_end_date: (optional) The original end date of the source content/course
-        :type date_shift_options_old_end_date: date or None
+        :type date_shift_options_old_end_date: Date or None
         :param date_shift_options_new_start_date: (optional) The new start date for the content/course
-        :type date_shift_options_new_start_date: date or None
+        :type date_shift_options_new_start_date: Date or None
         :param date_shift_options_new_end_date: (optional) The new end date for the source content/course
-        :type date_shift_options_new_end_date: date or None
-        :param date_shift_options_day_substitutions_X: (optional) Move anything scheduled for day 'X' to the specified day. (0-Sunday, 1-Monday, 2-Tuesday, 3-Wednesday, 4-Thursday, 5-Friday, 6-Saturday)
+        :type date_shift_options_new_end_date: Date or None
+        :param date_shift_options_day_substitutions_X: (optional) Move anything scheduled for day 'X' to the specified day. (0-Sunday,
+1-Monday, 2-Tuesday, 3-Wednesday, 4-Thursday, 5-Friday, 6-Saturday)
         :type date_shift_options_day_substitutions_X: integer or None
-        :param date_shift_options_remove_dates: (optional) Whether to remove dates in the copied course. Cannot be used in conjunction with *shift_dates*.
+        :param date_shift_options_remove_dates: (optional) Whether to remove dates in the copied course. Cannot be used
+in conjunction with *shift_dates*.
         :type date_shift_options_remove_dates: boolean or None
         :return: Create a content migration
         :rtype: requests.Response (with ContentMigration data)
@@ -890,9 +926,15 @@ def create_content_migration_users(request_ctx, user_id, migration_type, pre_att
         :type request_ctx: :class:RequestContext
         :param user_id: (required) ID
         :type user_id: string
-        :param migration_type: (required) The type of the migration. Use the {api:ContentMigrationsController#available_migrators Migrator} endpoint to see all available migrators. Default allowed values: canvas_cartridge_importer, common_cartridge_importer, course_copy_importer, zip_file_importer, qti_converter, moodle_converter
+        :param migration_type: (required) The type of the migration. Use the
+{api:ContentMigrationsController#available_migrators Migrator} endpoint to
+see all available migrators. Default allowed values:
+canvas_cartridge_importer, common_cartridge_importer,
+course_copy_importer, zip_file_importer, qti_converter, moodle_converter
         :type migration_type: string
-        :param pre_attachment_name: (optional) Required if uploading a file. This is the first step in uploading a file to the content migration. See the {file:file_uploads.html File Upload Documentation} for details on the file upload workflow.
+        :param pre_attachment_name: (optional) Required if uploading a file. This is the first step in uploading a file
+to the content migration. See the {file:file_uploads.html File Upload
+Documentation} for details on the file upload workflow.
         :type pre_attachment_name: string or None
         :param pre_attachment_content_type: (optional) The content type of the file. If not given, it will be guessed based on the file extension.
         :type pre_attachment_content_type: string or None
@@ -906,29 +948,35 @@ def create_content_migration_users(request_ctx, user_id, migration_type, pre_att
         :type pre_attachment_on_duplicate: string or None
         :param settings_file_url: (optional) A URL to download the file from. Must not require authentication.
         :type settings_file_url: string or None
-        :param settings_source_course_id: (optional) The course to copy from for a course copy migration. (required if doing course copy)
+        :param settings_source_course_id: (optional) The course to copy from for a course copy migration. (required if doing
+course copy)
         :type settings_source_course_id: string or None
         :param settings_folder_id: (optional) The folder to unzip the .zip file into for a zip_file_import.
         :type settings_folder_id: string or None
-        :param settings_overwrite_quizzes: (optional) Whether to overwrite quizzes with the same identifiers between content packages.
+        :param settings_overwrite_quizzes: (optional) Whether to overwrite quizzes with the same identifiers between content
+packages.
         :type settings_overwrite_quizzes: boolean or None
-        :param settings_question_bank_id: (optional) The existing question bank ID to import questions into if not specified in the content package.
+        :param settings_question_bank_id: (optional) The existing question bank ID to import questions into if not specified in
+the content package.
         :type settings_question_bank_id: integer or None
-        :param settings_question_bank_name: (optional) The question bank to import questions into if not specified in the content package, if both bank id and name are set, id will take precedence.
+        :param settings_question_bank_name: (optional) The question bank to import questions into if not specified in the content
+package, if both bank id and name are set, id will take precedence.
         :type settings_question_bank_name: string or None
         :param date_shift_options_shift_dates: (optional) Whether to shift dates in the copied course
         :type date_shift_options_shift_dates: boolean or None
         :param date_shift_options_old_start_date: (optional) The original start date of the source content/course
-        :type date_shift_options_old_start_date: date or None
+        :type date_shift_options_old_start_date: Date or None
         :param date_shift_options_old_end_date: (optional) The original end date of the source content/course
-        :type date_shift_options_old_end_date: date or None
+        :type date_shift_options_old_end_date: Date or None
         :param date_shift_options_new_start_date: (optional) The new start date for the content/course
-        :type date_shift_options_new_start_date: date or None
+        :type date_shift_options_new_start_date: Date or None
         :param date_shift_options_new_end_date: (optional) The new end date for the source content/course
-        :type date_shift_options_new_end_date: date or None
-        :param date_shift_options_day_substitutions_X: (optional) Move anything scheduled for day 'X' to the specified day. (0-Sunday, 1-Monday, 2-Tuesday, 3-Wednesday, 4-Thursday, 5-Friday, 6-Saturday)
+        :type date_shift_options_new_end_date: Date or None
+        :param date_shift_options_day_substitutions_X: (optional) Move anything scheduled for day 'X' to the specified day. (0-Sunday,
+1-Monday, 2-Tuesday, 3-Wednesday, 4-Thursday, 5-Friday, 6-Saturday)
         :type date_shift_options_day_substitutions_X: integer or None
-        :param date_shift_options_remove_dates: (optional) Whether to remove dates in the copied course. Cannot be used in conjunction with *shift_dates*.
+        :param date_shift_options_remove_dates: (optional) Whether to remove dates in the copied course. Cannot be used
+in conjunction with *shift_dates*.
         :type date_shift_options_remove_dates: boolean or None
         :return: Create a content migration
         :rtype: requests.Response (with ContentMigration data)
