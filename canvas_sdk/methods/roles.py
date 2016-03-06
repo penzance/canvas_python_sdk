@@ -1,5 +1,6 @@
 from canvas_sdk import client, utils
 
+
 def list_roles(request_ctx, account_id, state=None, show_inherited=None, per_page=None, **request_kwargs):
     """
     List the roles available to an account.
@@ -27,9 +28,9 @@ be included.
     utils.validate_attr_is_acceptable(state, state_types)
     path = '/v1/accounts/{account_id}/roles'
     payload = {
-        'state' : state,
-        'show_inherited' : show_inherited,
-        'per_page' : per_page,
+        'state': state,
+        'show_inherited': show_inherited,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(account_id=account_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -58,8 +59,8 @@ def get_single_role(request_ctx, id, account_id, role_id, role=None, **request_k
 
     path = '/v1/accounts/{account_id}/roles/{id}'
     payload = {
-        'role_id' : role_id,
-        'role' : role,
+        'role_id': role_id,
+        'role': role,
     }
     url = request_ctx.base_api_url + path.format(id=id, account_id=account_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -174,12 +175,12 @@ upstream. May occur multiple times with unique values for <X>.
     utils.validate_attr_is_acceptable(base_role_type, base_role_type_types)
     path = '/v1/accounts/{account_id}/roles'
     payload = {
-        'label' : label,
-        'role' : role,
-        'base_role_type' : base_role_type,
-        'permissions[X][explicit]' : permissions_X_explicit,
-        'permissions[X][enabled]' : permissions_X_enabled,
-        'permissions[X][locked]' : permissions_X_locked,
+        'label': label,
+        'role': role,
+        'base_role_type': base_role_type,
+        'permissions[X][explicit]': permissions_X_explicit,
+        'permissions[X][enabled]': permissions_X_enabled,
+        'permissions[X][locked]': permissions_X_locked,
     }
     url = request_ctx.base_api_url + path.format(account_id=account_id)
     response = client.post(request_ctx, url, payload=payload, **request_kwargs)
@@ -211,8 +212,8 @@ def deactivate_role(request_ctx, account_id, id, role_id, role=None, **request_k
 
     path = '/v1/accounts/{account_id}/roles/{id}'
     payload = {
-        'role_id' : role_id,
-        'role' : role,
+        'role_id': role_id,
+        'role': role,
     }
     url = request_ctx.base_api_url + path.format(account_id=account_id, id=id)
     response = client.delete(request_ctx, url, payload=payload, **request_kwargs)
@@ -241,8 +242,8 @@ def activate_role(request_ctx, account_id, id, role_id, role=None, **request_kwa
 
     path = '/v1/accounts/{account_id}/roles/{id}/activate'
     payload = {
-        'role_id' : role_id,
-        'role' : role,
+        'role_id': role_id,
+        'role': role,
     }
     url = request_ctx.base_api_url + path.format(account_id=account_id, id=id)
     response = client.post(request_ctx, url, payload=payload, **request_kwargs)
@@ -283,9 +284,9 @@ def update_role(request_ctx, account_id, id, label=None, permissions_X_explicit=
 
     path = '/v1/accounts/{account_id}/roles/{id}'
     payload = {
-        'label' : label,
-        'permissions[X][explicit]' : permissions_X_explicit,
-        'permissions[X][enabled]' : permissions_X_enabled,
+        'label': label,
+        'permissions[X][explicit]': permissions_X_explicit,
+        'permissions[X][enabled]': permissions_X_enabled,
     }
     url = request_ctx.base_api_url + path.format(account_id=account_id, id=id)
     response = client.put(request_ctx, url, payload=payload, **request_kwargs)

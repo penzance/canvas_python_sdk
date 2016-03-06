@@ -1,5 +1,6 @@
 from canvas_sdk import client, utils
 
+
 def list_members_of_collaboration(request_ctx, id, per_page=None, **request_kwargs):
     """
     List the collaborators of a given collaboration
@@ -19,7 +20,7 @@ def list_members_of_collaboration(request_ctx, id, per_page=None, **request_kwar
         per_page = request_ctx.per_page
     path = '/v1/collaborations/{id}/members'
     payload = {
-        'per_page' : per_page,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(id=id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)

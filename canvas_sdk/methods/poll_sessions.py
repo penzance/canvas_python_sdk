@@ -1,5 +1,6 @@
 from canvas_sdk import client, utils
 
+
 def list_poll_sessions_for_poll(request_ctx, poll_id, per_page=None, **request_kwargs):
     """
     Returns the list of PollSessions in this poll.
@@ -19,7 +20,7 @@ def list_poll_sessions_for_poll(request_ctx, poll_id, per_page=None, **request_k
         per_page = request_ctx.per_page
     path = '/v1/polls/{poll_id}/poll_sessions'
     payload = {
-        'per_page' : per_page,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(poll_id=poll_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -70,9 +71,9 @@ def create_single_poll_session(request_ctx, poll_id, poll_sessions_course_id, po
 
     path = '/v1/polls/{poll_id}/poll_sessions'
     payload = {
-        'poll_sessions[course_id]' : poll_sessions_course_id,
-        'poll_sessions[course_section_id]' : poll_sessions_course_section_id,
-        'poll_sessions[has_public_results]' : poll_sessions_has_public_results,
+        'poll_sessions[course_id]': poll_sessions_course_id,
+        'poll_sessions[course_section_id]': poll_sessions_course_section_id,
+        'poll_sessions[has_public_results]': poll_sessions_has_public_results,
     }
     url = request_ctx.base_api_url + path.format(poll_id=poll_id)
     response = client.post(request_ctx, url, payload=payload, **request_kwargs)
@@ -103,9 +104,9 @@ def update_single_poll_session(request_ctx, poll_id, id, poll_sessions_course_id
 
     path = '/v1/polls/{poll_id}/poll_sessions/{id}'
     payload = {
-        'poll_sessions[course_id]' : poll_sessions_course_id,
-        'poll_sessions[course_section_id]' : poll_sessions_course_section_id,
-        'poll_sessions[has_public_results]' : poll_sessions_has_public_results,
+        'poll_sessions[course_id]': poll_sessions_course_id,
+        'poll_sessions[course_section_id]': poll_sessions_course_section_id,
+        'poll_sessions[has_public_results]': poll_sessions_has_public_results,
     }
     url = request_ctx.base_api_url + path.format(poll_id=poll_id, id=id)
     response = client.put(request_ctx, url, payload=payload, **request_kwargs)
@@ -194,7 +195,7 @@ def list_opened_poll_sessions(request_ctx, per_page=None, **request_kwargs):
         per_page = request_ctx.per_page
     path = '/v1/poll_sessions/opened'
     payload = {
-        'per_page' : per_page,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format()
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -219,7 +220,7 @@ def list_closed_poll_sessions(request_ctx, per_page=None, **request_kwargs):
         per_page = request_ctx.per_page
     path = '/v1/poll_sessions/closed'
     payload = {
-        'per_page' : per_page,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format()
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)

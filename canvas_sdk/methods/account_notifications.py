@@ -1,5 +1,6 @@
 from canvas_sdk import client, utils
 
+
 def index_of_active_global_notification_for_user(request_ctx, account_id, user_id, per_page=None, **request_kwargs):
     """
     Returns a list of all global notifications in the account for this user
@@ -22,7 +23,7 @@ def index_of_active_global_notification_for_user(request_ctx, account_id, user_i
         per_page = request_ctx.per_page
     path = '/v1/accounts/{account_id}/users/{user_id}/account_notifications'
     payload = {
-        'per_page' : per_page,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(account_id=account_id, user_id=user_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -88,12 +89,12 @@ Example:
     utils.validate_attr_is_acceptable(account_notification_icon, account_notification_icon_types)
     path = '/v1/accounts/{account_id}/account_notifications'
     payload = {
-        'account_notification[subject]' : account_notification_subject,
-        'account_notification[message]' : account_notification_message,
-        'account_notification[start_at]' : account_notification_start_at,
-        'account_notification[end_at]' : account_notification_end_at,
-        'account_notification[icon]' : account_notification_icon,
-        'account_notification_roles' : account_notification_roles,
+        'account_notification[subject]': account_notification_subject,
+        'account_notification[message]': account_notification_message,
+        'account_notification[start_at]': account_notification_start_at,
+        'account_notification[end_at]': account_notification_end_at,
+        'account_notification[icon]': account_notification_icon,
+        'account_notification_roles': account_notification_roles,
     }
     url = request_ctx.base_api_url + path.format(account_id=account_id)
     response = client.post(request_ctx, url, payload=payload, **request_kwargs)

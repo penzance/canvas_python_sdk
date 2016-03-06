@@ -1,5 +1,6 @@
 from canvas_sdk import client, utils
 
+
 def get_all_quiz_submissions(request_ctx, course_id, quiz_id, include=None, **request_kwargs):
     """
     Get a list of all submissions for this quiz.
@@ -23,7 +24,7 @@ def get_all_quiz_submissions(request_ctx, course_id, quiz_id, include=None, **re
     utils.validate_attr_is_acceptable(include, include_types)
     path = '/v1/courses/{course_id}/quizzes/{quiz_id}/submissions'
     payload = {
-        'include' : include,
+        'include': include,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id, quiz_id=quiz_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -56,7 +57,7 @@ def get_single_quiz_submission(request_ctx, course_id, quiz_id, id, include=None
     utils.validate_attr_is_acceptable(include, include_types)
     path = '/v1/courses/{course_id}/quizzes/{quiz_id}/submissions/{id}'
     payload = {
-        'include' : include,
+        'include': include,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id, quiz_id=quiz_id, id=id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -95,8 +96,8 @@ the user's course record. Teachers only.
 
     path = '/v1/courses/{course_id}/quizzes/{quiz_id}/submissions'
     payload = {
-        'access_code' : access_code,
-        'preview' : preview,
+        'access_code': access_code,
+        'preview': preview,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id, quiz_id=quiz_id)
     response = client.post(request_ctx, url, payload=payload, **request_kwargs)
@@ -142,9 +143,9 @@ parameter.
 
     path = '/v1/courses/{course_id}/quizzes/{quiz_id}/submissions/{id}'
     payload = {
-        'attempt' : attempt,
-        'fudge_points' : fudge_points,
-        'questions' : questions,
+        'attempt': attempt,
+        'fudge_points': fudge_points,
+        'questions': questions,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id, quiz_id=quiz_id, id=id)
     response = client.put(request_ctx, url, payload=payload, **request_kwargs)
@@ -192,9 +193,9 @@ created.
 
     path = '/v1/courses/{course_id}/quizzes/{quiz_id}/submissions/{id}/complete'
     payload = {
-        'attempt' : attempt,
-        'validation_token' : validation_token,
-        'access_code' : access_code,
+        'attempt': attempt,
+        'validation_token': validation_token,
+        'access_code': access_code,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id, quiz_id=quiz_id, id=id)
     response = client.post(request_ctx, url, payload=payload, **request_kwargs)

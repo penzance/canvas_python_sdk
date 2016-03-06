@@ -1,5 +1,6 @@
 from canvas_sdk import client, utils
 
+
 def list_questions_in_quiz_or_submission(request_ctx, course_id, quiz_id, quiz_submission_id=None, quiz_submission_attempt=None, per_page=None, **request_kwargs):
     """
     Returns the list of QuizQuestions in this quiz.
@@ -30,9 +31,9 @@ parameter.
         per_page = request_ctx.per_page
     path = '/v1/courses/{course_id}/quizzes/{quiz_id}/questions'
     payload = {
-        'quiz_submission_id' : quiz_submission_id,
-        'quiz_submission_attempt' : quiz_submission_attempt,
-        'per_page' : per_page,
+        'quiz_submission_id': quiz_submission_id,
+        'quiz_submission_attempt': quiz_submission_attempt,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id, quiz_id=quiz_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -105,17 +106,17 @@ def create_single_quiz_question(request_ctx, course_id, quiz_id, question_questi
     utils.validate_attr_is_acceptable(question_question_type, question_question_type_types)
     path = '/v1/courses/{course_id}/quizzes/{quiz_id}/questions'
     payload = {
-        'question[question_name]' : question_question_name,
-        'question[question_text]' : question_question_text,
-        'question[quiz_group_id]' : question_quiz_group_id,
-        'question[question_type]' : question_question_type,
-        'question[position]' : question_position,
-        'question[points_possible]' : question_points_possible,
-        'question[correct_comments]' : question_correct_comments,
-        'question[incorrect_comments]' : question_incorrect_comments,
-        'question[neutral_comments]' : question_neutral_comments,
-        'question[text_after_answers]' : question_text_after_answers,
-        'question[answers]' : question_answers,
+        'question[question_name]': question_question_name,
+        'question[question_text]': question_question_text,
+        'question[quiz_group_id]': question_quiz_group_id,
+        'question[question_type]': question_question_type,
+        'question[position]': question_position,
+        'question[points_possible]': question_points_possible,
+        'question[correct_comments]': question_correct_comments,
+        'question[incorrect_comments]': question_incorrect_comments,
+        'question[neutral_comments]': question_neutral_comments,
+        'question[text_after_answers]': question_text_after_answers,
+        'question[answers]': question_answers,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id, quiz_id=quiz_id)
     response = client.post(request_ctx, url, payload=payload, **request_kwargs)
@@ -166,17 +167,17 @@ def update_existing_quiz_question(request_ctx, course_id, quiz_id, id, question_
     utils.validate_attr_is_acceptable(question_question_type, question_question_type_types)
     path = '/v1/courses/{course_id}/quizzes/{quiz_id}/questions/{id}'
     payload = {
-        'question[question_name]' : question_question_name,
-        'question[question_text]' : question_question_text,
-        'question[quiz_group_id]' : question_quiz_group_id,
-        'question[question_type]' : question_question_type,
-        'question[position]' : question_position,
-        'question[points_possible]' : question_points_possible,
-        'question[correct_comments]' : question_correct_comments,
-        'question[incorrect_comments]' : question_incorrect_comments,
-        'question[neutral_comments]' : question_neutral_comments,
-        'question[text_after_answers]' : question_text_after_answers,
-        'question[answers]' : question_answers,
+        'question[question_name]': question_question_name,
+        'question[question_text]': question_question_text,
+        'question[quiz_group_id]': question_quiz_group_id,
+        'question[question_type]': question_question_type,
+        'question[position]': question_position,
+        'question[points_possible]': question_points_possible,
+        'question[correct_comments]': question_correct_comments,
+        'question[incorrect_comments]': question_incorrect_comments,
+        'question[neutral_comments]': question_neutral_comments,
+        'question[text_after_answers]': question_text_after_answers,
+        'question[answers]': question_answers,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id, quiz_id=quiz_id, id=id)
     response = client.put(request_ctx, url, payload=payload, **request_kwargs)

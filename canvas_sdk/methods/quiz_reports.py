@@ -1,5 +1,6 @@
 from canvas_sdk import client, utils
 
+
 def retrieve_all_quiz_reports(request_ctx, course_id, quiz_id, includes_all_versions=None, per_page=None, **request_kwargs):
     """
     Returns a list of all available reports.
@@ -24,8 +25,8 @@ the most recent. Defaults to false, ignored for item_analysis reports.
         per_page = request_ctx.per_page
     path = '/v1/courses/{course_id}/quizzes/{quiz_id}/reports'
     payload = {
-        'includes_all_versions' : includes_all_versions,
-        'per_page' : per_page,
+        'includes_all_versions': includes_all_versions,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id, quiz_id=quiz_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -70,9 +71,9 @@ objects associated with this report. (Note: JSON-API only)
     utils.validate_attr_is_acceptable(include, include_types)
     path = '/v1/courses/{course_id}/quizzes/{quiz_id}/reports'
     payload = {
-        'quiz_report[report_type]' : quiz_report_report_type,
-        'quiz_report[includes_all_versions]' : quiz_report_includes_all_versions,
-        'include' : include,
+        'quiz_report[report_type]': quiz_report_report_type,
+        'quiz_report[includes_all_versions]': quiz_report_includes_all_versions,
+        'include': include,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id, quiz_id=quiz_id)
     response = client.post(request_ctx, url, payload=payload, **request_kwargs)
@@ -104,7 +105,7 @@ objects associated with this report. (Note: JSON-API only)
     utils.validate_attr_is_acceptable(include, include_types)
     path = '/v1/courses/{course_id}/quizzes/{quiz_id}/reports/{id}'
     payload = {
-        'include' : include,
+        'include': include,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id, quiz_id=quiz_id, id=id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)

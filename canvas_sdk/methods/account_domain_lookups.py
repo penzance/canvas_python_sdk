@@ -1,5 +1,6 @@
 from canvas_sdk import client, utils
 
+
 def search_account_domains(request_ctx, name=None, domain=None, latitude=None, longitude=None, **request_kwargs):
     """
     Returns a list of up to 5 matching account domains
@@ -23,10 +24,10 @@ def search_account_domains(request_ctx, name=None, domain=None, latitude=None, l
 
     path = '/v1/accounts/search'
     payload = {
-        'name' : name,
-        'domain' : domain,
-        'latitude' : latitude,
-        'longitude' : longitude,
+        'name': name,
+        'domain': domain,
+        'latitude': latitude,
+        'longitude': longitude,
     }
     url = request_ctx.base_api_url + path.format()
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)

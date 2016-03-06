@@ -1,5 +1,6 @@
 from canvas_sdk import client, utils
 
+
 def find_recipients_conversations(request_ctx, search=None, context=None, exclude=None, type=None, user_id=None, from_conversation_id=None, permissions=None, **request_kwargs):
     """
     Find valid recipients (users, courses and groups) that the current user
@@ -45,13 +46,13 @@ they don't grant the permission(s).
     utils.validate_attr_is_acceptable(type, type_types)
     path = '/v1/conversations/find_recipients'
     payload = {
-        'search' : search,
-        'context' : context,
-        'exclude' : exclude,
-        'type' : type,
-        'user_id' : user_id,
-        'from_conversation_id' : from_conversation_id,
-        'permissions' : permissions,
+        'search': search,
+        'context': context,
+        'exclude': exclude,
+        'type': type,
+        'user_id': user_id,
+        'from_conversation_id': from_conversation_id,
+        'permissions': permissions,
     }
     url = request_ctx.base_api_url + path.format()
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -104,13 +105,13 @@ they don't grant the permission(s).
     utils.validate_attr_is_acceptable(type, type_types)
     path = '/v1/search/recipients'
     payload = {
-        'search' : search,
-        'context' : context,
-        'exclude' : exclude,
-        'type' : type,
-        'user_id' : user_id,
-        'from_conversation_id' : from_conversation_id,
-        'permissions' : permissions,
+        'search': search,
+        'context': context,
+        'exclude': exclude,
+        'type': type,
+        'user_id': user_id,
+        'from_conversation_id': from_conversation_id,
+        'permissions': permissions,
     }
     url = request_ctx.base_api_url + path.format()
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -143,10 +144,10 @@ all terms will be returned.
         per_page = request_ctx.per_page
     path = '/v1/search/all_courses'
     payload = {
-        'search' : search,
-        'public_only' : public_only,
-        'open_enrollment_only' : open_enrollment_only,
-        'per_page' : per_page,
+        'search': search,
+        'public_only': public_only,
+        'open_enrollment_only': open_enrollment_only,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format()
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)

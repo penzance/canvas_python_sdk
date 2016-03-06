@@ -1,5 +1,6 @@
 from canvas_sdk import client, utils
 
+
 def list_calendar_events(request_ctx, type=None, start_date=None, end_date=None, undated=None, all_events=None, context_codes=None, excludes=None, per_page=None, **request_kwargs):
     """
     Retrieve the list of calendar events or assignments for the current user
@@ -43,14 +44,14 @@ underscore, followed by the context id. For example: course_42
     utils.validate_attr_is_acceptable(type, type_types)
     path = '/v1/calendar_events'
     payload = {
-        'type' : type,
-        'start_date' : start_date,
-        'end_date' : end_date,
-        'undated' : undated,
-        'all_events' : all_events,
-        'context_codes' : context_codes,
-        'excludes' : excludes,
-        'per_page' : per_page,
+        'type': type,
+        'start_date': start_date,
+        'end_date': end_date,
+        'undated': undated,
+        'all_events': all_events,
+        'context_codes': context_codes,
+        'excludes': excludes,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format()
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -105,14 +106,14 @@ underscore, followed by the context id. For example: course_42
     utils.validate_attr_is_acceptable(type, type_types)
     path = '/v1/users/{user_id}/calendar_events'
     payload = {
-        'type' : type,
-        'start_date' : start_date,
-        'end_date' : end_date,
-        'undated' : undated,
-        'all_events' : all_events,
-        'context_codes' : context_codes,
-        'excludes' : excludes,
-        'per_page' : per_page,
+        'type': type,
+        'start_date': start_date,
+        'end_date': end_date,
+        'undated': undated,
+        'all_events': all_events,
+        'context_codes': context_codes,
+        'excludes': excludes,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(user_id=user_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -171,21 +172,21 @@ when the event is duplicated.  (e.g. Event 1, Event 2, Event 3, etc)
     utils.validate_attr_is_acceptable(calendar_event_duplicate_frequency, calendar_event_duplicate_frequency_types)
     path = '/v1/calendar_events'
     payload = {
-        'calendar_event[context_code]' : calendar_event_context_code,
-        'calendar_event[title]' : calendar_event_title,
-        'calendar_event[description]' : calendar_event_description,
-        'calendar_event[start_at]' : calendar_event_start_at,
-        'calendar_event[end_at]' : calendar_event_end_at,
-        'calendar_event[location_name]' : calendar_event_location_name,
-        'calendar_event[location_address]' : calendar_event_location_address,
-        'calendar_event[time_zone_edited]' : calendar_event_time_zone_edited,
-        'calendar_event[child_event_data][X][start_at]' : calendar_event_child_event_data_X_start_at,
-        'calendar_event[child_event_data][X][end_at]' : calendar_event_child_event_data_X_end_at,
-        'calendar_event[child_event_data][X][context_code]' : calendar_event_child_event_data_X_context_code,
-        'calendar_event[duplicate][count]' : calendar_event_duplicate_count,
-        'calendar_event[duplicate][interval]' : calendar_event_duplicate_interval,
-        'calendar_event[duplicate][frequency]' : calendar_event_duplicate_frequency,
-        'calendar_event[duplicate][append_iterator]' : calendar_event_duplicate_append_iterator,
+        'calendar_event[context_code]': calendar_event_context_code,
+        'calendar_event[title]': calendar_event_title,
+        'calendar_event[description]': calendar_event_description,
+        'calendar_event[start_at]': calendar_event_start_at,
+        'calendar_event[end_at]': calendar_event_end_at,
+        'calendar_event[location_name]': calendar_event_location_name,
+        'calendar_event[location_address]': calendar_event_location_address,
+        'calendar_event[time_zone_edited]': calendar_event_time_zone_edited,
+        'calendar_event[child_event_data][X][start_at]': calendar_event_child_event_data_X_start_at,
+        'calendar_event[child_event_data][X][end_at]': calendar_event_child_event_data_X_end_at,
+        'calendar_event[child_event_data][X][context_code]': calendar_event_child_event_data_X_context_code,
+        'calendar_event[duplicate][count]': calendar_event_duplicate_count,
+        'calendar_event[duplicate][interval]': calendar_event_duplicate_interval,
+        'calendar_event[duplicate][frequency]': calendar_event_duplicate_frequency,
+        'calendar_event[duplicate][append_iterator]': calendar_event_duplicate_append_iterator,
     }
     url = request_ctx.base_api_url + path.format()
     response = client.post(request_ctx, url, payload=payload, **request_kwargs)
@@ -235,9 +236,9 @@ participant and appointment group.
 
     path = '/v1/calendar_events/{id}/reservations'
     payload = {
-        'participant_id' : participant_id,
-        'comments' : comments,
-        'cancel_existing' : cancel_existing,
+        'participant_id': participant_id,
+        'comments': comments,
+        'cancel_existing': cancel_existing,
     }
     url = request_ctx.base_api_url + path.format(id=id)
     response = client.post(request_ctx, url, payload=payload, **request_kwargs)
@@ -268,8 +269,8 @@ participant and appointment group.
 
     path = '/v1/calendar_events/{id}/reservations/{participant_id}'
     payload = {
-        'comments' : comments,
-        'cancel_existing' : cancel_existing,
+        'comments': comments,
+        'cancel_existing': cancel_existing,
     }
     url = request_ctx.base_api_url + path.format(id=id, participant_id=participant_id)
     response = client.post(request_ctx, url, payload=payload, **request_kwargs)
@@ -319,17 +320,17 @@ and context_code
 
     path = '/v1/calendar_events/{id}'
     payload = {
-        'calendar_event[context_code]' : calendar_event_context_code,
-        'calendar_event[title]' : calendar_event_title,
-        'calendar_event[description]' : calendar_event_description,
-        'calendar_event[start_at]' : calendar_event_start_at,
-        'calendar_event[end_at]' : calendar_event_end_at,
-        'calendar_event[location_name]' : calendar_event_location_name,
-        'calendar_event[location_address]' : calendar_event_location_address,
-        'calendar_event[time_zone_edited]' : calendar_event_time_zone_edited,
-        'calendar_event[child_event_data][X][start_at]' : calendar_event_child_event_data_X_start_at,
-        'calendar_event[child_event_data][X][end_at]' : calendar_event_child_event_data_X_end_at,
-        'calendar_event[child_event_data][X][context_code]' : calendar_event_child_event_data_X_context_code,
+        'calendar_event[context_code]': calendar_event_context_code,
+        'calendar_event[title]': calendar_event_title,
+        'calendar_event[description]': calendar_event_description,
+        'calendar_event[start_at]': calendar_event_start_at,
+        'calendar_event[end_at]': calendar_event_end_at,
+        'calendar_event[location_name]': calendar_event_location_name,
+        'calendar_event[location_address]': calendar_event_location_address,
+        'calendar_event[time_zone_edited]': calendar_event_time_zone_edited,
+        'calendar_event[child_event_data][X][start_at]': calendar_event_child_event_data_X_start_at,
+        'calendar_event[child_event_data][X][end_at]': calendar_event_child_event_data_X_end_at,
+        'calendar_event[child_event_data][X][context_code]': calendar_event_child_event_data_X_context_code,
     }
     url = request_ctx.base_api_url + path.format(id=id)
     response = client.put(request_ctx, url, payload=payload, **request_kwargs)
@@ -354,7 +355,7 @@ def delete_calendar_event(request_ctx, id, cancel_reason=None, **request_kwargs)
 
     path = '/v1/calendar_events/{id}'
     payload = {
-        'cancel_reason' : cancel_reason,
+        'cancel_reason': cancel_reason,
     }
     url = request_ctx.base_api_url + path.format(id=id)
     response = client.delete(request_ctx, url, payload=payload, **request_kwargs)

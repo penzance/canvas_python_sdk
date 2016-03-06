@@ -1,5 +1,6 @@
 from canvas_sdk import client, utils
 
+
 def list_appointment_groups(request_ctx, scope=None, context_codes=None, include_past_appointments=None, include=None, per_page=None, **request_kwargs):
     """
     Retrieve the list of appointment groups that can be reserved or managed by
@@ -36,11 +37,11 @@ def list_appointment_groups(request_ctx, scope=None, context_codes=None, include
     utils.validate_attr_is_acceptable(include, include_types)
     path = '/v1/appointment_groups'
     payload = {
-        'scope' : scope,
-        'context_codes' : context_codes,
-        'include_past_appointments' : include_past_appointments,
-        'include' : include,
-        'per_page' : per_page,
+        'scope': scope,
+        'context_codes': context_codes,
+        'include_past_appointments': include_past_appointments,
+        'include': include,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format()
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -102,18 +103,18 @@ appointment group. Refer to the example request.
     utils.validate_attr_is_acceptable(appointment_group_participant_visibility, appointment_group_participant_visibility_types)
     path = '/v1/appointment_groups'
     payload = {
-        'appointment_group[context_codes]' : appointment_group_context_codes,
-        'appointment_group[sub_context_codes]' : appointment_group_sub_context_codes,
-        'appointment_group[title]' : appointment_group_title,
-        'appointment_group[description]' : appointment_group_description,
-        'appointment_group[location_name]' : appointment_group_location_name,
-        'appointment_group[location_address]' : appointment_group_location_address,
-        'appointment_group[publish]' : appointment_group_publish,
-        'appointment_group[participants_per_appointment]' : appointment_group_participants_per_appointment,
-        'appointment_group[min_appointments_per_participant]' : appointment_group_min_appointments_per_participant,
-        'appointment_group[max_appointments_per_participant]' : appointment_group_max_appointments_per_participant,
-        'appointment_group[new_appointments][X]' : appointment_group_new_appointments_X,
-        'appointment_group[participant_visibility]' : appointment_group_participant_visibility,
+        'appointment_group[context_codes]': appointment_group_context_codes,
+        'appointment_group[sub_context_codes]': appointment_group_sub_context_codes,
+        'appointment_group[title]': appointment_group_title,
+        'appointment_group[description]': appointment_group_description,
+        'appointment_group[location_name]': appointment_group_location_name,
+        'appointment_group[location_address]': appointment_group_location_address,
+        'appointment_group[publish]': appointment_group_publish,
+        'appointment_group[participants_per_appointment]': appointment_group_participants_per_appointment,
+        'appointment_group[min_appointments_per_participant]': appointment_group_min_appointments_per_participant,
+        'appointment_group[max_appointments_per_participant]': appointment_group_max_appointments_per_participant,
+        'appointment_group[new_appointments][X]': appointment_group_new_appointments_X,
+        'appointment_group[participant_visibility]': appointment_group_participant_visibility,
     }
     url = request_ctx.base_api_url + path.format()
     response = client.post(request_ctx, url, payload=payload, **request_kwargs)
@@ -144,7 +145,7 @@ def get_single_appointment_group(request_ctx, id, include=None, **request_kwargs
     utils.validate_attr_is_acceptable(include, include_types)
     path = '/v1/appointment_groups/{id}'
     payload = {
-        'include' : include,
+        'include': include,
     }
     url = request_ctx.base_api_url + path.format(id=id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -207,18 +208,18 @@ appointment group. Refer to the example request.
     utils.validate_attr_is_acceptable(appointment_group_participant_visibility, appointment_group_participant_visibility_types)
     path = '/v1/appointment_groups/{id}'
     payload = {
-        'appointment_group[context_codes]' : appointment_group_context_codes,
-        'appointment_group[sub_context_codes]' : appointment_group_sub_context_codes,
-        'appointment_group[title]' : appointment_group_title,
-        'appointment_group[description]' : appointment_group_description,
-        'appointment_group[location_name]' : appointment_group_location_name,
-        'appointment_group[location_address]' : appointment_group_location_address,
-        'appointment_group[publish]' : appointment_group_publish,
-        'appointment_group[participants_per_appointment]' : appointment_group_participants_per_appointment,
-        'appointment_group[min_appointments_per_participant]' : appointment_group_min_appointments_per_participant,
-        'appointment_group[max_appointments_per_participant]' : appointment_group_max_appointments_per_participant,
-        'appointment_group[new_appointments][X]' : appointment_group_new_appointments_X,
-        'appointment_group[participant_visibility]' : appointment_group_participant_visibility,
+        'appointment_group[context_codes]': appointment_group_context_codes,
+        'appointment_group[sub_context_codes]': appointment_group_sub_context_codes,
+        'appointment_group[title]': appointment_group_title,
+        'appointment_group[description]': appointment_group_description,
+        'appointment_group[location_name]': appointment_group_location_name,
+        'appointment_group[location_address]': appointment_group_location_address,
+        'appointment_group[publish]': appointment_group_publish,
+        'appointment_group[participants_per_appointment]': appointment_group_participants_per_appointment,
+        'appointment_group[min_appointments_per_participant]': appointment_group_min_appointments_per_participant,
+        'appointment_group[max_appointments_per_participant]': appointment_group_max_appointments_per_participant,
+        'appointment_group[new_appointments][X]': appointment_group_new_appointments_X,
+        'appointment_group[participant_visibility]': appointment_group_participant_visibility,
     }
     url = request_ctx.base_api_url + path.format(id=id)
     response = client.put(request_ctx, url, payload=payload, **request_kwargs)
@@ -244,7 +245,7 @@ def delete_appointment_group(request_ctx, id, cancel_reason=None, **request_kwar
 
     path = '/v1/appointment_groups/{id}'
     payload = {
-        'cancel_reason' : cancel_reason,
+        'cancel_reason': cancel_reason,
     }
     url = request_ctx.base_api_url + path.format(id=id)
     response = client.delete(request_ctx, url, payload=payload, **request_kwargs)
@@ -277,8 +278,8 @@ def list_user_participants(request_ctx, id, registration_status=None, per_page=N
     utils.validate_attr_is_acceptable(registration_status, registration_status_types)
     path = '/v1/appointment_groups/{id}/users'
     payload = {
-        'registration_status' : registration_status,
-        'per_page' : per_page,
+        'registration_status': registration_status,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(id=id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -311,8 +312,8 @@ def list_student_group_participants(request_ctx, id, registration_status=None, p
     utils.validate_attr_is_acceptable(registration_status, registration_status_types)
     path = '/v1/appointment_groups/{id}/groups'
     payload = {
-        'registration_status' : registration_status,
-        'per_page' : per_page,
+        'registration_status': registration_status,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(id=id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)

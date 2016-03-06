@@ -1,5 +1,6 @@
 from canvas_sdk import client, utils
 
+
 def show_front_page_courses(request_ctx, course_id, **request_kwargs):
     """
     Retrieve the content of the front page
@@ -74,11 +75,11 @@ of these roles is allowed (separated by commas).
     utils.validate_attr_is_acceptable(wiki_page_editing_roles, wiki_page_editing_roles_types)
     path = '/v1/courses/{course_id}/front_page'
     payload = {
-        'wiki_page[title]' : wiki_page_title,
-        'wiki_page[body]' : wiki_page_body,
-        'wiki_page[editing_roles]' : wiki_page_editing_roles,
-        'wiki_page[notify_of_update]' : wiki_page_notify_of_update,
-        'wiki_page[published]' : wiki_page_published,
+        'wiki_page[title]': wiki_page_title,
+        'wiki_page[body]': wiki_page_body,
+        'wiki_page[editing_roles]': wiki_page_editing_roles,
+        'wiki_page[notify_of_update]': wiki_page_notify_of_update,
+        'wiki_page[published]': wiki_page_published,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id)
     response = client.put(request_ctx, url, payload=payload, **request_kwargs)
@@ -120,11 +121,11 @@ of these roles is allowed (separated by commas).
     utils.validate_attr_is_acceptable(wiki_page_editing_roles, wiki_page_editing_roles_types)
     path = '/v1/groups/{group_id}/front_page'
     payload = {
-        'wiki_page[title]' : wiki_page_title,
-        'wiki_page[body]' : wiki_page_body,
-        'wiki_page[editing_roles]' : wiki_page_editing_roles,
-        'wiki_page[notify_of_update]' : wiki_page_notify_of_update,
-        'wiki_page[published]' : wiki_page_published,
+        'wiki_page[title]': wiki_page_title,
+        'wiki_page[body]': wiki_page_body,
+        'wiki_page[editing_roles]': wiki_page_editing_roles,
+        'wiki_page[notify_of_update]': wiki_page_notify_of_update,
+        'wiki_page[published]': wiki_page_published,
     }
     url = request_ctx.base_api_url + path.format(group_id=group_id)
     response = client.put(request_ctx, url, payload=payload, **request_kwargs)
@@ -164,11 +165,11 @@ pages. If not present, do not filter on published status.
     utils.validate_attr_is_acceptable(order, order_types)
     path = '/v1/courses/{course_id}/pages'
     payload = {
-        'sort' : sort,
-        'order' : order,
-        'search_term' : search_term,
-        'published' : published,
-        'per_page' : per_page,
+        'sort': sort,
+        'order': order,
+        'search_term': search_term,
+        'published': published,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -208,11 +209,11 @@ pages. If not present, do not filter on published status.
     utils.validate_attr_is_acceptable(order, order_types)
     path = '/v1/groups/{group_id}/pages'
     payload = {
-        'sort' : sort,
-        'order' : order,
-        'search_term' : search_term,
-        'published' : published,
-        'per_page' : per_page,
+        'sort': sort,
+        'order': order,
+        'search_term': search_term,
+        'published': published,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(group_id=group_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -255,12 +256,12 @@ of these roles is allowed (separated by commas).
     utils.validate_attr_is_acceptable(wiki_page_editing_roles, wiki_page_editing_roles_types)
     path = '/v1/courses/{course_id}/pages'
     payload = {
-        'wiki_page[title]' : wiki_page_title,
-        'wiki_page[body]' : wiki_page_body,
-        'wiki_page[editing_roles]' : wiki_page_editing_roles,
-        'wiki_page[notify_of_update]' : wiki_page_notify_of_update,
-        'wiki_page[published]' : wiki_page_published,
-        'wiki_page[front_page]' : wiki_page_front_page,
+        'wiki_page[title]': wiki_page_title,
+        'wiki_page[body]': wiki_page_body,
+        'wiki_page[editing_roles]': wiki_page_editing_roles,
+        'wiki_page[notify_of_update]': wiki_page_notify_of_update,
+        'wiki_page[published]': wiki_page_published,
+        'wiki_page[front_page]': wiki_page_front_page,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id)
     response = client.post(request_ctx, url, payload=payload, **request_kwargs)
@@ -303,12 +304,12 @@ of these roles is allowed (separated by commas).
     utils.validate_attr_is_acceptable(wiki_page_editing_roles, wiki_page_editing_roles_types)
     path = '/v1/groups/{group_id}/pages'
     payload = {
-        'wiki_page[title]' : wiki_page_title,
-        'wiki_page[body]' : wiki_page_body,
-        'wiki_page[editing_roles]' : wiki_page_editing_roles,
-        'wiki_page[notify_of_update]' : wiki_page_notify_of_update,
-        'wiki_page[published]' : wiki_page_published,
-        'wiki_page[front_page]' : wiki_page_front_page,
+        'wiki_page[title]': wiki_page_title,
+        'wiki_page[body]': wiki_page_body,
+        'wiki_page[editing_roles]': wiki_page_editing_roles,
+        'wiki_page[notify_of_update]': wiki_page_notify_of_update,
+        'wiki_page[published]': wiki_page_published,
+        'wiki_page[front_page]': wiki_page_front_page,
     }
     url = request_ctx.base_api_url + path.format(group_id=group_id)
     response = client.post(request_ctx, url, payload=payload, **request_kwargs)
@@ -398,12 +399,12 @@ of these roles is allowed (separated by commas).
     utils.validate_attr_is_acceptable(wiki_page_editing_roles, wiki_page_editing_roles_types)
     path = '/v1/courses/{course_id}/pages/{url}'
     payload = {
-        'wiki_page[title]' : wiki_page_title,
-        'wiki_page[body]' : wiki_page_body,
-        'wiki_page[editing_roles]' : wiki_page_editing_roles,
-        'wiki_page[notify_of_update]' : wiki_page_notify_of_update,
-        'wiki_page[published]' : wiki_page_published,
-        'wiki_page[front_page]' : wiki_page_front_page,
+        'wiki_page[title]': wiki_page_title,
+        'wiki_page[body]': wiki_page_body,
+        'wiki_page[editing_roles]': wiki_page_editing_roles,
+        'wiki_page[notify_of_update]': wiki_page_notify_of_update,
+        'wiki_page[published]': wiki_page_published,
+        'wiki_page[front_page]': wiki_page_front_page,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id, url=url)
     response = client.put(request_ctx, url, payload=payload, **request_kwargs)
@@ -449,12 +450,12 @@ of these roles is allowed (separated by commas).
     utils.validate_attr_is_acceptable(wiki_page_editing_roles, wiki_page_editing_roles_types)
     path = '/v1/groups/{group_id}/pages/{url}'
     payload = {
-        'wiki_page[title]' : wiki_page_title,
-        'wiki_page[body]' : wiki_page_body,
-        'wiki_page[editing_roles]' : wiki_page_editing_roles,
-        'wiki_page[notify_of_update]' : wiki_page_notify_of_update,
-        'wiki_page[published]' : wiki_page_published,
-        'wiki_page[front_page]' : wiki_page_front_page,
+        'wiki_page[title]': wiki_page_title,
+        'wiki_page[body]': wiki_page_body,
+        'wiki_page[editing_roles]': wiki_page_editing_roles,
+        'wiki_page[notify_of_update]': wiki_page_notify_of_update,
+        'wiki_page[published]': wiki_page_published,
+        'wiki_page[front_page]': wiki_page_front_page,
     }
     url = request_ctx.base_api_url + path.format(group_id=group_id, url=url)
     response = client.put(request_ctx, url, payload=payload, **request_kwargs)
@@ -527,7 +528,7 @@ def list_revisions_courses(request_ctx, course_id, url, per_page=None, **request
         per_page = request_ctx.per_page
     path = '/v1/courses/{course_id}/pages/{url}/revisions'
     payload = {
-        'per_page' : per_page,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id, url=url)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -556,7 +557,7 @@ def list_revisions_groups(request_ctx, group_id, url, per_page=None, **request_k
         per_page = request_ctx.per_page
     path = '/v1/groups/{group_id}/pages/{url}/revisions'
     payload = {
-        'per_page' : per_page,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(group_id=group_id, url=url)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -584,7 +585,7 @@ def show_revision_courses_latest(request_ctx, course_id, url, summary=None, **re
 
     path = '/v1/courses/{course_id}/pages/{url}/revisions/latest'
     payload = {
-        'summary' : summary,
+        'summary': summary,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id, url=url)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -612,7 +613,7 @@ def show_revision_groups_latest(request_ctx, group_id, url, summary=None, **requ
 
     path = '/v1/groups/{group_id}/pages/{url}/revisions/latest'
     payload = {
-        'summary' : summary,
+        'summary': summary,
     }
     url = request_ctx.base_api_url + path.format(group_id=group_id, url=url)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -642,7 +643,7 @@ def show_revision_courses_revision_id(request_ctx, course_id, url, revision_id, 
 
     path = '/v1/courses/{course_id}/pages/{url}/revisions/{revision_id}'
     payload = {
-        'summary' : summary,
+        'summary': summary,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id, url=url, revision_id=revision_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -672,7 +673,7 @@ def show_revision_groups_revision_id(request_ctx, group_id, url, revision_id, su
 
     path = '/v1/groups/{group_id}/pages/{url}/revisions/{revision_id}'
     payload = {
-        'summary' : summary,
+        'summary': summary,
     }
     url = request_ctx.base_api_url + path.format(group_id=group_id, url=url, revision_id=revision_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)

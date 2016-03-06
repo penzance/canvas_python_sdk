@@ -1,5 +1,6 @@
 from canvas_sdk import client, utils
 
+
 def make_account_admin(request_ctx, account_id, user_id, role=None, role_id=None, send_confirmation=None, **request_kwargs):
     """
     Flag an existing user as an admin within the account.
@@ -27,10 +28,10 @@ the new admin if true. Default is true.
 
     path = '/v1/accounts/{account_id}/admins'
     payload = {
-        'user_id' : user_id,
-        'role' : role,
-        'role_id' : role_id,
-        'send_confirmation' : send_confirmation,
+        'user_id': user_id,
+        'role': role,
+        'role_id': role_id,
+        'send_confirmation': send_confirmation,
     }
     url = request_ctx.base_api_url + path.format(account_id=account_id)
     response = client.post(request_ctx, url, payload=payload, **request_kwargs)
@@ -62,8 +63,8 @@ given role. Defaults to the built-in role for 'AccountAdmin'.
 
     path = '/v1/accounts/{account_id}/admins/{user_id}'
     payload = {
-        'role' : role,
-        'role_id' : role_id,
+        'role': role,
+        'role_id': role_id,
     }
     url = request_ctx.base_api_url + path.format(account_id=account_id, user_id=user_id)
     response = client.delete(request_ctx, url, payload=payload, **request_kwargs)
@@ -92,8 +93,8 @@ def list_account_admins(request_ctx, account_id, user_id=None, per_page=None, **
         per_page = request_ctx.per_page
     path = '/v1/accounts/{account_id}/admins'
     payload = {
-        'user_id' : user_id,
-        'per_page' : per_page,
+        'user_id': user_id,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(account_id=account_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)

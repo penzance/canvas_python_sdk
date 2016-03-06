@@ -1,5 +1,6 @@
 from canvas_sdk import client, utils
 
+
 def list_grading_periods_courses(request_ctx, course_id, per_page=None, **request_kwargs):
     """
     Returns the list of grading periods for the current course.
@@ -19,7 +20,7 @@ def list_grading_periods_courses(request_ctx, course_id, per_page=None, **reques
         per_page = request_ctx.per_page
     path = '/v1/courses/{course_id}/grading_periods'
     payload = {
-        'per_page' : per_page,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -46,7 +47,7 @@ def list_grading_periods_accounts(request_ctx, account_id, per_page=None, **requ
         per_page = request_ctx.per_page
     path = '/v1/accounts/{account_id}/grading_periods'
     payload = {
-        'per_page' : per_page,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(account_id=account_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -119,9 +120,9 @@ def create_single_grading_period_courses(request_ctx, course_id, grading_periods
 
     path = '/v1/courses/{course_id}/grading_periods'
     payload = {
-        'grading_periods[start_date]' : grading_periods_start_date,
-        'grading_periods[end_date]' : grading_periods_end_date,
-        'grading_periods[weight]' : grading_periods_weight,
+        'grading_periods[start_date]': grading_periods_start_date,
+        'grading_periods[end_date]': grading_periods_end_date,
+        'grading_periods[weight]': grading_periods_weight,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id)
     response = client.post(request_ctx, url, payload=payload, **request_kwargs)
@@ -150,9 +151,9 @@ def create_single_grading_period_accounts(request_ctx, account_id, grading_perio
 
     path = '/v1/accounts/{account_id}/grading_periods'
     payload = {
-        'grading_periods[start_date]' : grading_periods_start_date,
-        'grading_periods[end_date]' : grading_periods_end_date,
-        'grading_periods[weight]' : grading_periods_weight,
+        'grading_periods[start_date]': grading_periods_start_date,
+        'grading_periods[end_date]': grading_periods_end_date,
+        'grading_periods[weight]': grading_periods_weight,
     }
     url = request_ctx.base_api_url + path.format(account_id=account_id)
     response = client.post(request_ctx, url, payload=payload, **request_kwargs)
@@ -183,9 +184,9 @@ def update_single_grading_period_courses(request_ctx, course_id, id, grading_per
 
     path = '/v1/courses/{course_id}/grading_periods/{id}'
     payload = {
-        'grading_periods[start_date]' : grading_periods_start_date,
-        'grading_periods[end_date]' : grading_periods_end_date,
-        'grading_periods[weight]' : grading_periods_weight,
+        'grading_periods[start_date]': grading_periods_start_date,
+        'grading_periods[end_date]': grading_periods_end_date,
+        'grading_periods[weight]': grading_periods_weight,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id, id=id)
     response = client.put(request_ctx, url, payload=payload, **request_kwargs)
@@ -216,9 +217,9 @@ def update_single_grading_period_accounts(request_ctx, account_id, id, grading_p
 
     path = '/v1/accounts/{account_id}/grading_periods/{id}'
     payload = {
-        'grading_periods[start_date]' : grading_periods_start_date,
-        'grading_periods[end_date]' : grading_periods_end_date,
-        'grading_periods[weight]' : grading_periods_weight,
+        'grading_periods[start_date]': grading_periods_start_date,
+        'grading_periods[end_date]': grading_periods_end_date,
+        'grading_periods[weight]': grading_periods_weight,
     }
     url = request_ctx.base_api_url + path.format(account_id=account_id, id=id)
     response = client.put(request_ctx, url, payload=payload, **request_kwargs)

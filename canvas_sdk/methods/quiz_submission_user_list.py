@@ -1,5 +1,6 @@
 from canvas_sdk import client, utils
 
+
 def send_message_to_unsubmitted_or_submitted_users_for_quiz(request_ctx, course_id, id, **request_kwargs):
     """
     {

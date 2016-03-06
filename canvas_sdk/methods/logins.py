@@ -1,5 +1,6 @@
 from canvas_sdk import client, utils
 
+
 def list_user_logins_accounts(request_ctx, account_id, per_page=None, **request_kwargs):
     """
     Given a user ID, return that user's logins for the given account.
@@ -19,7 +20,7 @@ def list_user_logins_accounts(request_ctx, account_id, per_page=None, **request_
         per_page = request_ctx.per_page
     path = '/v1/accounts/{account_id}/logins'
     payload = {
-        'per_page' : per_page,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(account_id=account_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -46,7 +47,7 @@ def list_user_logins_users(request_ctx, user_id, per_page=None, **request_kwargs
         per_page = request_ctx.per_page
     path = '/v1/users/{user_id}/logins'
     payload = {
-        'per_page' : per_page,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(user_id=user_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -86,11 +87,11 @@ first matching provider).
 
     path = '/v1/accounts/{account_id}/logins'
     payload = {
-        'user[id]' : user_id,
-        'login[unique_id]' : login_unique_id,
-        'login[password]' : login_password,
-        'login[sis_user_id]' : login_sis_user_id,
-        'login[authentication_provider_id]' : login_authentication_provider_id,
+        'user[id]': user_id,
+        'login[unique_id]': login_unique_id,
+        'login[password]': login_password,
+        'login[sis_user_id]': login_sis_user_id,
+        'login[authentication_provider_id]': login_authentication_provider_id,
     }
     url = request_ctx.base_api_url + path.format(account_id=account_id)
     response = client.post(request_ctx, url, payload=payload, **request_kwargs)
@@ -123,9 +124,9 @@ manage SIS permissions on the account.
 
     path = '/v1/accounts/{account_id}/logins/{id}'
     payload = {
-        'login[unique_id]' : login_unique_id,
-        'login[password]' : login_password,
-        'login[sis_user_id]' : login_sis_user_id,
+        'login[unique_id]': login_unique_id,
+        'login[password]': login_password,
+        'login[sis_user_id]': login_sis_user_id,
     }
     url = request_ctx.base_api_url + path.format(account_id=account_id, id=id)
     response = client.put(request_ctx, url, payload=payload, **request_kwargs)

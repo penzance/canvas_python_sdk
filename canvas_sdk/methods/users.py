@@ -1,5 +1,6 @@
 from canvas_sdk import client, utils
 
+
 def list_users_in_account(request_ctx, account_id, search_term=None, per_page=None, **request_kwargs):
     """
     Retrieve the list of users associated with this account.
@@ -33,8 +34,8 @@ administrative queries will only be compared against name.
         per_page = request_ctx.per_page
     path = '/v1/accounts/{account_id}/users'
     payload = {
-        'search_term' : search_term,
-        'per_page' : per_page,
+        'search_term': search_term,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(account_id=account_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -157,7 +158,7 @@ def list_activity_stream_self(request_ctx, per_page=None, **request_kwargs):
         per_page = request_ctx.per_page
     path = '/v1/users/self/activity_stream'
     payload = {
-        'per_page' : per_page,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format()
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -280,7 +281,7 @@ def list_activity_stream_activity_stream(request_ctx, per_page=None, **request_k
         per_page = request_ctx.per_page
     path = '/v1/users/activity_stream'
     payload = {
-        'per_page' : per_page,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format()
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -332,7 +333,7 @@ def list_todo_items(request_ctx, per_page=None, **request_kwargs):
         per_page = request_ctx.per_page
     path = '/v1/users/self/todo'
     payload = {
-        'per_page' : per_page,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format()
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -358,7 +359,7 @@ def list_upcoming_assignments_calendar_events(request_ctx, per_page=None, **requ
         per_page = request_ctx.per_page
     path = '/v1/users/self/upcoming_events'
     payload = {
-        'per_page' : per_page,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format()
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -386,7 +387,7 @@ def list_missing_submissions(request_ctx, user_id, per_page=None, **request_kwar
         per_page = request_ctx.per_page
     path = '/v1/users/{user_id}/missing_submissions'
     payload = {
-        'per_page' : per_page,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(user_id=user_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -588,26 +589,26 @@ errors while building users with an admin request.
 
     path = '/v1/accounts/{account_id}/users'
     payload = {
-        'user[name]' : user_name,
-        'user[short_name]' : user_short_name,
-        'user[sortable_name]' : user_sortable_name,
-        'user[time_zone]' : user_time_zone,
-        'user[locale]' : user_locale,
-        'user[birthdate]' : user_birthdate,
-        'user[terms_of_use]' : user_terms_of_use,
-        'user[skip_registration]' : user_skip_registration,
-        'pseudonym[unique_id]' : pseudonym_unique_id,
-        'pseudonym[password]' : pseudonym_password,
-        'pseudonym[sis_user_id]' : pseudonym_sis_user_id,
-        'pseudonym[send_confirmation]' : pseudonym_send_confirmation,
-        'pseudonym[force_self_registration]' : pseudonym_force_self_registration,
-        'pseudonym[authentication_provider_id]' : pseudonym_authentication_provider_id,
-        'communication_channel[type]' : communication_channel_type,
-        'communication_channel[address]' : communication_channel_address,
-        'communication_channel[confirmation_url]' : communication_channel_confirmation_url,
-        'communication_channel[skip_confirmation]' : communication_channel_skip_confirmation,
-        'force_validations' : force_validations,
-        'enable_sis_reactivation' : enable_sis_reactivation,
+        'user[name]': user_name,
+        'user[short_name]': user_short_name,
+        'user[sortable_name]': user_sortable_name,
+        'user[time_zone]': user_time_zone,
+        'user[locale]': user_locale,
+        'user[birthdate]': user_birthdate,
+        'user[terms_of_use]': user_terms_of_use,
+        'user[skip_registration]': user_skip_registration,
+        'pseudonym[unique_id]': pseudonym_unique_id,
+        'pseudonym[password]': pseudonym_password,
+        'pseudonym[sis_user_id]': pseudonym_sis_user_id,
+        'pseudonym[send_confirmation]': pseudonym_send_confirmation,
+        'pseudonym[force_self_registration]': pseudonym_force_self_registration,
+        'pseudonym[authentication_provider_id]': pseudonym_authentication_provider_id,
+        'communication_channel[type]': communication_channel_type,
+        'communication_channel[address]': communication_channel_address,
+        'communication_channel[confirmation_url]': communication_channel_confirmation_url,
+        'communication_channel[skip_confirmation]': communication_channel_skip_confirmation,
+        'force_validations': force_validations,
+        'enable_sis_reactivation': enable_sis_reactivation,
     }
     url = request_ctx.base_api_url + path.format(account_id=account_id)
     response = client.post(request_ctx, url, payload=payload, **request_kwargs)
@@ -655,16 +656,16 @@ def self_register_user(request_ctx, account_id, user_name, user_terms_of_use, ps
 
     path = '/v1/accounts/{account_id}/self_registration'
     payload = {
-        'user[name]' : user_name,
-        'user[short_name]' : user_short_name,
-        'user[sortable_name]' : user_sortable_name,
-        'user[time_zone]' : user_time_zone,
-        'user[locale]' : user_locale,
-        'user[birthdate]' : user_birthdate,
-        'user[terms_of_use]' : user_terms_of_use,
-        'pseudonym[unique_id]' : pseudonym_unique_id,
-        'communication_channel[type]' : communication_channel_type,
-        'communication_channel[address]' : communication_channel_address,
+        'user[name]': user_name,
+        'user[short_name]': user_short_name,
+        'user[sortable_name]': user_sortable_name,
+        'user[time_zone]': user_time_zone,
+        'user[locale]': user_locale,
+        'user[birthdate]': user_birthdate,
+        'user[terms_of_use]': user_terms_of_use,
+        'pseudonym[unique_id]': pseudonym_unique_id,
+        'communication_channel[type]': communication_channel_type,
+        'communication_channel[address]': communication_channel_address,
     }
     url = request_ctx.base_api_url + path.format(account_id=account_id)
     response = client.post(request_ctx, url, payload=payload, **request_kwargs)
@@ -690,7 +691,7 @@ auto-mark as read).
 
     path = '/v1/users/{id}/settings'
     payload = {
-        'manual_mark_as_read' : manual_mark_as_read,
+        'manual_mark_as_read': manual_mark_as_read,
     }
     url = request_ctx.base_api_url + path.format(id=id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -768,7 +769,7 @@ NOT include the '#' unless you escape it first.
 
     path = '/v1/users/{id}/colors/{asset_string}'
     payload = {
-        'hexcode' : hexcode,
+        'hexcode': hexcode,
     }
     url = request_ctx.base_api_url + path.format(id=id, asset_string=asset_string)
     response = client.put(request_ctx, url, payload=payload, **request_kwargs)
@@ -817,14 +818,14 @@ please use 128 px square images.
 
     path = '/v1/users/{id}'
     payload = {
-        'user[name]' : user_name,
-        'user[short_name]' : user_short_name,
-        'user[sortable_name]' : user_sortable_name,
-        'user[time_zone]' : user_time_zone,
-        'user[email]' : user_email,
-        'user[locale]' : user_locale,
-        'user[avatar][token]' : user_avatar_token,
-        'user[avatar][url]' : user_avatar_url,
+        'user[name]': user_name,
+        'user[short_name]': user_short_name,
+        'user[sortable_name]': user_sortable_name,
+        'user[time_zone]': user_time_zone,
+        'user[email]': user_email,
+        'user[locale]': user_locale,
+        'user[avatar][token]': user_avatar_token,
+        'user[avatar][url]': user_avatar_url,
     }
     url = request_ctx.base_api_url + path.format(id=id)
     response = client.put(request_ctx, url, payload=payload, **request_kwargs)
@@ -940,7 +941,7 @@ def list_avatar_options(request_ctx, user_id, per_page=None, **request_kwargs):
         per_page = request_ctx.per_page
     path = '/v1/users/{user_id}/avatars'
     payload = {
-        'per_page' : per_page,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(user_id=user_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -973,9 +974,9 @@ def list_user_page_views(request_ctx, user_id, start_time=None, end_time=None, p
         per_page = request_ctx.per_page
     path = '/v1/users/{user_id}/page_views'
     payload = {
-        'start_time' : start_time,
-        'end_time' : end_time,
-        'per_page' : per_page,
+        'start_time': start_time,
+        'end_time': end_time,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(user_id=user_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -1149,8 +1150,8 @@ keys (see examples).
 
     path = '/v1/users/{user_id}/custom_data'
     payload = {
-        'ns' : ns,
-        'data' : data,
+        'ns': ns,
+        'data': data,
     }
     url = request_ctx.base_api_url + path.format(user_id=user_id)
     response = client.put(request_ctx, url, payload=payload, **request_kwargs)
@@ -1186,7 +1187,7 @@ Canvas API apps aren't likely to use, such as a reverse DNS for your organizatio
 
     path = '/v1/users/{user_id}/custom_data'
     payload = {
-        'ns' : ns,
+        'ns': ns,
     }
     url = request_ctx.base_api_url + path.format(user_id=user_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -1314,7 +1315,7 @@ Canvas API apps aren't likely to use, such as a reverse DNS for your organizatio
 
     path = '/v1/users/{user_id}/custom_data'
     payload = {
-        'ns' : ns,
+        'ns': ns,
     }
     url = request_ctx.base_api_url + path.format(user_id=user_id)
     response = client.delete(request_ctx, url, payload=payload, **request_kwargs)
@@ -1339,7 +1340,7 @@ def list_course_nicknames(request_ctx, per_page=None, **request_kwargs):
         per_page = request_ctx.per_page
     path = '/v1/users/self/course_nicknames'
     payload = {
-        'per_page' : per_page,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format()
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -1386,7 +1387,7 @@ def set_course_nickname(request_ctx, course_id, nickname, **request_kwargs):
 
     path = '/v1/users/self/course_nicknames/{course_id}'
     payload = {
-        'nickname' : nickname,
+        'nickname': nickname,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id)
     response = client.put(request_ctx, url, payload=payload, **request_kwargs)

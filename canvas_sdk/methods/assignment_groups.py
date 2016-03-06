@@ -1,5 +1,6 @@
 from canvas_sdk import client, utils
 
+
 def list_assignment_groups(request_ctx, course_id, include=None, override_assignment_dates=None, grading_period_id=None, scope_assignments_to_student=None, per_page=None, **request_kwargs):
     """
     Returns the list of assignment groups for the current context. The returned
@@ -37,11 +38,11 @@ Periods feature turned on. In addition, the current user must be a student.)
     utils.validate_attr_is_acceptable(include, include_types)
     path = '/v1/courses/{course_id}/assignment_groups'
     payload = {
-        'include' : include,
-        'override_assignment_dates' : override_assignment_dates,
-        'grading_period_id' : grading_period_id,
-        'scope_assignments_to_student' : scope_assignments_to_student,
-        'per_page' : per_page,
+        'include': include,
+        'override_assignment_dates': override_assignment_dates,
+        'grading_period_id': grading_period_id,
+        'scope_assignments_to_student': scope_assignments_to_student,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -77,9 +78,9 @@ requires that the Differentiated Assignments course feature be turned on.
     utils.validate_attr_is_acceptable(include, include_types)
     path = '/v1/courses/{course_id}/assignment_groups/{assignment_group_id}'
     payload = {
-        'include' : include,
-        'override_assignment_dates' : override_assignment_dates,
-        'grading_period_id' : grading_period_id,
+        'include': include,
+        'override_assignment_dates': override_assignment_dates,
+        'grading_period_id': grading_period_id,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id, assignment_group_id=assignment_group_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -111,10 +112,10 @@ See the Assignment Group object definition for format
 
     path = '/v1/courses/{course_id}/assignment_groups'
     payload = {
-        'name' : name,
-        'position' : position,
-        'group_weight' : group_weight,
-        'rules' : rules,
+        'name': name,
+        'position': position,
+        'group_weight': group_weight,
+        'rules': rules,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id)
     response = client.post(request_ctx, url, payload=payload, **request_kwargs)
@@ -167,7 +168,7 @@ Group will be deleted.
 
     path = '/v1/courses/{course_id}/assignment_groups/{assignment_group_id}'
     payload = {
-        'move_assignments_to' : move_assignments_to,
+        'move_assignments_to': move_assignments_to,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id, assignment_group_id=assignment_group_id)
     response = client.delete(request_ctx, url, payload=payload, **request_kwargs)

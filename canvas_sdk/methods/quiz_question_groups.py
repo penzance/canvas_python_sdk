@@ -1,5 +1,6 @@
 from canvas_sdk import client, utils
 
+
 def get_single_quiz_group(request_ctx, course_id, quiz_id, id, **request_kwargs):
     """
     Returns details of the quiz group with the given id.
@@ -51,10 +52,10 @@ def create_question_group(request_ctx, course_id, quiz_id, quiz_groups_name=None
 
     path = '/v1/courses/{course_id}/quizzes/{quiz_id}/groups'
     payload = {
-        'quiz_groups[name]' : quiz_groups_name,
-        'quiz_groups[pick_count]' : quiz_groups_pick_count,
-        'quiz_groups[question_points]' : quiz_groups_question_points,
-        'quiz_groups[assessment_question_bank_id]' : quiz_groups_assessment_question_bank_id,
+        'quiz_groups[name]': quiz_groups_name,
+        'quiz_groups[pick_count]': quiz_groups_pick_count,
+        'quiz_groups[question_points]': quiz_groups_question_points,
+        'quiz_groups[assessment_question_bank_id]': quiz_groups_assessment_question_bank_id,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id, quiz_id=quiz_id)
     response = client.post(request_ctx, url, payload=payload, **request_kwargs)
@@ -87,9 +88,9 @@ def update_question_group(request_ctx, course_id, quiz_id, id, quiz_groups_name=
 
     path = '/v1/courses/{course_id}/quizzes/{quiz_id}/groups/{id}'
     payload = {
-        'quiz_groups[name]' : quiz_groups_name,
-        'quiz_groups[pick_count]' : quiz_groups_pick_count,
-        'quiz_groups[question_points]' : quiz_groups_question_points,
+        'quiz_groups[name]': quiz_groups_name,
+        'quiz_groups[pick_count]': quiz_groups_pick_count,
+        'quiz_groups[question_points]': quiz_groups_question_points,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id, quiz_id=quiz_id, id=id)
     response = client.put(request_ctx, url, payload=payload, **request_kwargs)
@@ -150,8 +151,8 @@ def reorder_question_groups(request_ctx, course_id, quiz_id, id, order_id, order
     utils.validate_attr_is_acceptable(order_type, order_type_types)
     path = '/v1/courses/{course_id}/quizzes/{quiz_id}/groups/{id}/reorder'
     payload = {
-        'order[id]' : order_id,
-        'order[type]' : order_type,
+        'order[id]': order_id,
+        'order[type]': order_type,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id, quiz_id=quiz_id, id=id)
     response = client.post(request_ctx, url, payload=payload, **request_kwargs)

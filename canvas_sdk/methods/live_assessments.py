@@ -1,5 +1,6 @@
 from canvas_sdk import client, utils
 
+
 def create_live_assessment_results(request_ctx, course_id, assessment_id, **request_kwargs):
     """
     Creates live assessment results and adds them to a live assessment
@@ -45,8 +46,8 @@ def list_live_assessment_results(request_ctx, course_id, assessment_id, user_id=
         per_page = request_ctx.per_page
     path = '/v1/courses/{course_id}/live_assessments/{assessment_id}/results'
     payload = {
-        'user_id' : user_id,
-        'per_page' : per_page,
+        'user_id': user_id,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id, assessment_id=assessment_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -94,7 +95,7 @@ def list_live_assessments(request_ctx, course_id, per_page=None, **request_kwarg
         per_page = request_ctx.per_page
     path = '/v1/courses/{course_id}/live_assessments'
     payload = {
-        'per_page' : per_page,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)

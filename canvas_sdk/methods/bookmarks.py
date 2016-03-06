@@ -1,5 +1,6 @@
 from canvas_sdk import client, utils
 
+
 def list_bookmarks(request_ctx, per_page=None, **request_kwargs):
     """
     Returns the list of bookmarks.
@@ -17,7 +18,7 @@ def list_bookmarks(request_ctx, per_page=None, **request_kwargs):
         per_page = request_ctx.per_page
     path = '/v1/users/self/bookmarks'
     payload = {
-        'per_page' : per_page,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format()
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -46,10 +47,10 @@ def create_bookmark(request_ctx, name=None, url=None, position=None, data=None, 
 
     path = '/v1/users/self/bookmarks'
     payload = {
-        'name' : name,
-        'url' : url,
-        'position' : position,
-        'data' : data,
+        'name': name,
+        'url': url,
+        'position': position,
+        'data': data,
     }
     url = request_ctx.base_api_url + path.format()
     response = client.post(request_ctx, url, payload=payload, **request_kwargs)
@@ -100,10 +101,10 @@ def update_bookmark(request_ctx, id, name=None, url=None, position=None, data=No
 
     path = '/v1/users/self/bookmarks/{id}'
     payload = {
-        'name' : name,
-        'url' : url,
-        'position' : position,
-        'data' : data,
+        'name': name,
+        'url': url,
+        'position': position,
+        'data': data,
     }
     url = request_ctx.base_api_url + path.format(id=id)
     response = client.put(request_ctx, url, payload=payload, **request_kwargs)

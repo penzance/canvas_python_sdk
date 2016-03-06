@@ -1,5 +1,6 @@
 from canvas_sdk import client, utils
 
+
 def get_quota_information_courses(request_ctx, course_id, **request_kwargs):
     """
     Returns the total and used storage quota for the course, group, or user.
@@ -104,13 +105,13 @@ def list_files_courses(request_ctx, course_id, content_types=None, search_term=N
     utils.validate_attr_is_acceptable(order, order_types)
     path = '/v1/courses/{course_id}/files'
     payload = {
-        'content_types' : content_types,
-        'search_term' : search_term,
-        'include' : include,
-        'only' : only,
-        'sort' : sort,
-        'order' : order,
-        'per_page' : per_page,
+        'content_types': content_types,
+        'search_term': search_term,
+        'include': include,
+        'only': only,
+        'sort': sort,
+        'order': order,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -162,13 +163,13 @@ def list_files_users(request_ctx, user_id, content_types=None, search_term=None,
     utils.validate_attr_is_acceptable(order, order_types)
     path = '/v1/users/{user_id}/files'
     payload = {
-        'content_types' : content_types,
-        'search_term' : search_term,
-        'include' : include,
-        'only' : only,
-        'sort' : sort,
-        'order' : order,
-        'per_page' : per_page,
+        'content_types': content_types,
+        'search_term': search_term,
+        'include': include,
+        'only': only,
+        'sort': sort,
+        'order': order,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(user_id=user_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -220,13 +221,13 @@ def list_files_groups(request_ctx, group_id, content_types=None, search_term=Non
     utils.validate_attr_is_acceptable(order, order_types)
     path = '/v1/groups/{group_id}/files'
     payload = {
-        'content_types' : content_types,
-        'search_term' : search_term,
-        'include' : include,
-        'only' : only,
-        'sort' : sort,
-        'order' : order,
-        'per_page' : per_page,
+        'content_types': content_types,
+        'search_term': search_term,
+        'include': include,
+        'only': only,
+        'sort': sort,
+        'order': order,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(group_id=group_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -278,13 +279,13 @@ def list_files_folders(request_ctx, id, content_types=None, search_term=None, in
     utils.validate_attr_is_acceptable(order, order_types)
     path = '/v1/folders/{id}/files'
     payload = {
-        'content_types' : content_types,
-        'search_term' : search_term,
-        'include' : include,
-        'only' : only,
-        'sort' : sort,
-        'order' : order,
-        'per_page' : per_page,
+        'content_types': content_types,
+        'search_term': search_term,
+        'include': include,
+        'only': only,
+        'sort': sort,
+        'order': order,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(id=id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -334,7 +335,7 @@ def get_file_files(request_ctx, id, include=None, **request_kwargs):
     utils.validate_attr_is_acceptable(include, include_types)
     path = '/v1/files/{id}'
     payload = {
-        'include' : include,
+        'include': include,
     }
     url = request_ctx.base_api_url + path.format(id=id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -366,7 +367,7 @@ def get_file_courses(request_ctx, course_id, id, include=None, **request_kwargs)
     utils.validate_attr_is_acceptable(include, include_types)
     path = '/v1/courses/{course_id}/files/{id}'
     payload = {
-        'include' : include,
+        'include': include,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id, id=id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -398,7 +399,7 @@ def get_file_groups(request_ctx, group_id, id, include=None, **request_kwargs):
     utils.validate_attr_is_acceptable(include, include_types)
     path = '/v1/groups/{group_id}/files/{id}'
     payload = {
-        'include' : include,
+        'include': include,
     }
     url = request_ctx.base_api_url + path.format(group_id=group_id, id=id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -430,7 +431,7 @@ def get_file_users(request_ctx, user_id, id, include=None, **request_kwargs):
     utils.validate_attr_is_acceptable(include, include_types)
     path = '/v1/users/{user_id}/files/{id}'
     payload = {
-        'include' : include,
+        'include': include,
     }
     url = request_ctx.base_api_url + path.format(user_id=user_id, id=id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -476,13 +477,13 @@ unless this parameter is supplied.
     utils.validate_attr_is_acceptable(on_duplicate, on_duplicate_types)
     path = '/v1/files/{id}'
     payload = {
-        'name' : name,
-        'parent_folder_id' : parent_folder_id,
-        'on_duplicate' : on_duplicate,
-        'lock_at' : lock_at,
-        'unlock_at' : unlock_at,
-        'locked' : locked,
-        'hidden' : hidden,
+        'name': name,
+        'parent_folder_id': parent_folder_id,
+        'on_duplicate': on_duplicate,
+        'lock_at': lock_at,
+        'unlock_at': unlock_at,
+        'locked': locked,
+        'hidden': hidden,
     }
     url = request_ctx.base_api_url + path.format(id=id)
     response = client.put(request_ctx, url, payload=payload, **request_kwargs)
@@ -532,7 +533,7 @@ def list_folders(request_ctx, id, per_page=None, **request_kwargs):
         per_page = request_ctx.per_page
     path = '/v1/folders/{id}/folders'
     payload = {
-        'per_page' : per_page,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(id=id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -560,7 +561,7 @@ def list_all_folders_courses(request_ctx, course_id, per_page=None, **request_kw
         per_page = request_ctx.per_page
     path = '/v1/courses/{course_id}/folders'
     payload = {
-        'per_page' : per_page,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -588,7 +589,7 @@ def list_all_folders_users(request_ctx, user_id, per_page=None, **request_kwargs
         per_page = request_ctx.per_page
     path = '/v1/users/{user_id}/folders'
     payload = {
-        'per_page' : per_page,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(user_id=user_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -616,7 +617,7 @@ def list_all_folders_groups(request_ctx, group_id, per_page=None, **request_kwar
         per_page = request_ctx.per_page
     path = '/v1/groups/{group_id}/folders'
     payload = {
-        'per_page' : per_page,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(group_id=group_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -648,7 +649,7 @@ def resolve_path_courses_full_path(request_ctx, course_id, per_page=None, **requ
         per_page = request_ctx.per_page
     path = '/v1/courses/{course_id}/folders/by_path/*full_path'
     payload = {
-        'per_page' : per_page,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -680,7 +681,7 @@ def resolve_path_courses(request_ctx, course_id, per_page=None, **request_kwargs
         per_page = request_ctx.per_page
     path = '/v1/courses/{course_id}/folders/by_path'
     payload = {
-        'per_page' : per_page,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -712,7 +713,7 @@ def resolve_path_users_full_path(request_ctx, user_id, per_page=None, **request_
         per_page = request_ctx.per_page
     path = '/v1/users/{user_id}/folders/by_path/*full_path'
     payload = {
-        'per_page' : per_page,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(user_id=user_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -744,7 +745,7 @@ def resolve_path_users(request_ctx, user_id, per_page=None, **request_kwargs):
         per_page = request_ctx.per_page
     path = '/v1/users/{user_id}/folders/by_path'
     payload = {
-        'per_page' : per_page,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(user_id=user_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -776,7 +777,7 @@ def resolve_path_groups_full_path(request_ctx, group_id, per_page=None, **reques
         per_page = request_ctx.per_page
     path = '/v1/groups/{group_id}/folders/by_path/*full_path'
     payload = {
-        'per_page' : per_page,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(group_id=group_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -808,7 +809,7 @@ def resolve_path_groups(request_ctx, group_id, per_page=None, **request_kwargs):
         per_page = request_ctx.per_page
     path = '/v1/groups/{group_id}/folders/by_path'
     payload = {
-        'per_page' : per_page,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(group_id=group_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -943,13 +944,13 @@ def update_folder(request_ctx, id, name=None, parent_folder_id=None, lock_at=Non
 
     path = '/v1/folders/{id}'
     payload = {
-        'name' : name,
-        'parent_folder_id' : parent_folder_id,
-        'lock_at' : lock_at,
-        'unlock_at' : unlock_at,
-        'locked' : locked,
-        'hidden' : hidden,
-        'position' : position,
+        'name': name,
+        'parent_folder_id': parent_folder_id,
+        'lock_at': lock_at,
+        'unlock_at': unlock_at,
+        'locked': locked,
+        'hidden': hidden,
+        'position': position,
     }
     url = request_ctx.base_api_url + path.format(id=id)
     response = client.put(request_ctx, url, payload=payload, **request_kwargs)
@@ -988,14 +989,14 @@ def create_folder_courses(request_ctx, course_id, name, parent_folder_id=None, p
 
     path = '/v1/courses/{course_id}/folders'
     payload = {
-        'name' : name,
-        'parent_folder_id' : parent_folder_id,
-        'parent_folder_path' : parent_folder_path,
-        'lock_at' : lock_at,
-        'unlock_at' : unlock_at,
-        'locked' : locked,
-        'hidden' : hidden,
-        'position' : position,
+        'name': name,
+        'parent_folder_id': parent_folder_id,
+        'parent_folder_path': parent_folder_path,
+        'lock_at': lock_at,
+        'unlock_at': unlock_at,
+        'locked': locked,
+        'hidden': hidden,
+        'position': position,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id)
     response = client.post(request_ctx, url, payload=payload, **request_kwargs)
@@ -1034,14 +1035,14 @@ def create_folder_users(request_ctx, user_id, name, parent_folder_id=None, paren
 
     path = '/v1/users/{user_id}/folders'
     payload = {
-        'name' : name,
-        'parent_folder_id' : parent_folder_id,
-        'parent_folder_path' : parent_folder_path,
-        'lock_at' : lock_at,
-        'unlock_at' : unlock_at,
-        'locked' : locked,
-        'hidden' : hidden,
-        'position' : position,
+        'name': name,
+        'parent_folder_id': parent_folder_id,
+        'parent_folder_path': parent_folder_path,
+        'lock_at': lock_at,
+        'unlock_at': unlock_at,
+        'locked': locked,
+        'hidden': hidden,
+        'position': position,
     }
     url = request_ctx.base_api_url + path.format(user_id=user_id)
     response = client.post(request_ctx, url, payload=payload, **request_kwargs)
@@ -1080,14 +1081,14 @@ def create_folder_groups(request_ctx, group_id, name, parent_folder_id=None, par
 
     path = '/v1/groups/{group_id}/folders'
     payload = {
-        'name' : name,
-        'parent_folder_id' : parent_folder_id,
-        'parent_folder_path' : parent_folder_path,
-        'lock_at' : lock_at,
-        'unlock_at' : unlock_at,
-        'locked' : locked,
-        'hidden' : hidden,
-        'position' : position,
+        'name': name,
+        'parent_folder_id': parent_folder_id,
+        'parent_folder_path': parent_folder_path,
+        'lock_at': lock_at,
+        'unlock_at': unlock_at,
+        'locked': locked,
+        'hidden': hidden,
+        'position': position,
     }
     url = request_ctx.base_api_url + path.format(group_id=group_id)
     response = client.post(request_ctx, url, payload=payload, **request_kwargs)
@@ -1126,14 +1127,14 @@ def create_folder_folders(request_ctx, folder_id, name, parent_folder_id=None, p
 
     path = '/v1/folders/{folder_id}/folders'
     payload = {
-        'name' : name,
-        'parent_folder_id' : parent_folder_id,
-        'parent_folder_path' : parent_folder_path,
-        'lock_at' : lock_at,
-        'unlock_at' : unlock_at,
-        'locked' : locked,
-        'hidden' : hidden,
-        'position' : position,
+        'name': name,
+        'parent_folder_id': parent_folder_id,
+        'parent_folder_path': parent_folder_path,
+        'lock_at': lock_at,
+        'unlock_at': unlock_at,
+        'locked': locked,
+        'hidden': hidden,
+        'position': position,
     }
     url = request_ctx.base_api_url + path.format(folder_id=folder_id)
     response = client.post(request_ctx, url, payload=payload, **request_kwargs)
@@ -1159,7 +1160,7 @@ def delete_folder(request_ctx, id, force=None, **request_kwargs):
 
     path = '/v1/folders/{id}'
     payload = {
-        'force' : force,
+        'force': force,
     }
     url = request_ctx.base_api_url + path.format(id=id)
     response = client.delete(request_ctx, url, payload=payload, **request_kwargs)
@@ -1222,8 +1223,8 @@ If such a file exists and this parameter is not given, the call will fail.
     utils.validate_attr_is_acceptable(on_duplicate, on_duplicate_types)
     path = '/v1/folders/{dest_folder_id}/copy_file'
     payload = {
-        'source_file_id' : source_file_id,
-        'on_duplicate' : on_duplicate,
+        'source_file_id': source_file_id,
+        'on_duplicate': on_duplicate,
     }
     url = request_ctx.base_api_url + path.format(dest_folder_id=dest_folder_id)
     response = client.post(request_ctx, url, payload=payload, **request_kwargs)
@@ -1255,7 +1256,7 @@ def copy_folder(request_ctx, dest_folder_id, source_folder_id, **request_kwargs)
 
     path = '/v1/folders/{dest_folder_id}/copy_folder'
     payload = {
-        'source_folder_id' : source_folder_id,
+        'source_folder_id': source_folder_id,
     }
     url = request_ctx.base_api_url + path.format(dest_folder_id=dest_folder_id)
     response = client.post(request_ctx, url, payload=payload, **request_kwargs)
@@ -1293,12 +1294,12 @@ Note that new files uploaded to these folders do not automatically inherit these
     utils.validate_attr_is_acceptable(usage_rights_use_justification, usage_rights_use_justification_types)
     path = '/v1/courses/{course_id}/usage_rights'
     payload = {
-        'file_ids' : file_ids,
-        'folder_ids' : folder_ids,
-        'publish' : publish,
-        'usage_rights[use_justification]' : usage_rights_use_justification,
-        'usage_rights[legal_copyright]' : usage_rights_legal_copyright,
-        'usage_rights[license]' : usage_rights_license,
+        'file_ids': file_ids,
+        'folder_ids': folder_ids,
+        'publish': publish,
+        'usage_rights[use_justification]': usage_rights_use_justification,
+        'usage_rights[legal_copyright]': usage_rights_legal_copyright,
+        'usage_rights[license]': usage_rights_license,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id)
     response = client.put(request_ctx, url, payload=payload, **request_kwargs)
@@ -1336,12 +1337,12 @@ Note that new files uploaded to these folders do not automatically inherit these
     utils.validate_attr_is_acceptable(usage_rights_use_justification, usage_rights_use_justification_types)
     path = '/v1/groups/{group_id}/usage_rights'
     payload = {
-        'file_ids' : file_ids,
-        'folder_ids' : folder_ids,
-        'publish' : publish,
-        'usage_rights[use_justification]' : usage_rights_use_justification,
-        'usage_rights[legal_copyright]' : usage_rights_legal_copyright,
-        'usage_rights[license]' : usage_rights_license,
+        'file_ids': file_ids,
+        'folder_ids': folder_ids,
+        'publish': publish,
+        'usage_rights[use_justification]': usage_rights_use_justification,
+        'usage_rights[legal_copyright]': usage_rights_legal_copyright,
+        'usage_rights[license]': usage_rights_license,
     }
     url = request_ctx.base_api_url + path.format(group_id=group_id)
     response = client.put(request_ctx, url, payload=payload, **request_kwargs)
@@ -1379,12 +1380,12 @@ Note that new files uploaded to these folders do not automatically inherit these
     utils.validate_attr_is_acceptable(usage_rights_use_justification, usage_rights_use_justification_types)
     path = '/v1/users/{user_id}/usage_rights'
     payload = {
-        'file_ids' : file_ids,
-        'folder_ids' : folder_ids,
-        'publish' : publish,
-        'usage_rights[use_justification]' : usage_rights_use_justification,
-        'usage_rights[legal_copyright]' : usage_rights_legal_copyright,
-        'usage_rights[license]' : usage_rights_license,
+        'file_ids': file_ids,
+        'folder_ids': folder_ids,
+        'publish': publish,
+        'usage_rights[use_justification]': usage_rights_use_justification,
+        'usage_rights[legal_copyright]': usage_rights_legal_copyright,
+        'usage_rights[license]': usage_rights_license,
     }
     url = request_ctx.base_api_url + path.format(user_id=user_id)
     response = client.put(request_ctx, url, payload=payload, **request_kwargs)
@@ -1411,8 +1412,8 @@ def remove_usage_rights_courses(request_ctx, course_id, file_ids, folder_ids=Non
 
     path = '/v1/courses/{course_id}/usage_rights'
     payload = {
-        'file_ids' : file_ids,
-        'folder_ids' : folder_ids,
+        'file_ids': file_ids,
+        'folder_ids': folder_ids,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id)
     response = client.delete(request_ctx, url, payload=payload, **request_kwargs)
@@ -1439,8 +1440,8 @@ def remove_usage_rights_groups(request_ctx, group_id, file_ids, folder_ids=None,
 
     path = '/v1/groups/{group_id}/usage_rights'
     payload = {
-        'file_ids' : file_ids,
-        'folder_ids' : folder_ids,
+        'file_ids': file_ids,
+        'folder_ids': folder_ids,
     }
     url = request_ctx.base_api_url + path.format(group_id=group_id)
     response = client.delete(request_ctx, url, payload=payload, **request_kwargs)
@@ -1467,8 +1468,8 @@ def remove_usage_rights_users(request_ctx, user_id, file_ids, folder_ids=None, *
 
     path = '/v1/users/{user_id}/usage_rights'
     payload = {
-        'file_ids' : file_ids,
-        'folder_ids' : folder_ids,
+        'file_ids': file_ids,
+        'folder_ids': folder_ids,
     }
     url = request_ctx.base_api_url + path.format(user_id=user_id)
     response = client.delete(request_ctx, url, payload=payload, **request_kwargs)
@@ -1495,7 +1496,7 @@ def list_licenses_courses(request_ctx, course_id, per_page=None, **request_kwarg
         per_page = request_ctx.per_page
     path = '/v1/courses/{course_id}/content_licenses'
     payload = {
-        'per_page' : per_page,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -1522,7 +1523,7 @@ def list_licenses_groups(request_ctx, group_id, per_page=None, **request_kwargs)
         per_page = request_ctx.per_page
     path = '/v1/groups/{group_id}/content_licenses'
     payload = {
-        'per_page' : per_page,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(group_id=group_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -1549,7 +1550,7 @@ def list_licenses_users(request_ctx, user_id, per_page=None, **request_kwargs):
         per_page = request_ctx.per_page
     path = '/v1/users/{user_id}/content_licenses'
     payload = {
-        'per_page' : per_page,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(user_id=user_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)

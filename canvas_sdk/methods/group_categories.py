@@ -1,5 +1,6 @@
 from canvas_sdk import client, utils
 
+
 def list_group_categories_for_context_accounts(request_ctx, account_id, per_page=None, **request_kwargs):
     """
     Returns a list of group categories in a context
@@ -19,7 +20,7 @@ def list_group_categories_for_context_accounts(request_ctx, account_id, per_page
         per_page = request_ctx.per_page
     path = '/v1/accounts/{account_id}/group_categories'
     payload = {
-        'per_page' : per_page,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(account_id=account_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -46,7 +47,7 @@ def list_group_categories_for_context_courses(request_ctx, course_id, per_page=N
         per_page = request_ctx.per_page
     path = '/v1/courses/{course_id}/group_categories'
     payload = {
-        'per_page' : per_page,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -119,12 +120,12 @@ that you instead use the assign_unassigned_members endpoint.
     utils.validate_attr_is_acceptable(auto_leader, auto_leader_types)
     path = '/v1/accounts/{account_id}/group_categories'
     payload = {
-        'name' : name,
-        'self_signup' : self_signup,
-        'auto_leader' : auto_leader,
-        'group_limit' : group_limit,
-        'create_group_count' : create_group_count,
-        'split_group_count' : split_group_count,
+        'name': name,
+        'self_signup': self_signup,
+        'auto_leader': auto_leader,
+        'group_limit': group_limit,
+        'create_group_count': create_group_count,
+        'split_group_count': split_group_count,
     }
     url = request_ctx.base_api_url + path.format(account_id=account_id)
     response = client.post(request_ctx, url, payload=payload, **request_kwargs)
@@ -176,12 +177,12 @@ that you instead use the assign_unassigned_members endpoint.
     utils.validate_attr_is_acceptable(auto_leader, auto_leader_types)
     path = '/v1/courses/{course_id}/group_categories'
     payload = {
-        'name' : name,
-        'self_signup' : self_signup,
-        'auto_leader' : auto_leader,
-        'group_limit' : group_limit,
-        'create_group_count' : create_group_count,
-        'split_group_count' : split_group_count,
+        'name': name,
+        'self_signup': self_signup,
+        'auto_leader': auto_leader,
+        'group_limit': group_limit,
+        'create_group_count': create_group_count,
+        'split_group_count': split_group_count,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id)
     response = client.post(request_ctx, url, payload=payload, **request_kwargs)
@@ -233,12 +234,12 @@ that you instead use the assign_unassigned_members endpoint.
     utils.validate_attr_is_acceptable(auto_leader, auto_leader_types)
     path = '/v1/group_categories/{group_category_id}'
     payload = {
-        'name' : name,
-        'self_signup' : self_signup,
-        'auto_leader' : auto_leader,
-        'group_limit' : group_limit,
-        'create_group_count' : create_group_count,
-        'split_group_count' : split_group_count,
+        'name': name,
+        'self_signup': self_signup,
+        'auto_leader': auto_leader,
+        'group_limit': group_limit,
+        'create_group_count': create_group_count,
+        'split_group_count': split_group_count,
     }
     url = request_ctx.base_api_url + path.format(group_category_id=group_category_id)
     response = client.put(request_ctx, url, payload=payload, **request_kwargs)
@@ -286,7 +287,7 @@ def list_groups_in_group_category(request_ctx, group_category_id, per_page=None,
         per_page = request_ctx.per_page
     path = '/v1/group_categories/{group_category_id}/groups'
     payload = {
-        'per_page' : per_page,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(group_category_id=group_category_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -319,9 +320,9 @@ group category.
         per_page = request_ctx.per_page
     path = '/v1/group_categories/{group_category_id}/users'
     payload = {
-        'search_term' : search_term,
-        'unassigned' : unassigned,
-        'per_page' : per_page,
+        'search_term': search_term,
+        'unassigned': unassigned,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(group_category_id=group_category_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -349,7 +350,7 @@ to true.
 
     path = '/v1/group_categories/{group_category_id}/assign_unassigned_members'
     payload = {
-        'sync' : sync,
+        'sync': sync,
     }
     url = request_ctx.base_api_url + path.format(group_category_id=group_category_id)
     response = client.post(request_ctx, url, payload=payload, **request_kwargs)

@@ -1,5 +1,6 @@
 from canvas_sdk import client, utils
 
+
 def upload_file(request_ctx, course_id, quiz_id, name=None, on_duplicate=None, **request_kwargs):
     """
     Associate a new quiz submission file
@@ -26,8 +27,8 @@ def upload_file(request_ctx, course_id, quiz_id, name=None, on_duplicate=None, *
 
     path = '/v1/courses/{course_id}/quizzes/{quiz_id}/submissions/self/files'
     payload = {
-        'name' : name,
-        'on_duplicate' : on_duplicate,
+        'name': name,
+        'on_duplicate': on_duplicate,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id, quiz_id=quiz_id)
     response = client.post(request_ctx, url, payload=payload, **request_kwargs)

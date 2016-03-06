@@ -1,5 +1,6 @@
 from canvas_sdk import client, utils
 
+
 def list_poll_choices_in_poll(request_ctx, poll_id, per_page=None, **request_kwargs):
     """
     Returns the list of PollChoices in this poll.
@@ -19,7 +20,7 @@ def list_poll_choices_in_poll(request_ctx, poll_id, per_page=None, **request_kwa
         per_page = request_ctx.per_page
     path = '/v1/polls/{poll_id}/poll_choices'
     payload = {
-        'per_page' : per_page,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(poll_id=poll_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -70,9 +71,9 @@ def create_single_poll_choice(request_ctx, poll_id, poll_choices_text, poll_choi
 
     path = '/v1/polls/{poll_id}/poll_choices'
     payload = {
-        'poll_choices[text]' : poll_choices_text,
-        'poll_choices[is_correct]' : poll_choices_is_correct,
-        'poll_choices[position]' : poll_choices_position,
+        'poll_choices[text]': poll_choices_text,
+        'poll_choices[is_correct]': poll_choices_is_correct,
+        'poll_choices[position]': poll_choices_position,
     }
     url = request_ctx.base_api_url + path.format(poll_id=poll_id)
     response = client.post(request_ctx, url, payload=payload, **request_kwargs)
@@ -103,9 +104,9 @@ def update_single_poll_choice(request_ctx, poll_id, id, poll_choices_text, poll_
 
     path = '/v1/polls/{poll_id}/poll_choices/{id}'
     payload = {
-        'poll_choices[text]' : poll_choices_text,
-        'poll_choices[is_correct]' : poll_choices_is_correct,
-        'poll_choices[position]' : poll_choices_position,
+        'poll_choices[text]': poll_choices_text,
+        'poll_choices[is_correct]': poll_choices_is_correct,
+        'poll_choices[position]': poll_choices_position,
     }
     url = request_ctx.base_api_url + path.format(poll_id=poll_id, id=id)
     response = client.put(request_ctx, url, payload=payload, **request_kwargs)

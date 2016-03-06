@@ -1,5 +1,6 @@
 from canvas_sdk import client, utils
 
+
 def list_quizzes_in_course(request_ctx, course_id, search_term=None, per_page=None, **request_kwargs):
     """
     Returns the list of Quizzes in this course.
@@ -21,8 +22,8 @@ def list_quizzes_in_course(request_ctx, course_id, search_term=None, per_page=No
         per_page = request_ctx.per_page
     path = '/v1/courses/{course_id}/quizzes'
     payload = {
-        'search_term' : search_term,
-        'per_page' : per_page,
+        'search_term': search_term,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -162,28 +163,28 @@ Defaults to false.
     utils.validate_attr_is_acceptable(quiz_scoring_policy, quiz_scoring_policy_types)
     path = '/v1/courses/{course_id}/quizzes'
     payload = {
-        'quiz[title]' : quiz_title,
-        'quiz[description]' : quiz_description,
-        'quiz[quiz_type]' : quiz_quiz_type,
-        'quiz[assignment_group_id]' : quiz_assignment_group_id,
-        'quiz[time_limit]' : quiz_time_limit,
-        'quiz[shuffle_answers]' : quiz_shuffle_answers,
-        'quiz[hide_results]' : quiz_hide_results,
-        'quiz[show_correct_answers]' : quiz_show_correct_answers,
-        'quiz[show_correct_answers_last_attempt]' : quiz_show_correct_answers_last_attempt,
-        'quiz[show_correct_answers_at]' : quiz_show_correct_answers_at,
-        'quiz[hide_correct_answers_at]' : quiz_hide_correct_answers_at,
-        'quiz[allowed_attempts]' : quiz_allowed_attempts,
-        'quiz[scoring_policy]' : quiz_scoring_policy,
-        'quiz[one_question_at_a_time]' : quiz_one_question_at_a_time,
-        'quiz[cant_go_back]' : quiz_cant_go_back,
-        'quiz[access_code]' : quiz_access_code,
-        'quiz[ip_filter]' : quiz_ip_filter,
-        'quiz[due_at]' : quiz_due_at,
-        'quiz[lock_at]' : quiz_lock_at,
-        'quiz[unlock_at]' : quiz_unlock_at,
-        'quiz[published]' : quiz_published,
-        'quiz[one_time_results]' : quiz_one_time_results,
+        'quiz[title]': quiz_title,
+        'quiz[description]': quiz_description,
+        'quiz[quiz_type]': quiz_quiz_type,
+        'quiz[assignment_group_id]': quiz_assignment_group_id,
+        'quiz[time_limit]': quiz_time_limit,
+        'quiz[shuffle_answers]': quiz_shuffle_answers,
+        'quiz[hide_results]': quiz_hide_results,
+        'quiz[show_correct_answers]': quiz_show_correct_answers,
+        'quiz[show_correct_answers_last_attempt]': quiz_show_correct_answers_last_attempt,
+        'quiz[show_correct_answers_at]': quiz_show_correct_answers_at,
+        'quiz[hide_correct_answers_at]': quiz_hide_correct_answers_at,
+        'quiz[allowed_attempts]': quiz_allowed_attempts,
+        'quiz[scoring_policy]': quiz_scoring_policy,
+        'quiz[one_question_at_a_time]': quiz_one_question_at_a_time,
+        'quiz[cant_go_back]': quiz_cant_go_back,
+        'quiz[access_code]': quiz_access_code,
+        'quiz[ip_filter]': quiz_ip_filter,
+        'quiz[due_at]': quiz_due_at,
+        'quiz[lock_at]': quiz_lock_at,
+        'quiz[unlock_at]': quiz_unlock_at,
+        'quiz[published]': quiz_published,
+        'quiz[one_time_results]': quiz_one_time_results,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id)
     response = client.post(request_ctx, url, payload=payload, **request_kwargs)
@@ -213,7 +214,7 @@ Defaults to true
 
     path = '/v1/courses/{course_id}/quizzes/{id}'
     payload = {
-        'quiz[notify_of_update]' : quiz_notify_of_update,
+        'quiz[notify_of_update]': quiz_notify_of_update,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id, id=id)
     response = client.put(request_ctx, url, payload=payload, **request_kwargs)
@@ -267,8 +268,8 @@ def reorder_quiz_items(request_ctx, course_id, id, order_id, order_type=None, **
     utils.validate_attr_is_acceptable(order_type, order_type_types)
     path = '/v1/courses/{course_id}/quizzes/{id}/reorder'
     payload = {
-        'order[id]' : order_id,
-        'order[type]' : order_type,
+        'order[id]': order_id,
+        'order[type]': order_type,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id, id=id)
     response = client.post(request_ctx, url, payload=payload, **request_kwargs)
@@ -295,7 +296,7 @@ def validate_quiz_access_code(request_ctx, course_id, id, access_code, **request
 
     path = '/v1/courses/{course_id}/quizzes/{id}/validate_access_code'
     payload = {
-        'access_code' : access_code,
+        'access_code': access_code,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id, id=id)
     response = client.post(request_ctx, url, payload=payload, **request_kwargs)

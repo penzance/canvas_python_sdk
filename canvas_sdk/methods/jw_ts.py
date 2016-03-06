@@ -1,5 +1,6 @@
 from canvas_sdk import client, utils
 
+
 def create_jwt(request_ctx, **request_kwargs):
     """
     Create a unique jwt for using with other canvas services

@@ -1,5 +1,6 @@
 from canvas_sdk import client, utils
 
+
 def list_enrollments_courses(request_ctx, course_id, type=None, role=None, state=None, user_id=None, grading_period_id=None, per_page=None, **request_kwargs):
     """
     Depending on the URL given, return either (1) all of the enrollments in
@@ -53,12 +54,12 @@ specified, the returned grades will be for the whole course.
     utils.validate_attr_is_acceptable(state, state_types)
     path = '/v1/courses/{course_id}/enrollments'
     payload = {
-        'type' : type,
-        'role' : role,
-        'state' : state,
-        'user_id' : user_id,
-        'grading_period_id' : grading_period_id,
-        'per_page' : per_page,
+        'type': type,
+        'role': role,
+        'state': state,
+        'user_id': user_id,
+        'grading_period_id': grading_period_id,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -119,12 +120,12 @@ specified, the returned grades will be for the whole course.
     utils.validate_attr_is_acceptable(state, state_types)
     path = '/v1/sections/{section_id}/enrollments'
     payload = {
-        'type' : type,
-        'role' : role,
-        'state' : state,
-        'user_id' : user_id,
-        'grading_period_id' : grading_period_id,
-        'per_page' : per_page,
+        'type': type,
+        'role': role,
+        'state': state,
+        'user_id': user_id,
+        'grading_period_id': grading_period_id,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(section_id=section_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -183,11 +184,11 @@ specified, the returned grades will be for the whole course.
     utils.validate_attr_is_acceptable(state, state_types)
     path = '/v1/users/{user_id}/enrollments'
     payload = {
-        'type' : type,
-        'role' : role,
-        'state' : state,
-        'grading_period_id' : grading_period_id,
-        'per_page' : per_page,
+        'type': type,
+        'role': role,
+        'state': state,
+        'grading_period_id': grading_period_id,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(user_id=user_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -279,16 +280,16 @@ students the ability to drop the course if desired. Defaults to false.
     utils.validate_attr_is_acceptable(enrollment_enrollment_state, enrollment_enrollment_state_types)
     path = '/v1/courses/{course_id}/enrollments'
     payload = {
-        'enrollment[user_id]' : enrollment_user_id,
-        'enrollment[type]' : enrollment_type,
-        'enrollment[role]' : enrollment_role,
-        'enrollment[role_id]' : enrollment_role_id,
-        'enrollment[enrollment_state]' : enrollment_enrollment_state,
-        'enrollment[course_section_id]' : enrollment_course_section_id,
-        'enrollment[limit_privileges_to_course_section]' : enrollment_limit_privileges_to_course_section,
-        'enrollment[notify]' : enrollment_notify,
-        'enrollment[self_enrollment_code]' : enrollment_self_enrollment_code,
-        'enrollment[self_enrolled]' : enrollment_self_enrolled,
+        'enrollment[user_id]': enrollment_user_id,
+        'enrollment[type]': enrollment_type,
+        'enrollment[role]': enrollment_role,
+        'enrollment[role_id]': enrollment_role_id,
+        'enrollment[enrollment_state]': enrollment_enrollment_state,
+        'enrollment[course_section_id]': enrollment_course_section_id,
+        'enrollment[limit_privileges_to_course_section]': enrollment_limit_privileges_to_course_section,
+        'enrollment[notify]': enrollment_notify,
+        'enrollment[self_enrollment_code]': enrollment_self_enrollment_code,
+        'enrollment[self_enrolled]': enrollment_self_enrolled,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id)
     response = client.post(request_ctx, url, payload=payload, **request_kwargs)
@@ -358,16 +359,16 @@ students the ability to drop the course if desired. Defaults to false.
     utils.validate_attr_is_acceptable(enrollment_enrollment_state, enrollment_enrollment_state_types)
     path = '/v1/sections/{section_id}/enrollments'
     payload = {
-        'enrollment[user_id]' : enrollment_user_id,
-        'enrollment[type]' : enrollment_type,
-        'enrollment[role]' : enrollment_role,
-        'enrollment[role_id]' : enrollment_role_id,
-        'enrollment[enrollment_state]' : enrollment_enrollment_state,
-        'enrollment[course_section_id]' : enrollment_course_section_id,
-        'enrollment[limit_privileges_to_course_section]' : enrollment_limit_privileges_to_course_section,
-        'enrollment[notify]' : enrollment_notify,
-        'enrollment[self_enrollment_code]' : enrollment_self_enrollment_code,
-        'enrollment[self_enrolled]' : enrollment_self_enrolled,
+        'enrollment[user_id]': enrollment_user_id,
+        'enrollment[type]': enrollment_type,
+        'enrollment[role]': enrollment_role,
+        'enrollment[role_id]': enrollment_role_id,
+        'enrollment[enrollment_state]': enrollment_enrollment_state,
+        'enrollment[course_section_id]': enrollment_course_section_id,
+        'enrollment[limit_privileges_to_course_section]': enrollment_limit_privileges_to_course_section,
+        'enrollment[notify]': enrollment_notify,
+        'enrollment[self_enrollment_code]': enrollment_self_enrollment_code,
+        'enrollment[self_enrolled]': enrollment_self_enrolled,
     }
     url = request_ctx.base_api_url + path.format(section_id=section_id)
     response = client.post(request_ctx, url, payload=payload, **request_kwargs)
@@ -397,7 +398,7 @@ When inactive, a user will still appear in the course roster to admins, but be u
     utils.validate_attr_is_acceptable(task, task_types)
     path = '/v1/courses/{course_id}/enrollments/{id}'
     payload = {
-        'task' : task,
+        'task': task,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id, id=id)
     response = client.delete(request_ctx, url, payload=payload, **request_kwargs)

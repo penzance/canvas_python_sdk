@@ -1,5 +1,6 @@
 from canvas_sdk import client, utils
 
+
 def get_department_level_participation_data_terms(request_ctx, account_id, term_id, **request_kwargs):
     """
     Returns page view hits summed across all courses in the department. Two
@@ -336,7 +337,7 @@ will be passed back normally, as documented in the example response.
 
     path = '/v1/courses/{course_id}/analytics/assignments'
     payload = {
-        'async' : async,
+        'async': async,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)

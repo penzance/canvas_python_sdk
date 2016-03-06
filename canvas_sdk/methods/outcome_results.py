@@ -1,5 +1,6 @@
 from canvas_sdk import client, utils
 
+
 def get_outcome_results(request_ctx, course_id, user_ids=None, outcome_ids=None, include=None, **request_kwargs):
     """
     Gets the outcome results for users and outcomes in the specified context.
@@ -31,9 +32,9 @@ context.
 
     path = '/v1/courses/{course_id}/outcome_results'
     payload = {
-        'user_ids' : user_ids,
-        'outcome_ids' : outcome_ids,
-        'include' : include,
+        'user_ids': user_ids,
+        'outcome_ids': outcome_ids,
+        'include': include,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -74,10 +75,10 @@ Specify additional collections to be side loaded with the result.
     utils.validate_attr_is_acceptable(aggregate, aggregate_types)
     path = '/v1/courses/{course_id}/outcome_rollups'
     payload = {
-        'aggregate' : aggregate,
-        'user_ids' : user_ids,
-        'outcome_ids' : outcome_ids,
-        'include' : include,
+        'aggregate': aggregate,
+        'user_ids': user_ids,
+        'outcome_ids': outcome_ids,
+        'include': include,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)

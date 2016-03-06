@@ -1,5 +1,6 @@
 from canvas_sdk import client, utils
 
+
 def list_discussion_topics_courses(request_ctx, course_id, order_by=None, scope=None, only_announcements=None, search_term=None, per_page=None, **request_kwargs):
     """
     Returns the paginated list of discussion topics for this course or group.
@@ -34,11 +35,11 @@ Can pass multiple states as comma separated string.
     utils.validate_attr_is_acceptable(scope, scope_types)
     path = '/v1/courses/{course_id}/discussion_topics'
     payload = {
-        'order_by' : order_by,
-        'scope' : scope,
-        'only_announcements' : only_announcements,
-        'search_term' : search_term,
-        'per_page' : per_page,
+        'order_by': order_by,
+        'scope': scope,
+        'only_announcements': only_announcements,
+        'search_term': search_term,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -80,11 +81,11 @@ Can pass multiple states as comma separated string.
     utils.validate_attr_is_acceptable(scope, scope_types)
     path = '/v1/groups/{group_id}/discussion_topics'
     payload = {
-        'order_by' : order_by,
-        'scope' : scope,
-        'only_announcements' : only_announcements,
-        'search_term' : search_term,
-        'per_page' : per_page,
+        'order_by': order_by,
+        'scope': scope,
+        'only_announcements': only_announcements,
+        'search_term': search_term,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(group_id=group_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -161,24 +162,24 @@ Attachments larger than 1 kilobyte are subject to quota restrictions.
     utils.validate_attr_is_acceptable(discussion_type, discussion_type_types)
     path = '/v1/courses/{course_id}/discussion_topics'
     payload = {
-        'title' : title,
-        'message' : message,
-        'discussion_type' : discussion_type,
-        'published' : published,
-        'delayed_post_at' : delayed_post_at,
-        'lock_at' : lock_at,
-        'podcast_enabled' : podcast_enabled,
-        'podcast_has_student_posts' : podcast_has_student_posts,
-        'require_initial_post' : require_initial_post,
-        'assignment' : assignment,
-        'is_announcement' : is_announcement,
-        'pinned' : pinned,
-        'position_after' : position_after,
-        'group_category_id' : group_category_id,
-        'allow_rating' : allow_rating,
-        'only_graders_can_rate' : only_graders_can_rate,
-        'sort_by_rating' : sort_by_rating,
-        'attachment' : attachment,
+        'title': title,
+        'message': message,
+        'discussion_type': discussion_type,
+        'published': published,
+        'delayed_post_at': delayed_post_at,
+        'lock_at': lock_at,
+        'podcast_enabled': podcast_enabled,
+        'podcast_has_student_posts': podcast_has_student_posts,
+        'require_initial_post': require_initial_post,
+        'assignment': assignment,
+        'is_announcement': is_announcement,
+        'pinned': pinned,
+        'position_after': position_after,
+        'group_category_id': group_category_id,
+        'allow_rating': allow_rating,
+        'only_graders_can_rate': only_graders_can_rate,
+        'sort_by_rating': sort_by_rating,
+        'attachment': attachment,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id)
     response = client.post(request_ctx, url, payload=payload, **request_kwargs)
@@ -255,24 +256,24 @@ Attachments larger than 1 kilobyte are subject to quota restrictions.
     utils.validate_attr_is_acceptable(discussion_type, discussion_type_types)
     path = '/v1/groups/{group_id}/discussion_topics'
     payload = {
-        'title' : title,
-        'message' : message,
-        'discussion_type' : discussion_type,
-        'published' : published,
-        'delayed_post_at' : delayed_post_at,
-        'lock_at' : lock_at,
-        'podcast_enabled' : podcast_enabled,
-        'podcast_has_student_posts' : podcast_has_student_posts,
-        'require_initial_post' : require_initial_post,
-        'assignment' : assignment,
-        'is_announcement' : is_announcement,
-        'pinned' : pinned,
-        'position_after' : position_after,
-        'group_category_id' : group_category_id,
-        'allow_rating' : allow_rating,
-        'only_graders_can_rate' : only_graders_can_rate,
-        'sort_by_rating' : sort_by_rating,
-        'attachment' : attachment,
+        'title': title,
+        'message': message,
+        'discussion_type': discussion_type,
+        'published': published,
+        'delayed_post_at': delayed_post_at,
+        'lock_at': lock_at,
+        'podcast_enabled': podcast_enabled,
+        'podcast_has_student_posts': podcast_has_student_posts,
+        'require_initial_post': require_initial_post,
+        'assignment': assignment,
+        'is_announcement': is_announcement,
+        'pinned': pinned,
+        'position_after': position_after,
+        'group_category_id': group_category_id,
+        'allow_rating': allow_rating,
+        'only_graders_can_rate': only_graders_can_rate,
+        'sort_by_rating': sort_by_rating,
+        'attachment': attachment,
     }
     url = request_ctx.base_api_url + path.format(group_id=group_id)
     response = client.post(request_ctx, url, payload=payload, **request_kwargs)
@@ -348,23 +349,23 @@ to the group.
     utils.validate_attr_is_acceptable(discussion_type, discussion_type_types)
     path = '/v1/courses/{course_id}/discussion_topics/{topic_id}'
     payload = {
-        'title' : title,
-        'message' : message,
-        'discussion_type' : discussion_type,
-        'published' : published,
-        'delayed_post_at' : delayed_post_at,
-        'lock_at' : lock_at,
-        'podcast_enabled' : podcast_enabled,
-        'podcast_has_student_posts' : podcast_has_student_posts,
-        'require_initial_post' : require_initial_post,
-        'assignment' : assignment,
-        'is_announcement' : is_announcement,
-        'pinned' : pinned,
-        'position_after' : position_after,
-        'group_category_id' : group_category_id,
-        'allow_rating' : allow_rating,
-        'only_graders_can_rate' : only_graders_can_rate,
-        'sort_by_rating' : sort_by_rating,
+        'title': title,
+        'message': message,
+        'discussion_type': discussion_type,
+        'published': published,
+        'delayed_post_at': delayed_post_at,
+        'lock_at': lock_at,
+        'podcast_enabled': podcast_enabled,
+        'podcast_has_student_posts': podcast_has_student_posts,
+        'require_initial_post': require_initial_post,
+        'assignment': assignment,
+        'is_announcement': is_announcement,
+        'pinned': pinned,
+        'position_after': position_after,
+        'group_category_id': group_category_id,
+        'allow_rating': allow_rating,
+        'only_graders_can_rate': only_graders_can_rate,
+        'sort_by_rating': sort_by_rating,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id, topic_id=topic_id)
     response = client.put(request_ctx, url, payload=payload, **request_kwargs)
@@ -440,23 +441,23 @@ to the group.
     utils.validate_attr_is_acceptable(discussion_type, discussion_type_types)
     path = '/v1/groups/{group_id}/discussion_topics/{topic_id}'
     payload = {
-        'title' : title,
-        'message' : message,
-        'discussion_type' : discussion_type,
-        'published' : published,
-        'delayed_post_at' : delayed_post_at,
-        'lock_at' : lock_at,
-        'podcast_enabled' : podcast_enabled,
-        'podcast_has_student_posts' : podcast_has_student_posts,
-        'require_initial_post' : require_initial_post,
-        'assignment' : assignment,
-        'is_announcement' : is_announcement,
-        'pinned' : pinned,
-        'position_after' : position_after,
-        'group_category_id' : group_category_id,
-        'allow_rating' : allow_rating,
-        'only_graders_can_rate' : only_graders_can_rate,
-        'sort_by_rating' : sort_by_rating,
+        'title': title,
+        'message': message,
+        'discussion_type': discussion_type,
+        'published': published,
+        'delayed_post_at': delayed_post_at,
+        'lock_at': lock_at,
+        'podcast_enabled': podcast_enabled,
+        'podcast_has_student_posts': podcast_has_student_posts,
+        'require_initial_post': require_initial_post,
+        'assignment': assignment,
+        'is_announcement': is_announcement,
+        'pinned': pinned,
+        'position_after': position_after,
+        'group_category_id': group_category_id,
+        'allow_rating': allow_rating,
+        'only_graders_can_rate': only_graders_can_rate,
+        'sort_by_rating': sort_by_rating,
     }
     url = request_ctx.base_api_url + path.format(group_id=group_id, topic_id=topic_id)
     response = client.put(request_ctx, url, payload=payload, **request_kwargs)
@@ -529,7 +530,7 @@ def reorder_pinned_topics_courses(request_ctx, course_id, order, **request_kwarg
 
     path = '/v1/courses/{course_id}/discussion_topics/reorder'
     payload = {
-        'order' : order,
+        'order': order,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id)
     response = client.post(request_ctx, url, payload=payload, **request_kwargs)
@@ -556,7 +557,7 @@ def reorder_pinned_topics_groups(request_ctx, group_id, order, **request_kwargs)
 
     path = '/v1/groups/{group_id}/discussion_topics/reorder'
     payload = {
-        'order' : order,
+        'order': order,
     }
     url = request_ctx.base_api_url + path.format(group_id=group_id)
     response = client.post(request_ctx, url, payload=payload, **request_kwargs)
@@ -588,7 +589,7 @@ def update_entry_courses(request_ctx, course_id, topic_id, id, message=None, **r
 
     path = '/v1/courses/{course_id}/discussion_topics/{topic_id}/entries/{id}'
     payload = {
-        'message' : message,
+        'message': message,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id, topic_id=topic_id, id=id)
     response = client.put(request_ctx, url, payload=payload, **request_kwargs)
@@ -620,7 +621,7 @@ def update_entry_groups(request_ctx, group_id, topic_id, id, message=None, **req
 
     path = '/v1/groups/{group_id}/discussion_topics/{topic_id}/entries/{id}'
     payload = {
-        'message' : message,
+        'message': message,
     }
     url = request_ctx.base_api_url + path.format(group_id=group_id, topic_id=topic_id, id=id)
     response = client.put(request_ctx, url, payload=payload, **request_kwargs)
@@ -858,8 +859,8 @@ restrictions.
 
     path = '/v1/courses/{course_id}/discussion_topics/{topic_id}/entries'
     payload = {
-        'message' : message,
-        'attachment' : attachment,
+        'message': message,
+        'attachment': attachment,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id, topic_id=topic_id)
     response = client.post(request_ctx, url, payload=payload, **request_kwargs)
@@ -891,8 +892,8 @@ restrictions.
 
     path = '/v1/groups/{group_id}/discussion_topics/{topic_id}/entries'
     payload = {
-        'message' : message,
-        'attachment' : attachment,
+        'message': message,
+        'attachment': attachment,
     }
     url = request_ctx.base_api_url + path.format(group_id=group_id, topic_id=topic_id)
     response = client.post(request_ctx, url, payload=payload, **request_kwargs)
@@ -934,7 +935,7 @@ def list_topic_entries_courses(request_ctx, course_id, topic_id, per_page=None, 
         per_page = request_ctx.per_page
     path = '/v1/courses/{course_id}/discussion_topics/{topic_id}/entries'
     payload = {
-        'per_page' : per_page,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id, topic_id=topic_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -976,7 +977,7 @@ def list_topic_entries_groups(request_ctx, group_id, topic_id, per_page=None, **
         per_page = request_ctx.per_page
     path = '/v1/groups/{group_id}/discussion_topics/{topic_id}/entries'
     payload = {
-        'per_page' : per_page,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(group_id=group_id, topic_id=topic_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -1015,8 +1016,8 @@ restrictions.
 
     path = '/v1/courses/{course_id}/discussion_topics/{topic_id}/entries/{entry_id}/replies'
     payload = {
-        'message' : message,
-        'attachment' : attachment,
+        'message': message,
+        'attachment': attachment,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id, topic_id=topic_id, entry_id=entry_id)
     response = client.post(request_ctx, url, payload=payload, **request_kwargs)
@@ -1055,8 +1056,8 @@ restrictions.
 
     path = '/v1/groups/{group_id}/discussion_topics/{topic_id}/entries/{entry_id}/replies'
     payload = {
-        'message' : message,
-        'attachment' : attachment,
+        'message': message,
+        'attachment': attachment,
     }
     url = request_ctx.base_api_url + path.format(group_id=group_id, topic_id=topic_id, entry_id=entry_id)
     response = client.post(request_ctx, url, payload=payload, **request_kwargs)
@@ -1094,7 +1095,7 @@ def list_entry_replies_courses(request_ctx, course_id, topic_id, entry_id, per_p
         per_page = request_ctx.per_page
     path = '/v1/courses/{course_id}/discussion_topics/{topic_id}/entries/{entry_id}/replies'
     payload = {
-        'per_page' : per_page,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id, topic_id=topic_id, entry_id=entry_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -1132,7 +1133,7 @@ def list_entry_replies_groups(request_ctx, group_id, topic_id, entry_id, per_pag
         per_page = request_ctx.per_page
     path = '/v1/groups/{group_id}/discussion_topics/{topic_id}/entries/{entry_id}/replies'
     payload = {
-        'per_page' : per_page,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(group_id=group_id, topic_id=topic_id, entry_id=entry_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -1168,8 +1169,8 @@ smallest id first.
         per_page = request_ctx.per_page
     path = '/v1/courses/{course_id}/discussion_topics/{topic_id}/entry_list'
     payload = {
-        'ids' : ids,
-        'per_page' : per_page,
+        'ids': ids,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id, topic_id=topic_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -1205,8 +1206,8 @@ smallest id first.
         per_page = request_ctx.per_page
     path = '/v1/groups/{group_id}/discussion_topics/{topic_id}/entry_list'
     payload = {
-        'ids' : ids,
-        'per_page' : per_page,
+        'ids': ids,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(group_id=group_id, topic_id=topic_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -1342,7 +1343,7 @@ is made if this argument is not specified.
 
     path = '/v1/courses/{course_id}/discussion_topics/{topic_id}/read_all'
     payload = {
-        'forced_read_state' : forced_read_state,
+        'forced_read_state': forced_read_state,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id, topic_id=topic_id)
     response = client.put(request_ctx, url, payload=payload, **request_kwargs)
@@ -1374,7 +1375,7 @@ is made if this argument is not specified.
 
     path = '/v1/groups/{group_id}/discussion_topics/{topic_id}/read_all'
     payload = {
-        'forced_read_state' : forced_read_state,
+        'forced_read_state': forced_read_state,
     }
     url = request_ctx.base_api_url + path.format(group_id=group_id, topic_id=topic_id)
     response = client.put(request_ctx, url, payload=payload, **request_kwargs)
@@ -1406,7 +1407,7 @@ made if this argument is not specified.
 
     path = '/v1/courses/{course_id}/discussion_topics/{topic_id}/read_all'
     payload = {
-        'forced_read_state' : forced_read_state,
+        'forced_read_state': forced_read_state,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id, topic_id=topic_id)
     response = client.delete(request_ctx, url, payload=payload, **request_kwargs)
@@ -1438,7 +1439,7 @@ made if this argument is not specified.
 
     path = '/v1/groups/{group_id}/discussion_topics/{topic_id}/read_all'
     payload = {
-        'forced_read_state' : forced_read_state,
+        'forced_read_state': forced_read_state,
     }
     url = request_ctx.base_api_url + path.format(group_id=group_id, topic_id=topic_id)
     response = client.delete(request_ctx, url, payload=payload, **request_kwargs)
@@ -1472,7 +1473,7 @@ this argument is not specified.
 
     path = '/v1/courses/{course_id}/discussion_topics/{topic_id}/entries/{entry_id}/read'
     payload = {
-        'forced_read_state' : forced_read_state,
+        'forced_read_state': forced_read_state,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id, topic_id=topic_id, entry_id=entry_id)
     response = client.put(request_ctx, url, payload=payload, **request_kwargs)
@@ -1506,7 +1507,7 @@ this argument is not specified.
 
     path = '/v1/groups/{group_id}/discussion_topics/{topic_id}/entries/{entry_id}/read'
     payload = {
-        'forced_read_state' : forced_read_state,
+        'forced_read_state': forced_read_state,
     }
     url = request_ctx.base_api_url + path.format(group_id=group_id, topic_id=topic_id, entry_id=entry_id)
     response = client.put(request_ctx, url, payload=payload, **request_kwargs)
@@ -1540,7 +1541,7 @@ this argument is not specified.
 
     path = '/v1/courses/{course_id}/discussion_topics/{topic_id}/entries/{entry_id}/read'
     payload = {
-        'forced_read_state' : forced_read_state,
+        'forced_read_state': forced_read_state,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id, topic_id=topic_id, entry_id=entry_id)
     response = client.delete(request_ctx, url, payload=payload, **request_kwargs)
@@ -1574,7 +1575,7 @@ this argument is not specified.
 
     path = '/v1/groups/{group_id}/discussion_topics/{topic_id}/entries/{entry_id}/read'
     payload = {
-        'forced_read_state' : forced_read_state,
+        'forced_read_state': forced_read_state,
     }
     url = request_ctx.base_api_url + path.format(group_id=group_id, topic_id=topic_id, entry_id=entry_id)
     response = client.delete(request_ctx, url, payload=payload, **request_kwargs)
@@ -1605,7 +1606,7 @@ def rate_entry_courses(request_ctx, course_id, topic_id, entry_id, rating=None, 
 
     path = '/v1/courses/{course_id}/discussion_topics/{topic_id}/entries/{entry_id}/rating'
     payload = {
-        'rating' : rating,
+        'rating': rating,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id, topic_id=topic_id, entry_id=entry_id)
     response = client.post(request_ctx, url, payload=payload, **request_kwargs)
@@ -1636,7 +1637,7 @@ def rate_entry_groups(request_ctx, group_id, topic_id, entry_id, rating=None, **
 
     path = '/v1/groups/{group_id}/discussion_topics/{topic_id}/entries/{entry_id}/rating'
     payload = {
-        'rating' : rating,
+        'rating': rating,
     }
     url = request_ctx.base_api_url + path.format(group_id=group_id, topic_id=topic_id, entry_id=entry_id)
     response = client.post(request_ctx, url, payload=payload, **request_kwargs)

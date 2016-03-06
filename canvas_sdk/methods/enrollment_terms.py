@@ -1,5 +1,6 @@
 from canvas_sdk import client, utils
 
+
 def create_enrollment_term(request_ctx, account_id, enrollment_term_name=None, enrollment_term_start_at=None, enrollment_term_end_at=None, enrollment_term_sis_term_id=None, **request_kwargs):
     """
     Create a new enrollment term for the specified account.
@@ -25,10 +26,10 @@ Accepts times in ISO 8601 format, e.g. 2015-01-10T18:48:00Z.
 
     path = '/v1/accounts/{account_id}/terms'
     payload = {
-        'enrollment_term[name]' : enrollment_term_name,
-        'enrollment_term[start_at]' : enrollment_term_start_at,
-        'enrollment_term[end_at]' : enrollment_term_end_at,
-        'enrollment_term[sis_term_id]' : enrollment_term_sis_term_id,
+        'enrollment_term[name]': enrollment_term_name,
+        'enrollment_term[start_at]': enrollment_term_start_at,
+        'enrollment_term[end_at]': enrollment_term_end_at,
+        'enrollment_term[sis_term_id]': enrollment_term_sis_term_id,
     }
     url = request_ctx.base_api_url + path.format(account_id=account_id)
     response = client.post(request_ctx, url, payload=payload, **request_kwargs)
@@ -63,10 +64,10 @@ Accepts times in ISO 8601 format, e.g. 2015-01-10T18:48:00Z.
 
     path = '/v1/accounts/{account_id}/terms/{id}'
     payload = {
-        'enrollment_term[name]' : enrollment_term_name,
-        'enrollment_term[start_at]' : enrollment_term_start_at,
-        'enrollment_term[end_at]' : enrollment_term_end_at,
-        'enrollment_term[sis_term_id]' : enrollment_term_sis_term_id,
+        'enrollment_term[name]': enrollment_term_name,
+        'enrollment_term[start_at]': enrollment_term_start_at,
+        'enrollment_term[end_at]': enrollment_term_end_at,
+        'enrollment_term[sis_term_id]': enrollment_term_sis_term_id,
     }
     url = request_ctx.base_api_url + path.format(account_id=account_id, id=id)
     response = client.put(request_ctx, url, payload=payload, **request_kwargs)
@@ -120,8 +121,8 @@ Defaults to 'active'.
     utils.validate_attr_is_acceptable(workflow_state, workflow_state_types)
     path = '/v1/accounts/{account_id}/terms'
     payload = {
-        'workflow_state' : workflow_state,
-        'per_page' : per_page,
+        'workflow_state': workflow_state,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(account_id=account_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)

@@ -1,5 +1,6 @@
 from canvas_sdk import client, utils
 
+
 def list_favorite_courses(request_ctx, per_page=None, **request_kwargs):
     """
     Retrieve the list of favorite courses for the current user. If the user has not chosen
@@ -20,7 +21,7 @@ def list_favorite_courses(request_ctx, per_page=None, **request_kwargs):
         per_page = request_ctx.per_page
     path = '/v1/users/self/favorites/courses'
     payload = {
-        'per_page' : per_page,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format()
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -46,7 +47,7 @@ def list_favorite_groups(request_ctx, per_page=None, **request_kwargs):
         per_page = request_ctx.per_page
     path = '/v1/users/self/favorites/groups'
     payload = {
-        'per_page' : per_page,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format()
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)

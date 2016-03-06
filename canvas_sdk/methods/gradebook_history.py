@@ -1,5 +1,6 @@
 from canvas_sdk import client, utils
 
+
 def days_in_gradebook_history_for_this_course(request_ctx, course_id, per_page=None, **request_kwargs):
     """
     Returns a map of dates to grader/assignment groups
@@ -19,7 +20,7 @@ def days_in_gradebook_history_for_this_course(request_ctx, course_id, per_page=N
         per_page = request_ctx.per_page
     path = '/v1/courses/{course_id}/gradebook_history/days'
     payload = {
-        'per_page' : per_page,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -50,7 +51,7 @@ def details_for_given_date_in_gradebook_history_for_this_course(request_ctx, cou
         per_page = request_ctx.per_page
     path = '/v1/courses/{course_id}/gradebook_history/{date}'
     payload = {
-        'per_page' : per_page,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id, date=date)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -83,7 +84,7 @@ def lists_submissions(request_ctx, course_id, date, grader_id, assignment_id, pe
         per_page = request_ctx.per_page
     path = '/v1/courses/{course_id}/gradebook_history/{date}/graders/{grader_id}/assignments/{assignment_id}/submissions'
     payload = {
-        'per_page' : per_page,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id, date=date, grader_id=grader_id, assignment_id=assignment_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -124,10 +125,10 @@ first).
         per_page = request_ctx.per_page
     path = '/v1/courses/{course_id}/gradebook_history/feed'
     payload = {
-        'assignment_id' : assignment_id,
-        'user_id' : user_id,
-        'ascending' : ascending,
-        'per_page' : per_page,
+        'assignment_id': assignment_id,
+        'user_id': user_id,
+        'ascending': ascending,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)

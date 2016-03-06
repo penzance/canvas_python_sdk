@@ -1,5 +1,6 @@
 from canvas_sdk import client, utils
 
+
 def list_authentication_providers_authentication_providers(request_ctx, account_id, per_page=None, **request_kwargs):
     """
     Returns the list of authentication providers
@@ -19,7 +20,7 @@ def list_authentication_providers_authentication_providers(request_ctx, account_
         per_page = request_ctx.per_page
     path = '/v1/accounts/{account_id}/authentication_providers'
     payload = {
-        'per_page' : per_page,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(account_id=account_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -46,7 +47,7 @@ def list_authentication_providers_account_authorization_configs(request_ctx, acc
         per_page = request_ctx.per_page
     path = '/v1/accounts/{account_id}/account_authorization_configs'
     payload = {
-        'per_page' : per_page,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(account_id=account_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)

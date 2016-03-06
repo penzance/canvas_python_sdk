@@ -1,5 +1,6 @@
 from canvas_sdk import client, utils
 
+
 def set_extensions_for_student_quiz_submissions(request_ctx, course_id, user_id, extra_attempts=None, extra_time=None, manually_unlocked=None, extend_from_now=None, extend_from_end_at=None, **request_kwargs):
     """
     <b>Responses</b>
@@ -38,12 +39,12 @@ limited to 1440 minutes (24 hours)
 
     path = '/v1/courses/{course_id}/quiz_extensions'
     payload = {
-        'user_id' : user_id,
-        'extra_attempts' : extra_attempts,
-        'extra_time' : extra_time,
-        'manually_unlocked' : manually_unlocked,
-        'extend_from_now' : extend_from_now,
-        'extend_from_end_at' : extend_from_end_at,
+        'user_id': user_id,
+        'extra_attempts': extra_attempts,
+        'extra_time': extra_time,
+        'manually_unlocked': manually_unlocked,
+        'extend_from_now': extend_from_now,
+        'extend_from_end_at': extend_from_end_at,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id)
     response = client.post(request_ctx, url, payload=payload, **request_kwargs)

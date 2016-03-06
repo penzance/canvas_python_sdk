@@ -1,5 +1,6 @@
 from canvas_sdk import client, utils
 
+
 def fetching_latest_quiz_statistics(request_ctx, course_id, quiz_id, all_versions=None, **request_kwargs):
     """
     This endpoint provides statistics for all quiz versions, or for a specific
@@ -23,7 +24,7 @@ def fetching_latest_quiz_statistics(request_ctx, course_id, quiz_id, all_version
 
     path = '/v1/courses/{course_id}/quizzes/{quiz_id}/statistics'
     payload = {
-        'all_versions' : all_versions,
+        'all_versions': all_versions,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id, quiz_id=quiz_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)

@@ -1,5 +1,6 @@
 from canvas_sdk import client, utils
 
+
 def query_by_login(request_ctx, login_id, start_time=None, end_time=None, **request_kwargs):
     """
     List authentication events for a given login.
@@ -19,8 +20,8 @@ def query_by_login(request_ctx, login_id, start_time=None, end_time=None, **requ
 
     path = '/v1/audit/authentication/logins/{login_id}'
     payload = {
-        'start_time' : start_time,
-        'end_time' : end_time,
+        'start_time': start_time,
+        'end_time': end_time,
     }
     url = request_ctx.base_api_url + path.format(login_id=login_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -47,8 +48,8 @@ def query_by_account(request_ctx, account_id, start_time=None, end_time=None, **
 
     path = '/v1/audit/authentication/accounts/{account_id}'
     payload = {
-        'start_time' : start_time,
-        'end_time' : end_time,
+        'start_time': start_time,
+        'end_time': end_time,
     }
     url = request_ctx.base_api_url + path.format(account_id=account_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -75,8 +76,8 @@ def query_by_user(request_ctx, user_id, start_time=None, end_time=None, **reques
 
     path = '/v1/audit/authentication/users/{user_id}'
     payload = {
-        'start_time' : start_time,
-        'end_time' : end_time,
+        'start_time': start_time,
+        'end_time': end_time,
     }
     url = request_ctx.base_api_url + path.format(user_id=user_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)

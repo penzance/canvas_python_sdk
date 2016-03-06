@@ -1,5 +1,6 @@
 from canvas_sdk import client, utils
 
+
 def list_migration_issues_accounts(request_ctx, account_id, content_migration_id, per_page=None, **request_kwargs):
     """
     Returns paginated migration issues
@@ -21,7 +22,7 @@ def list_migration_issues_accounts(request_ctx, account_id, content_migration_id
         per_page = request_ctx.per_page
     path = '/v1/accounts/{account_id}/content_migrations/{content_migration_id}/migration_issues'
     payload = {
-        'per_page' : per_page,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(account_id=account_id, content_migration_id=content_migration_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -50,7 +51,7 @@ def list_migration_issues_courses(request_ctx, course_id, content_migration_id, 
         per_page = request_ctx.per_page
     path = '/v1/courses/{course_id}/content_migrations/{content_migration_id}/migration_issues'
     payload = {
-        'per_page' : per_page,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id, content_migration_id=content_migration_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -79,7 +80,7 @@ def list_migration_issues_groups(request_ctx, group_id, content_migration_id, pe
         per_page = request_ctx.per_page
     path = '/v1/groups/{group_id}/content_migrations/{content_migration_id}/migration_issues'
     payload = {
-        'per_page' : per_page,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(group_id=group_id, content_migration_id=content_migration_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -108,7 +109,7 @@ def list_migration_issues_users(request_ctx, user_id, content_migration_id, per_
         per_page = request_ctx.per_page
     path = '/v1/users/{user_id}/content_migrations/{content_migration_id}/migration_issues'
     payload = {
-        'per_page' : per_page,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(user_id=user_id, content_migration_id=content_migration_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -235,7 +236,7 @@ def update_migration_issue_accounts(request_ctx, account_id, content_migration_i
     utils.validate_attr_is_acceptable(workflow_state, workflow_state_types)
     path = '/v1/accounts/{account_id}/content_migrations/{content_migration_id}/migration_issues/{id}'
     payload = {
-        'workflow_state' : workflow_state,
+        'workflow_state': workflow_state,
     }
     url = request_ctx.base_api_url + path.format(account_id=account_id, content_migration_id=content_migration_id, id=id)
     response = client.put(request_ctx, url, payload=payload, **request_kwargs)
@@ -266,7 +267,7 @@ def update_migration_issue_courses(request_ctx, course_id, content_migration_id,
     utils.validate_attr_is_acceptable(workflow_state, workflow_state_types)
     path = '/v1/courses/{course_id}/content_migrations/{content_migration_id}/migration_issues/{id}'
     payload = {
-        'workflow_state' : workflow_state,
+        'workflow_state': workflow_state,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id, content_migration_id=content_migration_id, id=id)
     response = client.put(request_ctx, url, payload=payload, **request_kwargs)
@@ -297,7 +298,7 @@ def update_migration_issue_groups(request_ctx, group_id, content_migration_id, i
     utils.validate_attr_is_acceptable(workflow_state, workflow_state_types)
     path = '/v1/groups/{group_id}/content_migrations/{content_migration_id}/migration_issues/{id}'
     payload = {
-        'workflow_state' : workflow_state,
+        'workflow_state': workflow_state,
     }
     url = request_ctx.base_api_url + path.format(group_id=group_id, content_migration_id=content_migration_id, id=id)
     response = client.put(request_ctx, url, payload=payload, **request_kwargs)
@@ -328,7 +329,7 @@ def update_migration_issue_users(request_ctx, user_id, content_migration_id, id,
     utils.validate_attr_is_acceptable(workflow_state, workflow_state_types)
     path = '/v1/users/{user_id}/content_migrations/{content_migration_id}/migration_issues/{id}'
     payload = {
-        'workflow_state' : workflow_state,
+        'workflow_state': workflow_state,
     }
     url = request_ctx.base_api_url + path.format(user_id=user_id, content_migration_id=content_migration_id, id=id)
     response = client.put(request_ctx, url, payload=payload, **request_kwargs)
@@ -355,7 +356,7 @@ def list_content_migrations_accounts(request_ctx, account_id, per_page=None, **r
         per_page = request_ctx.per_page
     path = '/v1/accounts/{account_id}/content_migrations'
     payload = {
-        'per_page' : per_page,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(account_id=account_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -382,7 +383,7 @@ def list_content_migrations_courses(request_ctx, course_id, per_page=None, **req
         per_page = request_ctx.per_page
     path = '/v1/courses/{course_id}/content_migrations'
     payload = {
-        'per_page' : per_page,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -409,7 +410,7 @@ def list_content_migrations_groups(request_ctx, group_id, per_page=None, **reque
         per_page = request_ctx.per_page
     path = '/v1/groups/{group_id}/content_migrations'
     payload = {
-        'per_page' : per_page,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(group_id=group_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -436,7 +437,7 @@ def list_content_migrations_users(request_ctx, user_id, per_page=None, **request
         per_page = request_ctx.per_page
     path = '/v1/users/{user_id}/content_migrations'
     payload = {
-        'per_page' : per_page,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(user_id=user_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -625,26 +626,26 @@ in conjunction with *shift_dates*.
 
     path = '/v1/accounts/{account_id}/content_migrations'
     payload = {
-        'migration_type' : migration_type,
-        'pre_attachment[name]' : pre_attachment_name,
-        'pre_attachment[content_type]' : pre_attachment_content_type,
-        'pre_attachment[parent_folder_id]' : pre_attachment_parent_folder_id,
-        'pre_attachment[parent_folder_path]' : pre_attachment_parent_folder_path,
-        'pre_attachment[folder]' : pre_attachment_folder,
-        'pre_attachment[on_duplicate]' : pre_attachment_on_duplicate,
-        'settings[file_url]' : settings_file_url,
-        'settings[source_course_id]' : settings_source_course_id,
-        'settings[folder_id]' : settings_folder_id,
-        'settings[overwrite_quizzes]' : settings_overwrite_quizzes,
-        'settings[question_bank_id]' : settings_question_bank_id,
-        'settings[question_bank_name]' : settings_question_bank_name,
-        'date_shift_options[shift_dates]' : date_shift_options_shift_dates,
-        'date_shift_options[old_start_date]' : date_shift_options_old_start_date,
-        'date_shift_options[old_end_date]' : date_shift_options_old_end_date,
-        'date_shift_options[new_start_date]' : date_shift_options_new_start_date,
-        'date_shift_options[new_end_date]' : date_shift_options_new_end_date,
-        'date_shift_options[day_substitutions][X]' : date_shift_options_day_substitutions_X,
-        'date_shift_options[remove_dates]' : date_shift_options_remove_dates,
+        'migration_type': migration_type,
+        'pre_attachment[name]': pre_attachment_name,
+        'pre_attachment[content_type]': pre_attachment_content_type,
+        'pre_attachment[parent_folder_id]': pre_attachment_parent_folder_id,
+        'pre_attachment[parent_folder_path]': pre_attachment_parent_folder_path,
+        'pre_attachment[folder]': pre_attachment_folder,
+        'pre_attachment[on_duplicate]': pre_attachment_on_duplicate,
+        'settings[file_url]': settings_file_url,
+        'settings[source_course_id]': settings_source_course_id,
+        'settings[folder_id]': settings_folder_id,
+        'settings[overwrite_quizzes]': settings_overwrite_quizzes,
+        'settings[question_bank_id]': settings_question_bank_id,
+        'settings[question_bank_name]': settings_question_bank_name,
+        'date_shift_options[shift_dates]': date_shift_options_shift_dates,
+        'date_shift_options[old_start_date]': date_shift_options_old_start_date,
+        'date_shift_options[old_end_date]': date_shift_options_old_end_date,
+        'date_shift_options[new_start_date]': date_shift_options_new_start_date,
+        'date_shift_options[new_end_date]': date_shift_options_new_end_date,
+        'date_shift_options[day_substitutions][X]': date_shift_options_day_substitutions_X,
+        'date_shift_options[remove_dates]': date_shift_options_remove_dates,
     }
     url = request_ctx.base_api_url + path.format(account_id=account_id)
     response = client.post(request_ctx, url, payload=payload, **request_kwargs)
@@ -745,26 +746,26 @@ in conjunction with *shift_dates*.
 
     path = '/v1/courses/{course_id}/content_migrations'
     payload = {
-        'migration_type' : migration_type,
-        'pre_attachment[name]' : pre_attachment_name,
-        'pre_attachment[content_type]' : pre_attachment_content_type,
-        'pre_attachment[parent_folder_id]' : pre_attachment_parent_folder_id,
-        'pre_attachment[parent_folder_path]' : pre_attachment_parent_folder_path,
-        'pre_attachment[folder]' : pre_attachment_folder,
-        'pre_attachment[on_duplicate]' : pre_attachment_on_duplicate,
-        'settings[file_url]' : settings_file_url,
-        'settings[source_course_id]' : settings_source_course_id,
-        'settings[folder_id]' : settings_folder_id,
-        'settings[overwrite_quizzes]' : settings_overwrite_quizzes,
-        'settings[question_bank_id]' : settings_question_bank_id,
-        'settings[question_bank_name]' : settings_question_bank_name,
-        'date_shift_options[shift_dates]' : date_shift_options_shift_dates,
-        'date_shift_options[old_start_date]' : date_shift_options_old_start_date,
-        'date_shift_options[old_end_date]' : date_shift_options_old_end_date,
-        'date_shift_options[new_start_date]' : date_shift_options_new_start_date,
-        'date_shift_options[new_end_date]' : date_shift_options_new_end_date,
-        'date_shift_options[day_substitutions][X]' : date_shift_options_day_substitutions_X,
-        'date_shift_options[remove_dates]' : date_shift_options_remove_dates,
+        'migration_type': migration_type,
+        'pre_attachment[name]': pre_attachment_name,
+        'pre_attachment[content_type]': pre_attachment_content_type,
+        'pre_attachment[parent_folder_id]': pre_attachment_parent_folder_id,
+        'pre_attachment[parent_folder_path]': pre_attachment_parent_folder_path,
+        'pre_attachment[folder]': pre_attachment_folder,
+        'pre_attachment[on_duplicate]': pre_attachment_on_duplicate,
+        'settings[file_url]': settings_file_url,
+        'settings[source_course_id]': settings_source_course_id,
+        'settings[folder_id]': settings_folder_id,
+        'settings[overwrite_quizzes]': settings_overwrite_quizzes,
+        'settings[question_bank_id]': settings_question_bank_id,
+        'settings[question_bank_name]': settings_question_bank_name,
+        'date_shift_options[shift_dates]': date_shift_options_shift_dates,
+        'date_shift_options[old_start_date]': date_shift_options_old_start_date,
+        'date_shift_options[old_end_date]': date_shift_options_old_end_date,
+        'date_shift_options[new_start_date]': date_shift_options_new_start_date,
+        'date_shift_options[new_end_date]': date_shift_options_new_end_date,
+        'date_shift_options[day_substitutions][X]': date_shift_options_day_substitutions_X,
+        'date_shift_options[remove_dates]': date_shift_options_remove_dates,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id)
     response = client.post(request_ctx, url, payload=payload, **request_kwargs)
@@ -865,26 +866,26 @@ in conjunction with *shift_dates*.
 
     path = '/v1/groups/{group_id}/content_migrations'
     payload = {
-        'migration_type' : migration_type,
-        'pre_attachment[name]' : pre_attachment_name,
-        'pre_attachment[content_type]' : pre_attachment_content_type,
-        'pre_attachment[parent_folder_id]' : pre_attachment_parent_folder_id,
-        'pre_attachment[parent_folder_path]' : pre_attachment_parent_folder_path,
-        'pre_attachment[folder]' : pre_attachment_folder,
-        'pre_attachment[on_duplicate]' : pre_attachment_on_duplicate,
-        'settings[file_url]' : settings_file_url,
-        'settings[source_course_id]' : settings_source_course_id,
-        'settings[folder_id]' : settings_folder_id,
-        'settings[overwrite_quizzes]' : settings_overwrite_quizzes,
-        'settings[question_bank_id]' : settings_question_bank_id,
-        'settings[question_bank_name]' : settings_question_bank_name,
-        'date_shift_options[shift_dates]' : date_shift_options_shift_dates,
-        'date_shift_options[old_start_date]' : date_shift_options_old_start_date,
-        'date_shift_options[old_end_date]' : date_shift_options_old_end_date,
-        'date_shift_options[new_start_date]' : date_shift_options_new_start_date,
-        'date_shift_options[new_end_date]' : date_shift_options_new_end_date,
-        'date_shift_options[day_substitutions][X]' : date_shift_options_day_substitutions_X,
-        'date_shift_options[remove_dates]' : date_shift_options_remove_dates,
+        'migration_type': migration_type,
+        'pre_attachment[name]': pre_attachment_name,
+        'pre_attachment[content_type]': pre_attachment_content_type,
+        'pre_attachment[parent_folder_id]': pre_attachment_parent_folder_id,
+        'pre_attachment[parent_folder_path]': pre_attachment_parent_folder_path,
+        'pre_attachment[folder]': pre_attachment_folder,
+        'pre_attachment[on_duplicate]': pre_attachment_on_duplicate,
+        'settings[file_url]': settings_file_url,
+        'settings[source_course_id]': settings_source_course_id,
+        'settings[folder_id]': settings_folder_id,
+        'settings[overwrite_quizzes]': settings_overwrite_quizzes,
+        'settings[question_bank_id]': settings_question_bank_id,
+        'settings[question_bank_name]': settings_question_bank_name,
+        'date_shift_options[shift_dates]': date_shift_options_shift_dates,
+        'date_shift_options[old_start_date]': date_shift_options_old_start_date,
+        'date_shift_options[old_end_date]': date_shift_options_old_end_date,
+        'date_shift_options[new_start_date]': date_shift_options_new_start_date,
+        'date_shift_options[new_end_date]': date_shift_options_new_end_date,
+        'date_shift_options[day_substitutions][X]': date_shift_options_day_substitutions_X,
+        'date_shift_options[remove_dates]': date_shift_options_remove_dates,
     }
     url = request_ctx.base_api_url + path.format(group_id=group_id)
     response = client.post(request_ctx, url, payload=payload, **request_kwargs)
@@ -985,26 +986,26 @@ in conjunction with *shift_dates*.
 
     path = '/v1/users/{user_id}/content_migrations'
     payload = {
-        'migration_type' : migration_type,
-        'pre_attachment[name]' : pre_attachment_name,
-        'pre_attachment[content_type]' : pre_attachment_content_type,
-        'pre_attachment[parent_folder_id]' : pre_attachment_parent_folder_id,
-        'pre_attachment[parent_folder_path]' : pre_attachment_parent_folder_path,
-        'pre_attachment[folder]' : pre_attachment_folder,
-        'pre_attachment[on_duplicate]' : pre_attachment_on_duplicate,
-        'settings[file_url]' : settings_file_url,
-        'settings[source_course_id]' : settings_source_course_id,
-        'settings[folder_id]' : settings_folder_id,
-        'settings[overwrite_quizzes]' : settings_overwrite_quizzes,
-        'settings[question_bank_id]' : settings_question_bank_id,
-        'settings[question_bank_name]' : settings_question_bank_name,
-        'date_shift_options[shift_dates]' : date_shift_options_shift_dates,
-        'date_shift_options[old_start_date]' : date_shift_options_old_start_date,
-        'date_shift_options[old_end_date]' : date_shift_options_old_end_date,
-        'date_shift_options[new_start_date]' : date_shift_options_new_start_date,
-        'date_shift_options[new_end_date]' : date_shift_options_new_end_date,
-        'date_shift_options[day_substitutions][X]' : date_shift_options_day_substitutions_X,
-        'date_shift_options[remove_dates]' : date_shift_options_remove_dates,
+        'migration_type': migration_type,
+        'pre_attachment[name]': pre_attachment_name,
+        'pre_attachment[content_type]': pre_attachment_content_type,
+        'pre_attachment[parent_folder_id]': pre_attachment_parent_folder_id,
+        'pre_attachment[parent_folder_path]': pre_attachment_parent_folder_path,
+        'pre_attachment[folder]': pre_attachment_folder,
+        'pre_attachment[on_duplicate]': pre_attachment_on_duplicate,
+        'settings[file_url]': settings_file_url,
+        'settings[source_course_id]': settings_source_course_id,
+        'settings[folder_id]': settings_folder_id,
+        'settings[overwrite_quizzes]': settings_overwrite_quizzes,
+        'settings[question_bank_id]': settings_question_bank_id,
+        'settings[question_bank_name]': settings_question_bank_name,
+        'date_shift_options[shift_dates]': date_shift_options_shift_dates,
+        'date_shift_options[old_start_date]': date_shift_options_old_start_date,
+        'date_shift_options[old_end_date]': date_shift_options_old_end_date,
+        'date_shift_options[new_start_date]': date_shift_options_new_start_date,
+        'date_shift_options[new_end_date]': date_shift_options_new_end_date,
+        'date_shift_options[day_substitutions][X]': date_shift_options_day_substitutions_X,
+        'date_shift_options[remove_dates]': date_shift_options_remove_dates,
     }
     url = request_ctx.base_api_url + path.format(user_id=user_id)
     response = client.post(request_ctx, url, payload=payload, **request_kwargs)
@@ -1139,7 +1140,7 @@ def list_migration_systems_accounts(request_ctx, account_id, per_page=None, **re
         per_page = request_ctx.per_page
     path = '/v1/accounts/{account_id}/content_migrations/migrators'
     payload = {
-        'per_page' : per_page,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(account_id=account_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -1166,7 +1167,7 @@ def list_migration_systems_courses(request_ctx, course_id, per_page=None, **requ
         per_page = request_ctx.per_page
     path = '/v1/courses/{course_id}/content_migrations/migrators'
     payload = {
-        'per_page' : per_page,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -1193,7 +1194,7 @@ def list_migration_systems_groups(request_ctx, group_id, per_page=None, **reques
         per_page = request_ctx.per_page
     path = '/v1/groups/{group_id}/content_migrations/migrators'
     payload = {
-        'per_page' : per_page,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(group_id=group_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -1220,7 +1221,7 @@ def list_migration_systems_users(request_ctx, user_id, per_page=None, **request_
         per_page = request_ctx.per_page
     path = '/v1/users/{user_id}/content_migrations/migrators'
     payload = {
-        'per_page' : per_page,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(user_id=user_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)

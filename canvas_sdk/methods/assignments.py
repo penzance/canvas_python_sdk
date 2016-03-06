@@ -1,5 +1,6 @@
 from canvas_sdk import client, utils
 
+
 def delete_assignment(request_ctx, course_id, id, **request_kwargs):
     """
     Delete the given assignment.
@@ -57,12 +58,12 @@ requires that the Differentiated Assignments course feature be turned on. If
     utils.validate_attr_is_acceptable(bucket, bucket_types)
     path = '/v1/courses/{course_id}/assignments'
     payload = {
-        'include' : include,
-        'search_term' : search_term,
-        'override_assignment_dates' : override_assignment_dates,
-        'needs_grading_count_by_section' : needs_grading_count_by_section,
-        'bucket' : bucket,
-        'per_page' : per_page,
+        'include': include,
+        'search_term': search_term,
+        'override_assignment_dates': override_assignment_dates,
+        'needs_grading_count_by_section': needs_grading_count_by_section,
+        'bucket': bucket,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -92,7 +93,7 @@ def list_assignments_for_user(request_ctx, user_id, course_id, per_page=None, **
         per_page = request_ctx.per_page
     path = '/v1/users/{user_id}/courses/{course_id}/assignments'
     payload = {
-        'per_page' : per_page,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(user_id=user_id, course_id=course_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -129,10 +130,10 @@ requires that the Differentiated Assignments course feature be turned on. If
     utils.validate_attr_is_acceptable(include, include_types)
     path = '/v1/courses/{course_id}/assignments/{id}'
     payload = {
-        'include' : include,
-        'override_assignment_dates' : override_assignment_dates,
-        'needs_grading_count_by_section' : needs_grading_count_by_section,
-        'all_dates' : all_dates,
+        'include': include,
+        'override_assignment_dates': override_assignment_dates,
+        'needs_grading_count_by_section': needs_grading_count_by_section,
+        'all_dates': all_dates,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id, id=id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -267,32 +268,32 @@ This will update the grading_type for the course to 'letter_grade' unless it is 
     utils.validate_attr_is_acceptable(assignment_grading_type, assignment_grading_type_types)
     path = '/v1/courses/{course_id}/assignments'
     payload = {
-        'assignment[name]' : assignment_name,
-        'assignment[position]' : assignment_position,
-        'assignment[submission_types]' : assignment_submission_types,
-        'assignment[allowed_extensions]' : assignment_allowed_extensions,
-        'assignment[turnitin_enabled]' : assignment_turnitin_enabled,
-        'assignment[turnitin_settings]' : assignment_turnitin_settings,
-        'assignment[integration_data]' : assignment_integration_data,
-        'assignment[integration_id]' : assignment_integration_id,
-        'assignment[peer_reviews]' : assignment_peer_reviews,
-        'assignment[automatic_peer_reviews]' : assignment_automatic_peer_reviews,
-        'assignment[notify_of_update]' : assignment_notify_of_update,
-        'assignment[group_category_id]' : assignment_group_category_id,
-        'assignment[grade_group_students_individually]' : assignment_grade_group_students_individually,
-        'assignment[external_tool_tag_attributes]' : assignment_external_tool_tag_attributes,
-        'assignment[points_possible]' : assignment_points_possible,
-        'assignment[grading_type]' : assignment_grading_type,
-        'assignment[due_at]' : assignment_due_at,
-        'assignment[lock_at]' : assignment_lock_at,
-        'assignment[unlock_at]' : assignment_unlock_at,
-        'assignment[description]' : assignment_description,
-        'assignment[assignment_group_id]' : assignment_assignment_group_id,
-        'assignment[muted]' : assignment_muted,
-        'assignment[assignment_overrides]' : assignment_assignment_overrides,
-        'assignment[only_visible_to_overrides]' : assignment_only_visible_to_overrides,
-        'assignment[published]' : assignment_published,
-        'assignment[grading_standard_id]' : assignment_grading_standard_id,
+        'assignment[name]': assignment_name,
+        'assignment[position]': assignment_position,
+        'assignment[submission_types]': assignment_submission_types,
+        'assignment[allowed_extensions]': assignment_allowed_extensions,
+        'assignment[turnitin_enabled]': assignment_turnitin_enabled,
+        'assignment[turnitin_settings]': assignment_turnitin_settings,
+        'assignment[integration_data]': assignment_integration_data,
+        'assignment[integration_id]': assignment_integration_id,
+        'assignment[peer_reviews]': assignment_peer_reviews,
+        'assignment[automatic_peer_reviews]': assignment_automatic_peer_reviews,
+        'assignment[notify_of_update]': assignment_notify_of_update,
+        'assignment[group_category_id]': assignment_group_category_id,
+        'assignment[grade_group_students_individually]': assignment_grade_group_students_individually,
+        'assignment[external_tool_tag_attributes]': assignment_external_tool_tag_attributes,
+        'assignment[points_possible]': assignment_points_possible,
+        'assignment[grading_type]': assignment_grading_type,
+        'assignment[due_at]': assignment_due_at,
+        'assignment[lock_at]': assignment_lock_at,
+        'assignment[unlock_at]': assignment_unlock_at,
+        'assignment[description]': assignment_description,
+        'assignment[assignment_group_id]': assignment_assignment_group_id,
+        'assignment[muted]': assignment_muted,
+        'assignment[assignment_overrides]': assignment_assignment_overrides,
+        'assignment[only_visible_to_overrides]': assignment_only_visible_to_overrides,
+        'assignment[published]': assignment_published,
+        'assignment[grading_standard_id]': assignment_grading_standard_id,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id)
     response = client.post(request_ctx, url, payload=payload, **request_kwargs)
@@ -435,32 +436,32 @@ This will update the grading_type for the course to 'letter_grade' unless it is 
     utils.validate_attr_is_acceptable(assignment_grading_type, assignment_grading_type_types)
     path = '/v1/courses/{course_id}/assignments/{id}'
     payload = {
-        'assignment[name]' : assignment_name,
-        'assignment[position]' : assignment_position,
-        'assignment[submission_types]' : assignment_submission_types,
-        'assignment[allowed_extensions]' : assignment_allowed_extensions,
-        'assignment[turnitin_enabled]' : assignment_turnitin_enabled,
-        'assignment[turnitin_settings]' : assignment_turnitin_settings,
-        'assignment[integration_data]' : assignment_integration_data,
-        'assignment[integration_id]' : assignment_integration_id,
-        'assignment[peer_reviews]' : assignment_peer_reviews,
-        'assignment[automatic_peer_reviews]' : assignment_automatic_peer_reviews,
-        'assignment[notify_of_update]' : assignment_notify_of_update,
-        'assignment[group_category_id]' : assignment_group_category_id,
-        'assignment[grade_group_students_individually]' : assignment_grade_group_students_individually,
-        'assignment[external_tool_tag_attributes]' : assignment_external_tool_tag_attributes,
-        'assignment[points_possible]' : assignment_points_possible,
-        'assignment[grading_type]' : assignment_grading_type,
-        'assignment[due_at]' : assignment_due_at,
-        'assignment[lock_at]' : assignment_lock_at,
-        'assignment[unlock_at]' : assignment_unlock_at,
-        'assignment[description]' : assignment_description,
-        'assignment[assignment_group_id]' : assignment_assignment_group_id,
-        'assignment[muted]' : assignment_muted,
-        'assignment[assignment_overrides]' : assignment_assignment_overrides,
-        'assignment[only_visible_to_overrides]' : assignment_only_visible_to_overrides,
-        'assignment[published]' : assignment_published,
-        'assignment[grading_standard_id]' : assignment_grading_standard_id,
+        'assignment[name]': assignment_name,
+        'assignment[position]': assignment_position,
+        'assignment[submission_types]': assignment_submission_types,
+        'assignment[allowed_extensions]': assignment_allowed_extensions,
+        'assignment[turnitin_enabled]': assignment_turnitin_enabled,
+        'assignment[turnitin_settings]': assignment_turnitin_settings,
+        'assignment[integration_data]': assignment_integration_data,
+        'assignment[integration_id]': assignment_integration_id,
+        'assignment[peer_reviews]': assignment_peer_reviews,
+        'assignment[automatic_peer_reviews]': assignment_automatic_peer_reviews,
+        'assignment[notify_of_update]': assignment_notify_of_update,
+        'assignment[group_category_id]': assignment_group_category_id,
+        'assignment[grade_group_students_individually]': assignment_grade_group_students_individually,
+        'assignment[external_tool_tag_attributes]': assignment_external_tool_tag_attributes,
+        'assignment[points_possible]': assignment_points_possible,
+        'assignment[grading_type]': assignment_grading_type,
+        'assignment[due_at]': assignment_due_at,
+        'assignment[lock_at]': assignment_lock_at,
+        'assignment[unlock_at]': assignment_unlock_at,
+        'assignment[description]': assignment_description,
+        'assignment[assignment_group_id]': assignment_assignment_group_id,
+        'assignment[muted]': assignment_muted,
+        'assignment[assignment_overrides]': assignment_assignment_overrides,
+        'assignment[only_visible_to_overrides]': assignment_only_visible_to_overrides,
+        'assignment[published]': assignment_published,
+        'assignment[grading_standard_id]': assignment_grading_standard_id,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id, id=id)
     response = client.put(request_ctx, url, payload=payload, **request_kwargs)
@@ -490,7 +491,7 @@ def list_assignment_overrides(request_ctx, course_id, assignment_id, per_page=No
         per_page = request_ctx.per_page
     path = '/v1/courses/{course_id}/assignments/{assignment_id}/overrides'
     payload = {
-        'per_page' : per_page,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id, assignment_id=assignment_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -631,13 +632,13 @@ removes any previous lock date.
 
     path = '/v1/courses/{course_id}/assignments/{assignment_id}/overrides'
     payload = {
-        'assignment_override[student_ids]' : assignment_override_student_ids,
-        'assignment_override[title]' : assignment_override_title,
-        'assignment_override[group_id]' : assignment_override_group_id,
-        'assignment_override[course_section_id]' : assignment_override_course_section_id,
-        'assignment_override[due_at]' : assignment_override_due_at,
-        'assignment_override[unlock_at]' : assignment_override_unlock_at,
-        'assignment_override[lock_at]' : assignment_override_lock_at,
+        'assignment_override[student_ids]': assignment_override_student_ids,
+        'assignment_override[title]': assignment_override_title,
+        'assignment_override[group_id]': assignment_override_group_id,
+        'assignment_override[course_section_id]': assignment_override_course_section_id,
+        'assignment_override[due_at]': assignment_override_due_at,
+        'assignment_override[unlock_at]': assignment_override_unlock_at,
+        'assignment_override[lock_at]': assignment_override_lock_at,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id, assignment_id=assignment_id)
     response = client.post(request_ctx, url, payload=payload, **request_kwargs)
@@ -695,11 +696,11 @@ removes any previous lock date.
 
     path = '/v1/courses/{course_id}/assignments/{assignment_id}/overrides/{id}'
     payload = {
-        'assignment_override[student_ids]' : assignment_override_student_ids,
-        'assignment_override[title]' : assignment_override_title,
-        'assignment_override[due_at]' : assignment_override_due_at,
-        'assignment_override[unlock_at]' : assignment_override_unlock_at,
-        'assignment_override[lock_at]' : assignment_override_lock_at,
+        'assignment_override[student_ids]': assignment_override_student_ids,
+        'assignment_override[title]': assignment_override_title,
+        'assignment_override[due_at]': assignment_override_due_at,
+        'assignment_override[unlock_at]': assignment_override_unlock_at,
+        'assignment_override[lock_at]': assignment_override_lock_at,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id, assignment_id=assignment_id, id=id)
     response = client.put(request_ctx, url, payload=payload, **request_kwargs)

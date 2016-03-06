@@ -1,5 +1,6 @@
 from canvas_sdk import client, utils
 
+
 def list_conferences_courses(request_ctx, course_id, per_page=None, **request_kwargs):
     """
     Retrieve the list of conferences for this context
@@ -22,7 +23,7 @@ def list_conferences_courses(request_ctx, course_id, per_page=None, **request_kw
         per_page = request_ctx.per_page
     path = '/v1/courses/{course_id}/conferences'
     payload = {
-        'per_page' : per_page,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -52,7 +53,7 @@ def list_conferences_groups(request_ctx, group_id, per_page=None, **request_kwar
         per_page = request_ctx.per_page
     path = '/v1/groups/{group_id}/conferences'
     payload = {
-        'per_page' : per_page,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(group_id=group_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)

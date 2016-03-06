@@ -1,5 +1,6 @@
 from canvas_sdk import client, utils
 
+
 def list_of_commmessages_for_user(request_ctx, user_id, start_time=None, end_time=None, per_page=None, **request_kwargs):
     """
     Retrieve messages sent to a user.
@@ -23,10 +24,10 @@ def list_of_commmessages_for_user(request_ctx, user_id, start_time=None, end_tim
         per_page = request_ctx.per_page
     path = '/v1/comm_messages'
     payload = {
-        'user_id' : user_id,
-        'start_time' : start_time,
-        'end_time' : end_time,
-        'per_page' : per_page,
+        'user_id': user_id,
+        'start_time': start_time,
+        'end_time': end_time,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format()
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)

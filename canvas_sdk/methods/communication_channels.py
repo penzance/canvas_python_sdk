@@ -1,5 +1,6 @@
 from canvas_sdk import client, utils
 
+
 def list_user_communication_channels(request_ctx, user_id, per_page=None, **request_kwargs):
     """
     Returns a list of communication channels for the specified user, sorted by
@@ -20,7 +21,7 @@ def list_user_communication_channels(request_ctx, user_id, per_page=None, **requ
         per_page = request_ctx.per_page
     path = '/v1/users/{user_id}/communication_channels'
     payload = {
-        'per_page' : per_page,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(user_id=user_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -63,10 +64,10 @@ channel.
     utils.validate_attr_is_acceptable(communication_channel_type, communication_channel_type_types)
     path = '/v1/users/{user_id}/communication_channels'
     payload = {
-        'communication_channel[address]' : communication_channel_address,
-        'communication_channel[type]' : communication_channel_type,
-        'communication_channel[token]' : communication_channel_token,
-        'skip_confirmation' : skip_confirmation,
+        'communication_channel[address]': communication_channel_address,
+        'communication_channel[type]': communication_channel_type,
+        'communication_channel[token]': communication_channel_token,
+        'skip_confirmation': skip_confirmation,
     }
     url = request_ctx.base_api_url + path.format(user_id=user_id)
     response = client.post(request_ctx, url, payload=payload, **request_kwargs)

@@ -1,5 +1,6 @@
 from canvas_sdk import client, utils
 
+
 def list_custom_gradebook_columns(request_ctx, course_id, include_hidden=None, per_page=None, **request_kwargs):
     """
     List all custom gradebook columns for a course
@@ -21,8 +22,8 @@ def list_custom_gradebook_columns(request_ctx, course_id, include_hidden=None, p
         per_page = request_ctx.per_page
     path = '/v1/courses/{course_id}/custom_gradebook_columns'
     payload = {
-        'include_hidden' : include_hidden,
-        'per_page' : per_page,
+        'include_hidden': include_hidden,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -54,10 +55,10 @@ supports one teacher_notes column.
 
     path = '/v1/courses/{course_id}/custom_gradebook_columns'
     payload = {
-        'column[title]' : column_title,
-        'column[position]' : column_position,
-        'column[hidden]' : column_hidden,
-        'column[teacher_notes]' : column_teacher_notes,
+        'column[title]': column_title,
+        'column[position]': column_position,
+        'column[hidden]': column_hidden,
+        'column[teacher_notes]': column_teacher_notes,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id)
     response = client.post(request_ctx, url, payload=payload, **request_kwargs)
@@ -128,7 +129,7 @@ def reorder_custom_columns(request_ctx, course_id, order, **request_kwargs):
 
     path = '/v1/courses/{course_id}/custom_gradebook_columns/reorder'
     payload = {
-        'order' : order,
+        'order': order,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id)
     response = client.post(request_ctx, url, payload=payload, **request_kwargs)
@@ -161,8 +162,8 @@ will be returned.
         per_page = request_ctx.per_page
     path = '/v1/courses/{course_id}/custom_gradebook_columns/{id}/data'
     payload = {
-        'include_hidden' : include_hidden,
-        'per_page' : per_page,
+        'include_hidden': include_hidden,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id, id=id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -191,7 +192,7 @@ def update_column_data(request_ctx, course_id, id, user_id, column_data_content,
 
     path = '/v1/courses/{course_id}/custom_gradebook_columns/{id}/data/{user_id}'
     payload = {
-        'column_data[content]' : column_data_content,
+        'column_data[content]': column_data_content,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id, id=id, user_id=user_id)
     response = client.put(request_ctx, url, payload=payload, **request_kwargs)

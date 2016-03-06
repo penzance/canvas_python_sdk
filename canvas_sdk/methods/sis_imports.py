@@ -1,5 +1,6 @@
 from canvas_sdk import client, utils
 
+
 def get_sis_import_list(request_ctx, account_id, created_since=None, per_page=None, **request_kwargs):
     """
     Returns the list of SIS imports for an account
@@ -25,8 +26,8 @@ def get_sis_import_list(request_ctx, account_id, created_since=None, per_page=No
         per_page = request_ctx.per_page
     path = '/v1/accounts/{account_id}/sis_imports'
     payload = {
-        'created_since' : created_since,
-        'per_page' : per_page,
+        'created_since': created_since,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(account_id=account_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -125,16 +126,16 @@ Format documentation for details.
 
     path = '/v1/accounts/{account_id}/sis_imports'
     payload = {
-        'import_type' : import_type,
-        'attachment' : attachment,
-        'extension' : extension,
-        'batch_mode' : batch_mode,
-        'batch_mode_term_id' : batch_mode_term_id,
-        'override_sis_stickiness' : override_sis_stickiness,
-        'add_sis_stickiness' : add_sis_stickiness,
-        'clear_sis_stickiness' : clear_sis_stickiness,
-        'diffing_data_set_identifier' : diffing_data_set_identifier,
-        'diffing_remaster_data_set' : diffing_remaster_data_set,
+        'import_type': import_type,
+        'attachment': attachment,
+        'extension': extension,
+        'batch_mode': batch_mode,
+        'batch_mode_term_id': batch_mode_term_id,
+        'override_sis_stickiness': override_sis_stickiness,
+        'add_sis_stickiness': add_sis_stickiness,
+        'clear_sis_stickiness': clear_sis_stickiness,
+        'diffing_data_set_identifier': diffing_data_set_identifier,
+        'diffing_remaster_data_set': diffing_remaster_data_set,
     }
     url = request_ctx.base_api_url + path.format(account_id=account_id)
     response = client.post(request_ctx, url, payload=payload, **request_kwargs)

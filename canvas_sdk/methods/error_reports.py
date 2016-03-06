@@ -1,5 +1,6 @@
 from canvas_sdk import client, utils
 
+
 def create_error_report(request_ctx, error_subject, error_url=None, error_email=None, error_comments=None, error_http_env=None, **request_kwargs):
     """
     Create a new error report documenting an experienced problem
@@ -30,11 +31,11 @@ itself)
 
     path = '/v1/error_reports'
     payload = {
-        'error[subject]' : error_subject,
-        'error[url]' : error_url,
-        'error[email]' : error_email,
-        'error[comments]' : error_comments,
-        'error[http_env]' : error_http_env,
+        'error[subject]': error_subject,
+        'error[url]': error_url,
+        'error[email]': error_email,
+        'error[comments]': error_comments,
+        'error[http_env]': error_http_env,
     }
     url = request_ctx.base_api_url + path.format()
     response = client.post(request_ctx, url, payload=payload, **request_kwargs)

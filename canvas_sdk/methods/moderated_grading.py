@@ -1,5 +1,6 @@
 from canvas_sdk import client, utils
 
+
 def list_students_selected_for_moderation(request_ctx, course_id, assignment_id, per_page=None, **request_kwargs):
     """
 
@@ -20,7 +21,7 @@ def list_students_selected_for_moderation(request_ctx, course_id, assignment_id,
         per_page = request_ctx.per_page
     path = '/v1/courses/{course_id}/assignments/{assignment_id}/moderated_students'
     payload = {
-        'per_page' : per_page,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id, assignment_id=assignment_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -51,8 +52,8 @@ def select_students_for_moderation(request_ctx, course_id, assignment_id, studen
         per_page = request_ctx.per_page
     path = '/v1/courses/{course_id}/assignments/{assignment_id}/moderated_students'
     payload = {
-        'student_ids' : student_ids,
-        'per_page' : per_page,
+        'student_ids': student_ids,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id, assignment_id=assignment_id)
     response = client.post(request_ctx, url, payload=payload, **request_kwargs)
@@ -79,7 +80,7 @@ def show_provisional_grade_status_for_student(request_ctx, course_id, assignment
 
     path = '/v1/courses/{course_id}/assignments/{assignment_id}/provisional_grades/status'
     payload = {
-        'student_id' : student_id,
+        'student_id': student_id,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id, assignment_id=assignment_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)

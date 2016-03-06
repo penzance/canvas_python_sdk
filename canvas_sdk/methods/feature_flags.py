@@ -1,5 +1,6 @@
 from canvas_sdk import client, utils
 
+
 def list_features_courses(request_ctx, course_id, per_page=None, **request_kwargs):
     """
     List all features that apply to a given Account, Course, or User.
@@ -19,7 +20,7 @@ def list_features_courses(request_ctx, course_id, per_page=None, **request_kwarg
         per_page = request_ctx.per_page
     path = '/v1/courses/{course_id}/features'
     payload = {
-        'per_page' : per_page,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -46,7 +47,7 @@ def list_features_accounts(request_ctx, account_id, per_page=None, **request_kwa
         per_page = request_ctx.per_page
     path = '/v1/accounts/{account_id}/features'
     payload = {
-        'per_page' : per_page,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(account_id=account_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -73,7 +74,7 @@ def list_features_users(request_ctx, user_id, per_page=None, **request_kwargs):
         per_page = request_ctx.per_page
     path = '/v1/users/{user_id}/features'
     payload = {
-        'per_page' : per_page,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(user_id=user_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -101,7 +102,7 @@ def list_enabled_features_courses(request_ctx, course_id, per_page=None, **reque
         per_page = request_ctx.per_page
     path = '/v1/courses/{course_id}/features/enabled'
     payload = {
-        'per_page' : per_page,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -129,7 +130,7 @@ def list_enabled_features_accounts(request_ctx, account_id, per_page=None, **req
         per_page = request_ctx.per_page
     path = '/v1/accounts/{account_id}/features/enabled'
     payload = {
-        'per_page' : per_page,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(account_id=account_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -157,7 +158,7 @@ def list_enabled_features_users(request_ctx, user_id, per_page=None, **request_k
         per_page = request_ctx.per_page
     path = '/v1/users/{user_id}/features/enabled'
     payload = {
-        'per_page' : per_page,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(user_id=user_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -272,8 +273,8 @@ account chain.
     utils.validate_attr_is_acceptable(state, state_types)
     path = '/v1/courses/{course_id}/features/flags/{feature}'
     payload = {
-        'state' : state,
-        'locking_account_id' : locking_account_id,
+        'state': state,
+        'locking_account_id': locking_account_id,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id, feature=feature)
     response = client.put(request_ctx, url, payload=payload, **request_kwargs)
@@ -310,8 +311,8 @@ account chain.
     utils.validate_attr_is_acceptable(state, state_types)
     path = '/v1/accounts/{account_id}/features/flags/{feature}'
     payload = {
-        'state' : state,
-        'locking_account_id' : locking_account_id,
+        'state': state,
+        'locking_account_id': locking_account_id,
     }
     url = request_ctx.base_api_url + path.format(account_id=account_id, feature=feature)
     response = client.put(request_ctx, url, payload=payload, **request_kwargs)
@@ -348,8 +349,8 @@ account chain.
     utils.validate_attr_is_acceptable(state, state_types)
     path = '/v1/users/{user_id}/features/flags/{feature}'
     payload = {
-        'state' : state,
-        'locking_account_id' : locking_account_id,
+        'state': state,
+        'locking_account_id': locking_account_id,
     }
     url = request_ctx.base_api_url + path.format(user_id=user_id, feature=feature)
     response = client.put(request_ctx, url, payload=payload, **request_kwargs)

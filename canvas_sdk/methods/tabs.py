@@ -1,5 +1,6 @@
 from canvas_sdk import client, utils
 
+
 def list_available_tabs_for_course_or_group_courses(request_ctx, course_id, include=None, per_page=None, **request_kwargs):
     """
     Returns a list of navigation tabs available in the current context.
@@ -24,8 +25,8 @@ def list_available_tabs_for_course_or_group_courses(request_ctx, course_id, incl
     utils.validate_attr_is_acceptable(include, include_types)
     path = '/v1/courses/{course_id}/tabs'
     payload = {
-        'include' : include,
-        'per_page' : per_page,
+        'include': include,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -57,8 +58,8 @@ def list_available_tabs_for_course_or_group_groups(request_ctx, group_id, includ
     utils.validate_attr_is_acceptable(include, include_types)
     path = '/v1/groups/{group_id}/tabs'
     payload = {
-        'include' : include,
-        'per_page' : per_page,
+        'include': include,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(group_id=group_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -89,8 +90,8 @@ def update_tab_for_course(request_ctx, course_id, tab_id, position=None, hidden=
 
     path = '/v1/courses/{course_id}/tabs/{tab_id}'
     payload = {
-        'position' : position,
-        'hidden' : hidden,
+        'position': position,
+        'hidden': hidden,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id, tab_id=tab_id)
     response = client.put(request_ctx, url, payload=payload, **request_kwargs)

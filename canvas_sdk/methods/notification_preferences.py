@@ -1,5 +1,6 @@
 from canvas_sdk import client, utils
 
+
 def list_preferences_communication_channel_id(request_ctx, user_id, communication_channel_id, per_page=None, **request_kwargs):
     """
     Fetch all preferences for the given communication channel
@@ -21,7 +22,7 @@ def list_preferences_communication_channel_id(request_ctx, user_id, communicatio
         per_page = request_ctx.per_page
     path = '/v1/users/{user_id}/communication_channels/{communication_channel_id}/notification_preferences'
     payload = {
-        'per_page' : per_page,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(user_id=user_id, communication_channel_id=communication_channel_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -52,7 +53,7 @@ def list_preferences_type(request_ctx, user_id, type, address, per_page=None, **
         per_page = request_ctx.per_page
     path = '/v1/users/{user_id}/communication_channels/{type}/{address}/notification_preferences'
     payload = {
-        'per_page' : per_page,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(user_id=user_id, type=type, address=address)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -81,7 +82,7 @@ def list_of_preference_categories(request_ctx, user_id, communication_channel_id
         per_page = request_ctx.per_page
     path = '/v1/users/{user_id}/communication_channels/{communication_channel_id}/notification_preference_categories'
     payload = {
-        'per_page' : per_page,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(user_id=user_id, communication_channel_id=communication_channel_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -158,7 +159,7 @@ def update_preference_communication_channel_id(request_ctx, communication_channe
 
     path = '/v1/users/self/communication_channels/{communication_channel_id}/notification_preferences/{notification}'
     payload = {
-        'notification_preferences[frequency]' : notification_preferences_frequency,
+        'notification_preferences[frequency]': notification_preferences_frequency,
     }
     url = request_ctx.base_api_url + path.format(communication_channel_id=communication_channel_id, notification=notification)
     response = client.put(request_ctx, url, payload=payload, **request_kwargs)
@@ -187,7 +188,7 @@ def update_preference_type(request_ctx, type, address, notification, notificatio
 
     path = '/v1/users/self/communication_channels/{type}/{address}/notification_preferences/{notification}'
     payload = {
-        'notification_preferences[frequency]' : notification_preferences_frequency,
+        'notification_preferences[frequency]': notification_preferences_frequency,
     }
     url = request_ctx.base_api_url + path.format(type=type, address=address, notification=notification)
     response = client.put(request_ctx, url, payload=payload, **request_kwargs)
@@ -214,7 +215,7 @@ def update_preferences_by_category(request_ctx, communication_channel_id, catego
 
     path = '/v1/users/self/communication_channels/{communication_channel_id}/notification_preference_categories/{category}'
     payload = {
-        'notification_preferences[frequency]' : notification_preferences_frequency,
+        'notification_preferences[frequency]': notification_preferences_frequency,
     }
     url = request_ctx.base_api_url + path.format(communication_channel_id=communication_channel_id, category=category)
     response = client.put(request_ctx, url, payload=payload, **request_kwargs)
@@ -239,7 +240,7 @@ def update_multiple_preferences_communication_channel_id(request_ctx, communicat
 
     path = '/v1/users/self/communication_channels/{communication_channel_id}/notification_preferences'
     payload = {
-        'notification_preferences[X][frequency]' : notification_preferences_X_frequency,
+        'notification_preferences[X][frequency]': notification_preferences_X_frequency,
     }
     url = request_ctx.base_api_url + path.format(communication_channel_id=communication_channel_id)
     response = client.put(request_ctx, url, payload=payload, **request_kwargs)
@@ -266,7 +267,7 @@ def update_multiple_preferences_type(request_ctx, type, address, notification_pr
 
     path = '/v1/users/self/communication_channels/{type}/{address}/notification_preferences'
     payload = {
-        'notification_preferences[X][frequency]' : notification_preferences_X_frequency,
+        'notification_preferences[X][frequency]': notification_preferences_X_frequency,
     }
     url = request_ctx.base_api_url + path.format(type=type, address=address)
     response = client.put(request_ctx, url, payload=payload, **request_kwargs)

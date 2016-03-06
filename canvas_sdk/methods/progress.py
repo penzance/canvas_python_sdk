@@ -1,5 +1,6 @@
 from canvas_sdk import client, utils
 
+
 def query_progress(request_ctx, id, **request_kwargs):
     """
     Return completion and status information about an asynchronous job

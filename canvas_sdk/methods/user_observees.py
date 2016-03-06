@@ -1,5 +1,6 @@
 from canvas_sdk import client, utils
 
+
 def list_observees(request_ctx, user_id, include=None, per_page=None, **request_kwargs):
     """
     List the users that the given user is observing.
@@ -26,8 +27,8 @@ def list_observees(request_ctx, user_id, include=None, per_page=None, **request_
     utils.validate_attr_is_acceptable(include, include_types)
     path = '/v1/users/{user_id}/observees'
     payload = {
-        'include' : include,
-        'per_page' : per_page,
+        'include': include,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(user_id=user_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -60,9 +61,9 @@ def add_observee_with_credentials(request_ctx, user_id, observee_unique_id=None,
 
     path = '/v1/users/{user_id}/observees'
     payload = {
-        'observee[unique_id]' : observee_unique_id,
-        'observee[password]' : observee_password,
-        'access_token' : access_token,
+        'observee[unique_id]': observee_unique_id,
+        'observee[password]': observee_password,
+        'access_token': access_token,
     }
     url = request_ctx.base_api_url + path.format(user_id=user_id)
     response = client.post(request_ctx, url, payload=payload, **request_kwargs)

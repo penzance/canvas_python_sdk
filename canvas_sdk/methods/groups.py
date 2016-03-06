@@ -1,5 +1,6 @@
 from canvas_sdk import client, utils
 
+
 def list_your_groups(request_ctx, context_type=None, per_page=None, **request_kwargs):
     """
     Returns a list of active groups for the current user.
@@ -21,8 +22,8 @@ def list_your_groups(request_ctx, context_type=None, per_page=None, **request_kw
     utils.validate_attr_is_acceptable(context_type, context_type_types)
     path = '/v1/users/self/groups'
     payload = {
-        'context_type' : context_type,
-        'per_page' : per_page,
+        'context_type': context_type,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format()
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -51,8 +52,8 @@ def list_groups_available_in_context_accounts(request_ctx, account_id, only_own_
         per_page = request_ctx.per_page
     path = '/v1/accounts/{account_id}/groups'
     payload = {
-        'only_own_groups' : only_own_groups,
-        'per_page' : per_page,
+        'only_own_groups': only_own_groups,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(account_id=account_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -81,8 +82,8 @@ def list_groups_available_in_context_courses(request_ctx, course_id, only_own_gr
         per_page = request_ctx.per_page
     path = '/v1/courses/{course_id}/groups'
     payload = {
-        'only_own_groups' : only_own_groups,
-        'per_page' : per_page,
+        'only_own_groups': only_own_groups,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -111,7 +112,7 @@ def get_single_group(request_ctx, group_id, include=None, **request_kwargs):
     utils.validate_attr_is_acceptable(include, include_types)
     path = '/v1/groups/{group_id}'
     payload = {
-        'include' : include,
+        'include': include,
     }
     url = request_ctx.base_api_url + path.format(group_id=group_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -146,11 +147,11 @@ ignored if the caller does not have the manage_storage_quotas permission.
     utils.validate_attr_is_acceptable(join_level, join_level_types)
     path = '/v1/groups'
     payload = {
-        'name' : name,
-        'description' : description,
-        'is_public' : is_public,
-        'join_level' : join_level,
-        'storage_quota_mb' : storage_quota_mb,
+        'name': name,
+        'description': description,
+        'is_public': is_public,
+        'join_level': join_level,
+        'storage_quota_mb': storage_quota_mb,
     }
     url = request_ctx.base_api_url + path.format()
     response = client.post(request_ctx, url, payload=payload, **request_kwargs)
@@ -187,11 +188,11 @@ ignored if the caller does not have the manage_storage_quotas permission.
     utils.validate_attr_is_acceptable(join_level, join_level_types)
     path = '/v1/group_categories/{group_category_id}/groups'
     payload = {
-        'name' : name,
-        'description' : description,
-        'is_public' : is_public,
-        'join_level' : join_level,
-        'storage_quota_mb' : storage_quota_mb,
+        'name': name,
+        'description': description,
+        'is_public': is_public,
+        'join_level': join_level,
+        'storage_quota_mb': storage_quota_mb,
     }
     url = request_ctx.base_api_url + path.format(group_category_id=group_category_id)
     response = client.post(request_ctx, url, payload=payload, **request_kwargs)
@@ -239,13 +240,13 @@ members who aren't in the list will be removed from the group.
     utils.validate_attr_is_acceptable(join_level, join_level_types)
     path = '/v1/groups/{group_id}'
     payload = {
-        'name' : name,
-        'description' : description,
-        'is_public' : is_public,
-        'join_level' : join_level,
-        'avatar_id' : avatar_id,
-        'storage_quota_mb' : storage_quota_mb,
-        'members' : members,
+        'name': name,
+        'description': description,
+        'is_public': is_public,
+        'join_level': join_level,
+        'avatar_id': avatar_id,
+        'storage_quota_mb': storage_quota_mb,
+        'members': members,
     }
     url = request_ctx.base_api_url + path.format(group_id=group_id)
     response = client.put(request_ctx, url, payload=payload, **request_kwargs)
@@ -291,7 +292,7 @@ def invite_others_to_group(request_ctx, group_id, invitees, **request_kwargs):
 
     path = '/v1/groups/{group_id}/invite'
     payload = {
-        'invitees' : invitees,
+        'invitees': invitees,
     }
     url = request_ctx.base_api_url + path.format(group_id=group_id)
     response = client.post(request_ctx, url, payload=payload, **request_kwargs)
@@ -325,9 +326,9 @@ results list. Must be at least 3 characters.
     utils.validate_attr_is_acceptable(include, include_types)
     path = '/v1/groups/{group_id}/users'
     payload = {
-        'search_term' : search_term,
-        'include' : include,
-        'per_page' : per_page,
+        'search_term': search_term,
+        'include': include,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(group_id=group_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -380,7 +381,7 @@ def preview_processed_html(request_ctx, group_id, html=None, **request_kwargs):
 
     path = '/v1/groups/{group_id}/preview_html'
     payload = {
-        'html' : html,
+        'html': html,
     }
     url = request_ctx.base_api_url + path.format(group_id=group_id)
     response = client.post(request_ctx, url, payload=payload, **request_kwargs)
@@ -458,8 +459,8 @@ return all memberships.
     utils.validate_attr_is_acceptable(filter_states, filter_states_types)
     path = '/v1/groups/{group_id}/memberships'
     payload = {
-        'filter_states' : filter_states,
-        'per_page' : per_page,
+        'filter_states': filter_states,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(group_id=group_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -530,7 +531,7 @@ def create_membership(request_ctx, group_id, user_id=None, **request_kwargs):
 
     path = '/v1/groups/{group_id}/memberships'
     payload = {
-        'user_id' : user_id,
+        'user_id': user_id,
     }
     url = request_ctx.base_api_url + path.format(group_id=group_id)
     response = client.post(request_ctx, url, payload=payload, **request_kwargs)
@@ -561,8 +562,8 @@ def update_membership_memberships(request_ctx, group_id, membership_id, workflow
     utils.validate_attr_is_acceptable(workflow_state, workflow_state_types)
     path = '/v1/groups/{group_id}/memberships/{membership_id}'
     payload = {
-        'workflow_state' : workflow_state,
-        'moderator' : moderator,
+        'workflow_state': workflow_state,
+        'moderator': moderator,
     }
     url = request_ctx.base_api_url + path.format(group_id=group_id, membership_id=membership_id)
     response = client.put(request_ctx, url, payload=payload, **request_kwargs)
@@ -593,8 +594,8 @@ def update_membership_users(request_ctx, group_id, user_id, workflow_state=None,
     utils.validate_attr_is_acceptable(workflow_state, workflow_state_types)
     path = '/v1/groups/{group_id}/users/{user_id}'
     payload = {
-        'workflow_state' : workflow_state,
-        'moderator' : moderator,
+        'workflow_state': workflow_state,
+        'moderator': moderator,
     }
     url = request_ctx.base_api_url + path.format(group_id=group_id, user_id=user_id)
     response = client.put(request_ctx, url, payload=payload, **request_kwargs)

@@ -1,5 +1,6 @@
 from canvas_sdk import client, utils
 
+
 def get_all_quiz_submission_questions(request_ctx, quiz_submission_id, include=None, **request_kwargs):
     """
     Get a list of all the question records for this quiz submission.
@@ -21,7 +22,7 @@ def get_all_quiz_submission_questions(request_ctx, quiz_submission_id, include=N
     utils.validate_attr_is_acceptable(include, include_types)
     path = '/v1/quiz_submissions/{quiz_submission_id}/questions'
     payload = {
-        'include' : include,
+        'include': include,
     }
     url = request_ctx.base_api_url + path.format(quiz_submission_id=quiz_submission_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -62,11 +63,11 @@ for each question type.
         per_page = request_ctx.per_page
     path = '/v1/quiz_submissions/{quiz_submission_id}/questions'
     payload = {
-        'attempt' : attempt,
-        'validation_token' : validation_token,
-        'access_code' : access_code,
-        'quiz_questions' : quiz_questions,
-        'per_page' : per_page,
+        'attempt': attempt,
+        'validation_token': validation_token,
+        'access_code': access_code,
+        'quiz_questions': quiz_questions,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(quiz_submission_id=quiz_submission_id)
     response = client.post(request_ctx, url, payload=payload, **request_kwargs)
@@ -101,9 +102,9 @@ created.
 
     path = '/v1/quiz_submissions/{quiz_submission_id}/questions/{id}/flag'
     payload = {
-        'attempt' : attempt,
-        'validation_token' : validation_token,
-        'access_code' : access_code,
+        'attempt': attempt,
+        'validation_token': validation_token,
+        'access_code': access_code,
     }
     url = request_ctx.base_api_url + path.format(quiz_submission_id=quiz_submission_id, id=id)
     response = client.put(request_ctx, url, payload=payload, **request_kwargs)
@@ -138,9 +139,9 @@ created.
 
     path = '/v1/quiz_submissions/{quiz_submission_id}/questions/{id}/unflag'
     payload = {
-        'attempt' : attempt,
-        'validation_token' : validation_token,
-        'access_code' : access_code,
+        'attempt': attempt,
+        'validation_token': validation_token,
+        'access_code': access_code,
     }
     url = request_ctx.base_api_url + path.format(quiz_submission_id=quiz_submission_id, id=id)
     response = client.put(request_ctx, url, payload=payload, **request_kwargs)

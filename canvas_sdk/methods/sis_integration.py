@@ -1,5 +1,6 @@
 from canvas_sdk import client, utils
 
+
 def retrieve_assignments_enabled_for_grade_export_to_sis_accounts(request_ctx, account_id, course_id=None, starts_before=None, ends_after=None, **request_kwargs):
     """
     Retrieve a list of published assignments flagged as "post_to_sis". Assignment group and section information are
@@ -33,9 +34,9 @@ date (if they have an end date)
 
     path = '/sis/accounts/{account_id}/assignments'
     payload = {
-        'course_id' : course_id,
-        'starts_before' : starts_before,
-        'ends_after' : ends_after,
+        'course_id': course_id,
+        'starts_before': starts_before,
+        'ends_after': ends_after,
     }
     url = request_ctx.base_api_url + path.format(account_id=account_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -76,9 +77,9 @@ date (if they have an end date)
 
     path = '/sis/courses/{course_id}/assignments'
     payload = {
-        'account_id' : account_id,
-        'starts_before' : starts_before,
-        'ends_after' : ends_after,
+        'account_id': account_id,
+        'starts_before': starts_before,
+        'ends_after': ends_after,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)

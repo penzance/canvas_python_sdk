@@ -1,5 +1,6 @@
 from canvas_sdk import client, utils
 
+
 def show_outcome(request_ctx, id, **request_kwargs):
     """
     Returns the details of the outcome with the given id.
@@ -68,15 +69,15 @@ criterion.
     utils.validate_attr_is_acceptable(calculation_method, calculation_method_types)
     path = '/v1/outcomes/{id}'
     payload = {
-        'title' : title,
-        'display_name' : display_name,
-        'description' : description,
-        'vendor_guid' : vendor_guid,
-        'mastery_points' : mastery_points,
-        'ratings[description]' : ratings_description,
-        'ratings[points]' : ratings_points,
-        'calculation_method' : calculation_method,
-        'calculation_int' : calculation_int,
+        'title': title,
+        'display_name': display_name,
+        'description': description,
+        'vendor_guid': vendor_guid,
+        'mastery_points': mastery_points,
+        'ratings[description]': ratings_description,
+        'ratings[points]': ratings_points,
+        'calculation_method': calculation_method,
+        'calculation_int': calculation_int,
     }
     url = request_ctx.base_api_url + path.format(id=id)
     response = client.put(request_ctx, url, payload=payload, **request_kwargs)
