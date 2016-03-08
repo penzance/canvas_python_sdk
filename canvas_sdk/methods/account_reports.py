@@ -1,4 +1,6 @@
 from canvas_sdk import client, utils
+import re
+
 
 def list_available_reports(request_ctx, account_id, **request_kwargs):
     """
@@ -31,16 +33,19 @@ def start_report(request_ctx, account_id, report, parameters, **request_kwargs):
         :param report: (required) ID
         :type report: string
         :param parameters: (required) The parameters will vary for each report
-        :type parameters: string
+        :type parameters: dict
         :return: Start a Report
         :rtype: requests.Response (with Report data)
 
     """
 
     path = '/v1/accounts/{account_id}/reports/{report}'
-    payload = {
-        '[parameters]' : parameters,
-    }
+
+    # if the parameters dict has keys like 'enrollments', 'xlist', 'include_deleted'
+    # we need to translate them to be like 'parameters[enrollments]'
+    ppat = re.compile('parameters\[.+\]')
+    fix_key = lambda (k, v): (k if ppat.match(str(k)) else 'parameters[{}]'.format(k), v)
+    payload = map(fix_key, parameters.items())
     url = request_ctx.base_api_url + path.format(account_id=account_id, report=report)
     response = client.post(request_ctx, url, payload=payload, **request_kwargs)
 
@@ -76,7 +81,7 @@ def index_of_reports(request_ctx, account_id, report, per_page=None, **request_k
     return response
 
 
-def status_of_report(request_ctx, account_id, report, id, report_id, **request_kwargs):
+def status_of_report(request_ctx, account_id, report, id, **request_kwargs):
     """
     Returns the status of a report.
 
@@ -88,19 +93,14 @@ def status_of_report(request_ctx, account_id, report, id, report_id, **request_k
         :type report: string
         :param id: (required) ID
         :type id: string
-        :param report_id: (required) The report id.
-        :type report_id: integer
         :return: Status of a Report
         :rtype: requests.Response (with Report data)
 
     """
 
     path = '/v1/accounts/{account_id}/reports/{report}/{id}'
-    payload = {
-        'report_id' : report_id,
-    }
     url = request_ctx.base_api_url + path.format(account_id=account_id, report=report, id=id)
-    response = client.get(request_ctx, url, payload=payload, **request_kwargs)
+    response = client.get(request_ctx, url, **request_kwargs)
 
     return response
 
@@ -127,5 +127,3 @@ def delete_report(request_ctx, account_id, report, id, **request_kwargs):
     response = client.delete(request_ctx, url, **request_kwargs)
 
     return response
-
-
