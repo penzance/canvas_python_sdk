@@ -117,10 +117,15 @@ def call(action, url, request_context, params=None, data=None, max_retries=None,
             status_code = http_error.response.status_code
             # If we can't retry the request, raise a CanvasAPIError
             if status_code not in RETRY_ERROR_CODES or retry >= retries:
-                error_json = http_error.response.json()
+                try:
+                    error_json = http_error.response.json()
+                    message = str(error_json)
+                except ValueError:  # no json object could be decoded, e.g. 404
+                    error_json = None
+                    message = http_error.response.text.strip()
                 raise CanvasAPIError(
                     status_code=status_code,
-                    msg=str(error_json),
+                    msg=message,
                     error_json=error_json,
                 )
         else:

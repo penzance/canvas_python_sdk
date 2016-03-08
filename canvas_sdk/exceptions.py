@@ -29,4 +29,7 @@ class CanvasAPIError(SDKException):
         return self.__unicode__().encode('utf-8')
 
     def __unicode__(self):
-        return u'%s: %s' % (self.status_code, self.error_msg)
+        if self.error_msg:
+            return u'%s: %s' % (self.status_code, self.error_msg)
+        else:
+            return u'%s' % self.status_code

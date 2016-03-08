@@ -22,11 +22,11 @@ class TestExceptions(unittest.TestCase):
 
     def test_default_str_for_canvas_api_error(self):
         """ Test default CanvasAPIError instance represented as a str """
-        self.assertEqual('500: None', str(self.default_api_error))
+        self.assertEqual('500', str(self.default_api_error))
 
     def test_default_unicode_for_canvas_api_error(self):
         """ Test default CanvasAPIError instance represented as unicode """
-        self.assertEqual(u'500: None', unicode(self.default_api_error))
+        self.assertEqual(u'500', unicode(self.default_api_error))
 
     def test_instance_str_for_canvas_api_error(self):
         """ Test string representation of CanvasAPIError with custom attributes """
