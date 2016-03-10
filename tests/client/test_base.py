@@ -4,7 +4,7 @@ from mock import patch
 from requests.exceptions import HTTPError
 from canvas_sdk import client
 from canvas_sdk.client import base
-from canvas_sdk.exceptions import CanvasAPIError
+from canvas_sdk.exceptions import (SDKException, CanvasAPIError, InvalidOAuthTokenError)
 
 
 class TestBase(unittest.TestCase):
@@ -34,20 +34,21 @@ class TestBase(unittest.TestCase):
         self.payload = {'foo': 'bar'}
         self.request_kwargs = {'headers': {'my': 'header'}, 'timeout': 30}
 
-    def make_retry_call_with_error_code(self, http_error_code, max_retries=None, error_json=None):
+    def make_retry_call_with_error_code(self, http_error_code, max_retries=None, error_json=None, response_headers=None):
         """
         Makes a call that will raise an http error in order to potentially trigger
-        the request being retried up to "max_retries" times.  Otherwise, a CanvasAPIError is expected
+        the request being retried up to "max_retries" times.  Otherwise, an SDK Error is expected
         to be raised by the underlying call method.  Return the exception in order to do any additional
         assertions.
         """
-        self.session.request.return_value.raise_for_status.side_effect = HTTPError(
-            response=mock.MagicMock(
-                status_code=http_error_code,
-                json=mock.Mock(return_value=error_json or {}),
-            )
-        )
-        with self.assertRaises(CanvasAPIError) as canvas_error:
+        self.session.request.return_value.raise_for_status.side_effect = HTTPError()
+        self.session.request.return_value.status_code = http_error_code
+        self.session.request.return_value.json = mock.Mock(
+            return_value=error_json or {})
+        # Response headers
+        self.session.request.return_value.headers = response_headers or {}
+
+        with self.assertRaises(SDKException) as canvas_error:
             base.call("GET", self.url, self.req_ctx, max_retries=max_retries)
 
         return canvas_error.exception
@@ -480,7 +481,8 @@ class TestBase(unittest.TestCase):
         error_json = {'This is some error in json format!'}
         error_status_code = 404
         canvas_error = self.make_retry_call_with_error_code(error_status_code, max_retries=1, error_json=error_json)
-        
+
+        self.assertIs(type(canvas_error), CanvasAPIError)
         self.assertEqual(canvas_error.status_code, error_status_code)
         self.assertEqual(canvas_error.error_json, error_json)
         self.assertEqual(canvas_error.error_msg, str(error_json))
@@ -496,6 +498,43 @@ class TestBase(unittest.TestCase):
         error_json = {'This is some error in json format!'}
         canvas_error = self.make_retry_call_with_error_code(error_code, max_retries=max_retries, error_json=error_json)
 
+        self.assertIs(type(canvas_error), CanvasAPIError)
         self.assertEqual(canvas_error.status_code, error_code)
         self.assertEqual(canvas_error.error_json, error_json)
         self.assertEqual(canvas_error.error_msg, str(error_json))
+
+    def test_call_raises_invalid_oauth_token_error_when_401_and_auth_header(self):
+        """
+        Test that an InvalidOAuthTokenError gets raised on 401 responses that also
+        contain the auth header.
+        """
+        error_code = 401
+        resp_headers = {'WWW-Authenticate': ''}
+        canvas_error = self.make_retry_call_with_error_code(error_code,
+                max_retries=1, response_headers=resp_headers)
+
+        self.assertIs(type(canvas_error), InvalidOAuthTokenError)
+
+    def test_call_raises_canvas_api_error_when_401_and_other_header(self):
+        """
+        Test that the CanvasAPIError gets raised for 401s that don't contain
+        the auth header, but may contain other response headers.
+        """
+        error_code = 401
+        resp_headers = {'Content': 'application/json'}
+        canvas_error = self.make_retry_call_with_error_code(error_code,
+                max_retries=1, response_headers=resp_headers)
+
+        self.assertIs(type(canvas_error), CanvasAPIError)
+
+    def test_call_raises_canvas_api_error_when_non_401_and_auth_header(self):
+        """
+        Test that the CanvasAPIError gets raised for other error codes
+        where the response contains the auth header
+        """
+        error_code = 404
+        resp_headers = {'WWW-Authenticate': ''}
+        canvas_error = self.make_retry_call_with_error_code(error_code,
+                max_retries=1, response_headers=resp_headers)
+
+        self.assertIs(type(canvas_error), CanvasAPIError)

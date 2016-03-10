@@ -1,7 +1,10 @@
 import requests
+import logging
 from requests.exceptions import HTTPError
 from .auth import OAuth2Bearer
-from canvas_sdk.exceptions import CanvasAPIError
+from canvas_sdk.exceptions import (CanvasAPIError, InvalidOAuthTokenError)
+
+log = logging.getLogger(__name__)
 
 RETRY_ERROR_CODES = (
     requests.codes['conflict'],  # 409
@@ -92,10 +95,11 @@ def call(action, url, request_context, params=None, data=None, max_retries=None,
     """
     # This will be a requests.Session object with defaults set for context
     canvas_session = request_context.session
-    retries = max_retries or request_context.max_retries  # Default back to value in request_context
+    # Default back to value in request_context
+    retries = max_retries or request_context.max_retries
     if retries is None:
-        retries = 0  # Fall back in case max_retries in context was explicitly set to None
-    # Set up an authentication callable using OAuth2Bearer if a token was passed in
+        retries = 0  # Fall back if max_retries in context is explicitly None
+    # Set up an authentication callable using OAuth2Bearer if we have a token
     auth = None
     if auth_token:
         auth = OAuth2Bearer(auth_token)
@@ -105,24 +109,33 @@ def call(action, url, request_context, params=None, data=None, max_retries=None,
         try:
             # build and send the request
             response = canvas_session.request(
-                action, url, params=params, data=data, headers=headers, cookies=cookies,
-                files=files, auth=auth, timeout=timeout, proxies=proxies, verify=verify,
-                cert=cert, allow_redirects=allow_redirects)
+                action, url, params=params, data=data, headers=headers,
+                cookies=cookies, files=files, auth=auth, timeout=timeout,
+                proxies=proxies, verify=verify, cert=cert,
+                allow_redirects=allow_redirects)
 
             # raise an http exception if one occured
             response.raise_for_status()
 
         except HTTPError as http_error:
+            log.info("Caught an API Error returned by Canvas: %s", str(http_error))
             # Need to check its an error code that can be retried
-            status_code = http_error.response.status_code
+            status_code = response.status_code
+
+            # Check to see if this is an invalid token error per
+            # https://canvas.instructure.com/doc/api/file.oauth.html
+            if status_code == 401 and 'WWW-Authenticate' in response.headers:
+                raise InvalidOAuthTokenError("OAuth Token used to make request \
+                        to %s is invalid" % response.url)
+
             # If we can't retry the request, raise a CanvasAPIError
             if status_code not in RETRY_ERROR_CODES or retry >= retries:
                 try:
-                    error_json = http_error.response.json()
+                    error_json = response.json()
                     message = str(error_json)
                 except ValueError:  # no json object could be decoded, e.g. 404
                     error_json = None
-                    message = http_error.response.text.strip()
+                    message = response.text.strip()
                 raise CanvasAPIError(
                     status_code=status_code,
                     msg=message,
