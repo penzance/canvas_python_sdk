@@ -125,8 +125,8 @@ def call(action, url, request_context, params=None, data=None, max_retries=None,
             # Check to see if this is an invalid token error per
             # https://canvas.instructure.com/doc/api/file.oauth.html
             if status_code == 401 and 'WWW-Authenticate' in response.headers:
-                raise InvalidOAuthTokenError("OAuth Token used to make request \
-                        to %s is invalid" % response.url)
+                raise InvalidOAuthTokenError(
+                    "OAuth Token used to make request to %s is invalid" % response.url)
 
             # If we can't retry the request, raise a CanvasAPIError
             if status_code not in RETRY_ERROR_CODES or retry >= retries:
