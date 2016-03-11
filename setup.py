@@ -12,7 +12,7 @@ setup(
     version=version,
     description='A python SDK for Instructure\'s Canvas LMS API',
     author='Harvard University',
-    author_email='tlt_opensource@g.harvard.edu',
+    author_email='tlt-opensource@g.harvard.edu',
     url='https://github.com/penzance/canvas_python_sdk',
     packages=find_packages(exclude=["*.tests", "*.tests.*", "tests.*", "tests"]),
     long_description=README,
