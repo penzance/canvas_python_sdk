@@ -1,17 +1,19 @@
 import os
 from setuptools import setup, find_packages
 
-version_file = open(os.path.join(os.path.dirname(__file__), 'VERSION'))
-version = version_file.read().strip()
-README = open(os.path.join(os.path.dirname(__file__), 'README.md')).read()
+with open(os.path.join(os.path.dirname(__file__), 'VERSION')) as v_file:
+    version = v_file.read().strip()
+
+with open(os.path.join(os.path.dirname(__file__), 'README.md')) as readme:
+    README = readme.read()
 
 setup(
     name='canvas_python_sdk',
     version=version,
-    description='A python sdk for the canvas LMS api',
+    description='A python SDK for Instructure\'s Canvas LMS API',
     author='Harvard University',
-    author_email='some_email_tbd@Harvard.edu',
-    url='https://github.com/Harvard-University-iCommons/canvas_python_sdk',
+    author_email='tlt_opensource@g.harvard.edu',
+    url='https://github.com/penzance/canvas_python_sdk',
     packages=find_packages(exclude=["*.tests", "*.tests.*", "tests.*", "tests"]),
     long_description=README,
     classifiers=[
@@ -29,7 +31,6 @@ setup(
     zip_safe=False,
     install_requires=[
         'requests',
-        'sphinx>=1.2.0',
     ],
     test_suite='tests',
     tests_require=[
