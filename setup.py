@@ -32,6 +32,9 @@ setup(
     install_requires=[
         'requests',
     ],
+    extras_require={
+        'docs': ['sphinx>=1.2.0'],
+    },
     test_suite='tests',
     tests_require=[
         'mock>=1.0.1',
