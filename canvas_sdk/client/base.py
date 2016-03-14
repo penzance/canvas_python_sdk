@@ -1,6 +1,8 @@
-import requests
 import logging
+
+import requests
 from requests.exceptions import HTTPError
+
 from .auth import OAuth2Bearer
 from canvas_sdk.exceptions import (CanvasAPIError, InvalidOAuthTokenError)
 
@@ -17,10 +19,11 @@ RETRY_ERROR_CODES = (
 
 def merge_or_create_key_value_for_dictionary(target, key, value=None):
     """
-    This helper method will attempt to update a given key on a target dictionary with a value.
-    If the value is empty, nothing is done.  If the key does not currently exist on the target,
-    the key-value pair is created; otherwise, the given value is merged into the current key's
-    value in the target (it's assumed an existing key is a dictionary).
+    This helper method will attempt to update a given key on a target dictionary
+    with a value.  If the value is empty, nothing is done.  If the key does not
+    currently exist on the target, the key-value pair is created; otherwise, the
+    given value is merged into the current key's value in the target (it's
+    assumed an existing key is a dictionary).
 
     :param dictionary target: The dictionary to merge into
     :param str key: The key to merge or create on the target
@@ -67,31 +70,43 @@ def delete(request_context, url, payload=None, **optional_request_params):
 
 
 def call(action, url, request_context, params=None, data=None, max_retries=None,
-         auth_token=None, files=None, headers=None, cookies=None, timeout=None, proxies=None,
-         verify=None, cert=None, allow_redirects=True):
-    """This method servers as a pass-through to the requests library request functionality, but provides some configurable default
+         auth_token=None, files=None, headers=None, cookies=None, timeout=None,
+         proxies=None, verify=None, cert=None, allow_redirects=True):
+    """This method servers as a pass-through to the requests library request
+    functionality, but provides some configurable default
     values.  Constructs and sends a :class:`requests.Request <Request>`.
     Returns :class:`requests.Response <Response>` object.
 
     :param action: method for the new :class:`Request` object.
     :param url: Absolute url path to API method
-    :param request_context: Instance of :class:`RequestContext` that holds a request session and other default values
-    :param params: (optional) Dictionary or bytes to be sent in the query string for the :class:`Request`.
-    :param data: (optional) Dictionary, bytes, or file-like object to send in the body of the :class:`Request`.
-    :param int max_retries: (optional) Number of times a request that generates a certain class of HTTP exception will be retried
-        before being raised back to the caller.  See :py:mod:`client.base` for a list of those error types.
-    :param files: (optional) Dictionary of 'name': file-like-objects (or {'name': ('filename', fileobj)}) for multipart encoding upload.
-    :param dictionary headers: (optional) dictionary of headers to send for each request.  Will be merged with a default set of headers.
+    :param request_context: Instance of :class:`RequestContext` that holds a
+        request session and other default values
+    :param params: (optional) Dictionary or bytes to be sent in the query string
+        for the :class:`Request`.
+    :param data: (optional) Dictionary, bytes, or file-like object to send in
+        the body of the :class:`Request`.
+    :param int max_retries: (optional) Number of times a request that generates
+        a certain class of HTTP exception will be retried before being raised
+        back to the caller.  See :py:mod:`client.base` for a list of those error
+        types.
+    :param files: (optional) Dictionary of 'name': file-like-objects (or
+        {'name': ('filename', fileobj)}) for multipart encoding upload.
+    :param dictionary headers: (optional) dictionary of headers to send for each
+        request.  Will be merged with a default set of headers.
     :param cookies: (optional) Cookies to attach to each requests.
     :type cookies: dictionary or CookieJar
     :param str auth_token: (optional) OAuth2 token retrieved from a Canvas site
     :param float timeout: (optional) The timeout of the request in seconds.
-    :param dictionary proxies: (optional) Mapping protocol to the URL of the proxy.
-    :param verify: (optional) if ``True``, the SSL cert will be verified.  A CA_BUNDLE path can also be provided.
+    :param dictionary proxies: (optional) Mapping protocol to the URL of the
+        proxy.
+    :param verify: (optional) if ``True``, the SSL cert will be verified.  A
+        CA_BUNDLE path can also be provided.
     :type verify: boolean or str
-    :param cert: (optional) if String, path to ssl client cert file (.pem).  If Tuple, ('cert', 'key') pair.
+    :param cert: (optional) if String, path to ssl client cert file (.pem).  If
+        Tuple, ('cert', 'key') pair.
     :type cert: str or Tuple
-    :param bool allow_redirects: (optional) Set to True if POST/PUT/DELETE redirect following is allowed.  Defaults to True.
+    :param bool allow_redirects: (optional) Set to True if POST/PUT/DELETE
+        redirect following is allowed.  Defaults to True.
     """
     # This will be a requests.Session object with defaults set for context
     canvas_session = request_context.session
