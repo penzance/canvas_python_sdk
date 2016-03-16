@@ -5,6 +5,11 @@ class SDKException(Exception):
     pass
 
 
+class InvalidOAuthTokenError(SDKException):
+    """ Indicates that an invalid access token made the request """
+    pass
+
+
 class CanvasAPIError(SDKException):
 
     """
