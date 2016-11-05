@@ -144,7 +144,7 @@ def build_payload(parameters):
             field = flatten_param(field_name)
             if is_array_param(param):
                 field_name += '[]'
-            payload.append("'{0}' : {1},".format(field_name, check_param(field)))
+            payload.append("'{0}': {1},".format(field_name, check_param(field)))
     return payload
 
 
@@ -298,7 +298,7 @@ def build_method(method_name, description, parameters, api_path, http_method, su
         arg_list.append('per_page=None')
         param_descriptions.append(':param per_page: (optional) Set how many results canvas should return, defaults to config.LIMIT_PER_PAGE')
         param_descriptions.append(':type per_page: integer or None')
-        payload.append('\'per_page\' : per_page,')
+        payload.append('\'per_page\': per_page,')
         allow_per_page = True
         
     arg_list.append('**request_kwargs')
@@ -383,7 +383,7 @@ def build_module(json_api_url):
     apis = json_resp['apis']
 
     content = line_format('from canvas_sdk import client, utils', NONE)
-    content += line_format('', NONE)
+    content += '\n\n'
     
     """
     Extract the data needed to build the method from the json source
