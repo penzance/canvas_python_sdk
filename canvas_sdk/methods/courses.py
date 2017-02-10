@@ -512,7 +512,7 @@ def update_course_settings(request_ctx, course_id, allow_student_discussion_topi
     return response
 
 
-def get_single_course_courses(request_ctx, id, include, **request_kwargs):
+def get_single_course_courses(request_ctx, id, include=None, **request_kwargs):
     """
     Return information on a single course.
 
@@ -522,18 +522,27 @@ def get_single_course_courses(request_ctx, id, include, **request_kwargs):
         :type request_ctx: :class:RequestContext
         :param id: (required) ID
         :type id: string
-        :param include: (required) - "all_courses": Also search recently deleted courses. - "permissions": Include permissions the current user has for the course.
-        :type include: string
+        :param include: (optional)
+            - "all_courses": Also search recently deleted courses.
+            - "permissions": Include permissions the current user has
+              for the course.
+            - "observed_users": include observed users in the enrollments
+        :type include: array or None
         :return: Get a single course
         :rtype: requests.Response (with Course data)
 
     """
 
-    include_types = ('all_courses', 'permissions')
+    include_types = (
+        'needs_grading_count', 'syllabus_body', 'public_description',
+        'total_scores', 'current_grading_period_scores', 'term',
+        'course_progress', 'sections', 'storage_quota_used_mb',
+        'total_students', 'passback_status', 'favorites', 'teachers',
+        'observed_users', 'all_courses', 'permissions', 'observed_users')
     utils.validate_attr_is_acceptable(include, include_types)
     path = '/v1/courses/{id}'
     payload = {
-        'include[]' : include,
+        'include': include,
     }
     url = request_ctx.base_api_url + path.format(id=id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
