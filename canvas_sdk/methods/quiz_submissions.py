@@ -1,8 +1,14 @@
 from canvas_sdk import client, utils
 
-def get_all_quiz_submissions(request_ctx, course_id, quiz_id, include, **request_kwargs):
+
+def get_all_quiz_submissions(request_ctx, course_id, quiz_id, include=None, **request_kwargs):
     """
-    Get a list of all submissions for this quiz.
+    Get a list of all submissions for this quiz. Users who can view or manage
+    grades for a course will have submissions from multiple users returned. A
+    user who can only submit will have only their own submissions returned. When
+    a user has an in-progress submission, only that submission is returned. When
+    there isn't an in-progress quiz_submission, all completed submissions,
+    including previous attempts, are returned.
     
     <b>200 OK</b> response code is returned if the request was successful.
 
@@ -12,8 +18,8 @@ def get_all_quiz_submissions(request_ctx, course_id, quiz_id, include, **request
         :type course_id: string
         :param quiz_id: (required) ID
         :type quiz_id: string
-        :param include: (required) Associations to include with the quiz submission.
-        :type include: string
+        :param include: (optional) Associations to include with the quiz submission.
+        :type include: array or None
         :return: Get all quiz submissions.
         :rtype: requests.Response (with void data)
 
@@ -23,7 +29,7 @@ def get_all_quiz_submissions(request_ctx, course_id, quiz_id, include, **request
     utils.validate_attr_is_acceptable(include, include_types)
     path = '/v1/courses/{course_id}/quizzes/{quiz_id}/submissions'
     payload = {
-        'include' : include,
+        'include': include,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id, quiz_id=quiz_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -31,7 +37,38 @@ def get_all_quiz_submissions(request_ctx, course_id, quiz_id, include, **request
     return response
 
 
-def get_single_quiz_submission(request_ctx, course_id, quiz_id, id, include, **request_kwargs):
+def get_quiz_submission(request_ctx, course_id, quiz_id, include=None, **request_kwargs):
+    """
+    Get the submission for this quiz for the current user.
+    
+    <b>200 OK</b> response code is returned if the request was successful.
+
+        :param request_ctx: The request context
+        :type request_ctx: :class:RequestContext
+        :param course_id: (required) ID
+        :type course_id: string
+        :param quiz_id: (required) ID
+        :type quiz_id: string
+        :param include: (optional) Associations to include with the quiz submission.
+        :type include: array or None
+        :return: Get the quiz submission.
+        :rtype: requests.Response (with void data)
+
+    """
+
+    include_types = ('submission', 'quiz', 'user')
+    utils.validate_attr_is_acceptable(include, include_types)
+    path = '/v1/courses/{course_id}/quizzes/{quiz_id}/submission'
+    payload = {
+        'include': include,
+    }
+    url = request_ctx.base_api_url + path.format(course_id=course_id, quiz_id=quiz_id)
+    response = client.get(request_ctx, url, payload=payload, **request_kwargs)
+
+    return response
+
+
+def get_single_quiz_submission(request_ctx, course_id, quiz_id, id, include=None, **request_kwargs):
     """
     Get a single quiz submission.
     
@@ -45,8 +82,8 @@ def get_single_quiz_submission(request_ctx, course_id, quiz_id, id, include, **r
         :type quiz_id: string
         :param id: (required) ID
         :type id: string
-        :param include: (required) Associations to include with the quiz submission.
-        :type include: string
+        :param include: (optional) Associations to include with the quiz submission.
+        :type include: array or None
         :return: Get a single quiz submission.
         :rtype: requests.Response (with void data)
 
@@ -56,7 +93,7 @@ def get_single_quiz_submission(request_ctx, course_id, quiz_id, id, include, **r
     utils.validate_attr_is_acceptable(include, include_types)
     path = '/v1/courses/{course_id}/quizzes/{quiz_id}/submissions/{id}'
     payload = {
-        'include' : include,
+        'include': include,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id, quiz_id=quiz_id, id=id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -85,7 +122,8 @@ def create_quiz_submission_start_quiz_taking_session(request_ctx, course_id, qui
         :type quiz_id: string
         :param access_code: (optional) Access code for the Quiz, if any.
         :type access_code: string or None
-        :param preview: (optional) Whether this should be a preview QuizSubmission and not count towards the user's course record. Teachers only.
+        :param preview: (optional) Whether this should be a preview QuizSubmission and not count towards
+the user's course record. Teachers only.
         :type preview: boolean or None
         :return: Create the quiz submission (start a quiz-taking session)
         :rtype: requests.Response (with void data)
@@ -94,8 +132,8 @@ def create_quiz_submission_start_quiz_taking_session(request_ctx, course_id, qui
 
     path = '/v1/courses/{course_id}/quizzes/{quiz_id}/submissions'
     payload = {
-        'access_code' : access_code,
-        'preview' : preview,
+        'access_code': access_code,
+        'preview': preview,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id, quiz_id=quiz_id)
     response = client.post(request_ctx, url, payload=payload, **request_kwargs)
@@ -124,12 +162,16 @@ def update_student_question_scores_and_comments(request_ctx, course_id, quiz_id,
         :type quiz_id: string
         :param id: (required) ID
         :type id: string
-        :param attempt: (required) The attempt number of the quiz submission that should be updated. This attempt MUST be already completed.
+        :param attempt: (required) The attempt number of the quiz submission that should be updated. This
+attempt MUST be already completed.
         :type attempt: integer
         :param fudge_points: (optional) Amount of positive or negative points to fudge the total score by.
-        :type fudge_points: float or None
-        :param questions: (optional) A set of scores and comments for each question answered by the student. The keys are the question IDs, and the values are hashes of `score` and `comment` entries. See {Appendix: Manual Scoring} for more on this parameter.
-        :type questions: hash or None
+        :type fudge_points: Float or None
+        :param questions: (optional) A set of scores and comments for each question answered by the student.
+The keys are the question IDs, and the values are hashes of `score` and
+`comment` entries. See {Appendix: Manual Scoring} for more on this
+parameter.
+        :type questions: Hash or None
         :return: Update student question scores and comments.
         :rtype: requests.Response (with void data)
 
@@ -137,9 +179,9 @@ def update_student_question_scores_and_comments(request_ctx, course_id, quiz_id,
 
     path = '/v1/courses/{course_id}/quizzes/{quiz_id}/submissions/{id}'
     payload = {
-        'attempt' : attempt,
-        'fudge_points' : fudge_points,
-        'questions' : questions,
+        'attempt': attempt,
+        'fudge_points': fudge_points,
+        'questions': questions,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id, quiz_id=quiz_id, id=id)
     response = client.put(request_ctx, url, payload=payload, **request_kwargs)
@@ -171,9 +213,12 @@ def complete_quiz_submission_turn_it_in(request_ctx, course_id, quiz_id, id, att
         :type quiz_id: string
         :param id: (required) ID
         :type id: string
-        :param attempt: (required) The attempt number of the quiz submission that should be completed. Note that this must be the latest attempt index, as earlier attempts can not be modified.
+        :param attempt: (required) The attempt number of the quiz submission that should be completed. Note
+that this must be the latest attempt index, as earlier attempts can not
+be modified.
         :type attempt: integer
-        :param validation_token: (required) The unique validation token you received when this Quiz Submission was created.
+        :param validation_token: (required) The unique validation token you received when this Quiz Submission was
+created.
         :type validation_token: string
         :param access_code: (optional) Access code for the Quiz, if any.
         :type access_code: string or None
@@ -184,12 +229,41 @@ def complete_quiz_submission_turn_it_in(request_ctx, course_id, quiz_id, id, att
 
     path = '/v1/courses/{course_id}/quizzes/{quiz_id}/submissions/{id}/complete'
     payload = {
-        'attempt' : attempt,
-        'validation_token' : validation_token,
-        'access_code' : access_code,
+        'attempt': attempt,
+        'validation_token': validation_token,
+        'access_code': access_code,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id, quiz_id=quiz_id, id=id)
     response = client.post(request_ctx, url, payload=payload, **request_kwargs)
+
+    return response
+
+
+def get_current_quiz_submission_times(request_ctx, course_id, quiz_id, id, **request_kwargs):
+    """
+    Get the current timing data for the quiz attempt, both the end_at timestamp
+    and the time_left parameter.
+    
+    <b>Responses</b>
+    
+    * <b>200 OK</b> if the request was successful
+
+        :param request_ctx: The request context
+        :type request_ctx: :class:RequestContext
+        :param course_id: (required) ID
+        :type course_id: string
+        :param quiz_id: (required) ID
+        :type quiz_id: string
+        :param id: (required) ID
+        :type id: string
+        :return: Get current quiz submission times.
+        :rtype: requests.Response (with void data)
+
+    """
+
+    path = '/v1/courses/{course_id}/quizzes/{quiz_id}/submissions/{id}/time'
+    url = request_ctx.base_api_url + path.format(course_id=course_id, quiz_id=quiz_id, id=id)
+    response = client.get(request_ctx, url, **request_kwargs)
 
     return response
 

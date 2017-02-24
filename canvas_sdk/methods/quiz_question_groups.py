@@ -1,5 +1,30 @@
 from canvas_sdk import client, utils
 
+
+def get_single_quiz_group(request_ctx, course_id, quiz_id, id, **request_kwargs):
+    """
+    Returns details of the quiz group with the given id.
+
+        :param request_ctx: The request context
+        :type request_ctx: :class:RequestContext
+        :param course_id: (required) ID
+        :type course_id: string
+        :param quiz_id: (required) ID
+        :type quiz_id: string
+        :param id: (required) ID
+        :type id: string
+        :return: Get a single quiz group
+        :rtype: requests.Response (with QuizGroup data)
+
+    """
+
+    path = '/v1/courses/{course_id}/quizzes/{quiz_id}/groups/{id}'
+    url = request_ctx.base_api_url + path.format(course_id=course_id, quiz_id=quiz_id, id=id)
+    response = client.get(request_ctx, url, **request_kwargs)
+
+    return response
+
+
 def create_question_group(request_ctx, course_id, quiz_id, quiz_groups_name=None, quiz_groups_pick_count=None, quiz_groups_question_points=None, quiz_groups_assessment_question_bank_id=None, **request_kwargs):
     """
     Create a new question group for this quiz
@@ -13,13 +38,13 @@ def create_question_group(request_ctx, course_id, quiz_id, quiz_groups_name=None
         :param quiz_id: (required) ID
         :type quiz_id: string
         :param quiz_groups_name: (optional) The name of the question group.
-        :type quiz_groups_name: string or None
+        :type quiz_groups_name: array or None
         :param quiz_groups_pick_count: (optional) The number of questions to randomly select for this group.
-        :type quiz_groups_pick_count: integer or None
+        :type quiz_groups_pick_count: array or None
         :param quiz_groups_question_points: (optional) The number of points to assign to each question in the group.
-        :type quiz_groups_question_points: integer or None
+        :type quiz_groups_question_points: array or None
         :param quiz_groups_assessment_question_bank_id: (optional) The id of the assessment question bank to pull questions from.
-        :type quiz_groups_assessment_question_bank_id: integer or None
+        :type quiz_groups_assessment_question_bank_id: array or None
         :return: Create a question group
         :rtype: requests.Response (with void data)
 
@@ -27,10 +52,10 @@ def create_question_group(request_ctx, course_id, quiz_id, quiz_groups_name=None
 
     path = '/v1/courses/{course_id}/quizzes/{quiz_id}/groups'
     payload = {
-        'quiz_groups[name]' : quiz_groups_name,
-        'quiz_groups[pick_count]' : quiz_groups_pick_count,
-        'quiz_groups[question_points]' : quiz_groups_question_points,
-        'quiz_groups[assessment_question_bank_id]' : quiz_groups_assessment_question_bank_id,
+        'quiz_groups[name]': quiz_groups_name,
+        'quiz_groups[pick_count]': quiz_groups_pick_count,
+        'quiz_groups[question_points]': quiz_groups_question_points,
+        'quiz_groups[assessment_question_bank_id]': quiz_groups_assessment_question_bank_id,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id, quiz_id=quiz_id)
     response = client.post(request_ctx, url, payload=payload, **request_kwargs)
@@ -51,11 +76,11 @@ def update_question_group(request_ctx, course_id, quiz_id, id, quiz_groups_name=
         :param id: (required) ID
         :type id: string
         :param quiz_groups_name: (optional) The name of the question group.
-        :type quiz_groups_name: string or None
+        :type quiz_groups_name: array or None
         :param quiz_groups_pick_count: (optional) The number of questions to randomly select for this group.
-        :type quiz_groups_pick_count: integer or None
+        :type quiz_groups_pick_count: array or None
         :param quiz_groups_question_points: (optional) The number of points to assign to each question in the group.
-        :type quiz_groups_question_points: integer or None
+        :type quiz_groups_question_points: array or None
         :return: Update a question group
         :rtype: requests.Response (with void data)
 
@@ -63,9 +88,9 @@ def update_question_group(request_ctx, course_id, quiz_id, id, quiz_groups_name=
 
     path = '/v1/courses/{course_id}/quizzes/{quiz_id}/groups/{id}'
     payload = {
-        'quiz_groups[name]' : quiz_groups_name,
-        'quiz_groups[pick_count]' : quiz_groups_pick_count,
-        'quiz_groups[question_points]' : quiz_groups_question_points,
+        'quiz_groups[name]': quiz_groups_name,
+        'quiz_groups[pick_count]': quiz_groups_pick_count,
+        'quiz_groups[question_points]': quiz_groups_question_points,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id, quiz_id=quiz_id, id=id)
     response = client.put(request_ctx, url, payload=payload, **request_kwargs)
@@ -99,7 +124,7 @@ def delete_question_group(request_ctx, course_id, quiz_id, id, **request_kwargs)
     return response
 
 
-def reorder_question_groups(request_ctx, course_id, quiz_id, id, order_id, order_type, **request_kwargs):
+def reorder_question_groups(request_ctx, course_id, quiz_id, id, order_id, order_type=None, **request_kwargs):
     """
     Change the order of the quiz questions within the group
     
@@ -114,9 +139,9 @@ def reorder_question_groups(request_ctx, course_id, quiz_id, id, order_id, order
         :param id: (required) ID
         :type id: string
         :param order_id: (required) The associated item's unique identifier
-        :type order_id: integer
-        :param order_type: (required) The type of item is always 'question' for a group
-        :type order_type: string
+        :type order_id: array
+        :param order_type: (optional) The type of item is always 'question' for a group
+        :type order_type: array or None
         :return: Reorder question groups
         :rtype: requests.Response (with void data)
 
@@ -126,8 +151,8 @@ def reorder_question_groups(request_ctx, course_id, quiz_id, id, order_id, order
     utils.validate_attr_is_acceptable(order_type, order_type_types)
     path = '/v1/courses/{course_id}/quizzes/{quiz_id}/groups/{id}/reorder'
     payload = {
-        'order[id]' : order_id,
-        'order[type]' : order_type,
+        'order[id]': order_id,
+        'order[type]': order_type,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id, quiz_id=quiz_id, id=id)
     response = client.post(request_ctx, url, payload=payload, **request_kwargs)

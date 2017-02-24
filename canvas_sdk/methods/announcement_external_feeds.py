@@ -1,5 +1,6 @@
 from canvas_sdk import client, utils
 
+
 def list_external_feeds_courses(request_ctx, course_id, per_page=None, **request_kwargs):
     """
     Returns the list of External Feeds this course or group.
@@ -19,7 +20,7 @@ def list_external_feeds_courses(request_ctx, course_id, per_page=None, **request
         per_page = request_ctx.per_page
     path = '/v1/courses/{course_id}/external_feeds'
     payload = {
-        'per_page' : per_page,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -46,7 +47,7 @@ def list_external_feeds_groups(request_ctx, group_id, per_page=None, **request_k
         per_page = request_ctx.per_page
     path = '/v1/groups/{group_id}/external_feeds'
     payload = {
-        'per_page' : per_page,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(group_id=group_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -54,7 +55,7 @@ def list_external_feeds_groups(request_ctx, group_id, per_page=None, **request_k
     return response
 
 
-def create_external_feed_courses(request_ctx, course_id, url, verbosity, header_match=None, **request_kwargs):
+def create_external_feed_courses(request_ctx, course_id, url, header_match=None, verbosity=None, **request_kwargs):
     """
     Create a new external feed for the course or group.
 
@@ -64,10 +65,10 @@ def create_external_feed_courses(request_ctx, course_id, url, verbosity, header_
         :type course_id: string
         :param url: (required) The url to the external rss or atom feed
         :type url: string
-        :param verbosity: (required) no description
-        :type verbosity: string
         :param header_match: (optional) If given, only feed entries that contain this string in their title will be imported
         :type header_match: boolean or None
+        :param verbosity: (optional) Defaults to "full"
+        :type verbosity: string or None
         :return: Create an external feed
         :rtype: requests.Response (with ExternalFeed data)
 
@@ -77,9 +78,9 @@ def create_external_feed_courses(request_ctx, course_id, url, verbosity, header_
     utils.validate_attr_is_acceptable(verbosity, verbosity_types)
     path = '/v1/courses/{course_id}/external_feeds'
     payload = {
-        'url' : url,
-        'header_match' : header_match,
-        'verbosity' : verbosity,
+        'url': url,
+        'header_match': header_match,
+        'verbosity': verbosity,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id)
     response = client.post(request_ctx, url, payload=payload, **request_kwargs)
@@ -87,7 +88,7 @@ def create_external_feed_courses(request_ctx, course_id, url, verbosity, header_
     return response
 
 
-def create_external_feed_groups(request_ctx, group_id, url, verbosity, header_match=None, **request_kwargs):
+def create_external_feed_groups(request_ctx, group_id, url, header_match=None, verbosity=None, **request_kwargs):
     """
     Create a new external feed for the course or group.
 
@@ -97,10 +98,10 @@ def create_external_feed_groups(request_ctx, group_id, url, verbosity, header_ma
         :type group_id: string
         :param url: (required) The url to the external rss or atom feed
         :type url: string
-        :param verbosity: (required) no description
-        :type verbosity: string
         :param header_match: (optional) If given, only feed entries that contain this string in their title will be imported
         :type header_match: boolean or None
+        :param verbosity: (optional) Defaults to "full"
+        :type verbosity: string or None
         :return: Create an external feed
         :rtype: requests.Response (with ExternalFeed data)
 
@@ -110,9 +111,9 @@ def create_external_feed_groups(request_ctx, group_id, url, verbosity, header_ma
     utils.validate_attr_is_acceptable(verbosity, verbosity_types)
     path = '/v1/groups/{group_id}/external_feeds'
     payload = {
-        'url' : url,
-        'header_match' : header_match,
-        'verbosity' : verbosity,
+        'url': url,
+        'header_match': header_match,
+        'verbosity': verbosity,
     }
     url = request_ctx.base_api_url + path.format(group_id=group_id)
     response = client.post(request_ctx, url, payload=payload, **request_kwargs)

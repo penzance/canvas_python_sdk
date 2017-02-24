@@ -1,6 +1,7 @@
 from canvas_sdk import client, utils
 
-def fetching_latest_quiz_statistics(request_ctx, course_id, quiz_id, all_versions, **request_kwargs):
+
+def fetching_latest_quiz_statistics(request_ctx, course_id, quiz_id, all_versions=None, **request_kwargs):
     """
     This endpoint provides statistics for all quiz versions, or for a specific
     quiz version, in which case the output is guaranteed to represent the
@@ -14,8 +15,8 @@ def fetching_latest_quiz_statistics(request_ctx, course_id, quiz_id, all_version
         :type course_id: string
         :param quiz_id: (required) ID
         :type quiz_id: string
-        :param all_versions: (required) Whether the statistics report should include all submissions attempts.
-        :type all_versions: boolean
+        :param all_versions: (optional) Whether the statistics report should include all submissions attempts.
+        :type all_versions: boolean or None
         :return: Fetching the latest quiz statistics
         :rtype: requests.Response (with void data)
 
@@ -23,7 +24,7 @@ def fetching_latest_quiz_statistics(request_ctx, course_id, quiz_id, all_version
 
     path = '/v1/courses/{course_id}/quizzes/{quiz_id}/statistics'
     payload = {
-        'all_versions' : all_versions,
+        'all_versions': all_versions,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id, quiz_id=quiz_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)

@@ -1,5 +1,6 @@
 from canvas_sdk import client, utils
 
+
 def get_department_level_participation_data_terms(request_ctx, account_id, term_id, **request_kwargs):
     """
     Returns page view hits summed across all courses in the department. Two
@@ -312,7 +313,7 @@ def get_course_level_participation_data(request_ctx, course_id, **request_kwargs
     return response
 
 
-def get_course_level_assignment_data(request_ctx, course_id, async, **request_kwargs):
+def get_course_level_assignment_data(request_ctx, course_id, async=None, **request_kwargs):
     """
     Returns a list of assignments for the course sorted by due date. For
     each assignment returns basic assignment information, the grade breakdown,
@@ -322,8 +323,13 @@ def get_course_level_assignment_data(request_ctx, course_id, async, **request_kw
         :type request_ctx: :class:RequestContext
         :param course_id: (required) ID
         :type course_id: string
-        :param async: (required) If async is true, then the course_assignments call can happen asynch- ronously and MAY return a response containing a progress_url key instead of an assignments array. If it does, then it is the caller's responsibility to poll the API again to see if the progress is complete. If the data is ready (possibly even on the first async call) then it will be passed back normally, as documented in the example response.
-        :type async: boolean
+        :param async: (optional) If async is true, then the course_assignments call can happen asynch-
+ronously and MAY return a response containing a progress_url key instead
+of an assignments array. If it does, then it is the caller's
+responsibility to poll the API again to see if the progress is complete.
+If the data is ready (possibly even on the first async call) then it
+will be passed back normally, as documented in the example response.
+        :type async: boolean or None
         :return: Get course-level assignment data
         :rtype: requests.Response (with void data)
 
@@ -331,7 +337,7 @@ def get_course_level_assignment_data(request_ctx, course_id, async, **request_kw
 
     path = '/v1/courses/{course_id}/analytics/assignments'
     payload = {
-        'async' : async,
+        'async': async,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -339,12 +345,11 @@ def get_course_level_assignment_data(request_ctx, course_id, async, **request_kw
     return response
 
 
-def get_course_level_student_summary_data(request_ctx, course_id, **request_kwargs):
+def get_course_level_student_summary_data(request_ctx, course_id, sort_column=None, student_id=None, **request_kwargs):
     """
     Returns a summary of per-user access information for all students in
     a course. This includes total page views, total participations, and a
     breakdown of on-time/late status for all homework submissions in the course.
-    The data is returned as a list in lexical order on the student name.
     
     Each student's summary also includes the maximum number of page views and
     participations by any student in the course, which may be useful for some
@@ -355,24 +360,35 @@ def get_course_level_student_summary_data(request_ctx, course_id, **request_kwar
         :type request_ctx: :class:RequestContext
         :param course_id: (required) ID
         :type course_id: string
+        :param sort_column: (optional) The order results in which results are returned.  Defaults to "name".
+        :type sort_column: string or None
+        :param student_id: (optional) If set, returns only the specified student.
+        :type student_id: string or None
         :return: Get course-level student summary data
         :rtype: requests.Response (with void data)
 
     """
 
+    sort_column_types = ('name', 'name_descending', 'score', 'score_descending', 'participations', 'participations_descending', 'page_views', 'page_views_descending')
+    utils.validate_attr_is_acceptable(sort_column, sort_column_types)
     path = '/v1/courses/{course_id}/analytics/student_summaries'
+    payload = {
+        'sort_column': sort_column,
+        'student_id': student_id,
+    }
     url = request_ctx.base_api_url + path.format(course_id=course_id)
-    response = client.get(request_ctx, url, **request_kwargs)
+    response = client.get(request_ctx, url, payload=payload, **request_kwargs)
 
     return response
 
 
 def get_user_in_a_course_level_participation_data(request_ctx, course_id, student_id, **request_kwargs):
     """
-    Returns page view hits and participation numbers grouped by day through the
-    entire history of the course. Two hashes are returned, one for page views
-    and one for participations, where the hash keys are dates in the format
-    "YYYY-MM-DD".
+    Returns page view hits grouped by hour, and participation details through the
+    entire history of the course.
+    
+    `page_views` are returned as a hash, where the keys are iso8601 dates, bucketed by the hour.
+    `participations` are returned as an array of hashes, sorted oldest to newest.
 
         :param request_ctx: The request context
         :type request_ctx: :class:RequestContext

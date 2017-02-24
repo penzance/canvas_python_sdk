@@ -1,5 +1,6 @@
 from canvas_sdk import client, utils
 
+
 def days_in_gradebook_history_for_this_course(request_ctx, course_id, per_page=None, **request_kwargs):
     """
     Returns a map of dates to grader/assignment groups
@@ -19,7 +20,7 @@ def days_in_gradebook_history_for_this_course(request_ctx, course_id, per_page=N
         per_page = request_ctx.per_page
     path = '/v1/courses/{course_id}/gradebook_history/days'
     payload = {
-        'per_page' : per_page,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -50,7 +51,7 @@ def details_for_given_date_in_gradebook_history_for_this_course(request_ctx, cou
         per_page = request_ctx.per_page
     path = '/v1/courses/{course_id}/gradebook_history/{date}'
     payload = {
-        'per_page' : per_page,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id, date=date)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -83,7 +84,7 @@ def lists_submissions(request_ctx, course_id, date, grader_id, assignment_id, pe
         per_page = request_ctx.per_page
     path = '/v1/courses/{course_id}/gradebook_history/{date}/graders/{grader_id}/assignments/{assignment_id}/submissions'
     payload = {
-        'per_page' : per_page,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id, date=date, grader_id=grader_id, assignment_id=assignment_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -102,11 +103,16 @@ def list_uncollated_submission_versions(request_ctx, course_id, assignment_id=No
         :type request_ctx: :class:RequestContext
         :param course_id: (required) The id of the contextual course for this API call
         :type course_id: integer
-        :param assignment_id: (optional) The ID of the assignment for which you want to see submissions. If absent, versions of submissions from any assignment in the course are included.
+        :param assignment_id: (optional) The ID of the assignment for which you want to see submissions. If
+absent, versions of submissions from any assignment in the course are
+included.
         :type assignment_id: integer or None
-        :param user_id: (optional) The ID of the user for which you want to see submissions. If absent, versions of submissions from any user in the course are included.
+        :param user_id: (optional) The ID of the user for which you want to see submissions. If absent,
+versions of submissions from any user in the course are included.
         :type user_id: integer or None
-        :param ascending: (optional) Returns submission versions in ascending date order (oldest first). If absent, returns submission versions in descending date order (newest first).
+        :param ascending: (optional) Returns submission versions in ascending date order (oldest first). If
+absent, returns submission versions in descending date order (newest
+first).
         :type ascending: boolean or None
         :param per_page: (optional) Set how many results canvas should return, defaults to config.LIMIT_PER_PAGE
         :type per_page: integer or None
@@ -119,10 +125,10 @@ def list_uncollated_submission_versions(request_ctx, course_id, assignment_id=No
         per_page = request_ctx.per_page
     path = '/v1/courses/{course_id}/gradebook_history/feed'
     payload = {
-        'assignment_id' : assignment_id,
-        'user_id' : user_id,
-        'ascending' : ascending,
-        'per_page' : per_page,
+        'assignment_id': assignment_id,
+        'user_id': user_id,
+        'ascending': ascending,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)

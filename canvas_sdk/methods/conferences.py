@@ -1,18 +1,12 @@
 from canvas_sdk import client, utils
 
+
 def list_conferences_courses(request_ctx, course_id, per_page=None, **request_kwargs):
     """
     Retrieve the list of conferences for this context
     
     This API returns a JSON object containing the list of conferences,
     the key for the list of conferences is "conferences"
-    
-     Examples:
-        curl 'https://<canvas>/api/v1/courses/<course_id>/conferences' \
-            -H "Authorization: Bearer <token>"
-    
-        curl 'https://<canvas>/api/v1/groups/<group_id>/conferences' \
-            -H "Authorization: Bearer <token>"
 
         :param request_ctx: The request context
         :type request_ctx: :class:RequestContext
@@ -29,7 +23,7 @@ def list_conferences_courses(request_ctx, course_id, per_page=None, **request_kw
         per_page = request_ctx.per_page
     path = '/v1/courses/{course_id}/conferences'
     payload = {
-        'per_page' : per_page,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -43,13 +37,6 @@ def list_conferences_groups(request_ctx, group_id, per_page=None, **request_kwar
     
     This API returns a JSON object containing the list of conferences,
     the key for the list of conferences is "conferences"
-    
-     Examples:
-        curl 'https://<canvas>/api/v1/courses/<course_id>/conferences' \
-            -H "Authorization: Bearer <token>"
-    
-        curl 'https://<canvas>/api/v1/groups/<group_id>/conferences' \
-            -H "Authorization: Bearer <token>"
 
         :param request_ctx: The request context
         :type request_ctx: :class:RequestContext
@@ -66,7 +53,7 @@ def list_conferences_groups(request_ctx, group_id, per_page=None, **request_kwar
         per_page = request_ctx.per_page
     path = '/v1/groups/{group_id}/conferences'
     payload = {
-        'per_page' : per_page,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(group_id=group_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)

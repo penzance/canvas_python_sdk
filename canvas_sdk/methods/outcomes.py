@@ -1,5 +1,6 @@
 from canvas_sdk import client, utils
 
+
 def show_outcome(request_ctx, id, **request_kwargs):
     """
     Returns the details of the outcome with the given id.
@@ -20,7 +21,7 @@ def show_outcome(request_ctx, id, **request_kwargs):
     return response
 
 
-def update_outcome(request_ctx, id, title=None, display_name=None, description=None, vendor_guid=None, mastery_points=None, ratings_description=None, ratings_points=None, **request_kwargs):
+def update_outcome(request_ctx, id, title=None, display_name=None, description=None, vendor_guid=None, mastery_points=None, ratings_description=None, ratings_points=None, calculation_method=None, calculation_int=None, **request_kwargs):
     """
     Modify an existing outcome. Fields not provided are left as is;
     unrecognized fields are ignored.
@@ -41,7 +42,8 @@ def update_outcome(request_ctx, id, title=None, display_name=None, description=N
         :type id: string
         :param title: (optional) The new outcome title.
         :type title: string or None
-        :param display_name: (optional) A friendly name shown in reports for outcomes with cryptic titles, such as common core standards names.
+        :param display_name: (optional) A friendly name shown in reports for outcomes with cryptic titles,
+such as common core standards names.
         :type display_name: string or None
         :param description: (optional) The new outcome description.
         :type description: string or None
@@ -50,23 +52,32 @@ def update_outcome(request_ctx, id, title=None, display_name=None, description=N
         :param mastery_points: (optional) The new mastery threshold for the embedded rubric criterion.
         :type mastery_points: integer or None
         :param ratings_description: (optional) The description of a new rating level for the embedded rubric criterion.
-        :type ratings_description: string or None
-        :param ratings_points: (optional) The points corresponding to a new rating level for the embedded rubric criterion.
-        :type ratings_points: integer or None
+        :type ratings_description: array or None
+        :param ratings_points: (optional) The points corresponding to a new rating level for the embedded rubric
+criterion.
+        :type ratings_points: array or None
+        :param calculation_method: (optional) The new calculation method.
+        :type calculation_method: string or None
+        :param calculation_int: (optional) The new calculation int.  Only applies if the calculation_method is "decaying_average" or "n_mastery"
+        :type calculation_int: integer or None
         :return: Update an outcome
         :rtype: requests.Response (with Outcome data)
 
     """
 
+    calculation_method_types = ('decaying_average', 'n_mastery', 'latest', 'highest')
+    utils.validate_attr_is_acceptable(calculation_method, calculation_method_types)
     path = '/v1/outcomes/{id}'
     payload = {
-        'title' : title,
-        'display_name' : display_name,
-        'description' : description,
-        'vendor_guid' : vendor_guid,
-        'mastery_points' : mastery_points,
-        'ratings[description]' : ratings_description,
-        'ratings[points]' : ratings_points,
+        'title': title,
+        'display_name': display_name,
+        'description': description,
+        'vendor_guid': vendor_guid,
+        'mastery_points': mastery_points,
+        'ratings[description]': ratings_description,
+        'ratings[points]': ratings_points,
+        'calculation_method': calculation_method,
+        'calculation_int': calculation_int,
     }
     url = request_ctx.base_api_url + path.format(id=id)
     response = client.put(request_ctx, url, payload=payload, **request_kwargs)

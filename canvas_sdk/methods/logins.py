@@ -1,6 +1,7 @@
 from canvas_sdk import client, utils
 
-def list_user_logins_accounts(request_ctx, account_id, **request_kwargs):
+
+def list_user_logins_accounts(request_ctx, account_id, per_page=None, **request_kwargs):
     """
     Given a user ID, return that user's logins for the given account.
 
@@ -8,19 +9,26 @@ def list_user_logins_accounts(request_ctx, account_id, **request_kwargs):
         :type request_ctx: :class:RequestContext
         :param account_id: (required) ID
         :type account_id: string
+        :param per_page: (optional) Set how many results canvas should return, defaults to config.LIMIT_PER_PAGE
+        :type per_page: integer or None
         :return: List user logins
         :rtype: requests.Response (with void data)
 
     """
 
+    if per_page is None:
+        per_page = request_ctx.per_page
     path = '/v1/accounts/{account_id}/logins'
+    payload = {
+        'per_page': per_page,
+    }
     url = request_ctx.base_api_url + path.format(account_id=account_id)
-    response = client.get(request_ctx, url, **request_kwargs)
+    response = client.get(request_ctx, url, payload=payload, **request_kwargs)
 
     return response
 
 
-def list_user_logins_users(request_ctx, user_id, **request_kwargs):
+def list_user_logins_users(request_ctx, user_id, per_page=None, **request_kwargs):
     """
     Given a user ID, return that user's logins for the given account.
 
@@ -28,19 +36,26 @@ def list_user_logins_users(request_ctx, user_id, **request_kwargs):
         :type request_ctx: :class:RequestContext
         :param user_id: (required) ID
         :type user_id: string
+        :param per_page: (optional) Set how many results canvas should return, defaults to config.LIMIT_PER_PAGE
+        :type per_page: integer or None
         :return: List user logins
         :rtype: requests.Response (with void data)
 
     """
 
+    if per_page is None:
+        per_page = request_ctx.per_page
     path = '/v1/users/{user_id}/logins'
+    payload = {
+        'per_page': per_page,
+    }
     url = request_ctx.base_api_url + path.format(user_id=user_id)
-    response = client.get(request_ctx, url, **request_kwargs)
+    response = client.get(request_ctx, url, payload=payload, **request_kwargs)
 
     return response
 
 
-def create_user_login(request_ctx, account_id, user_id, login_unique_id, login_password=None, login_sis_user_id=None, **request_kwargs):
+def create_user_login(request_ctx, account_id, user_id, login_unique_id, login_password=None, login_sis_user_id=None, login_integration_id=None, login_authentication_provider_id=None, **request_kwargs):
     """
     Create a new login for an existing user in the given account.
 
@@ -54,8 +69,21 @@ def create_user_login(request_ctx, account_id, user_id, login_unique_id, login_p
         :type login_unique_id: string
         :param login_password: (optional) The new login's password.
         :type login_password: string or None
-        :param login_sis_user_id: (optional) SIS ID for the login. To set this parameter, the caller must be able to manage SIS permissions on the account.
+        :param login_sis_user_id: (optional) SIS ID for the login. To set this parameter, the caller must be able to
+manage SIS permissions on the account.
         :type login_sis_user_id: string or None
+        :param login_integration_id: (optional) Integration ID for the login. To set this parameter, the caller must be able to
+manage SIS permissions on the account. The Integration ID is a secondary
+identifier useful for more complex SIS integrations.
+        :type login_integration_id: string or None
+        :param login_authentication_provider_id: (optional) The authentication provider this login is associated with. Logins
+associated with a specific provider can only be used with that provider.
+Legacy providers (LDAP, CAS, SAML) will search for logins associated with
+them, or unassociated logins. New providers will only search for logins
+explicitly associated with them. This can be the integer ID of the
+provider, or the type of the provider (in which case, it will find the
+first matching provider).
+        :type login_authentication_provider_id: string or None
         :return: Create a user login
         :rtype: requests.Response (with void data)
 
@@ -63,10 +91,12 @@ def create_user_login(request_ctx, account_id, user_id, login_unique_id, login_p
 
     path = '/v1/accounts/{account_id}/logins'
     payload = {
-        'user[id]' : user_id,
-        'login[unique_id]' : login_unique_id,
-        'login[password]' : login_password,
-        'login[sis_user_id]' : login_sis_user_id,
+        'user[id]': user_id,
+        'login[unique_id]': login_unique_id,
+        'login[password]': login_password,
+        'login[sis_user_id]': login_sis_user_id,
+        'login[integration_id]': login_integration_id,
+        'login[authentication_provider_id]': login_authentication_provider_id,
     }
     url = request_ctx.base_api_url + path.format(account_id=account_id)
     response = client.post(request_ctx, url, payload=payload, **request_kwargs)
@@ -74,7 +104,7 @@ def create_user_login(request_ctx, account_id, user_id, login_unique_id, login_p
     return response
 
 
-def edit_user_login(request_ctx, account_id, id, login_unique_id=None, login_password=None, login_sis_user_id=None, **request_kwargs):
+def edit_user_login(request_ctx, account_id, id, login_unique_id=None, login_password=None, login_sis_user_id=None, login_integration_id=None, **request_kwargs):
     """
     Update an existing login for a user in the given account.
 
@@ -86,10 +116,16 @@ def edit_user_login(request_ctx, account_id, id, login_unique_id=None, login_pas
         :type id: string
         :param login_unique_id: (optional) The new unique ID for the login.
         :type login_unique_id: string or None
-        :param login_password: (optional) The new password for the login. Can only be set by an admin user if admins are allowed to change passwords for the account.
+        :param login_password: (optional) The new password for the login. Can only be set by an admin user if admins
+are allowed to change passwords for the account.
         :type login_password: string or None
-        :param login_sis_user_id: (optional) SIS ID for the login. To set this parameter, the caller must be able to manage SIS permissions on the account.
+        :param login_sis_user_id: (optional) SIS ID for the login. To set this parameter, the caller must be able to
+manage SIS permissions on the account.
         :type login_sis_user_id: string or None
+        :param login_integration_id: (optional) Integration ID for the login. To set this parameter, the caller must be able to
+manage SIS permissions on the account. The Integration ID is a secondary
+identifier useful for more complex SIS integrations.
+        :type login_integration_id: string or None
         :return: Edit a user login
         :rtype: requests.Response (with void data)
 
@@ -97,9 +133,10 @@ def edit_user_login(request_ctx, account_id, id, login_unique_id=None, login_pas
 
     path = '/v1/accounts/{account_id}/logins/{id}'
     payload = {
-        'login[unique_id]' : login_unique_id,
-        'login[password]' : login_password,
-        'login[sis_user_id]' : login_sis_user_id,
+        'login[unique_id]': login_unique_id,
+        'login[password]': login_password,
+        'login[sis_user_id]': login_sis_user_id,
+        'login[integration_id]': login_integration_id,
     }
     url = request_ctx.base_api_url + path.format(account_id=account_id, id=id)
     response = client.put(request_ctx, url, payload=payload, **request_kwargs)

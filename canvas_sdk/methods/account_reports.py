@@ -1,8 +1,7 @@
 from canvas_sdk import client, utils
-import re
 
 
-def list_available_reports(request_ctx, account_id, **request_kwargs):
+def list_available_reports(request_ctx, account_id, per_page=None, **request_kwargs):
     """
     Returns the list of reports for the current context.
 
@@ -10,19 +9,26 @@ def list_available_reports(request_ctx, account_id, **request_kwargs):
         :type request_ctx: :class:RequestContext
         :param account_id: (required) ID
         :type account_id: string
+        :param per_page: (optional) Set how many results canvas should return, defaults to config.LIMIT_PER_PAGE
+        :type per_page: integer or None
         :return: List Available Reports
         :rtype: requests.Response (with void data)
 
     """
 
+    if per_page is None:
+        per_page = request_ctx.per_page
     path = '/v1/accounts/{account_id}/reports'
+    payload = {
+        'per_page': per_page,
+    }
     url = request_ctx.base_api_url + path.format(account_id=account_id)
-    response = client.get(request_ctx, url, **request_kwargs)
+    response = client.get(request_ctx, url, payload=payload, **request_kwargs)
 
     return response
 
 
-def start_report(request_ctx, account_id, report, parameters, **request_kwargs):
+def start_report(request_ctx, account_id, report, parameters=None, **request_kwargs):
     """
     Generates a report instance for the account.
 
@@ -32,20 +38,17 @@ def start_report(request_ctx, account_id, report, parameters, **request_kwargs):
         :type account_id: string
         :param report: (required) ID
         :type report: string
-        :param parameters: (required) The parameters will vary for each report
-        :type parameters: dict
+        :param parameters: (optional) The parameters will vary for each report
+        :type parameters: string or None
         :return: Start a Report
         :rtype: requests.Response (with Report data)
 
     """
 
     path = '/v1/accounts/{account_id}/reports/{report}'
-
-    # if the parameters dict has keys like 'enrollments', 'xlist', 'include_deleted'
-    # we need to translate them to be like 'parameters[enrollments]'
-    ppat = re.compile('parameters\[.+\]')
-    fix_key = lambda (k, v): (k if ppat.match(str(k)) else 'parameters[{}]'.format(k), v)
-    payload = map(fix_key, parameters.items())
+    payload = {
+        '[parameters]': parameters,
+    }
     url = request_ctx.base_api_url + path.format(account_id=account_id, report=report)
     response = client.post(request_ctx, url, payload=payload, **request_kwargs)
 
@@ -73,7 +76,7 @@ def index_of_reports(request_ctx, account_id, report, per_page=None, **request_k
         per_page = request_ctx.per_page
     path = '/v1/accounts/{account_id}/reports/{report}'
     payload = {
-        'per_page' : per_page,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(account_id=account_id, report=report)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -127,3 +130,5 @@ def delete_report(request_ctx, account_id, report, id, **request_kwargs):
     response = client.delete(request_ctx, url, **request_kwargs)
 
     return response
+
+

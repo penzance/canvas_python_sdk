@@ -1,5 +1,6 @@
 from canvas_sdk import client, utils
 
+
 def create_live_assessment_results(request_ctx, course_id, assessment_id, **request_kwargs):
     """
     Creates live assessment results and adds them to a live assessment
@@ -22,7 +23,7 @@ def create_live_assessment_results(request_ctx, course_id, assessment_id, **requ
     return response
 
 
-def list_live_assessment_results(request_ctx, course_id, assessment_id, user_id=None, **request_kwargs):
+def list_live_assessment_results(request_ctx, course_id, assessment_id, user_id=None, per_page=None, **request_kwargs):
     """
     Returns a list of live assessment results
 
@@ -34,14 +35,19 @@ def list_live_assessment_results(request_ctx, course_id, assessment_id, user_id=
         :type assessment_id: string
         :param user_id: (optional) If set, restrict results to those for this user
         :type user_id: integer or None
+        :param per_page: (optional) Set how many results canvas should return, defaults to config.LIMIT_PER_PAGE
+        :type per_page: integer or None
         :return: List live assessment results
         :rtype: requests.Response (with void data)
 
     """
 
+    if per_page is None:
+        per_page = request_ctx.per_page
     path = '/v1/courses/{course_id}/live_assessments/{assessment_id}/results'
     payload = {
-        'user_id' : user_id,
+        'user_id': user_id,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id, assessment_id=assessment_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -70,7 +76,7 @@ def create_or_find_live_assessment(request_ctx, course_id, **request_kwargs):
     return response
 
 
-def list_live_assessments(request_ctx, course_id, **request_kwargs):
+def list_live_assessments(request_ctx, course_id, per_page=None, **request_kwargs):
     """
     Returns a list of live assessments.
 
@@ -78,14 +84,21 @@ def list_live_assessments(request_ctx, course_id, **request_kwargs):
         :type request_ctx: :class:RequestContext
         :param course_id: (required) ID
         :type course_id: string
+        :param per_page: (optional) Set how many results canvas should return, defaults to config.LIMIT_PER_PAGE
+        :type per_page: integer or None
         :return: List live assessments
         :rtype: requests.Response (with void data)
 
     """
 
+    if per_page is None:
+        per_page = request_ctx.per_page
     path = '/v1/courses/{course_id}/live_assessments'
+    payload = {
+        'per_page': per_page,
+    }
     url = request_ctx.base_api_url + path.format(course_id=course_id)
-    response = client.get(request_ctx, url, **request_kwargs)
+    response = client.get(request_ctx, url, payload=payload, **request_kwargs)
 
     return response
 

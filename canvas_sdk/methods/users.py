@@ -1,11 +1,10 @@
 from canvas_sdk import client, utils
 
 
-def list_users_in_account(request_ctx, account_id, search_term=None,
-                          include=None, per_page=None, **request_kwargs):
+def list_users_in_account(request_ctx, account_id, search_term=None, per_page=None, **request_kwargs):
     """
     Retrieve the list of users associated with this account.
-
+    
      @example_request
        curl https://<canvas>/api/v1/accounts/self/users?search_term=<search value> \
           -X GET \
@@ -24,8 +23,6 @@ in form, or if the numeric value doesn't yield any matches. Queries by
 administrative users will search on SIS ID, name, or email address; non-
 administrative queries will only be compared against name.
         :type search_term: string or None
-        :param include: (optional) One of (avatar_url, email, last_login, time_zone)
-        :type include: array or None
         :param per_page: (optional) Set how many results canvas should return, defaults to config.LIMIT_PER_PAGE
         :type per_page: integer or None
         :return: List users in account
@@ -35,11 +32,8 @@ administrative queries will only be compared against name.
 
     if per_page is None:
         per_page = request_ctx.per_page
-    include_types = ('avatar_url', 'email', 'last_login', 'time_zone')
-    utils.validate_attr_is_acceptable(include, include_types)
     path = '/v1/accounts/{account_id}/users'
     payload = {
-        'include[]': include,
         'search_term': search_term,
         'per_page': per_page,
     }
@@ -49,7 +43,7 @@ administrative queries will only be compared against name.
     return response
 
 
-def list_activity_stream_self(request_ctx, **request_kwargs):
+def list_activity_stream_self(request_ctx, per_page=None, **request_kwargs):
     """
     Returns the current user's global activity stream, paginated.
     
@@ -62,7 +56,7 @@ def list_activity_stream_self(request_ctx, **request_kwargs):
         'id': 1234,
         'title': 'Stream Item Subject',
         'message': 'This is the body text of the activity stream item. It is plain-text, and can be multiple paragraphs.',
-        'type': 'DiscussionTopic|Conversation|Message|Submission|Conference|Collaboration|...',
+        'type': 'DiscussionTopic|Conversation|Message|Submission|Conference|Collaboration|AssessmentRequest...',
         'read_state': false,
         'context_type': 'course', // course|group
         'course_id': 1,
@@ -142,22 +136,37 @@ def list_activity_stream_self(request_ctx, **request_kwargs):
         'type': 'Collaboration',
         'collaboration_id': 1234
       }
+    
+    AssessmentRequest:
+    
+      !!!javascript
+      {
+        'type': 'AssessmentRequest',
+        'assessment_request_id': 1234
+      }
 
         :param request_ctx: The request context
         :type request_ctx: :class:RequestContext
+        :param per_page: (optional) Set how many results canvas should return, defaults to config.LIMIT_PER_PAGE
+        :type per_page: integer or None
         :return: List the activity stream
         :rtype: requests.Response (with void data)
 
     """
 
+    if per_page is None:
+        per_page = request_ctx.per_page
     path = '/v1/users/self/activity_stream'
+    payload = {
+        'per_page': per_page,
+    }
     url = request_ctx.base_api_url + path.format()
-    response = client.get(request_ctx, url, **request_kwargs)
+    response = client.get(request_ctx, url, payload=payload, **request_kwargs)
 
     return response
 
 
-def list_activity_stream_activity_stream(request_ctx, **request_kwargs):
+def list_activity_stream_activity_stream(request_ctx, per_page=None, **request_kwargs):
     """
     Returns the current user's global activity stream, paginated.
     
@@ -170,7 +179,7 @@ def list_activity_stream_activity_stream(request_ctx, **request_kwargs):
         'id': 1234,
         'title': 'Stream Item Subject',
         'message': 'This is the body text of the activity stream item. It is plain-text, and can be multiple paragraphs.',
-        'type': 'DiscussionTopic|Conversation|Message|Submission|Conference|Collaboration|...',
+        'type': 'DiscussionTopic|Conversation|Message|Submission|Conference|Collaboration|AssessmentRequest...',
         'read_state': false,
         'context_type': 'course', // course|group
         'course_id': 1,
@@ -250,17 +259,32 @@ def list_activity_stream_activity_stream(request_ctx, **request_kwargs):
         'type': 'Collaboration',
         'collaboration_id': 1234
       }
+    
+    AssessmentRequest:
+    
+      !!!javascript
+      {
+        'type': 'AssessmentRequest',
+        'assessment_request_id': 1234
+      }
 
         :param request_ctx: The request context
         :type request_ctx: :class:RequestContext
+        :param per_page: (optional) Set how many results canvas should return, defaults to config.LIMIT_PER_PAGE
+        :type per_page: integer or None
         :return: List the activity stream
         :rtype: requests.Response (with void data)
 
     """
 
+    if per_page is None:
+        per_page = request_ctx.per_page
     path = '/v1/users/activity_stream'
+    payload = {
+        'per_page': per_page,
+    }
     url = request_ctx.base_api_url + path.format()
-    response = client.get(request_ctx, url, **request_kwargs)
+    response = client.get(request_ctx, url, payload=payload, **request_kwargs)
 
     return response
 
@@ -283,7 +307,7 @@ def activity_stream_summary(request_ctx, **request_kwargs):
     return response
 
 
-def list_todo_items(request_ctx, **request_kwargs):
+def list_todo_items(request_ctx, include=None, per_page=None, **request_kwargs):
     """
     Returns the current user's list of todo items, as seen on the user dashboard.
     
@@ -298,33 +322,81 @@ def list_todo_items(request_ctx, **request_kwargs):
 
         :param request_ctx: The request context
         :type request_ctx: :class:RequestContext
+        :param include: (optional) "ungraded_quizzes":: Optionally include ungraded quizzes (such as practice quizzes and surveys) in the list.
+                     These will be returned under a +quiz+ key instead of an +assignment+ key in response elements.
+        :type include: array or None
+        :param per_page: (optional) Set how many results canvas should return, defaults to config.LIMIT_PER_PAGE
+        :type per_page: integer or None
         :return: List the TODO items
         :rtype: requests.Response (with void data)
 
     """
 
+    if per_page is None:
+        per_page = request_ctx.per_page
+    include_types = ('ungraded_quizzes')
+    utils.validate_attr_is_acceptable(include, include_types)
     path = '/v1/users/self/todo'
+    payload = {
+        'include': include,
+        'per_page': per_page,
+    }
     url = request_ctx.base_api_url + path.format()
-    response = client.get(request_ctx, url, **request_kwargs)
+    response = client.get(request_ctx, url, payload=payload, **request_kwargs)
 
     return response
 
 
-def list_upcoming_assignments_calendar_events(request_ctx, **request_kwargs):
+def list_upcoming_assignments_calendar_events(request_ctx, per_page=None, **request_kwargs):
     """
     Returns the current user's upcoming events, i.e. the same things shown
     in the dashboard 'Coming Up' sidebar.
 
         :param request_ctx: The request context
         :type request_ctx: :class:RequestContext
+        :param per_page: (optional) Set how many results canvas should return, defaults to config.LIMIT_PER_PAGE
+        :type per_page: integer or None
         :return: List upcoming assignments, calendar events
         :rtype: requests.Response (with void data)
 
     """
 
+    if per_page is None:
+        per_page = request_ctx.per_page
     path = '/v1/users/self/upcoming_events'
+    payload = {
+        'per_page': per_page,
+    }
     url = request_ctx.base_api_url + path.format()
-    response = client.get(request_ctx, url, **request_kwargs)
+    response = client.get(request_ctx, url, payload=payload, **request_kwargs)
+
+    return response
+
+
+def list_missing_submissions(request_ctx, user_id, per_page=None, **request_kwargs):
+    """
+    returns past-due assignments for which the student does not have a submission.
+    The user sending the request must either be an admin or a parent observer using the parent app
+
+        :param request_ctx: The request context
+        :type request_ctx: :class:RequestContext
+        :param user_id: (required) the student's ID
+        :type user_id: string
+        :param per_page: (optional) Set how many results canvas should return, defaults to config.LIMIT_PER_PAGE
+        :type per_page: integer or None
+        :return: List Missing Submissions
+        :rtype: requests.Response (with array data)
+
+    """
+
+    if per_page is None:
+        per_page = request_ctx.per_page
+    path = '/v1/users/{user_id}/missing_submissions'
+    payload = {
+        'per_page': per_page,
+    }
+    url = request_ctx.base_api_url + path.format(user_id=user_id)
+    response = client.get(request_ctx, url, payload=payload, **request_kwargs)
 
     return response
 
@@ -395,7 +467,35 @@ def upload_file(request_ctx, user_id, **request_kwargs):
     return response
 
 
-def create_user(request_ctx, account_id, pseudonym_unique_id, user_name=None, user_short_name=None, user_sortable_name=None, user_time_zone=None, user_locale=None, user_birthdate=None, user_terms_of_use=None, pseudonym_password=None, pseudonym_sis_user_id=None, pseudonym_send_confirmation=None, communication_channel_type=None, communication_channel_address=None, communication_channel_skip_confirmation=None, **request_kwargs):
+def show_user_details(request_ctx, id, **request_kwargs):
+    """
+    Shows details for user.
+    
+    Also includes an attribute "permissions", a non-comprehensive list of permissions for the user.
+    Example:
+      !!!javascript
+      "permissions": {
+       "can_update_name": true, // Whether the user can update their name.
+       "can_update_avatar": false // Whether the user can update their avatar.
+      }
+
+        :param request_ctx: The request context
+        :type request_ctx: :class:RequestContext
+        :param id: (required) ID
+        :type id: string
+        :return: Show user details
+        :rtype: requests.Response (with User data)
+
+    """
+
+    path = '/v1/users/{id}'
+    url = request_ctx.base_api_url + path.format(id=id)
+    response = client.get(request_ctx, url, **request_kwargs)
+
+    return response
+
+
+def create_user(request_ctx, account_id, pseudonym_unique_id, user_name=None, user_short_name=None, user_sortable_name=None, user_time_zone=None, user_locale=None, user_birthdate=None, user_terms_of_use=None, user_skip_registration=None, pseudonym_password=None, pseudonym_sis_user_id=None, pseudonym_integration_id=None, pseudonym_send_confirmation=None, pseudonym_force_self_registration=None, pseudonym_authentication_provider_id=None, communication_channel_type=None, communication_channel_address=None, communication_channel_confirmation_url=None, communication_channel_skip_confirmation=None, force_validations=None, enable_sis_reactivation=None, **request_kwargs):
     """
     Create and return a new user and pseudonym for an account.
     
@@ -408,34 +508,91 @@ def create_user(request_ctx, account_id, pseudonym_unique_id, user_name=None, us
         :type request_ctx: :class:RequestContext
         :param account_id: (required) ID
         :type account_id: string
-        :param pseudonym_unique_id: (required) User's login ID. If this is a self-registration, it must be a valid email address.
+        :param pseudonym_unique_id: (required) User's login ID. If this is a self-registration, it must be a valid
+email address.
         :type pseudonym_unique_id: string
-        :param user_name: (optional) The full name of the user. This name will be used by teacher for grading. Required if this is a self-registration.
+        :param user_name: (optional) The full name of the user. This name will be used by teacher for grading.
+Required if this is a self-registration.
         :type user_name: string or None
         :param user_short_name: (optional) User's name as it will be displayed in discussions, messages, and comments.
         :type user_short_name: string or None
         :param user_sortable_name: (optional) User's name as used to sort alphabetically in lists.
         :type user_sortable_name: string or None
-        :param user_time_zone: (optional) The time zone for the user. Allowed time zones are {http://www.iana.org/time-zones IANA time zones} or friendlier {http://api.rubyonrails.org/classes/ActiveSupport/TimeZone.html Ruby on Rails time zones}.
+        :param user_time_zone: (optional) The time zone for the user. Allowed time zones are
+{http://www.iana.org/time-zones IANA time zones} or friendlier
+{http://api.rubyonrails.org/classes/ActiveSupport/TimeZone.html Ruby on Rails time zones}.
         :type user_time_zone: string or None
-        :param user_locale: (optional) The user's preferred language as a two-letter ISO 639-1 code.
+        :param user_locale: (optional) The user's preferred language, from the list of languages Canvas supports.
+This is in RFC-5646 format.
         :type user_locale: string or None
         :param user_birthdate: (optional) The user's birth date.
-        :type user_birthdate: date or None
-        :param user_terms_of_use: (optional) Whether the user accepts the terms of use. Required if this is a self-registration and this canvas instance requires users to accept the terms (on by default).
+        :type user_birthdate: Date or None
+        :param user_terms_of_use: (optional) Whether the user accepts the terms of use. Required if this is a
+self-registration and this canvas instance requires users to accept
+the terms (on by default).
+
+If this is true, it will mark the user as having accepted the terms of use.
         :type user_terms_of_use: boolean or None
+        :param user_skip_registration: (optional) Automatically mark the user as registered.
+
+If this is true, it is recommended to set <tt>"pseudonym[send_confirmation]"</tt> to true as well.
+Otherwise, the user will not receive any messages about their account creation.
+
+The users communication channel confirmation can be skipped by setting
+<tt>"communication_channel[skip_confirmation]"</tt> to true as well.
+        :type user_skip_registration: boolean or None
         :param pseudonym_password: (optional) User's password. Cannot be set during self-registration.
         :type pseudonym_password: string or None
-        :param pseudonym_sis_user_id: (optional) SIS ID for the user's account. To set this parameter, the caller must be able to manage SIS permissions.
+        :param pseudonym_sis_user_id: (optional) SIS ID for the user's account. To set this parameter, the caller must be
+able to manage SIS permissions.
         :type pseudonym_sis_user_id: string or None
-        :param pseudonym_send_confirmation: (optional) Send user notification of account creation if true. Automatically set to true during self-registration.
+        :param pseudonym_integration_id: (optional) Integration ID for the login. To set this parameter, the caller must be able to
+manage SIS permissions. The Integration ID is a secondary
+identifier useful for more complex SIS integrations.
+        :type pseudonym_integration_id: string or None
+        :param pseudonym_send_confirmation: (optional) Send user notification of account creation if true.
+Automatically set to true during self-registration.
         :type pseudonym_send_confirmation: boolean or None
+        :param pseudonym_force_self_registration: (optional) Send user a self-registration style email if true.
+Setting it means the users will get a notification asking them
+to "complete the registration process" by clicking it, setting
+a password, and letting them in.  Will only be executed on
+if the user does not need admin approval.
+Defaults to false unless explicitly provided.
+        :type pseudonym_force_self_registration: boolean or None
+        :param pseudonym_authentication_provider_id: (optional) The authentication provider this login is associated with. Logins
+associated with a specific provider can only be used with that provider.
+Legacy providers (LDAP, CAS, SAML) will search for logins associated with
+them, or unassociated logins. New providers will only search for logins
+explicitly associated with them. This can be the integer ID of the
+provider, or the type of the provider (in which case, it will find the
+first matching provider).
+        :type pseudonym_authentication_provider_id: string or None
         :param communication_channel_type: (optional) The communication channel type, e.g. 'email' or 'sms'.
         :type communication_channel_type: string or None
         :param communication_channel_address: (optional) The communication channel address, e.g. the user's email address.
         :type communication_channel_address: string or None
-        :param communication_channel_skip_confirmation: (optional) Only valid for site admins and account admins making requests; If true, the channel is automatically validated and no confirmation email or SMS is sent. Otherwise, the user must respond to a confirmation message to confirm the channel.
+        :param communication_channel_confirmation_url: (optional) Only valid for account admins. If true, returns the new user account
+confirmation URL in the response.
+        :type communication_channel_confirmation_url: boolean or None
+        :param communication_channel_skip_confirmation: (optional) Only valid for site admins and account admins making requests; If true, the channel is
+automatically validated and no confirmation email or SMS is sent.
+Otherwise, the user must respond to a confirmation message to confirm the
+channel.
+
+If this is true, it is recommended to set <tt>"pseudonym[send_confirmation]"</tt> to true as well.
+Otherwise, the user will not receive any messages about their account creation.
         :type communication_channel_skip_confirmation: boolean or None
+        :param force_validations: (optional) If true, validations are performed on the newly created user (and their associated pseudonym)
+even if the request is made by a privileged user like an admin. When set to false,
+or not included in the request parameters, any newly created users are subject to
+validations unless the request is made by a user with a 'manage_user_logins' right.
+In which case, certain validations such as 'require_acceptance_of_terms' and
+'require_presence_of_name' are not enforced. Use this parameter to return helpful json
+errors while building users with an admin request.
+        :type force_validations: boolean or None
+        :param enable_sis_reactivation: (optional) When true, will first try to re-activate a deleted user with matching sis_user_id if possible.
+        :type enable_sis_reactivation: boolean or None
         :return: Create a user
         :rtype: requests.Response (with User data)
 
@@ -443,20 +600,27 @@ def create_user(request_ctx, account_id, pseudonym_unique_id, user_name=None, us
 
     path = '/v1/accounts/{account_id}/users'
     payload = {
-        'user[name]' : user_name,
-        'user[short_name]' : user_short_name,
-        'user[sortable_name]' : user_sortable_name,
-        'user[time_zone]' : user_time_zone,
-        'user[locale]' : user_locale,
-        'user[birthdate]' : user_birthdate,
-        'user[terms_of_use]' : user_terms_of_use,
-        'pseudonym[unique_id]' : pseudonym_unique_id,
-        'pseudonym[password]' : pseudonym_password,
-        'pseudonym[sis_user_id]' : pseudonym_sis_user_id,
-        'pseudonym[send_confirmation]' : pseudonym_send_confirmation,
-        'communication_channel[type]' : communication_channel_type,
-        'communication_channel[address]' : communication_channel_address,
-        'communication_channel[skip_confirmation]' : communication_channel_skip_confirmation,
+        'user[name]': user_name,
+        'user[short_name]': user_short_name,
+        'user[sortable_name]': user_sortable_name,
+        'user[time_zone]': user_time_zone,
+        'user[locale]': user_locale,
+        'user[birthdate]': user_birthdate,
+        'user[terms_of_use]': user_terms_of_use,
+        'user[skip_registration]': user_skip_registration,
+        'pseudonym[unique_id]': pseudonym_unique_id,
+        'pseudonym[password]': pseudonym_password,
+        'pseudonym[sis_user_id]': pseudonym_sis_user_id,
+        'pseudonym[integration_id]': pseudonym_integration_id,
+        'pseudonym[send_confirmation]': pseudonym_send_confirmation,
+        'pseudonym[force_self_registration]': pseudonym_force_self_registration,
+        'pseudonym[authentication_provider_id]': pseudonym_authentication_provider_id,
+        'communication_channel[type]': communication_channel_type,
+        'communication_channel[address]': communication_channel_address,
+        'communication_channel[confirmation_url]': communication_channel_confirmation_url,
+        'communication_channel[skip_confirmation]': communication_channel_skip_confirmation,
+        'force_validations': force_validations,
+        'enable_sis_reactivation': enable_sis_reactivation,
     }
     url = request_ctx.base_api_url + path.format(account_id=account_id)
     response = client.post(request_ctx, url, payload=payload, **request_kwargs)
@@ -464,7 +628,65 @@ def create_user(request_ctx, account_id, pseudonym_unique_id, user_name=None, us
     return response
 
 
-def update_user_settings(request_ctx, id, manual_mark_as_read, **request_kwargs):
+def self_register_user(request_ctx, account_id, user_name, user_terms_of_use, pseudonym_unique_id, user_short_name=None, user_sortable_name=None, user_time_zone=None, user_locale=None, user_birthdate=None, communication_channel_type=None, communication_channel_address=None, **request_kwargs):
+    """
+    Self register and return a new user and pseudonym for an account.
+    
+    If self-registration is enabled on the account, you can use this
+    endpoint to self register new users.
+
+        :param request_ctx: The request context
+        :type request_ctx: :class:RequestContext
+        :param account_id: (required) ID
+        :type account_id: string
+        :param user_name: (required) The full name of the user. This name will be used by teacher for grading.
+        :type user_name: string
+        :param user_terms_of_use: (required) Whether the user accepts the terms of use.
+        :type user_terms_of_use: boolean
+        :param pseudonym_unique_id: (required) User's login ID. Must be a valid email address.
+        :type pseudonym_unique_id: string
+        :param user_short_name: (optional) User's name as it will be displayed in discussions, messages, and comments.
+        :type user_short_name: string or None
+        :param user_sortable_name: (optional) User's name as used to sort alphabetically in lists.
+        :type user_sortable_name: string or None
+        :param user_time_zone: (optional) The time zone for the user. Allowed time zones are
+{http://www.iana.org/time-zones IANA time zones} or friendlier
+{http://api.rubyonrails.org/classes/ActiveSupport/TimeZone.html Ruby on Rails time zones}.
+        :type user_time_zone: string or None
+        :param user_locale: (optional) The user's preferred language, from the list of languages Canvas supports.
+This is in RFC-5646 format.
+        :type user_locale: string or None
+        :param user_birthdate: (optional) The user's birth date.
+        :type user_birthdate: Date or None
+        :param communication_channel_type: (optional) The communication channel type, e.g. 'email' or 'sms'.
+        :type communication_channel_type: string or None
+        :param communication_channel_address: (optional) The communication channel address, e.g. the user's email address.
+        :type communication_channel_address: string or None
+        :return: Self register a user
+        :rtype: requests.Response (with User data)
+
+    """
+
+    path = '/v1/accounts/{account_id}/self_registration'
+    payload = {
+        'user[name]': user_name,
+        'user[short_name]': user_short_name,
+        'user[sortable_name]': user_sortable_name,
+        'user[time_zone]': user_time_zone,
+        'user[locale]': user_locale,
+        'user[birthdate]': user_birthdate,
+        'user[terms_of_use]': user_terms_of_use,
+        'pseudonym[unique_id]': pseudonym_unique_id,
+        'communication_channel[type]': communication_channel_type,
+        'communication_channel[address]': communication_channel_address,
+    }
+    url = request_ctx.base_api_url + path.format(account_id=account_id)
+    response = client.post(request_ctx, url, payload=payload, **request_kwargs)
+
+    return response
+
+
+def update_user_settings(request_ctx, id, manual_mark_as_read=None, collapse_global_nav=None, **request_kwargs):
     """
     Update an existing user's settings.
 
@@ -472,8 +694,11 @@ def update_user_settings(request_ctx, id, manual_mark_as_read, **request_kwargs)
         :type request_ctx: :class:RequestContext
         :param id: (required) ID
         :type id: string
-        :param manual_mark_as_read: (required) If true, require user to manually mark discussion posts as read (don't auto-mark as read).
-        :type manual_mark_as_read: boolean
+        :param manual_mark_as_read: (optional) If true, require user to manually mark discussion posts as read (don't
+auto-mark as read).
+        :type manual_mark_as_read: boolean or None
+        :param collapse_global_nav: (optional) If true, the user's page loads with the global navigation collapsed
+        :type collapse_global_nav: boolean or None
         :return: Update user settings.
         :rtype: requests.Response (with void data)
 
@@ -481,7 +706,8 @@ def update_user_settings(request_ctx, id, manual_mark_as_read, **request_kwargs)
 
     path = '/v1/users/{id}/settings'
     payload = {
-        'manual_mark_as_read' : manual_mark_as_read,
+        'manual_mark_as_read': manual_mark_as_read,
+        'collapse_global_nav': collapse_global_nav,
     }
     url = request_ctx.base_api_url + path.format(id=id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -489,7 +715,130 @@ def update_user_settings(request_ctx, id, manual_mark_as_read, **request_kwargs)
     return response
 
 
-def edit_user(request_ctx, id, user_name=None, user_short_name=None, user_sortable_name=None, user_time_zone=None, user_locale=None, user_avatar_token=None, user_avatar_url=None, **request_kwargs):
+def get_custom_colors(request_ctx, id, **request_kwargs):
+    """
+    Returns all custom colors that have been saved for a user.
+
+        :param request_ctx: The request context
+        :type request_ctx: :class:RequestContext
+        :param id: (required) ID
+        :type id: string
+        :return: Get custom colors
+        :rtype: requests.Response (with void data)
+
+    """
+
+    path = '/v1/users/{id}/colors'
+    url = request_ctx.base_api_url + path.format(id=id)
+    response = client.get(request_ctx, url, **request_kwargs)
+
+    return response
+
+
+def get_custom_color(request_ctx, id, asset_string, **request_kwargs):
+    """
+    Returns the custom colors that have been saved for a user for a given context.
+    
+    The asset_string parameter should be in the format 'context_id', for example
+    'course_42'.
+
+        :param request_ctx: The request context
+        :type request_ctx: :class:RequestContext
+        :param id: (required) ID
+        :type id: string
+        :param asset_string: (required) ID
+        :type asset_string: string
+        :return: Get custom color
+        :rtype: requests.Response (with void data)
+
+    """
+
+    path = '/v1/users/{id}/colors/{asset_string}'
+    url = request_ctx.base_api_url + path.format(id=id, asset_string=asset_string)
+    response = client.get(request_ctx, url, **request_kwargs)
+
+    return response
+
+
+def update_custom_color(request_ctx, id, asset_string, hexcode=None, **request_kwargs):
+    """
+    Updates a custom color for a user for a given context.  This allows
+    colors for the calendar and elsewhere to be customized on a user basis.
+    
+    The asset string parameter should be in the format 'context_id', for example
+    'course_42'
+
+        :param request_ctx: The request context
+        :type request_ctx: :class:RequestContext
+        :param id: (required) ID
+        :type id: string
+        :param asset_string: (required) ID
+        :type asset_string: string
+        :param hexcode: (optional) The hexcode of the color to set for the context, if you choose to pass the
+hexcode as a query parameter rather than in the request body you should
+NOT include the '#' unless you escape it first.
+        :type hexcode: string or None
+        :return: Update custom color
+        :rtype: requests.Response (with void data)
+
+    """
+
+    path = '/v1/users/{id}/colors/{asset_string}'
+    payload = {
+        'hexcode': hexcode,
+    }
+    url = request_ctx.base_api_url + path.format(id=id, asset_string=asset_string)
+    response = client.put(request_ctx, url, payload=payload, **request_kwargs)
+
+    return response
+
+
+def get_dashboard_postions(request_ctx, id, **request_kwargs):
+    """
+    Returns all dashboard positions that have been saved for a user.
+
+        :param request_ctx: The request context
+        :type request_ctx: :class:RequestContext
+        :param id: (required) ID
+        :type id: string
+        :return: Get dashboard postions
+        :rtype: requests.Response (with void data)
+
+    """
+
+    path = '/v1/users/{id}/dashboard_positions'
+    url = request_ctx.base_api_url + path.format(id=id)
+    response = client.get(request_ctx, url, **request_kwargs)
+
+    return response
+
+
+def update_dashboard_positions(request_ctx, id, **request_kwargs):
+    """
+    Updates the dashboard positions for a user for a given context.  This allows
+    positions for the dashboard cards and elsewhere to be customized on a per
+    user basis.
+    
+    The asset string parameter should be in the format 'context_id', for example
+    'course_42'
+
+        :param request_ctx: The request context
+        :type request_ctx: :class:RequestContext
+        :param id: (required) ID
+        :type id: string
+        :return: Update dashboard positions
+        :rtype: requests.Response (with void data)
+
+    """
+
+    path = '/v1/users/{id}/dashboard_positions'
+    url = request_ctx.base_api_url + path.format(id=id)
+    response = client.put(request_ctx, url, **request_kwargs)
+
+    return response
+
+
+def edit_user(request_ctx, id, user_name=None, user_short_name=None, user_sortable_name=None, user_time_zone=None, user_email=None, user_locale=None, user_avatar_token=None, user_avatar_url=None, **request_kwargs):
     """
     Modify an existing user. To modify a user's login, see the documentation for logins.
 
@@ -503,13 +852,26 @@ def edit_user(request_ctx, id, user_name=None, user_short_name=None, user_sortab
         :type user_short_name: string or None
         :param user_sortable_name: (optional) User's name as used to sort alphabetically in lists.
         :type user_sortable_name: string or None
-        :param user_time_zone: (optional) The time zone for the user. Allowed time zones are {http://www.iana.org/time-zones IANA time zones} or friendlier {http://api.rubyonrails.org/classes/ActiveSupport/TimeZone.html Ruby on Rails time zones}.
+        :param user_time_zone: (optional) The time zone for the user. Allowed time zones are
+{http://www.iana.org/time-zones IANA time zones} or friendlier
+{http://api.rubyonrails.org/classes/ActiveSupport/TimeZone.html Ruby on Rails time zones}.
         :type user_time_zone: string or None
-        :param user_locale: (optional) The user's preferred language as a two-letter ISO 639-1 code.
+        :param user_email: (optional) The default email address of the user.
+        :type user_email: string or None
+        :param user_locale: (optional) The user's preferred language, from the list of languages Canvas supports.
+This is in RFC-5646 format.
         :type user_locale: string or None
-        :param user_avatar_token: (optional) A unique representation of the avatar record to assign as the user's current avatar. This token can be obtained from the user avatars endpoint. This supersedes the user[avatar][url] argument, and if both are included the url will be ignored. Note: this is an internal representation and is subject to change without notice. It should be consumed with this api endpoint and used in the user update endpoint, and should not be constructed by the client.
+        :param user_avatar_token: (optional) A unique representation of the avatar record to assign as the user's
+current avatar. This token can be obtained from the user avatars endpoint.
+This supersedes the user [avatar] [url] argument, and if both are included
+the url will be ignored. Note: this is an internal representation and is
+subject to change without notice. It should be consumed with this api
+endpoint and used in the user update endpoint, and should not be
+constructed by the client.
         :type user_avatar_token: string or None
-        :param user_avatar_url: (optional) To set the user's avatar to point to an external url, do not include a token and instead pass the url here. Warning: For maximum compatibility, please use 128 px square images.
+        :param user_avatar_url: (optional) To set the user's avatar to point to an external url, do not include a
+token and instead pass the url here. Warning: For maximum compatibility,
+please use 128 px square images.
         :type user_avatar_url: string or None
         :return: Edit a user
         :rtype: requests.Response (with User data)
@@ -518,13 +880,14 @@ def edit_user(request_ctx, id, user_name=None, user_short_name=None, user_sortab
 
     path = '/v1/users/{id}'
     payload = {
-        'user[name]' : user_name,
-        'user[short_name]' : user_short_name,
-        'user[sortable_name]' : user_sortable_name,
-        'user[time_zone]' : user_time_zone,
-        'user[locale]' : user_locale,
-        'user[avatar][token]' : user_avatar_token,
-        'user[avatar][url]' : user_avatar_url,
+        'user[name]': user_name,
+        'user[short_name]': user_short_name,
+        'user[sortable_name]': user_sortable_name,
+        'user[time_zone]': user_time_zone,
+        'user[email]': user_email,
+        'user[locale]': user_locale,
+        'user[avatar][token]': user_avatar_token,
+        'user[avatar][url]': user_avatar_url,
     }
     url = request_ctx.base_api_url + path.format(id=id)
     response = client.put(request_ctx, url, payload=payload, **request_kwargs)
@@ -532,35 +895,12 @@ def edit_user(request_ctx, id, user_name=None, user_short_name=None, user_sortab
     return response
 
 
-def delete_user(request_ctx, account_id, id, **request_kwargs):
-    """
-    Delete a user record from Canvas.
-    
-    WARNING: This API will allow a user to delete themselves. If you do this,
-    you won't be able to make API calls or log into Canvas.
-
-        :param request_ctx: The request context
-        :type request_ctx: :class:RequestContext
-        :param account_id: (required) ID
-        :type account_id: string
-        :param id: (required) ID
-        :type id: string
-        :return: Delete a user
-        :rtype: requests.Response (with User data)
-
-    """
-
-    path = '/v1/accounts/{account_id}/users/{id}'
-    url = request_ctx.base_api_url + path.format(account_id=account_id, id=id)
-    response = client.delete(request_ctx, url, **request_kwargs)
-
-    return response
-
-
 def merge_user_into_another_user_destination_user_id(request_ctx, id, destination_user_id, **request_kwargs):
     """
     Merge a user into another user.
-    To merge users, the caller must have permissions to manage both users.
+    To merge users, the caller must have permissions to manage both users. This
+    should be considered irreversible. This will delete the user and move all
+    the data into the destination user.
     
     When finding users by SIS ids in different accounts the
     destination_account_id is required.
@@ -588,7 +928,9 @@ def merge_user_into_another_user_destination_user_id(request_ctx, id, destinatio
 def merge_user_into_another_user_accounts(request_ctx, id, destination_account_id, destination_user_id, **request_kwargs):
     """
     Merge a user into another user.
-    To merge users, the caller must have permissions to manage both users.
+    To merge users, the caller must have permissions to manage both users. This
+    should be considered irreversible. This will delete the user and move all
+    the data into the destination user.
     
     When finding users by SIS ids in different accounts the
     destination_account_id is required.
@@ -615,12 +957,50 @@ def merge_user_into_another_user_accounts(request_ctx, id, destination_account_i
     return response
 
 
+def split_merged_users_into_separate_users(request_ctx, id, per_page=None, **request_kwargs):
+    """
+    Merged users cannot be fully restored to their previous state, but this will
+    attempt to split as much as possible to the previous state.
+    To split a merged user, the caller must have permissions to manage all of
+    the users logins. If there are multiple users that have been merged into one
+    user it will split each merge into a separate user.
+    A split can only happen within 90 days of a user merge. A user merge deletes
+    the previous user and may be permanently deleted. In this scenario we create
+    a new user object and proceed to move as much as possible to the new user.
+    The user object will not have preserved the name or settings from the
+    previous user. Some items may have been deleted during a user_merge that
+    cannot be restored, and/or the data has become stale because of other
+    changes to the objects since the time of the user_merge.
+
+        :param request_ctx: The request context
+        :type request_ctx: :class:RequestContext
+        :param id: (required) ID
+        :type id: string
+        :param per_page: (optional) Set how many results canvas should return, defaults to config.LIMIT_PER_PAGE
+        :type per_page: integer or None
+        :return: Split merged users into separate users
+        :rtype: requests.Response (with array data)
+
+    """
+
+    if per_page is None:
+        per_page = request_ctx.per_page
+    path = '/v1/users/{id}/split'
+    payload = {
+        'per_page': per_page,
+    }
+    url = request_ctx.base_api_url + path.format(id=id)
+    response = client.post(request_ctx, url, payload=payload, **request_kwargs)
+
+    return response
+
+
 def get_user_profile(request_ctx, user_id, **request_kwargs):
     """
     Returns user profile data, including user id, name, and profile pic.
     
     When requesting the profile for the user accessing the API, the user's
-    calendar feed URL will be returned as well.
+    calendar feed URL and LTI user id will be returned as well.
 
         :param request_ctx: The request context
         :type request_ctx: :class:RequestContext
@@ -665,7 +1045,7 @@ def list_avatar_options(request_ctx, user_id, per_page=None, **request_kwargs):
         per_page = request_ctx.per_page
     path = '/v1/users/{user_id}/avatars'
     payload = {
-        'per_page' : per_page,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(user_id=user_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -684,9 +1064,9 @@ def list_user_page_views(request_ctx, user_id, start_time=None, end_time=None, p
         :param user_id: (required) ID
         :type user_id: string
         :param start_time: (optional) The beginning of the time range from which you want page views.
-        :type start_time: datetime or None
+        :type start_time: DateTime or None
         :param end_time: (optional) The end of the time range from which you want page views.
-        :type end_time: datetime or None
+        :type end_time: DateTime or None
         :param per_page: (optional) Set how many results canvas should return, defaults to config.LIMIT_PER_PAGE
         :type per_page: integer or None
         :return: List user page views
@@ -698,9 +1078,9 @@ def list_user_page_views(request_ctx, user_id, start_time=None, end_time=None, p
         per_page = request_ctx.per_page
     path = '/v1/users/{user_id}/page_views'
     payload = {
-        'start_time' : start_time,
-        'end_time' : end_time,
-        'per_page' : per_page,
+        'start_time': start_time,
+        'end_time': end_time,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(user_id=user_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -708,7 +1088,7 @@ def list_user_page_views(request_ctx, user_id, start_time=None, end_time=None, p
     return response
 
 
-def store_custom_data(request_ctx, user_id, scope, ns, data, **request_kwargs):
+def store_custom_data(request_ctx, user_id, ns, data, **request_kwargs):
     """
     Store arbitrary user data as JSON.
     
@@ -717,6 +1097,10 @@ def store_custom_data(request_ctx, user_id, scope, ns, data, **request_kwargs):
     and wants to capture additional info about them.  The part of the URL that follows
     +/custom_data/+ defines the scope of the request, and it reflects the structure of
     the JSON data to be stored or retrieved.
+    
+    The value +self+ may be used for +user_id+ to store data associated with the calling user.
+    In order to access another user's custom data, you must be an account administrator with
+    permission to manage users.
     
     A namespace parameter, +ns+, is used to prevent custom_data collisions between
     different apps.  This parameter is required for all custom_data requests.
@@ -738,7 +1122,7 @@ def store_custom_data(request_ctx, user_id, scope, ns, data, **request_kwargs):
       }
     
     Subscopes (or, generated scopes) can also be specified by passing values to
-    data[<subscope>].
+    +data+[+subscope+].
     
     Example PUT specifying subscopes:
       curl 'https://<canvas>/api/v1/users/<user_id>/custom_data/body/measurements' \
@@ -856,29 +1240,30 @@ def store_custom_data(request_ctx, user_id, scope, ns, data, **request_kwargs):
         :type request_ctx: :class:RequestContext
         :param user_id: (required) ID
         :type user_id: string
-        :param scope: (required) ID
-        :type scope: string
-        :param ns: (required) The namespace under which to store the data. This should be something other Canvas API apps aren't likely to use, such as a reverse DNS for your organization.
+        :param ns: (required) The namespace under which to store the data.  This should be something other
+Canvas API apps aren't likely to use, such as a reverse DNS for your organization.
         :type ns: string
-        :param data: (required) The data you want to store for the user, at the specified scope. If the data is composed of (possibly nested) JSON objects, scopes will be generated for the (nested) keys (see examples).
-        :type data: json
+        :param data: (required) The data you want to store for the user, at the specified scope.  If the data is
+composed of (possibly nested) JSON objects, scopes will be generated for the (nested)
+keys (see examples).
+        :type data: JSON
         :return: Store custom data
         :rtype: requests.Response (with void data)
 
     """
 
-    path = '/v1/users/{user_id}/custom_data/{scope}'
+    path = '/v1/users/{user_id}/custom_data'
     payload = {
-        'ns' : ns,
-        'data' : data,
+        'ns': ns,
+        'data': data,
     }
-    url = request_ctx.base_api_url + path.format(user_id=user_id, scope=scope)
+    url = request_ctx.base_api_url + path.format(user_id=user_id)
     response = client.put(request_ctx, url, payload=payload, **request_kwargs)
 
     return response
 
 
-def load_custom_data(request_ctx, user_id, scope, ns, **request_kwargs):
+def load_custom_data(request_ctx, user_id, ns, **request_kwargs):
     """
     Load custom user data.
     
@@ -896,26 +1281,25 @@ def load_custom_data(request_ctx, user_id, scope, ns, **request_kwargs):
         :type request_ctx: :class:RequestContext
         :param user_id: (required) ID
         :type user_id: string
-        :param scope: (required) ID
-        :type scope: string
-        :param ns: (required) The namespace from which to retrieve the data. This should be something other Canvas API apps aren't likely to use, such as a reverse DNS for your organization.
+        :param ns: (required) The namespace from which to retrieve the data.  This should be something other
+Canvas API apps aren't likely to use, such as a reverse DNS for your organization.
         :type ns: string
         :return: Load custom data
         :rtype: requests.Response (with void data)
 
     """
 
-    path = '/v1/users/{user_id}/custom_data/{scope}'
+    path = '/v1/users/{user_id}/custom_data'
     payload = {
-        'ns' : ns,
+        'ns': ns,
     }
-    url = request_ctx.base_api_url + path.format(user_id=user_id, scope=scope)
+    url = request_ctx.base_api_url + path.format(user_id=user_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
 
     return response
 
 
-def delete_custom_data(request_ctx, user_id, scope, ns, **request_kwargs):
+def delete_custom_data(request_ctx, user_id, ns, **request_kwargs):
     """
     Delete custom user data.
     
@@ -1025,21 +1409,131 @@ def delete_custom_data(request_ctx, user_id, scope, ns, **request_kwargs):
         :type request_ctx: :class:RequestContext
         :param user_id: (required) ID
         :type user_id: string
-        :param scope: (required) ID
-        :type scope: string
-        :param ns: (required) The namespace from which to delete the data. This should be something other Canvas API apps aren't likely to use, such as a reverse DNS for your organization.
+        :param ns: (required) The namespace from which to delete the data.  This should be something other
+Canvas API apps aren't likely to use, such as a reverse DNS for your organization.
         :type ns: string
         :return: Delete custom data
         :rtype: requests.Response (with void data)
 
     """
 
-    path = '/v1/users/{user_id}/custom_data/{scope}'
+    path = '/v1/users/{user_id}/custom_data'
     payload = {
-        'ns' : ns,
+        'ns': ns,
     }
-    url = request_ctx.base_api_url + path.format(user_id=user_id, scope=scope)
+    url = request_ctx.base_api_url + path.format(user_id=user_id)
     response = client.delete(request_ctx, url, payload=payload, **request_kwargs)
+
+    return response
+
+
+def list_course_nicknames(request_ctx, per_page=None, **request_kwargs):
+    """
+    Returns all course nicknames you have set.
+
+        :param request_ctx: The request context
+        :type request_ctx: :class:RequestContext
+        :param per_page: (optional) Set how many results canvas should return, defaults to config.LIMIT_PER_PAGE
+        :type per_page: integer or None
+        :return: List course nicknames
+        :rtype: requests.Response (with array data)
+
+    """
+
+    if per_page is None:
+        per_page = request_ctx.per_page
+    path = '/v1/users/self/course_nicknames'
+    payload = {
+        'per_page': per_page,
+    }
+    url = request_ctx.base_api_url + path.format()
+    response = client.get(request_ctx, url, payload=payload, **request_kwargs)
+
+    return response
+
+
+def get_course_nickname(request_ctx, course_id, **request_kwargs):
+    """
+    Returns the nickname for a specific course.
+
+        :param request_ctx: The request context
+        :type request_ctx: :class:RequestContext
+        :param course_id: (required) ID
+        :type course_id: string
+        :return: Get course nickname
+        :rtype: requests.Response (with CourseNickname data)
+
+    """
+
+    path = '/v1/users/self/course_nicknames/{course_id}'
+    url = request_ctx.base_api_url + path.format(course_id=course_id)
+    response = client.get(request_ctx, url, **request_kwargs)
+
+    return response
+
+
+def set_course_nickname(request_ctx, course_id, nickname, **request_kwargs):
+    """
+    Set a nickname for the given course. This will replace the course's name
+    in output of API calls you make subsequently, as well as in selected
+    places in the Canvas web user interface.
+
+        :param request_ctx: The request context
+        :type request_ctx: :class:RequestContext
+        :param course_id: (required) ID
+        :type course_id: string
+        :param nickname: (required) The nickname to set.  It must be non-empty and shorter than 60 characters.
+        :type nickname: string
+        :return: Set course nickname
+        :rtype: requests.Response (with CourseNickname data)
+
+    """
+
+    path = '/v1/users/self/course_nicknames/{course_id}'
+    payload = {
+        'nickname': nickname,
+    }
+    url = request_ctx.base_api_url + path.format(course_id=course_id)
+    response = client.put(request_ctx, url, payload=payload, **request_kwargs)
+
+    return response
+
+
+def remove_course_nickname(request_ctx, course_id, **request_kwargs):
+    """
+    Remove the nickname for the given course.
+    Subsequent course API calls will return the actual name for the course.
+
+        :param request_ctx: The request context
+        :type request_ctx: :class:RequestContext
+        :param course_id: (required) ID
+        :type course_id: string
+        :return: Remove course nickname
+        :rtype: requests.Response (with CourseNickname data)
+
+    """
+
+    path = '/v1/users/self/course_nicknames/{course_id}'
+    url = request_ctx.base_api_url + path.format(course_id=course_id)
+    response = client.delete(request_ctx, url, **request_kwargs)
+
+    return response
+
+
+def clear_course_nicknames(request_ctx, **request_kwargs):
+    """
+    Remove all stored course nicknames.
+
+        :param request_ctx: The request context
+        :type request_ctx: :class:RequestContext
+        :return: Clear course nicknames
+        :rtype: requests.Response (with void data)
+
+    """
+
+    path = '/v1/users/self/course_nicknames'
+    url = request_ctx.base_api_url + path.format()
+    response = client.delete(request_ctx, url, **request_kwargs)
 
     return response
 

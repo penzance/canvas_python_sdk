@@ -1,6 +1,7 @@
 from canvas_sdk import client, utils
 
-def list_poll_sessions_for_poll(request_ctx, poll_id, **request_kwargs):
+
+def list_poll_sessions_for_poll(request_ctx, poll_id, per_page=None, **request_kwargs):
     """
     Returns the list of PollSessions in this poll.
 
@@ -8,14 +9,21 @@ def list_poll_sessions_for_poll(request_ctx, poll_id, **request_kwargs):
         :type request_ctx: :class:RequestContext
         :param poll_id: (required) ID
         :type poll_id: string
+        :param per_page: (optional) Set how many results canvas should return, defaults to config.LIMIT_PER_PAGE
+        :type per_page: integer or None
         :return: List poll sessions for a poll
         :rtype: requests.Response (with void data)
 
     """
 
+    if per_page is None:
+        per_page = request_ctx.per_page
     path = '/v1/polls/{poll_id}/poll_sessions'
+    payload = {
+        'per_page': per_page,
+    }
     url = request_ctx.base_api_url + path.format(poll_id=poll_id)
-    response = client.get(request_ctx, url, **request_kwargs)
+    response = client.get(request_ctx, url, payload=payload, **request_kwargs)
 
     return response
 
@@ -51,11 +59,11 @@ def create_single_poll_session(request_ctx, poll_id, poll_sessions_course_id, po
         :param poll_id: (required) ID
         :type poll_id: string
         :param poll_sessions_course_id: (required) The id of the course this session is associated with.
-        :type poll_sessions_course_id: integer
+        :type poll_sessions_course_id: array
         :param poll_sessions_course_section_id: (optional) The id of the course section this session is associated with.
-        :type poll_sessions_course_section_id: integer or None
+        :type poll_sessions_course_section_id: array or None
         :param poll_sessions_has_public_results: (optional) Whether or not results are viewable by students.
-        :type poll_sessions_has_public_results: boolean or None
+        :type poll_sessions_has_public_results: array or None
         :return: Create a single poll session
         :rtype: requests.Response (with void data)
 
@@ -63,9 +71,9 @@ def create_single_poll_session(request_ctx, poll_id, poll_sessions_course_id, po
 
     path = '/v1/polls/{poll_id}/poll_sessions'
     payload = {
-        'poll_sessions[course_id]' : poll_sessions_course_id,
-        'poll_sessions[course_section_id]' : poll_sessions_course_section_id,
-        'poll_sessions[has_public_results]' : poll_sessions_has_public_results,
+        'poll_sessions[course_id]': poll_sessions_course_id,
+        'poll_sessions[course_section_id]': poll_sessions_course_section_id,
+        'poll_sessions[has_public_results]': poll_sessions_has_public_results,
     }
     url = request_ctx.base_api_url + path.format(poll_id=poll_id)
     response = client.post(request_ctx, url, payload=payload, **request_kwargs)
@@ -73,7 +81,7 @@ def create_single_poll_session(request_ctx, poll_id, poll_sessions_course_id, po
     return response
 
 
-def update_single_poll_session(request_ctx, poll_id, id, poll_sessions_course_id, poll_sessions_course_section_id, poll_sessions_has_public_results=None, **request_kwargs):
+def update_single_poll_session(request_ctx, poll_id, id, poll_sessions_course_id=None, poll_sessions_course_section_id=None, poll_sessions_has_public_results=None, **request_kwargs):
     """
     Update an existing poll session for this poll
 
@@ -83,12 +91,12 @@ def update_single_poll_session(request_ctx, poll_id, id, poll_sessions_course_id
         :type poll_id: string
         :param id: (required) ID
         :type id: string
-        :param poll_sessions_course_id: (required) The id of the course this session is associated with.
-        :type poll_sessions_course_id: integer
-        :param poll_sessions_course_section_id: (required) The id of the course section this session is associated with.
-        :type poll_sessions_course_section_id: integer
+        :param poll_sessions_course_id: (optional) The id of the course this session is associated with.
+        :type poll_sessions_course_id: array or None
+        :param poll_sessions_course_section_id: (optional) The id of the course section this session is associated with.
+        :type poll_sessions_course_section_id: array or None
         :param poll_sessions_has_public_results: (optional) Whether or not results are viewable by students.
-        :type poll_sessions_has_public_results: boolean or None
+        :type poll_sessions_has_public_results: array or None
         :return: Update a single poll session
         :rtype: requests.Response (with void data)
 
@@ -96,9 +104,9 @@ def update_single_poll_session(request_ctx, poll_id, id, poll_sessions_course_id
 
     path = '/v1/polls/{poll_id}/poll_sessions/{id}'
     payload = {
-        'poll_sessions[course_id]' : poll_sessions_course_id,
-        'poll_sessions[course_section_id]' : poll_sessions_course_section_id,
-        'poll_sessions[has_public_results]' : poll_sessions_has_public_results,
+        'poll_sessions[course_id]': poll_sessions_course_id,
+        'poll_sessions[course_section_id]': poll_sessions_course_section_id,
+        'poll_sessions[has_public_results]': poll_sessions_has_public_results,
     }
     url = request_ctx.base_api_url + path.format(poll_id=poll_id, id=id)
     response = client.put(request_ctx, url, payload=payload, **request_kwargs)
@@ -170,38 +178,52 @@ def close_opened_poll_session(request_ctx, poll_id, id, **request_kwargs):
     return response
 
 
-def list_opened_poll_sessions(request_ctx, **request_kwargs):
+def list_opened_poll_sessions(request_ctx, per_page=None, **request_kwargs):
     """
     Lists all opened poll sessions available to the current user.
 
         :param request_ctx: The request context
         :type request_ctx: :class:RequestContext
+        :param per_page: (optional) Set how many results canvas should return, defaults to config.LIMIT_PER_PAGE
+        :type per_page: integer or None
         :return: List opened poll sessions
         :rtype: requests.Response (with void data)
 
     """
 
+    if per_page is None:
+        per_page = request_ctx.per_page
     path = '/v1/poll_sessions/opened'
+    payload = {
+        'per_page': per_page,
+    }
     url = request_ctx.base_api_url + path.format()
-    response = client.get(request_ctx, url, **request_kwargs)
+    response = client.get(request_ctx, url, payload=payload, **request_kwargs)
 
     return response
 
 
-def list_closed_poll_sessions(request_ctx, **request_kwargs):
+def list_closed_poll_sessions(request_ctx, per_page=None, **request_kwargs):
     """
     Lists all closed poll sessions available to the current user.
 
         :param request_ctx: The request context
         :type request_ctx: :class:RequestContext
+        :param per_page: (optional) Set how many results canvas should return, defaults to config.LIMIT_PER_PAGE
+        :type per_page: integer or None
         :return: List closed poll sessions
         :rtype: requests.Response (with void data)
 
     """
 
+    if per_page is None:
+        per_page = request_ctx.per_page
     path = '/v1/poll_sessions/closed'
+    payload = {
+        'per_page': per_page,
+    }
     url = request_ctx.base_api_url + path.format()
-    response = client.get(request_ctx, url, **request_kwargs)
+    response = client.get(request_ctx, url, payload=payload, **request_kwargs)
 
     return response
 

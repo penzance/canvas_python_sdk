@@ -1,6 +1,7 @@
 from canvas_sdk import client, utils
 
-def list_poll_choices_in_poll(request_ctx, poll_id, **request_kwargs):
+
+def list_poll_choices_in_poll(request_ctx, poll_id, per_page=None, **request_kwargs):
     """
     Returns the list of PollChoices in this poll.
 
@@ -8,14 +9,21 @@ def list_poll_choices_in_poll(request_ctx, poll_id, **request_kwargs):
         :type request_ctx: :class:RequestContext
         :param poll_id: (required) ID
         :type poll_id: string
+        :param per_page: (optional) Set how many results canvas should return, defaults to config.LIMIT_PER_PAGE
+        :type per_page: integer or None
         :return: List poll choices in a poll
         :rtype: requests.Response (with void data)
 
     """
 
+    if per_page is None:
+        per_page = request_ctx.per_page
     path = '/v1/polls/{poll_id}/poll_choices'
+    payload = {
+        'per_page': per_page,
+    }
     url = request_ctx.base_api_url + path.format(poll_id=poll_id)
-    response = client.get(request_ctx, url, **request_kwargs)
+    response = client.get(request_ctx, url, payload=payload, **request_kwargs)
 
     return response
 
@@ -51,11 +59,11 @@ def create_single_poll_choice(request_ctx, poll_id, poll_choices_text, poll_choi
         :param poll_id: (required) ID
         :type poll_id: string
         :param poll_choices_text: (required) The descriptive text of the poll choice.
-        :type poll_choices_text: string
+        :type poll_choices_text: array
         :param poll_choices_is_correct: (optional) Whether this poll choice is considered correct or not. Defaults to false.
-        :type poll_choices_is_correct: boolean or None
+        :type poll_choices_is_correct: array or None
         :param poll_choices_position: (optional) The order this poll choice should be returned in the context it's sibling poll choices.
-        :type poll_choices_position: integer or None
+        :type poll_choices_position: array or None
         :return: Create a single poll choice
         :rtype: requests.Response (with void data)
 
@@ -63,9 +71,9 @@ def create_single_poll_choice(request_ctx, poll_id, poll_choices_text, poll_choi
 
     path = '/v1/polls/{poll_id}/poll_choices'
     payload = {
-        'poll_choices[text]' : poll_choices_text,
-        'poll_choices[is_correct]' : poll_choices_is_correct,
-        'poll_choices[position]' : poll_choices_position,
+        'poll_choices[text]': poll_choices_text,
+        'poll_choices[is_correct]': poll_choices_is_correct,
+        'poll_choices[position]': poll_choices_position,
     }
     url = request_ctx.base_api_url + path.format(poll_id=poll_id)
     response = client.post(request_ctx, url, payload=payload, **request_kwargs)
@@ -84,11 +92,11 @@ def update_single_poll_choice(request_ctx, poll_id, id, poll_choices_text, poll_
         :param id: (required) ID
         :type id: string
         :param poll_choices_text: (required) The descriptive text of the poll choice.
-        :type poll_choices_text: string
-        :param poll_choices_is_correct: (optional) Whether this poll choice is considered correct or not. Defaults to false.
-        :type poll_choices_is_correct: boolean or None
+        :type poll_choices_text: array
+        :param poll_choices_is_correct: (optional) Whether this poll choice is considered correct or not.  Defaults to false.
+        :type poll_choices_is_correct: array or None
         :param poll_choices_position: (optional) The order this poll choice should be returned in the context it's sibling poll choices.
-        :type poll_choices_position: integer or None
+        :type poll_choices_position: array or None
         :return: Update a single poll choice
         :rtype: requests.Response (with void data)
 
@@ -96,9 +104,9 @@ def update_single_poll_choice(request_ctx, poll_id, id, poll_choices_text, poll_
 
     path = '/v1/polls/{poll_id}/poll_choices/{id}'
     payload = {
-        'poll_choices[text]' : poll_choices_text,
-        'poll_choices[is_correct]' : poll_choices_is_correct,
-        'poll_choices[position]' : poll_choices_position,
+        'poll_choices[text]': poll_choices_text,
+        'poll_choices[is_correct]': poll_choices_is_correct,
+        'poll_choices[position]': poll_choices_position,
     }
     url = request_ctx.base_api_url + path.format(poll_id=poll_id, id=id)
     response = client.put(request_ctx, url, payload=payload, **request_kwargs)

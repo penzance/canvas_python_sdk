@@ -1,5 +1,6 @@
 from canvas_sdk import client, utils
 
+
 def query_by_assignment(request_ctx, assignment_id, start_time=None, end_time=None, per_page=None, **request_kwargs):
     """
     List grade change events for a given assignment.
@@ -9,9 +10,9 @@ def query_by_assignment(request_ctx, assignment_id, start_time=None, end_time=No
         :param assignment_id: (required) ID
         :type assignment_id: string
         :param start_time: (optional) The beginning of the time range from which you want events.
-        :type start_time: datetime or None
+        :type start_time: DateTime or None
         :param end_time: (optional) The end of the time range from which you want events.
-        :type end_time: datetime or None
+        :type end_time: DateTime or None
         :param per_page: (optional) Set how many results canvas should return, defaults to config.LIMIT_PER_PAGE
         :type per_page: integer or None
         :return: Query by assignment.
@@ -23,9 +24,9 @@ def query_by_assignment(request_ctx, assignment_id, start_time=None, end_time=No
         per_page = request_ctx.per_page
     path = '/v1/audit/grade_change/assignments/{assignment_id}'
     payload = {
-        'start_time' : start_time,
-        'end_time' : end_time,
-        'per_page' : per_page,
+        'start_time': start_time,
+        'end_time': end_time,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(assignment_id=assignment_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -42,9 +43,9 @@ def query_by_course(request_ctx, course_id, start_time=None, end_time=None, per_
         :param course_id: (required) ID
         :type course_id: string
         :param start_time: (optional) The beginning of the time range from which you want events.
-        :type start_time: datetime or None
+        :type start_time: DateTime or None
         :param end_time: (optional) The end of the time range from which you want events.
-        :type end_time: datetime or None
+        :type end_time: DateTime or None
         :param per_page: (optional) Set how many results canvas should return, defaults to config.LIMIT_PER_PAGE
         :type per_page: integer or None
         :return: Query by course.
@@ -56,9 +57,9 @@ def query_by_course(request_ctx, course_id, start_time=None, end_time=None, per_
         per_page = request_ctx.per_page
     path = '/v1/audit/grade_change/courses/{course_id}'
     payload = {
-        'start_time' : start_time,
-        'end_time' : end_time,
-        'per_page' : per_page,
+        'start_time': start_time,
+        'end_time': end_time,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -75,9 +76,9 @@ def query_by_student(request_ctx, student_id, start_time=None, end_time=None, pe
         :param student_id: (required) ID
         :type student_id: string
         :param start_time: (optional) The beginning of the time range from which you want events.
-        :type start_time: datetime or None
+        :type start_time: DateTime or None
         :param end_time: (optional) The end of the time range from which you want events.
-        :type end_time: datetime or None
+        :type end_time: DateTime or None
         :param per_page: (optional) Set how many results canvas should return, defaults to config.LIMIT_PER_PAGE
         :type per_page: integer or None
         :return: Query by student.
@@ -89,9 +90,9 @@ def query_by_student(request_ctx, student_id, start_time=None, end_time=None, pe
         per_page = request_ctx.per_page
     path = '/v1/audit/grade_change/students/{student_id}'
     payload = {
-        'start_time' : start_time,
-        'end_time' : end_time,
-        'per_page' : per_page,
+        'start_time': start_time,
+        'end_time': end_time,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(student_id=student_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -108,9 +109,9 @@ def query_by_grader(request_ctx, grader_id, start_time=None, end_time=None, per_
         :param grader_id: (required) ID
         :type grader_id: string
         :param start_time: (optional) The beginning of the time range from which you want events.
-        :type start_time: datetime or None
+        :type start_time: DateTime or None
         :param end_time: (optional) The end of the time range from which you want events.
-        :type end_time: datetime or None
+        :type end_time: DateTime or None
         :param per_page: (optional) Set how many results canvas should return, defaults to config.LIMIT_PER_PAGE
         :type per_page: integer or None
         :return: Query by grader.
@@ -122,9 +123,9 @@ def query_by_grader(request_ctx, grader_id, start_time=None, end_time=None, per_
         per_page = request_ctx.per_page
     path = '/v1/audit/grade_change/graders/{grader_id}'
     payload = {
-        'start_time' : start_time,
-        'end_time' : end_time,
-        'per_page' : per_page,
+        'start_time': start_time,
+        'end_time': end_time,
+        'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(grader_id=grader_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
