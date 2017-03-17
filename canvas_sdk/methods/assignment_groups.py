@@ -43,8 +43,8 @@ Periods feature turned on. In addition, the current user must be a student.)
     utils.validate_attr_is_acceptable(exclude_assignment_submission_types, exclude_assignment_submission_types_types)
     path = '/v1/courses/{course_id}/assignment_groups'
     payload = {
-        'include': include,
-        'exclude_assignment_submission_types': exclude_assignment_submission_types,
+        'include[]': include,
+        'exclude_assignment_submission_types[]': exclude_assignment_submission_types,
         'override_assignment_dates': override_assignment_dates,
         'grading_period_id': grading_period_id,
         'scope_assignments_to_student': scope_assignments_to_student,
@@ -84,7 +84,7 @@ requires that the Differentiated Assignments course feature be turned on.
     utils.validate_attr_is_acceptable(include, include_types)
     path = '/v1/courses/{course_id}/assignment_groups/{assignment_group_id}'
     payload = {
-        'include': include,
+        'include[]': include,
         'override_assignment_dates': override_assignment_dates,
         'grading_period_id': grading_period_id,
     }

@@ -28,7 +28,7 @@ be included.
     utils.validate_attr_is_acceptable(state, state_types)
     path = '/v1/accounts/{account_id}/roles'
     payload = {
-        'state': state,
+        'state[]': state,
         'show_inherited': show_inherited,
         'per_page': per_page,
     }

@@ -63,8 +63,8 @@ def create_single_poll(request_ctx, polls_question, polls_description=None, **re
 
     path = '/v1/polls'
     payload = {
-        'polls[question]': polls_question,
-        'polls[description]': polls_description,
+        'polls[question][]': polls_question,
+        'polls[description][]': polls_description,
     }
     url = request_ctx.base_api_url + path.format()
     response = client.post(request_ctx, url, payload=payload, **request_kwargs)
@@ -91,8 +91,8 @@ def update_single_poll(request_ctx, id, polls_question, polls_description=None, 
 
     path = '/v1/polls/{id}'
     payload = {
-        'polls[question]': polls_question,
-        'polls[description]': polls_description,
+        'polls[question][]': polls_question,
+        'polls[description][]': polls_description,
     }
     url = request_ctx.base_api_url + path.format(id=id)
     response = client.put(request_ctx, url, payload=payload, **request_kwargs)

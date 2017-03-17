@@ -24,7 +24,7 @@ def submit_captured_events(request_ctx, course_id, quiz_id, id, quiz_submission_
 
     path = '/v1/courses/{course_id}/quizzes/{quiz_id}/submissions/{id}/events'
     payload = {
-        'quiz_submission_events': quiz_submission_events,
+        'quiz_submission_events[]': quiz_submission_events,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id, quiz_id=quiz_id, id=id)
     response = client.post(request_ctx, url, payload=payload, **request_kwargs)

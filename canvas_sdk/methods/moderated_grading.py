@@ -52,7 +52,7 @@ def select_students_for_moderation(request_ctx, course_id, assignment_id, studen
         per_page = request_ctx.per_page
     path = '/v1/courses/{course_id}/assignments/{assignment_id}/moderated_students'
     payload = {
-        'student_ids': student_ids,
+        'student_ids[]': student_ids,
         'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id, assignment_id=assignment_id)

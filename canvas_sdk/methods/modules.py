@@ -39,7 +39,7 @@ specified) to match and return.
     utils.validate_attr_is_acceptable(include, include_types)
     path = '/v1/courses/{course_id}/modules'
     payload = {
-        'include': include,
+        'include[]': include,
         'search_term': search_term,
         'student_id': student_id,
         'per_page': per_page,
@@ -83,7 +83,7 @@ def show_module(request_ctx, course_id, id, include=None, student_id=None, **req
     utils.validate_attr_is_acceptable(include, include_types)
     path = '/v1/courses/{course_id}/modules/{id}'
     payload = {
-        'include': include,
+        'include[]': include,
         'student_id': student_id,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id, id=id)
@@ -126,7 +126,7 @@ completion of this module.
         'module[unlock_at]': module_unlock_at,
         'module[position]': module_position,
         'module[require_sequential_progress]': module_require_sequential_progress,
-        'module[prerequisite_module_ids]': module_prerequisite_module_ids,
+        'module[prerequisite_module_ids][]': module_prerequisite_module_ids,
         'module[publish_final_grade]': module_publish_final_grade,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id)
@@ -173,7 +173,7 @@ completion of this module.
         'module[unlock_at]': module_unlock_at,
         'module[position]': module_position,
         'module[require_sequential_progress]': module_require_sequential_progress,
-        'module[prerequisite_module_ids]': module_prerequisite_module_ids,
+        'module[prerequisite_module_ids][]': module_prerequisite_module_ids,
         'module[publish_final_grade]': module_publish_final_grade,
         'module[published]': module_published,
     }
@@ -263,7 +263,7 @@ Includes standard lock information for each item.
     utils.validate_attr_is_acceptable(include, include_types)
     path = '/v1/courses/{course_id}/modules/{module_id}/items'
     payload = {
-        'include': include,
+        'include[]': include,
         'search_term': search_term,
         'student_id': student_id,
         'per_page': per_page,
@@ -302,7 +302,7 @@ Includes standard lock information for each item.
     utils.validate_attr_is_acceptable(include, include_types)
     path = '/v1/courses/{course_id}/modules/{module_id}/items/{id}'
     payload = {
-        'include': include,
+        'include[]': include,
         'student_id': student_id,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id, module_id=module_id, id=id)

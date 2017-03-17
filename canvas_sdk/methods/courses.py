@@ -120,8 +120,8 @@ anything except "deleted", for all other enrollment types
         'enrollment_role': enrollment_role,
         'enrollment_role_id': enrollment_role_id,
         'enrollment_state': enrollment_state,
-        'include': include,
-        'state': state,
+        'include[]': include,
+        'state[]': state,
         'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format()
@@ -228,8 +228,8 @@ This will respect section/course/term date overrides.
     utils.validate_attr_is_acceptable(enrollment_state, enrollment_state_types)
     path = '/v1/users/{user_id}/courses'
     payload = {
-        'include': include,
-        'state': state,
+        'include[]': include,
+        'state[]': state,
         'enrollment_state': enrollment_state,
         'per_page': per_page,
     }
@@ -493,13 +493,13 @@ with the "user_id" argument but multiple user_ids can be included.
     path = '/v1/courses/{course_id}/users'
     payload = {
         'search_term': search_term,
-        'enrollment_type': enrollment_type,
+        'enrollment_type[]': enrollment_type,
         'enrollment_role': enrollment_role,
         'enrollment_role_id': enrollment_role_id,
-        'include': include,
+        'include[]': include,
         'user_id': user_id,
-        'user_ids': user_ids,
-        'enrollment_state': enrollment_state,
+        'user_ids[]': user_ids,
+        'enrollment_state[]': enrollment_state,
         'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id)
@@ -584,13 +584,13 @@ with the "user_id" argument but multiple user_ids can be included.
     path = '/v1/courses/{course_id}/search_users'
     payload = {
         'search_term': search_term,
-        'enrollment_type': enrollment_type,
+        'enrollment_type[]': enrollment_type,
         'enrollment_role': enrollment_role,
         'enrollment_role_id': enrollment_role_id,
-        'include': include,
+        'include[]': include,
         'user_id': user_id,
-        'user_ids': user_ids,
-        'enrollment_state': enrollment_state,
+        'user_ids[]': user_ids,
+        'enrollment_state[]': enrollment_state,
         'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id)
@@ -875,7 +875,7 @@ def get_single_course_courses(request_ctx, id, include=None, **request_kwargs):
     utils.validate_attr_is_acceptable(include, include_types)
     path = '/v1/courses/{id}'
     payload = {
-        'include': include,
+        'include[]': include,
     }
     url = request_ctx.base_api_url + path.format(id=id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -911,7 +911,7 @@ def get_single_course_accounts(request_ctx, account_id, id, include=None, **requ
     utils.validate_attr_is_acceptable(include, include_types)
     path = '/v1/accounts/{account_id}/courses/{id}'
     payload = {
-        'include': include,
+        'include[]': include,
     }
     url = request_ctx.base_api_url + path.format(account_id=account_id, id=id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -1108,7 +1108,7 @@ def update_courses(request_ctx, account_id, course_ids, event, **request_kwargs)
     utils.validate_attr_is_acceptable(event, event_types)
     path = '/v1/accounts/{account_id}/courses'
     payload = {
-        'course_ids': course_ids,
+        'course_ids[]': course_ids,
         'event': event,
     }
     url = request_ctx.base_api_url + path.format(account_id=account_id)
@@ -1163,7 +1163,7 @@ def get_effective_due_dates(request_ctx, course_id, assignment_ids=None, **reque
 
     path = '/v1/courses/{course_id}/effective_due_dates'
     payload = {
-        'assignment_ids': assignment_ids,
+        'assignment_ids[]': assignment_ids,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -1188,7 +1188,7 @@ def permissions(request_ctx, course_id, permissions=None, **request_kwargs):
 
     path = '/v1/courses/{course_id}/permissions'
     payload = {
-        'permissions': permissions,
+        'permissions[]': permissions,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -1254,8 +1254,8 @@ be copied.
     path = '/v1/courses/{course_id}/course_copy'
     payload = {
         'source_course': source_course,
-        'except': var_except,
-        'only': only,
+        'except[]': var_except,
+        'only[]': only,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id)
     response = client.post(request_ctx, url, payload=payload, **request_kwargs)

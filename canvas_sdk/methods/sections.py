@@ -31,7 +31,7 @@ def list_course_sections(request_ctx, course_id, include=None, per_page=None, **
     utils.validate_attr_is_acceptable(include, include_types)
     path = '/v1/courses/{course_id}/sections'
     payload = {
-        'include': include,
+        'include[]': include,
         'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id)
@@ -188,7 +188,7 @@ def get_section_information_courses(request_ctx, course_id, id, include=None, **
     utils.validate_attr_is_acceptable(include, include_types)
     path = '/v1/courses/{course_id}/sections/{id}'
     payload = {
-        'include': include,
+        'include[]': include,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id, id=id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -222,7 +222,7 @@ def get_section_information_sections(request_ctx, id, include=None, **request_kw
     utils.validate_attr_is_acceptable(include, include_types)
     path = '/v1/sections/{id}'
     payload = {
-        'include': include,
+        'include[]': include,
     }
     url = request_ctx.base_api_url + path.format(id=id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)

@@ -29,7 +29,7 @@ def get_all_quiz_submissions(request_ctx, course_id, quiz_id, include=None, **re
     utils.validate_attr_is_acceptable(include, include_types)
     path = '/v1/courses/{course_id}/quizzes/{quiz_id}/submissions'
     payload = {
-        'include': include,
+        'include[]': include,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id, quiz_id=quiz_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -60,7 +60,7 @@ def get_quiz_submission(request_ctx, course_id, quiz_id, include=None, **request
     utils.validate_attr_is_acceptable(include, include_types)
     path = '/v1/courses/{course_id}/quizzes/{quiz_id}/submission'
     payload = {
-        'include': include,
+        'include[]': include,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id, quiz_id=quiz_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -93,7 +93,7 @@ def get_single_quiz_submission(request_ctx, course_id, quiz_id, id, include=None
     utils.validate_attr_is_acceptable(include, include_types)
     path = '/v1/courses/{course_id}/quizzes/{quiz_id}/submissions/{id}'
     payload = {
-        'include': include,
+        'include[]': include,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id, quiz_id=quiz_id, id=id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)

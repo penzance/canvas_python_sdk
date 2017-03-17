@@ -48,11 +48,11 @@ they don't grant the permission(s).
     payload = {
         'search': search,
         'context': context,
-        'exclude': exclude,
+        'exclude[]': exclude,
         'type': type,
         'user_id': user_id,
         'from_conversation_id': from_conversation_id,
-        'permissions': permissions,
+        'permissions[]': permissions,
     }
     url = request_ctx.base_api_url + path.format()
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -107,11 +107,11 @@ they don't grant the permission(s).
     payload = {
         'search': search,
         'context': context,
-        'exclude': exclude,
+        'exclude[]': exclude,
         'type': type,
         'user_id': user_id,
         'from_conversation_id': from_conversation_id,
-        'permissions': permissions,
+        'permissions[]': permissions,
     }
     url = request_ctx.base_api_url + path.format()
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)

@@ -93,7 +93,7 @@ def list_account_admins(request_ctx, account_id, user_id=None, per_page=None, **
         per_page = request_ctx.per_page
     path = '/v1/accounts/{account_id}/admins'
     payload = {
-        'user_id': user_id,
+        'user_id[]': user_id,
         'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(account_id=account_id)

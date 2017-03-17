@@ -273,8 +273,8 @@ def reorder_quiz_items(request_ctx, course_id, id, order_id, order_type=None, **
     utils.validate_attr_is_acceptable(order_type, order_type_types)
     path = '/v1/courses/{course_id}/quizzes/{id}/reorder'
     payload = {
-        'order[id]': order_id,
-        'order[type]': order_type,
+        'order[id][]': order_id,
+        'order[type][]': order_type,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id, id=id)
     response = client.post(request_ctx, url, payload=payload, **request_kwargs)

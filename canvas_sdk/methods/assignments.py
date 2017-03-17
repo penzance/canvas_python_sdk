@@ -60,12 +60,12 @@ requires that the Differentiated Assignments course feature be turned on. If
     utils.validate_attr_is_acceptable(bucket, bucket_types)
     path = '/v1/courses/{course_id}/assignments'
     payload = {
-        'include': include,
+        'include[]': include,
         'search_term': search_term,
         'override_assignment_dates': override_assignment_dates,
         'needs_grading_count_by_section': needs_grading_count_by_section,
         'bucket': bucket,
-        'assignment_ids': assignment_ids,
+        'assignment_ids[]': assignment_ids,
         'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id)
@@ -133,7 +133,7 @@ requires that the Differentiated Assignments course feature be turned on. If
     utils.validate_attr_is_acceptable(include, include_types)
     path = '/v1/courses/{course_id}/assignments/{id}'
     payload = {
-        'include': include,
+        'include[]': include,
         'override_assignment_dates': override_assignment_dates,
         'needs_grading_count_by_section': needs_grading_count_by_section,
         'all_dates': all_dates,
@@ -274,8 +274,8 @@ This will update the grading_type for the course to 'letter_grade' unless it is 
     payload = {
         'assignment[name]': assignment_name,
         'assignment[position]': assignment_position,
-        'assignment[submission_types]': assignment_submission_types,
-        'assignment[allowed_extensions]': assignment_allowed_extensions,
+        'assignment[submission_types][]': assignment_submission_types,
+        'assignment[allowed_extensions][]': assignment_allowed_extensions,
         'assignment[turnitin_enabled]': assignment_turnitin_enabled,
         'assignment[vericite_enabled]': assignment_vericite_enabled,
         'assignment[turnitin_settings]': assignment_turnitin_settings,
@@ -295,7 +295,7 @@ This will update the grading_type for the course to 'letter_grade' unless it is 
         'assignment[description]': assignment_description,
         'assignment[assignment_group_id]': assignment_assignment_group_id,
         'assignment[muted]': assignment_muted,
-        'assignment[assignment_overrides]': assignment_assignment_overrides,
+        'assignment[assignment_overrides][]': assignment_assignment_overrides,
         'assignment[only_visible_to_overrides]': assignment_only_visible_to_overrides,
         'assignment[published]': assignment_published,
         'assignment[grading_standard_id]': assignment_grading_standard_id,
@@ -445,8 +445,8 @@ This will update the grading_type for the course to 'letter_grade' unless it is 
     payload = {
         'assignment[name]': assignment_name,
         'assignment[position]': assignment_position,
-        'assignment[submission_types]': assignment_submission_types,
-        'assignment[allowed_extensions]': assignment_allowed_extensions,
+        'assignment[submission_types][]': assignment_submission_types,
+        'assignment[allowed_extensions][]': assignment_allowed_extensions,
         'assignment[turnitin_enabled]': assignment_turnitin_enabled,
         'assignment[vericite_enabled]': assignment_vericite_enabled,
         'assignment[turnitin_settings]': assignment_turnitin_settings,
@@ -466,7 +466,7 @@ This will update the grading_type for the course to 'letter_grade' unless it is 
         'assignment[description]': assignment_description,
         'assignment[assignment_group_id]': assignment_assignment_group_id,
         'assignment[muted]': assignment_muted,
-        'assignment[assignment_overrides]': assignment_assignment_overrides,
+        'assignment[assignment_overrides][]': assignment_assignment_overrides,
         'assignment[only_visible_to_overrides]': assignment_only_visible_to_overrides,
         'assignment[published]': assignment_published,
         'assignment[grading_standard_id]': assignment_grading_standard_id,
@@ -641,7 +641,7 @@ removes any previous lock date.
 
     path = '/v1/courses/{course_id}/assignments/{assignment_id}/overrides'
     payload = {
-        'assignment_override[student_ids]': assignment_override_student_ids,
+        'assignment_override[student_ids][]': assignment_override_student_ids,
         'assignment_override[title]': assignment_override_title,
         'assignment_override[group_id]': assignment_override_group_id,
         'assignment_override[course_section_id]': assignment_override_course_section_id,
@@ -705,7 +705,7 @@ removes any previous lock date.
 
     path = '/v1/courses/{course_id}/assignments/{assignment_id}/overrides/{id}'
     payload = {
-        'assignment_override[student_ids]': assignment_override_student_ids,
+        'assignment_override[student_ids][]': assignment_override_student_ids,
         'assignment_override[title]': assignment_override_title,
         'assignment_override[due_at]': assignment_override_due_at,
         'assignment_override[unlock_at]': assignment_override_unlock_at,
@@ -766,8 +766,8 @@ def batch_retrieve_overrides_in_course(request_ctx, course_id, assignment_overri
         per_page = request_ctx.per_page
     path = '/v1/courses/{course_id}/assignments/overrides'
     payload = {
-        'assignment_overrides[id]': assignment_overrides_id,
-        'assignment_overrides[assignment_id]': assignment_overrides_assignment_id,
+        'assignment_overrides[id][]': assignment_overrides_id,
+        'assignment_overrides[assignment_id][]': assignment_overrides_assignment_id,
         'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id)
@@ -808,7 +808,7 @@ attributes
         per_page = request_ctx.per_page
     path = '/v1/courses/{course_id}/assignments/overrides'
     payload = {
-        'assignment_overrides': assignment_overrides,
+        'assignment_overrides[]': assignment_overrides,
         'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id)
@@ -850,7 +850,7 @@ def batch_update_overrides_in_course(request_ctx, course_id, assignment_override
         per_page = request_ctx.per_page
     path = '/v1/courses/{course_id}/assignments/overrides'
     payload = {
-        'assignment_overrides': assignment_overrides,
+        'assignment_overrides[]': assignment_overrides,
         'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id)

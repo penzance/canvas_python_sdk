@@ -22,7 +22,7 @@ def get_all_quiz_submission_questions(request_ctx, quiz_submission_id, include=N
     utils.validate_attr_is_acceptable(include, include_types)
     path = '/v1/quiz_submissions/{quiz_submission_id}/questions'
     payload = {
-        'include': include,
+        'include[]': include,
     }
     url = request_ctx.base_api_url + path.format(quiz_submission_id=quiz_submission_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -66,7 +66,7 @@ for each question type.
         'attempt': attempt,
         'validation_token': validation_token,
         'access_code': access_code,
-        'quiz_questions': quiz_questions,
+        'quiz_questions[]': quiz_questions,
         'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(quiz_submission_id=quiz_submission_id)

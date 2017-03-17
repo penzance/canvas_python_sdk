@@ -121,8 +121,8 @@ Defaults to 'active'.
     utils.validate_attr_is_acceptable(include, include_types)
     path = '/v1/accounts/{account_id}/terms'
     payload = {
-        'workflow_state': workflow_state,
-        'include': include,
+        'workflow_state[]': workflow_state,
+        'include[]': include,
         'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(account_id=account_id)

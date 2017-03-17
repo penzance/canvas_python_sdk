@@ -89,7 +89,7 @@ def list_members_of_collaboration(request_ctx, id, include=None, per_page=None, 
     utils.validate_attr_is_acceptable(include, include_types)
     path = '/v1/collaborations/{id}/members'
     payload = {
-        'include': include,
+        'include[]': include,
         'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(id=id)

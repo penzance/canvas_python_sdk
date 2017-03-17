@@ -43,8 +43,8 @@ e.g. 93
     path = '/v1/accounts/{account_id}/grading_standards'
     payload = {
         'title': title,
-        'grading_scheme_entry[name]': grading_scheme_entry_name,
-        'grading_scheme_entry[value]': grading_scheme_entry_value,
+        'grading_scheme_entry[name][]': grading_scheme_entry_name,
+        'grading_scheme_entry[value][]': grading_scheme_entry_value,
     }
     url = request_ctx.base_api_url + path.format(account_id=account_id)
     response = client.post(request_ctx, url, payload=payload, **request_kwargs)
@@ -94,8 +94,8 @@ e.g. 93
     path = '/v1/courses/{course_id}/grading_standards'
     payload = {
         'title': title,
-        'grading_scheme_entry[name]': grading_scheme_entry_name,
-        'grading_scheme_entry[value]': grading_scheme_entry_value,
+        'grading_scheme_entry[name][]': grading_scheme_entry_name,
+        'grading_scheme_entry[value][]': grading_scheme_entry_value,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id)
     response = client.post(request_ctx, url, payload=payload, **request_kwargs)

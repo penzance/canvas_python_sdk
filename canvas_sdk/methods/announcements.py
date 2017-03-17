@@ -37,7 +37,7 @@ otherwise true and unmodifiable.
         per_page = request_ctx.per_page
     path = '/v1/announcements'
     payload = {
-        'context_codes': context_codes,
+        'context_codes[]': context_codes,
         'start_date': start_date,
         'end_date': end_date,
         'active_only': active_only,

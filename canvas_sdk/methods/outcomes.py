@@ -74,8 +74,8 @@ criterion.
         'description': description,
         'vendor_guid': vendor_guid,
         'mastery_points': mastery_points,
-        'ratings[description]': ratings_description,
-        'ratings[points]': ratings_points,
+        'ratings[description][]': ratings_description,
+        'ratings[points][]': ratings_points,
         'calculation_method': calculation_method,
         'calculation_int': calculation_int,
     }

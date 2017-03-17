@@ -119,7 +119,7 @@ Example:
         'account_notification[start_at]': account_notification_start_at,
         'account_notification[end_at]': account_notification_end_at,
         'account_notification[icon]': account_notification_icon,
-        'account_notification_roles': account_notification_roles,
+        'account_notification_roles[]': account_notification_roles,
     }
     url = request_ctx.base_api_url + path.format(account_id=account_id)
     response = client.post(request_ctx, url, payload=payload, **request_kwargs)
@@ -167,7 +167,7 @@ Example:
         'account_notification[start_at]': account_notification_start_at,
         'account_notification[end_at]': account_notification_end_at,
         'account_notification[icon]': account_notification_icon,
-        'account_notification_roles': account_notification_roles,
+        'account_notification_roles[]': account_notification_roles,
     }
     url = request_ctx.base_api_url + path.format(account_id=account_id, id=id)
     response = client.put(request_ctx, url, payload=payload, **request_kwargs)

@@ -27,7 +27,7 @@ def list_observees(request_ctx, user_id, include=None, per_page=None, **request_
     utils.validate_attr_is_acceptable(include, include_types)
     path = '/v1/users/{user_id}/observees'
     payload = {
-        'include': include,
+        'include[]': include,
         'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(user_id=user_id)

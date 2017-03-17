@@ -71,9 +71,9 @@ def create_single_poll_session(request_ctx, poll_id, poll_sessions_course_id, po
 
     path = '/v1/polls/{poll_id}/poll_sessions'
     payload = {
-        'poll_sessions[course_id]': poll_sessions_course_id,
-        'poll_sessions[course_section_id]': poll_sessions_course_section_id,
-        'poll_sessions[has_public_results]': poll_sessions_has_public_results,
+        'poll_sessions[course_id][]': poll_sessions_course_id,
+        'poll_sessions[course_section_id][]': poll_sessions_course_section_id,
+        'poll_sessions[has_public_results][]': poll_sessions_has_public_results,
     }
     url = request_ctx.base_api_url + path.format(poll_id=poll_id)
     response = client.post(request_ctx, url, payload=payload, **request_kwargs)
@@ -104,9 +104,9 @@ def update_single_poll_session(request_ctx, poll_id, id, poll_sessions_course_id
 
     path = '/v1/polls/{poll_id}/poll_sessions/{id}'
     payload = {
-        'poll_sessions[course_id]': poll_sessions_course_id,
-        'poll_sessions[course_section_id]': poll_sessions_course_section_id,
-        'poll_sessions[has_public_results]': poll_sessions_has_public_results,
+        'poll_sessions[course_id][]': poll_sessions_course_id,
+        'poll_sessions[course_section_id][]': poll_sessions_course_section_id,
+        'poll_sessions[has_public_results][]': poll_sessions_has_public_results,
     }
     url = request_ctx.base_api_url + path.format(poll_id=poll_id, id=id)
     response = client.put(request_ctx, url, payload=payload, **request_kwargs)

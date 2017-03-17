@@ -70,7 +70,7 @@ Requires a submission_type of "media_recording".
         'submission[submission_type]': submission_submission_type,
         'submission[body]': submission_body,
         'submission[url]': submission_url,
-        'submission[file_ids]': submission_file_ids,
+        'submission[file_ids][]': submission_file_ids,
         'submission[media_comment_id]': submission_media_comment_id,
         'submission[media_comment_type]': submission_media_comment_type,
     }
@@ -149,7 +149,7 @@ Requires a submission_type of "media_recording".
         'submission[submission_type]': submission_submission_type,
         'submission[body]': submission_body,
         'submission[url]': submission_url,
-        'submission[file_ids]': submission_file_ids,
+        'submission[file_ids][]': submission_file_ids,
         'submission[media_comment_id]': submission_media_comment_id,
         'submission[media_comment_type]': submission_media_comment_type,
     }
@@ -186,7 +186,7 @@ def list_assignment_submissions_courses(request_ctx, course_id, assignment_id, i
     utils.validate_attr_is_acceptable(include, include_types)
     path = '/v1/courses/{course_id}/assignments/{assignment_id}/submissions'
     payload = {
-        'include': include,
+        'include[]': include,
         'grouped': grouped,
         'per_page': per_page,
     }
@@ -223,7 +223,7 @@ def list_assignment_submissions_sections(request_ctx, section_id, assignment_id,
     utils.validate_attr_is_acceptable(include, include_types)
     path = '/v1/sections/{section_id}/assignments/{assignment_id}/submissions'
     payload = {
-        'include': include,
+        'include[]': include,
         'grouped': grouped,
         'per_page': per_page,
     }
@@ -282,13 +282,13 @@ order.  Defaults to "ascending".  Doesn't affect results for "grouped" mode.
     utils.validate_attr_is_acceptable(include, include_types)
     path = '/v1/courses/{course_id}/students/submissions'
     payload = {
-        'student_ids': student_ids,
-        'assignment_ids': assignment_ids,
+        'student_ids[]': student_ids,
+        'assignment_ids[]': assignment_ids,
         'grouped': grouped,
         'grading_period_id': grading_period_id,
         'order': order,
         'order_direction': order_direction,
-        'include': include,
+        'include[]': include,
         'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id)
@@ -346,13 +346,13 @@ order.  Defaults to "ascending".  Doesn't affect results for "grouped" mode.
     utils.validate_attr_is_acceptable(include, include_types)
     path = '/v1/sections/{section_id}/students/submissions'
     payload = {
-        'student_ids': student_ids,
-        'assignment_ids': assignment_ids,
+        'student_ids[]': student_ids,
+        'assignment_ids[]': assignment_ids,
         'grouped': grouped,
         'grading_period_id': grading_period_id,
         'order': order,
         'order_direction': order_direction,
-        'include': include,
+        'include[]': include,
         'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(section_id=section_id)
@@ -384,7 +384,7 @@ def get_single_submission_courses(request_ctx, course_id, assignment_id, user_id
     utils.validate_attr_is_acceptable(include, include_types)
     path = '/v1/courses/{course_id}/assignments/{assignment_id}/submissions/{user_id}'
     payload = {
-        'include': include,
+        'include[]': include,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id, assignment_id=assignment_id, user_id=user_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -415,7 +415,7 @@ def get_single_submission_sections(request_ctx, section_id, assignment_id, user_
     utils.validate_attr_is_acceptable(include, include_types)
     path = '/v1/sections/{section_id}/assignments/{assignment_id}/submissions/{user_id}'
     payload = {
-        'include': include,
+        'include[]': include,
     }
     url = request_ctx.base_api_url + path.format(section_id=section_id, assignment_id=assignment_id, user_id=user_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -599,7 +599,7 @@ Then a possible set of values for rubric_assessment would be:
         'comment[group_comment]': comment_group_comment,
         'comment[media_comment_id]': comment_media_comment_id,
         'comment[media_comment_type]': comment_media_comment_type,
-        'comment[file_ids]': comment_file_ids,
+        'comment[file_ids][]': comment_file_ids,
         'include[visibility]': include_visibility,
         'submission[posted_grade]': submission_posted_grade,
         'submission[excuse]': submission_excuse,
@@ -725,7 +725,7 @@ Then a possible set of values for rubric_assessment would be:
         'comment[group_comment]': comment_group_comment,
         'comment[media_comment_id]': comment_media_comment_id,
         'comment[media_comment_type]': comment_media_comment_type,
-        'comment[file_ids]': comment_file_ids,
+        'comment[file_ids][]': comment_file_ids,
         'include[visibility]': include_visibility,
         'submission[posted_grade]': submission_posted_grade,
         'submission[excuse]': submission_excuse,
@@ -794,7 +794,7 @@ def list_multiple_assignments_gradeable_students(request_ctx, course_id, assignm
         per_page = request_ctx.per_page
     path = '/v1/courses/{course_id}/assignments/gradeable_students'
     payload = {
-        'assignment_ids': assignment_ids,
+        'assignment_ids[]': assignment_ids,
         'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id)
@@ -851,7 +851,7 @@ def grade_or_comment_on_multiple_submissions_courses_submissions(request_ctx, co
         'grade_data[student_id][group_comment]': grade_data_student_id_group_comment,
         'grade_data[student_id][media_comment_id]': grade_data_student_id_media_comment_id,
         'grade_data[student_id][media_comment_type]': grade_data_student_id_media_comment_type,
-        'grade_data[student_id][file_ids]': grade_data_student_id_file_ids,
+        'grade_data[student_id][file_ids][]': grade_data_student_id_file_ids,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id)
     response = client.post(request_ctx, url, payload=payload, **request_kwargs)
@@ -909,7 +909,7 @@ def grade_or_comment_on_multiple_submissions_courses_assignments(request_ctx, co
         'grade_data[student_id][group_comment]': grade_data_student_id_group_comment,
         'grade_data[student_id][media_comment_id]': grade_data_student_id_media_comment_id,
         'grade_data[student_id][media_comment_type]': grade_data_student_id_media_comment_type,
-        'grade_data[student_id][file_ids]': grade_data_student_id_file_ids,
+        'grade_data[student_id][file_ids][]': grade_data_student_id_file_ids,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id, assignment_id=assignment_id)
     response = client.post(request_ctx, url, payload=payload, **request_kwargs)
@@ -965,7 +965,7 @@ def grade_or_comment_on_multiple_submissions_sections_submissions(request_ctx, s
         'grade_data[student_id][group_comment]': grade_data_student_id_group_comment,
         'grade_data[student_id][media_comment_id]': grade_data_student_id_media_comment_id,
         'grade_data[student_id][media_comment_type]': grade_data_student_id_media_comment_type,
-        'grade_data[student_id][file_ids]': grade_data_student_id_file_ids,
+        'grade_data[student_id][file_ids][]': grade_data_student_id_file_ids,
     }
     url = request_ctx.base_api_url + path.format(section_id=section_id)
     response = client.post(request_ctx, url, payload=payload, **request_kwargs)
@@ -1023,7 +1023,7 @@ def grade_or_comment_on_multiple_submissions_sections_assignments(request_ctx, s
         'grade_data[student_id][group_comment]': grade_data_student_id_group_comment,
         'grade_data[student_id][media_comment_id]': grade_data_student_id_media_comment_id,
         'grade_data[student_id][media_comment_type]': grade_data_student_id_media_comment_type,
-        'grade_data[student_id][file_ids]': grade_data_student_id_file_ids,
+        'grade_data[student_id][file_ids][]': grade_data_student_id_file_ids,
     }
     url = request_ctx.base_api_url + path.format(section_id=section_id, assignment_id=assignment_id)
     response = client.post(request_ctx, url, payload=payload, **request_kwargs)

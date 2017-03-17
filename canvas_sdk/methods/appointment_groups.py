@@ -39,9 +39,9 @@ def list_appointment_groups(request_ctx, scope=None, context_codes=None, include
     path = '/v1/appointment_groups'
     payload = {
         'scope': scope,
-        'context_codes': context_codes,
+        'context_codes[]': context_codes,
         'include_past_appointments': include_past_appointments,
-        'include': include,
+        'include[]': include,
         'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format()
@@ -104,8 +104,8 @@ appointment group. Refer to the example request.
     utils.validate_attr_is_acceptable(appointment_group_participant_visibility, appointment_group_participant_visibility_types)
     path = '/v1/appointment_groups'
     payload = {
-        'appointment_group[context_codes]': appointment_group_context_codes,
-        'appointment_group[sub_context_codes]': appointment_group_sub_context_codes,
+        'appointment_group[context_codes][]': appointment_group_context_codes,
+        'appointment_group[sub_context_codes][]': appointment_group_sub_context_codes,
         'appointment_group[title]': appointment_group_title,
         'appointment_group[description]': appointment_group_description,
         'appointment_group[location_name]': appointment_group_location_name,
@@ -114,7 +114,7 @@ appointment group. Refer to the example request.
         'appointment_group[participants_per_appointment]': appointment_group_participants_per_appointment,
         'appointment_group[min_appointments_per_participant]': appointment_group_min_appointments_per_participant,
         'appointment_group[max_appointments_per_participant]': appointment_group_max_appointments_per_participant,
-        'appointment_group[new_appointments][X]': appointment_group_new_appointments_X,
+        'appointment_group[new_appointments][X][]': appointment_group_new_appointments_X,
         'appointment_group[participant_visibility]': appointment_group_participant_visibility,
     }
     url = request_ctx.base_api_url + path.format()
@@ -147,7 +147,7 @@ def get_single_appointment_group(request_ctx, id, include=None, **request_kwargs
     utils.validate_attr_is_acceptable(include, include_types)
     path = '/v1/appointment_groups/{id}'
     payload = {
-        'include': include,
+        'include[]': include,
     }
     url = request_ctx.base_api_url + path.format(id=id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -210,8 +210,8 @@ appointment group. Refer to the example request.
     utils.validate_attr_is_acceptable(appointment_group_participant_visibility, appointment_group_participant_visibility_types)
     path = '/v1/appointment_groups/{id}'
     payload = {
-        'appointment_group[context_codes]': appointment_group_context_codes,
-        'appointment_group[sub_context_codes]': appointment_group_sub_context_codes,
+        'appointment_group[context_codes][]': appointment_group_context_codes,
+        'appointment_group[sub_context_codes][]': appointment_group_sub_context_codes,
         'appointment_group[title]': appointment_group_title,
         'appointment_group[description]': appointment_group_description,
         'appointment_group[location_name]': appointment_group_location_name,
@@ -220,7 +220,7 @@ appointment group. Refer to the example request.
         'appointment_group[participants_per_appointment]': appointment_group_participants_per_appointment,
         'appointment_group[min_appointments_per_participant]': appointment_group_min_appointments_per_participant,
         'appointment_group[max_appointments_per_participant]': appointment_group_max_appointments_per_participant,
-        'appointment_group[new_appointments][X]': appointment_group_new_appointments_X,
+        'appointment_group[new_appointments][X][]': appointment_group_new_appointments_X,
         'appointment_group[participant_visibility]': appointment_group_participant_visibility,
     }
     url = request_ctx.base_api_url + path.format(id=id)
@@ -344,7 +344,7 @@ def get_next_appointment(request_ctx, appointment_group_ids=None, per_page=None,
         per_page = request_ctx.per_page
     path = '/v1/appointment_groups/next_appointment'
     payload = {
-        'appointment_group_ids': appointment_group_ids,
+        'appointment_group_ids[]': appointment_group_ids,
         'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format()

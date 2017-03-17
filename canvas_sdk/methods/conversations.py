@@ -50,11 +50,11 @@ ids of all conversations under this scope/filter in the same order.
     path = '/v1/conversations'
     payload = {
         'scope': scope,
-        'filter': filter,
+        'filter[]': filter,
         'filter_mode': filter_mode,
         'interleave_submissions': interleave_submissions,
         'include_all_conversation_ids': include_all_conversation_ids,
-        'include': include,
+        'include[]': include,
         'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format()
@@ -130,17 +130,17 @@ as courses or groups in the recipients argument.
     utils.validate_attr_is_acceptable(filter_mode, filter_mode_types)
     path = '/v1/conversations'
     payload = {
-        'recipients': recipients,
+        'recipients[]': recipients,
         'subject': subject,
         'body': body,
         'group_conversation': group_conversation,
-        'attachment_ids': attachment_ids,
+        'attachment_ids[]': attachment_ids,
         'media_comment_id': media_comment_id,
         'media_comment_type': media_comment_type,
         'user_note': user_note,
         'mode': mode,
         'scope': scope,
-        'filter': filter,
+        'filter[]': filter,
         'filter_mode': filter_mode,
         'context_code': context_code,
     }
@@ -210,7 +210,7 @@ true if that is the desired behavior.
     payload = {
         'interleave_submissions': interleave_submissions,
         'scope': scope,
-        'filter': filter,
+        'filter[]': filter,
         'filter_mode': filter_mode,
         'auto_mark_as_read': auto_mark_as_read,
     }
@@ -263,7 +263,7 @@ under the {api:ConversationsController#index index API action}
         'conversation[subscribed]': conversation_subscribed,
         'conversation[starred]': conversation_starred,
         'scope': scope,
-        'filter': filter,
+        'filter[]': filter,
         'filter_mode': filter_mode,
     }
     url = request_ctx.base_api_url + path.format(id=id)
@@ -334,7 +334,7 @@ recipients[]=1&recipients[]=2&recipients[]=course_3
 
     path = '/v1/conversations/{id}/add_recipients'
     payload = {
-        'recipients': recipients,
+        'recipients[]': recipients,
     }
     url = request_ctx.base_api_url + path.format(id=id)
     response = client.post(request_ctx, url, payload=payload, **request_kwargs)
@@ -388,11 +388,11 @@ faculty journals are enabled in the account.
     path = '/v1/conversations/{id}/add_message'
     payload = {
         'body': body,
-        'attachment_ids': attachment_ids,
+        'attachment_ids[]': attachment_ids,
         'media_comment_id': media_comment_id,
         'media_comment_type': media_comment_type,
-        'recipients': recipients,
-        'included_messages': included_messages,
+        'recipients[]': recipients,
+        'included_messages[]': included_messages,
         'user_note': user_note,
     }
     url = request_ctx.base_api_url + path.format(id=id)
@@ -420,7 +420,7 @@ def delete_message(request_ctx, id, remove, **request_kwargs):
 
     path = '/v1/conversations/{id}/remove_messages'
     payload = {
-        'remove': remove,
+        'remove[]': remove,
     }
     url = request_ctx.base_api_url + path.format(id=id)
     response = client.post(request_ctx, url, payload=payload, **request_kwargs)
@@ -448,7 +448,7 @@ def batch_update_conversations(request_ctx, conversation_ids, event, **request_k
     utils.validate_attr_is_acceptable(event, event_types)
     path = '/v1/conversations'
     payload = {
-        'conversation_ids': conversation_ids,
+        'conversation_ids[]': conversation_ids,
         'event': event,
     }
     url = request_ctx.base_api_url + path.format()

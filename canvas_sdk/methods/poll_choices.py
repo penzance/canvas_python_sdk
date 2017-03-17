@@ -71,9 +71,9 @@ def create_single_poll_choice(request_ctx, poll_id, poll_choices_text, poll_choi
 
     path = '/v1/polls/{poll_id}/poll_choices'
     payload = {
-        'poll_choices[text]': poll_choices_text,
-        'poll_choices[is_correct]': poll_choices_is_correct,
-        'poll_choices[position]': poll_choices_position,
+        'poll_choices[text][]': poll_choices_text,
+        'poll_choices[is_correct][]': poll_choices_is_correct,
+        'poll_choices[position][]': poll_choices_position,
     }
     url = request_ctx.base_api_url + path.format(poll_id=poll_id)
     response = client.post(request_ctx, url, payload=payload, **request_kwargs)
@@ -104,9 +104,9 @@ def update_single_poll_choice(request_ctx, poll_id, id, poll_choices_text, poll_
 
     path = '/v1/polls/{poll_id}/poll_choices/{id}'
     payload = {
-        'poll_choices[text]': poll_choices_text,
-        'poll_choices[is_correct]': poll_choices_is_correct,
-        'poll_choices[position]': poll_choices_position,
+        'poll_choices[text][]': poll_choices_text,
+        'poll_choices[is_correct][]': poll_choices_is_correct,
+        'poll_choices[position][]': poll_choices_position,
     }
     url = request_ctx.base_api_url + path.format(poll_id=poll_id, id=id)
     response = client.put(request_ctx, url, payload=payload, **request_kwargs)

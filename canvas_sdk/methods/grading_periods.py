@@ -100,9 +100,9 @@ def update_single_grading_period(request_ctx, course_id, id, grading_periods_sta
 
     path = '/v1/courses/{course_id}/grading_periods/{id}'
     payload = {
-        'grading_periods[start_date]': grading_periods_start_date,
-        'grading_periods[end_date]': grading_periods_end_date,
-        'grading_periods[weight]': grading_periods_weight,
+        'grading_periods[start_date][]': grading_periods_start_date,
+        'grading_periods[end_date][]': grading_periods_end_date,
+        'grading_periods[weight][]': grading_periods_weight,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id, id=id)
     response = client.put(request_ctx, url, payload=payload, **request_kwargs)

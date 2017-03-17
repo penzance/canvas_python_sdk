@@ -71,16 +71,16 @@ array or string.
     utils.validate_attr_is_acceptable(include, include_types)
     path = '/v1/courses/{course_id}/enrollments'
     payload = {
-        'type': type,
-        'role': role,
-        'state': state,
-        'include': include,
+        'type[]': type,
+        'role[]': role,
+        'state[]': state,
+        'include[]': include,
         'user_id': user_id,
         'grading_period_id': grading_period_id,
-        'sis_account_id': sis_account_id,
-        'sis_course_id': sis_course_id,
-        'sis_section_id': sis_section_id,
-        'sis_user_id': sis_user_id,
+        'sis_account_id[]': sis_account_id,
+        'sis_course_id[]': sis_course_id,
+        'sis_section_id[]': sis_section_id,
+        'sis_user_id[]': sis_user_id,
         'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id)
@@ -159,16 +159,16 @@ array or string.
     utils.validate_attr_is_acceptable(include, include_types)
     path = '/v1/sections/{section_id}/enrollments'
     payload = {
-        'type': type,
-        'role': role,
-        'state': state,
-        'include': include,
+        'type[]': type,
+        'role[]': role,
+        'state[]': state,
+        'include[]': include,
         'user_id': user_id,
         'grading_period_id': grading_period_id,
-        'sis_account_id': sis_account_id,
-        'sis_course_id': sis_course_id,
-        'sis_section_id': sis_section_id,
-        'sis_user_id': sis_user_id,
+        'sis_account_id[]': sis_account_id,
+        'sis_course_id[]': sis_course_id,
+        'sis_section_id[]': sis_section_id,
+        'sis_user_id[]': sis_user_id,
         'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(section_id=section_id)
@@ -245,15 +245,15 @@ array or string.
     utils.validate_attr_is_acceptable(include, include_types)
     path = '/v1/users/{user_id}/enrollments'
     payload = {
-        'type': type,
-        'role': role,
-        'state': state,
-        'include': include,
+        'type[]': type,
+        'role[]': role,
+        'state[]': state,
+        'include[]': include,
         'grading_period_id': grading_period_id,
-        'sis_account_id': sis_account_id,
-        'sis_course_id': sis_course_id,
-        'sis_section_id': sis_section_id,
-        'sis_user_id': sis_user_id,
+        'sis_account_id[]': sis_account_id,
+        'sis_course_id[]': sis_course_id,
+        'sis_section_id[]': sis_section_id,
+        'sis_user_id[]': sis_user_id,
         'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(user_id=user_id)

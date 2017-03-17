@@ -28,7 +28,7 @@ def list_accounts(request_ctx, include=None, per_page=None, **request_kwargs):
     utils.validate_attr_is_acceptable(include, include_types)
     path = '/v1/accounts'
     payload = {
-        'include': include,
+        'include[]': include,
         'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format()
@@ -182,18 +182,18 @@ all states but "deleted" are returned.
     path = '/v1/accounts/{account_id}/courses'
     payload = {
         'with_enrollments': with_enrollments,
-        'enrollment_type': enrollment_type,
+        'enrollment_type[]': enrollment_type,
         'published': published,
         'completed': completed,
         'blueprint': blueprint,
         'blueprint_associated': blueprint_associated,
-        'by_teachers': by_teachers,
-        'by_subaccounts': by_subaccounts,
+        'by_teachers[]': by_teachers,
+        'by_subaccounts[]': by_subaccounts,
         'hide_enrollmentless_courses': hide_enrollmentless_courses,
-        'state': state,
+        'state[]': state,
         'enrollment_term_id': enrollment_term_id,
         'search_term': search_term,
-        'include': include,
+        'include[]': include,
         'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(account_id=account_id)

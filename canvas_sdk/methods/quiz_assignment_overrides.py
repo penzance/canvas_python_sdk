@@ -20,7 +20,7 @@ the operating user will be returned.
 
     path = '/v1/courses/{course_id}/quizzes/assignment_overrides'
     payload = {
-        'quiz_assignment_overrides[0][quiz_ids]': quiz_assignment_overrides_0_quiz_ids,
+        'quiz_assignment_overrides[0][quiz_ids][]': quiz_assignment_overrides_0_quiz_ids,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)

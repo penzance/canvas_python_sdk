@@ -26,7 +26,7 @@ def get_all_peer_reviews_courses_peer_reviews(request_ctx, course_id, assignment
     utils.validate_attr_is_acceptable(include, include_types)
     path = '/v1/courses/{course_id}/assignments/{assignment_id}/peer_reviews'
     payload = {
-        'include': include,
+        'include[]': include,
         'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id, assignment_id=assignment_id)
@@ -60,7 +60,7 @@ def get_all_peer_reviews_sections_peer_reviews(request_ctx, section_id, assignme
     utils.validate_attr_is_acceptable(include, include_types)
     path = '/v1/sections/{section_id}/assignments/{assignment_id}/peer_reviews'
     payload = {
-        'include': include,
+        'include[]': include,
         'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(section_id=section_id, assignment_id=assignment_id)
@@ -96,7 +96,7 @@ def get_all_peer_reviews_courses_submissions(request_ctx, course_id, assignment_
     utils.validate_attr_is_acceptable(include, include_types)
     path = '/v1/courses/{course_id}/assignments/{assignment_id}/submissions/{submission_id}/peer_reviews'
     payload = {
-        'include': include,
+        'include[]': include,
         'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id, assignment_id=assignment_id, submission_id=submission_id)
@@ -132,7 +132,7 @@ def get_all_peer_reviews_sections_submissions(request_ctx, section_id, assignmen
     utils.validate_attr_is_acceptable(include, include_types)
     path = '/v1/sections/{section_id}/assignments/{assignment_id}/submissions/{submission_id}/peer_reviews'
     payload = {
-        'include': include,
+        'include[]': include,
         'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(section_id=section_id, assignment_id=assignment_id, submission_id=submission_id)

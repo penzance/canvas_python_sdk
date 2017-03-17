@@ -24,7 +24,7 @@ def list_available_tabs_for_course_or_group_courses(request_ctx, course_id, incl
     utils.validate_attr_is_acceptable(include, include_types)
     path = '/v1/courses/{course_id}/tabs'
     payload = {
-        'include': include,
+        'include[]': include,
         'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id)
@@ -56,7 +56,7 @@ def list_available_tabs_for_course_or_group_groups(request_ctx, group_id, includ
     utils.validate_attr_is_acceptable(include, include_types)
     path = '/v1/groups/{group_id}/tabs'
     payload = {
-        'include': include,
+        'include[]': include,
         'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(group_id=group_id)

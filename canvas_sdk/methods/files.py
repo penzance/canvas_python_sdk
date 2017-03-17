@@ -105,10 +105,10 @@ def list_files_courses(request_ctx, course_id, content_types=None, search_term=N
     utils.validate_attr_is_acceptable(order, order_types)
     path = '/v1/courses/{course_id}/files'
     payload = {
-        'content_types': content_types,
+        'content_types[]': content_types,
         'search_term': search_term,
-        'include': include,
-        'only': only,
+        'include[]': include,
+        'only[]': only,
         'sort': sort,
         'order': order,
         'per_page': per_page,
@@ -163,10 +163,10 @@ def list_files_users(request_ctx, user_id, content_types=None, search_term=None,
     utils.validate_attr_is_acceptable(order, order_types)
     path = '/v1/users/{user_id}/files'
     payload = {
-        'content_types': content_types,
+        'content_types[]': content_types,
         'search_term': search_term,
-        'include': include,
-        'only': only,
+        'include[]': include,
+        'only[]': only,
         'sort': sort,
         'order': order,
         'per_page': per_page,
@@ -221,10 +221,10 @@ def list_files_groups(request_ctx, group_id, content_types=None, search_term=Non
     utils.validate_attr_is_acceptable(order, order_types)
     path = '/v1/groups/{group_id}/files'
     payload = {
-        'content_types': content_types,
+        'content_types[]': content_types,
         'search_term': search_term,
-        'include': include,
-        'only': only,
+        'include[]': include,
+        'only[]': only,
         'sort': sort,
         'order': order,
         'per_page': per_page,
@@ -279,10 +279,10 @@ def list_files_folders(request_ctx, id, content_types=None, search_term=None, in
     utils.validate_attr_is_acceptable(order, order_types)
     path = '/v1/folders/{id}/files'
     payload = {
-        'content_types': content_types,
+        'content_types[]': content_types,
         'search_term': search_term,
-        'include': include,
-        'only': only,
+        'include[]': include,
+        'only[]': only,
         'sort': sort,
         'order': order,
         'per_page': per_page,
@@ -342,7 +342,7 @@ def get_file_files(request_ctx, id, include=None, **request_kwargs):
     utils.validate_attr_is_acceptable(include, include_types)
     path = '/v1/files/{id}'
     payload = {
-        'include': include,
+        'include[]': include,
     }
     url = request_ctx.base_api_url + path.format(id=id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -374,7 +374,7 @@ def get_file_courses(request_ctx, course_id, id, include=None, **request_kwargs)
     utils.validate_attr_is_acceptable(include, include_types)
     path = '/v1/courses/{course_id}/files/{id}'
     payload = {
-        'include': include,
+        'include[]': include,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id, id=id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -406,7 +406,7 @@ def get_file_groups(request_ctx, group_id, id, include=None, **request_kwargs):
     utils.validate_attr_is_acceptable(include, include_types)
     path = '/v1/groups/{group_id}/files/{id}'
     payload = {
-        'include': include,
+        'include[]': include,
     }
     url = request_ctx.base_api_url + path.format(group_id=group_id, id=id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -438,7 +438,7 @@ def get_file_users(request_ctx, user_id, id, include=None, **request_kwargs):
     utils.validate_attr_is_acceptable(include, include_types)
     path = '/v1/users/{user_id}/files/{id}'
     payload = {
-        'include': include,
+        'include[]': include,
     }
     url = request_ctx.base_api_url + path.format(user_id=user_id, id=id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
@@ -1301,8 +1301,8 @@ Note that new files uploaded to these folders do not automatically inherit these
     utils.validate_attr_is_acceptable(usage_rights_use_justification, usage_rights_use_justification_types)
     path = '/v1/courses/{course_id}/usage_rights'
     payload = {
-        'file_ids': file_ids,
-        'folder_ids': folder_ids,
+        'file_ids[]': file_ids,
+        'folder_ids[]': folder_ids,
         'publish': publish,
         'usage_rights[use_justification]': usage_rights_use_justification,
         'usage_rights[legal_copyright]': usage_rights_legal_copyright,
@@ -1344,8 +1344,8 @@ Note that new files uploaded to these folders do not automatically inherit these
     utils.validate_attr_is_acceptable(usage_rights_use_justification, usage_rights_use_justification_types)
     path = '/v1/groups/{group_id}/usage_rights'
     payload = {
-        'file_ids': file_ids,
-        'folder_ids': folder_ids,
+        'file_ids[]': file_ids,
+        'folder_ids[]': folder_ids,
         'publish': publish,
         'usage_rights[use_justification]': usage_rights_use_justification,
         'usage_rights[legal_copyright]': usage_rights_legal_copyright,
@@ -1387,8 +1387,8 @@ Note that new files uploaded to these folders do not automatically inherit these
     utils.validate_attr_is_acceptable(usage_rights_use_justification, usage_rights_use_justification_types)
     path = '/v1/users/{user_id}/usage_rights'
     payload = {
-        'file_ids': file_ids,
-        'folder_ids': folder_ids,
+        'file_ids[]': file_ids,
+        'folder_ids[]': folder_ids,
         'publish': publish,
         'usage_rights[use_justification]': usage_rights_use_justification,
         'usage_rights[legal_copyright]': usage_rights_legal_copyright,
@@ -1419,8 +1419,8 @@ def remove_usage_rights_courses(request_ctx, course_id, file_ids, folder_ids=Non
 
     path = '/v1/courses/{course_id}/usage_rights'
     payload = {
-        'file_ids': file_ids,
-        'folder_ids': folder_ids,
+        'file_ids[]': file_ids,
+        'folder_ids[]': folder_ids,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id)
     response = client.delete(request_ctx, url, payload=payload, **request_kwargs)
@@ -1447,8 +1447,8 @@ def remove_usage_rights_groups(request_ctx, group_id, file_ids, folder_ids=None,
 
     path = '/v1/groups/{group_id}/usage_rights'
     payload = {
-        'file_ids': file_ids,
-        'folder_ids': folder_ids,
+        'file_ids[]': file_ids,
+        'folder_ids[]': folder_ids,
     }
     url = request_ctx.base_api_url + path.format(group_id=group_id)
     response = client.delete(request_ctx, url, payload=payload, **request_kwargs)
@@ -1475,8 +1475,8 @@ def remove_usage_rights_users(request_ctx, user_id, file_ids, folder_ids=None, *
 
     path = '/v1/users/{user_id}/usage_rights'
     payload = {
-        'file_ids': file_ids,
-        'folder_ids': folder_ids,
+        'file_ids[]': file_ids,
+        'folder_ids[]': folder_ids,
     }
     url = request_ctx.base_api_url + path.format(user_id=user_id)
     response = client.delete(request_ctx, url, payload=payload, **request_kwargs)

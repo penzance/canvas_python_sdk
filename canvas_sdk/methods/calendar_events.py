@@ -49,8 +49,8 @@ underscore, followed by the context id. For example: course_42
         'end_date': end_date,
         'undated': undated,
         'all_events': all_events,
-        'context_codes': context_codes,
-        'excludes': excludes,
+        'context_codes[]': context_codes,
+        'excludes[]': excludes,
         'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format()
@@ -111,8 +111,8 @@ underscore, followed by the context id. For example: course_42
         'end_date': end_date,
         'undated': undated,
         'all_events': all_events,
-        'context_codes': context_codes,
-        'excludes': excludes,
+        'context_codes[]': context_codes,
+        'excludes[]': excludes,
         'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(user_id=user_id)
@@ -396,11 +396,11 @@ If course_section_id is set to "all", events will be created for the entire cour
 
     path = '/v1/courses/{course_id}/calendar_events/timetable'
     payload = {
-        'timetables[course_section_id]': timetables_course_section_id,
-        'timetables[course_section_id][weekdays]': timetables_course_section_id_weekdays,
-        'timetables[course_section_id][start_time]': timetables_course_section_id_start_time,
-        'timetables[course_section_id][end_time]': timetables_course_section_id_end_time,
-        'timetables[course_section_id][location_name]': timetables_course_section_id_location_name,
+        'timetables[course_section_id][]': timetables_course_section_id,
+        'timetables[course_section_id][weekdays][]': timetables_course_section_id_weekdays,
+        'timetables[course_section_id][start_time][]': timetables_course_section_id_start_time,
+        'timetables[course_section_id][end_time][]': timetables_course_section_id_end_time,
+        'timetables[course_section_id][location_name][]': timetables_course_section_id_location_name,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id)
     response = client.post(request_ctx, url, payload=payload, **request_kwargs)
@@ -462,11 +462,11 @@ If one is not specified, an identifier will be generated based on the start and 
     path = '/v1/courses/{course_id}/calendar_events/timetable_events'
     payload = {
         'course_section_id': course_section_id,
-        'events': events,
-        'events[start_at]': events_start_at,
-        'events[end_at]': events_end_at,
-        'events[location_name]': events_location_name,
-        'events[code]': events_code,
+        'events[]': events,
+        'events[start_at][]': events_start_at,
+        'events[end_at][]': events_end_at,
+        'events[location_name][]': events_location_name,
+        'events[code][]': events_code,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id)
     response = client.post(request_ctx, url, payload=payload, **request_kwargs)

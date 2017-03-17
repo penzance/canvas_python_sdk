@@ -43,7 +43,7 @@ Defaults to false.
     utils.validate_attr_is_acceptable(scope, scope_types)
     path = '/v1/courses/{course_id}/discussion_topics'
     payload = {
-        'include': include,
+        'include[]': include,
         'order_by': order_by,
         'scope': scope,
         'only_announcements': only_announcements,
@@ -99,7 +99,7 @@ Defaults to false.
     utils.validate_attr_is_acceptable(scope, scope_types)
     path = '/v1/groups/{group_id}/discussion_topics'
     payload = {
-        'include': include,
+        'include[]': include,
         'order_by': order_by,
         'scope': scope,
         'only_announcements': only_announcements,
@@ -550,7 +550,7 @@ def reorder_pinned_topics_courses(request_ctx, course_id, order, **request_kwarg
 
     path = '/v1/courses/{course_id}/discussion_topics/reorder'
     payload = {
-        'order': order,
+        'order[]': order,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id)
     response = client.post(request_ctx, url, payload=payload, **request_kwargs)
@@ -577,7 +577,7 @@ def reorder_pinned_topics_groups(request_ctx, group_id, order, **request_kwargs)
 
     path = '/v1/groups/{group_id}/discussion_topics/reorder'
     payload = {
-        'order': order,
+        'order[]': order,
     }
     url = request_ctx.base_api_url + path.format(group_id=group_id)
     response = client.post(request_ctx, url, payload=payload, **request_kwargs)
@@ -1189,7 +1189,7 @@ smallest id first.
         per_page = request_ctx.per_page
     path = '/v1/courses/{course_id}/discussion_topics/{topic_id}/entry_list'
     payload = {
-        'ids': ids,
+        'ids[]': ids,
         'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id, topic_id=topic_id)
@@ -1226,7 +1226,7 @@ smallest id first.
         per_page = request_ctx.per_page
     path = '/v1/groups/{group_id}/discussion_topics/{topic_id}/entry_list'
     payload = {
-        'ids': ids,
+        'ids[]': ids,
         'per_page': per_page,
     }
     url = request_ctx.base_api_url + path.format(group_id=group_id, topic_id=topic_id)

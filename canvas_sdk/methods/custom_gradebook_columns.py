@@ -129,7 +129,7 @@ def reorder_custom_columns(request_ctx, course_id, order, **request_kwargs):
 
     path = '/v1/courses/{course_id}/custom_gradebook_columns/reorder'
     payload = {
-        'order': order,
+        'order[]': order,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id)
     response = client.post(request_ctx, url, payload=payload, **request_kwargs)
