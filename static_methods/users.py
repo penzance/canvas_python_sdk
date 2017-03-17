@@ -1,3 +1,11 @@
+"""
+This is required by TLT-2802; swagger documentation for list_users_in_account
+does not currently contain information about the include[] parameter.
+Documentation that needs to be updated:
+https://github.com/instructure/canvas-lms/blob/stable/app/controllers/users_controller.rb#L371
+Based on the following param:
+https://github.com/instructure/canvas-lms/blob/stable/app/controllers/users_controller.rb#L419
+"""
 def list_users_in_account(request_ctx, account_id, search_term=None,
                           include=None, per_page=None, **request_kwargs):
     """
