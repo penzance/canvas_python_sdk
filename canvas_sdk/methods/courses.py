@@ -457,6 +457,12 @@ permission to manage or view all grades, each enrollment will include a
 if present. Default is to not include Test Student.
 - "custom_links": Optionally include plugin-supplied custom links for each student,
 such as analytics information
+- "current_grading_period_scores": if enrollments is included as
+well as this directive, the scores returned in the enrollment
+will be for the current grading period if there is one. A
+'grading_period_id' value will also be included with the
+scores. if grading_period_id is nil there is no current grading
+period and the score is a total score.
         :type include: array or None
         :param user_id: (optional) If this parameter is given and it corresponds to a user in the course,
 the +page+ parameter will be ignored and the page containing the specified user
@@ -479,7 +485,7 @@ with the "user_id" argument but multiple user_ids can be included.
     if per_page is None:
         per_page = request_ctx.per_page
     enrollment_type_types = ('teacher', 'student', 'student_view', 'ta', 'observer', 'designer')
-    include_types = ('email', 'enrollments', 'locked', 'avatar_url', 'test_student', 'bio', 'custom_links')
+    include_types = ('email', 'enrollments', 'locked', 'avatar_url', 'test_student', 'bio', 'custom_links', 'current_grading_period_scores')
     enrollment_state_types = ('active', 'invited', 'rejected', 'completed', 'inactive')
     utils.validate_attr_is_acceptable(enrollment_type, enrollment_type_types)
     utils.validate_attr_is_acceptable(include, include_types)
@@ -542,6 +548,12 @@ permission to manage or view all grades, each enrollment will include a
 if present. Default is to not include Test Student.
 - "custom_links": Optionally include plugin-supplied custom links for each student,
 such as analytics information
+- "current_grading_period_scores": if enrollments is included as
+well as this directive, the scores returned in the enrollment
+will be for the current grading period if there is one. A
+'grading_period_id' value will also be included with the
+scores. if grading_period_id is nil there is no current grading
+period and the score is a total score.
         :type include: array or None
         :param user_id: (optional) If this parameter is given and it corresponds to a user in the course,
 the +page+ parameter will be ignored and the page containing the specified user
@@ -564,7 +576,7 @@ with the "user_id" argument but multiple user_ids can be included.
     if per_page is None:
         per_page = request_ctx.per_page
     enrollment_type_types = ('teacher', 'student', 'student_view', 'ta', 'observer', 'designer')
-    include_types = ('email', 'enrollments', 'locked', 'avatar_url', 'test_student', 'bio', 'custom_links')
+    include_types = ('email', 'enrollments', 'locked', 'avatar_url', 'test_student', 'bio', 'custom_links', 'current_grading_period_scores')
     enrollment_state_types = ('active', 'invited', 'rejected', 'completed', 'inactive')
     utils.validate_attr_is_acceptable(enrollment_type, enrollment_type_types)
     utils.validate_attr_is_acceptable(include, include_types)

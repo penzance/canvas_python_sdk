@@ -117,7 +117,7 @@ direct sub-accounts of this account will be returned. Defaults to false.
     return response
 
 
-def list_active_courses_in_account(request_ctx, account_id, with_enrollments=None, enrollment_type=None, published=None, completed=None, by_teachers=None, by_subaccounts=None, hide_enrollmentless_courses=None, state=None, enrollment_term_id=None, search_term=None, include=None, per_page=None, **request_kwargs):
+def list_active_courses_in_account(request_ctx, account_id, with_enrollments=None, enrollment_type=None, published=None, completed=None, blueprint=None, blueprint_associated=None, by_teachers=None, by_subaccounts=None, hide_enrollmentless_courses=None, state=None, enrollment_term_id=None, search_term=None, include=None, per_page=None, **request_kwargs):
     """
     Retrieve the list of courses in this account.
 
@@ -139,6 +139,12 @@ courses.  If not present, do not filter on published status.
 'completed', or their enrollment term may have ended).  If false, exclude
 completed courses.  If not present, do not filter on completed status.
         :type completed: boolean or None
+        :param blueprint: (optional) If true, include only blueprint courses. If false, exclude them.
+If not present, do not filter on this basis.
+        :type blueprint: boolean or None
+        :param blueprint_associated: (optional) If true, include only courses that inherit content from a blueprint course.
+If false, exclude them. If not present, do not filter on this basis.
+        :type blueprint_associated: boolean or None
         :param by_teachers: (optional) List of User IDs of teachers; if supplied, include only courses taught by
 one of the referenced users.
         :type by_teachers: array or None
@@ -179,6 +185,8 @@ all states but "deleted" are returned.
         'enrollment_type': enrollment_type,
         'published': published,
         'completed': completed,
+        'blueprint': blueprint,
+        'blueprint_associated': blueprint_associated,
         'by_teachers': by_teachers,
         'by_subaccounts': by_subaccounts,
         'hide_enrollmentless_courses': hide_enrollmentless_courses,
