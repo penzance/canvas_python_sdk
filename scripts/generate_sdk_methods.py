@@ -126,7 +126,7 @@ def is_array_param(param):
     """
     Determines if a parameter should be treated as an array
     """
-    return param.get('tags') and param['tags']['type'] == 'array'
+    return param.get('type') == 'array'
 
  
 def build_payload(parameters):
