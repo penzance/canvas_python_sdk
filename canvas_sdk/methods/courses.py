@@ -581,7 +581,18 @@ def get_single_course_accounts(request_ctx, account_id, id, include, **request_k
     return response
 
 
-def update_course(request_ctx, id, course_account_id=None, course_name=None, course_course_code=None, course_start_at=None, course_end_at=None, course_license=None, course_is_public=None, course_is_public_to_auth_users=None, course_public_syllabus=None, course_public_description=None, course_allow_student_wiki_edits=None, course_allow_wiki_comments=None, course_allow_student_forum_attachments=None, course_open_enrollment=None, course_self_enrollment=None, course_restrict_enrollments_to_course_dates=None, course_term_id=None, course_sis_course_id=None, course_integration_id=None, course_hide_final_grades=None, course_apply_assignment_group_weights=None, offer=None, course_syllabus_body=None, course_grading_standard_id=None, course_course_format=None, course_event=None, **request_kwargs):
+def update_course(request_ctx, id, course_account_id=None, course_name=None, course_course_code=None,
+                  course_start_at=None, course_end_at=None, course_license=None, course_is_public=None,
+                  course_is_public_to_auth_users=None, course_public_syllabus=None, course_public_description=None,
+                  course_allow_student_wiki_edits=None, course_allow_wiki_comments=None,
+                  course_allow_student_forum_attachments=None, course_open_enrollment=None,
+                  course_self_enrollment=None, course_restrict_enrollments_to_course_dates=None, course_term_id=None,
+                  course_sis_course_id=None, course_integration_id=None, course_hide_final_grades=None,
+                  course_apply_assignment_group_weights=None, offer=None, course_syllabus_body=None,
+                  course_grading_standard_id=None, course_course_format=None, course_event=None,
+                  course_blueprint=None, course_blueprint_restrictions=None,
+                  course_use_blueprint_restrictions_by_object_type=None,
+                  course_blueprint_restrictions_by_object_type=None, **request_kwargs):
 
     """
     Update an existing course.
@@ -643,6 +654,20 @@ def update_course(request_ctx, id, course_account_id=None, course_name=None, cou
         :type course_syllabus_body: string or None
         :param course_event: (optional) Change the course workflow state: 'claim' for unpublished; 'offer' for published
         :type course_event: string or None
+        :param course_blueprint: (optional) Sets the course as a blueprint course. NOTE: The Blueprint Courses feature is in beta
+        :type course_blueprint: boolean or None
+        :param course_blueprint_restrictions: (optional) Sets a default set to apply to blueprint course objects when restricted,
+               unless _use_blueprint_restrictions_by_object_type_ is enabled.
+               See the {api:Blueprint_Templates:BlueprintRestriction Blueprint Restriction} documentation
+        :type course_blueprint_restrictions: BlueprintRestriction or None
+        :param course_use_blueprint_restrictions_by_object_type: (optional) When enabled, the _blueprint_restrictions_
+               parameter will be ignored in favor of the _blueprint_restrictions_by_object_type_ parameter
+        :type course_use_blueprint_restrictions_by_object_type: boolean or None
+        :param course_blueprint_restrictions_by_object_type: (optional) Allows setting multiple
+               {api:Blueprint_Templates:BlueprintRestriction Blueprint Restriction}
+               to apply to blueprint course objects of the matching type when restricted.
+               The possible object types are "assignment", "attachment", "discussion_topic", "quiz" and "wiki_page".
+        :type course_blueprint_restrictions_by_object_type: multiple BlueprintRestrictions or None
         :return: Update a course
         :rtype: requests.Response (with void data)
 
@@ -675,6 +700,10 @@ def update_course(request_ctx, id, course_account_id=None, course_name=None, cou
         'course[grading_standard_id]' : course_grading_standard_id,
         'course[course_format]' : course_course_format,
         'course[event]': course_event,
+        'course[blueprint]': course_blueprint,
+        'course[blueprint_restrictions]': course_blueprint_restrictions,
+        'course[use_blueprint_restrictions_by_object_type]': course_use_blueprint_restrictions_by_object_type,
+        'course[blueprint_restrictions_by_object_type]': course_blueprint_restrictions_by_object_type,
     }
 
     path = '/v1/courses/{id}'
