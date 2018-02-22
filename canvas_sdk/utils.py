@@ -1,5 +1,8 @@
 from canvas_sdk import client
 from collections import defaultdict
+import logging
+
+logger = logging.getLogger(__name__)
 
 """
 The util module contains helper methods for the SDK
@@ -64,9 +67,11 @@ def get_all_list_data(request_context, function, *args, **kwargs):
             function response if there are no paged results
         :rtype: list of json data or json
     """
+    logger.debug('getting all list data for {}'.format(function))
     response = function(request_context, *args, **kwargs)
     data = response.json()
     for next_response in get_next(request_context, response):
+        logger.debug('getting another page for {}'.format(function))
         data.extend(next_response.json())
     return data
 
