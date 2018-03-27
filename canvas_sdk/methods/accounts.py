@@ -122,7 +122,7 @@ def list_active_courses_in_account(request_ctx, account_id, with_enrollments=Non
     if per_page is None:
         per_page = request_ctx.per_page
     state_types = ('created', 'claimed', 'available', 'completed', 'deleted', 'all')
-    include_types = ('needs_grading_count', 'syllabus_body', 'total_scores', 'term', 'course_progress', 'sections', 'storage_quota_used_mb')
+    include_types = ('syllabus_body', 'term', 'course_progress', 'storage_quota_used_mb', 'total_students', 'teachers')
     utils.validate_attr_is_acceptable(state, state_types)
     utils.validate_attr_is_acceptable(include, include_types)
     path = '/v1/accounts/{account_id}/courses'
