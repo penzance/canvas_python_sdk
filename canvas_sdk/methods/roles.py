@@ -23,7 +23,7 @@ def list_roles(request_ctx, account_id, state, per_page=None, **request_kwargs):
     utils.validate_attr_is_acceptable(state, state_types)
     path = '/v1/accounts/{account_id}/roles'
     payload = {
-        'state' : state,
+        'state[]' : state,
         'per_page' : per_page,
     }
     url = request_ctx.base_api_url + path.format(account_id=account_id)
@@ -143,7 +143,7 @@ def activate_role(request_ctx, account_id, role, **request_kwargs):
 def update_role(request_ctx, account_id, role, permissions_X_explicit=None, permissions_X_enabled=None, **request_kwargs):
     """
     Update permissions for an existing role.
-    
+
     Recognized roles are:
     * TeacherEnrollment
     * StudentEnrollment
@@ -177,5 +177,3 @@ def update_role(request_ctx, account_id, role, permissions_X_explicit=None, perm
     response = client.put(request_ctx, url, payload=payload, **request_kwargs)
 
     return response
-
-
