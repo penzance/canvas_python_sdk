@@ -67,7 +67,7 @@ def create_new_role(request_ctx, account_id, role, base_role_type=None, permissi
         :param base_role_type: (optional) Specifies the role type that will be used as a base for the permissions granted to this role. Defaults to 'AccountMembership' if absent
         :type base_role_type: string or None
         :param permissions: (optional) Specifies the permissions that will be granted to this role. See Canvas API docs for details on the structure.
-        :type base_role_type: dict
+        :type permissions: dict
         :return: Create a new role
         :rtype: requests.Response (with Role data)
 
@@ -138,7 +138,7 @@ def activate_role(request_ctx, account_id, role, **request_kwargs):
     return response
 
 
-def update_role(request_ctx, account_id, role, permissions_X_explicit=None, permissions_X_enabled=None, **request_kwargs):
+def update_role(request_ctx, account_id, role, label=None, permissions={}, **request_kwargs):
     """
     Update permissions for an existing role.
 
@@ -157,20 +157,24 @@ def update_role(request_ctx, account_id, role, permissions_X_explicit=None, perm
         :type account_id: string
         :param role: (required) ID
         :type role: string
-        :param permissions_X_explicit: (optional) no description
-        :type permissions_X_explicit: boolean or None
-        :param permissions_X_enabled: (optional) These arguments are described in the documentation for the {api:RoleOverridesController#add_role add_role method}.
-        :type permissions_X_enabled: boolean or None
+        :param label: The label for the role. Can only change the label of a custom role that belongs directly to the account.
+        :type label: string
+        :param permissions: (optional) Specifies the permissions that will be granted to this role. See Canvas API docs for details on the structure.
+        :type permissions: dict
         :return: Update a role
         :rtype: requests.Response (with Role data)
 
     """
 
     path = '/v1/accounts/{account_id}/roles/{role}'
-    payload = {
-        'permissions[X][explicit]' : permissions_X_explicit,
-        'permissions[X][enabled]' : permissions_X_enabled,
-    }
+    payload = {}
+    if label and label != '':
+        payload['label'] = label
+    # flatten the permissions dict
+    for p in permissions:
+        for a in permissions[p]:
+            payload['permissions[{}][{}]'.format(p, a)] = permissions[p][a]
+    
     url = request_ctx.base_api_url + path.format(account_id=account_id, role=role)
     response = client.put(request_ctx, url, payload=payload, **request_kwargs)
 
