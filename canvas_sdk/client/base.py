@@ -2,6 +2,7 @@ import logging
 
 import requests
 from requests.exceptions import HTTPError
+import time
 
 from .auth import OAuth2Bearer
 from canvas_sdk.exceptions import (CanvasAPIError, InvalidOAuthTokenError)
@@ -121,6 +122,7 @@ def call(action, url, request_context, params=None, data=None, max_retries=None,
     # try the request until max_retries is reached.  we need to account for the
     # fact that the first iteration through isn't a retry, so add 1 to max_retries
     for retry in range(retries + 1):
+        st = time.time()
         try:
             # build and send the request
             response = canvas_session.request(
@@ -157,4 +159,5 @@ def call(action, url, request_context, params=None, data=None, max_retries=None,
                     error_json=error_json,
                 )
         else:
+            log.debug('API_CALL_DURATION {} {}'.format(url, time.time()-st))
             return response
