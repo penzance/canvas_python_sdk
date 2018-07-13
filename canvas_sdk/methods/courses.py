@@ -583,8 +583,8 @@ def get_single_course_accounts(request_ctx, account_id, id, include, **request_k
 
 def update_course(request_ctx, id, course_account_id=None, course_name=None, course_course_code=None,
                   course_start_at=None, course_end_at=None, course_license=None, course_is_public=None,
-                  course_is_public_to_auth_users=None, course_public_syllabus=None, course_public_description=None,
-                  course_allow_student_wiki_edits=None, course_allow_wiki_comments=None,
+                  course_is_public_to_auth_users=None, course_public_syllabus=None, course_public_syllabus_to_auth=None,
+                  course_public_description=None, course_allow_student_wiki_edits=None, course_allow_wiki_comments=None,
                   course_allow_student_forum_attachments=None, course_open_enrollment=None,
                   course_self_enrollment=None, course_restrict_enrollments_to_course_dates=None, course_term_id=None,
                   course_sis_course_id=None, course_integration_id=None, course_hide_final_grades=None,
@@ -622,6 +622,8 @@ def update_course(request_ctx, id, course_account_id=None, course_name=None, cou
         :type course_is_public_to_auth_users: boolean or None
         :param course_public_syllabus: (optional) Set to true to make the course syllabus public.
         :type course_public_syllabus: boolean or None
+        :param course_public_syllabus_to_auth: (optional) Set to true to make the course syllabus public to authenticated users.
+        :type course_public_syllabus_to_auth: boolean or None
         :param course_public_description: (optional) A publicly visible description of the course.
         :type course_public_description: string or None
         :param course_allow_student_wiki_edits: (optional) If true, students will be able to modify the course wiki.
@@ -683,6 +685,7 @@ def update_course(request_ctx, id, course_account_id=None, course_name=None, cou
         'course[is_public]' : course_is_public,
         'course[is_public_to_auth_users]' : course_is_public_to_auth_users,
         'course[public_syllabus]' : course_public_syllabus,
+        'course[public_syllabus_to_auth]' : course_public_syllabus_to_auth,
         'course[public_description]' : course_public_description,
         'course[allow_student_wiki_edits]' : course_allow_student_wiki_edits,
         'course[allow_wiki_comments]' : course_allow_wiki_comments,
