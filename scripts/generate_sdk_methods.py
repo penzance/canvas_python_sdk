@@ -1,3 +1,4 @@
+from __future__ import print_function
 
 
 import urllib2
@@ -442,7 +443,7 @@ def main(argv=None):
     
     if url:
         if 'http' not in url:
-            print 'Error: invalid url [%s]' % url   
+            print('Error: invalid url [%s]' % url)   
             return 2
         else:
             base_canvas_url = url
@@ -450,12 +451,12 @@ def main(argv=None):
     try:
         response = urllib2.urlopen(base_canvas_url+'/doc/api/api-docs.json')
     except urllib2.HTTPError as err:
-        print 'The server couldn\'t fulfill the request.'
-        print 'Error code: ', err.code
+        print('The server couldn\'t fulfill the request.')
+        print('Error code: ', err.code)
         return 2
     except urllib2.URLError as err:
-        print 'We failed to reach a server.'
-        print 'Reason: ', err.reason
+        print('We failed to reach a server.')
+        print('Reason: ', err.reason)
         return 2
 
     base_api_url = base_canvas_url+'/doc/api'
@@ -475,7 +476,7 @@ def main(argv=None):
         file_name, ext = path.split('.')
         python_file_name = METHODS_DIR + file_name + '.py'
         with open(python_file_name, 'w') as python_file:
-            print 'Creating '+ python_file_name + '...'
+            print('Creating '+ python_file_name + '...')
             python_file_content = build_module(url)
             python_file.write(python_file_content)
         python_file.close()

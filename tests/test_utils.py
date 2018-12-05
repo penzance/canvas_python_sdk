@@ -1,3 +1,4 @@
+from __future__ import print_function
 import unittest
 import mock
 import requests
@@ -93,7 +94,7 @@ class TestUtils(unittest.TestCase):
         try:
             utils.validate_attr_is_acceptable(None, ['b', 'c'], True)
         except AttributeError:
-            print 'assert None can be passed when allow_none=True failed'
+            print('assert None can be passed when allow_none=True failed')
             raise
 
     @patch('canvas_sdk.utils.client.get')
