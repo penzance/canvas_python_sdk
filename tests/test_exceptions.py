@@ -1,5 +1,10 @@
+from __future__ import unicode_literals
 import unittest
+
+import six
+
 from canvas_sdk.exceptions import CanvasAPIError
+
 
 
 class TestExceptions(unittest.TestCase):
@@ -26,6 +31,9 @@ class TestExceptions(unittest.TestCase):
 
     def test_default_unicode_for_canvas_api_error(self):
         """ Test default CanvasAPIError instance represented as unicode """
+        if six.PY3:
+            self.skipTest('This test is redundant in Python 3 because all '
+                          'strings are now unicode strings.')
         self.assertEqual(u'500', unicode(self.default_api_error))
 
     def test_instance_str_for_canvas_api_error(self):

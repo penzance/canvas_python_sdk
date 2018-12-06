@@ -1,3 +1,4 @@
+from __future__ import unicode_literals
 from canvas_sdk import client, utils
 
 def list_discussion_topics_courses(request_ctx, course_id, order_by=None, scope=None, only_announcements=None, search_term=None, **request_kwargs):

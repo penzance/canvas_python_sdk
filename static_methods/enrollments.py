@@ -1,3 +1,4 @@
+from __future__ import unicode_literals
 def list_enrollments_courses(request_ctx, course_id, type=None, role=None, role_id=None, state=None, user_id=None, per_page=None, **request_kwargs):
     """
     Depending on the URL given, return either (1) all of the enrollments in

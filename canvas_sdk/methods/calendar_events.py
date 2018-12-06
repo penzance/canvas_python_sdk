@@ -1,3 +1,4 @@
+from __future__ import unicode_literals
 from canvas_sdk import client, utils
 
 def list_calendar_events(request_ctx, type=None, start_date=None, end_date=None, undated=None, all_events=None, context_codes=None, per_page=None, **request_kwargs):

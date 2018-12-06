@@ -1,3 +1,5 @@
+from __future__ import unicode_literals
+from builtins import map
 from canvas_sdk import client, utils
 import re
 
@@ -45,7 +47,7 @@ def start_report(request_ctx, account_id, report, parameters, **request_kwargs):
     # we need to translate them to be like 'parameters[enrollments]'
     ppat = re.compile('parameters\[.+\]')
     fix_key = lambda (k, v): (k if ppat.match(str(k)) else 'parameters[{}]'.format(k), v)
-    payload = map(fix_key, parameters.items())
+    payload = list(map(fix_key, list(parameters.items())))
     url = request_ctx.base_api_url + path.format(account_id=account_id, report=report)
     response = client.post(request_ctx, url, payload=payload, **request_kwargs)
 

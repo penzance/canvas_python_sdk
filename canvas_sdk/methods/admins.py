@@ -1,3 +1,4 @@
+from __future__ import unicode_literals
 from canvas_sdk import client, utils
 
 def make_account_admin(request_ctx, account_id, user_id, role=None, role_id=None, send_confirmation=None, **request_kwargs):

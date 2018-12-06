@@ -1,3 +1,6 @@
+from __future__ import unicode_literals
+from future.utils import python_2_unicode_compatible
+
 
 class SDKException(Exception):
 
@@ -9,7 +12,7 @@ class InvalidOAuthTokenError(SDKException):
     """ Indicates that an invalid access token made the request """
     pass
 
-
+@python_2_unicode_compatible
 class CanvasAPIError(SDKException):
 
     """
@@ -31,10 +34,7 @@ class CanvasAPIError(SDKException):
     """
 
     def __str__(self):
-        return self.__unicode__().encode('utf-8')
-
-    def __unicode__(self):
         if self.error_msg:
-            return u'%s: %s' % (self.status_code, self.error_msg)
+            return '%s: %s' % (self.status_code, self.error_msg)
         else:
-            return u'%s' % self.status_code
+            return '%s' % self.status_code

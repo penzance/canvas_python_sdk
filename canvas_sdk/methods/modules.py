@@ -1,3 +1,4 @@
+from __future__ import unicode_literals
 from canvas_sdk import client, utils
 
 def list_modules(request_ctx, course_id, include, search_term=None, student_id=None, per_page=None, **request_kwargs):

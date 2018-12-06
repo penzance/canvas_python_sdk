@@ -1,3 +1,4 @@
+from __future__ import unicode_literals
 from canvas_sdk import client, utils
 
 def create_global_notification(request_ctx, account_id, account_notification_subject=None, account_notification_message=None, account_notification_start_at=None, account_notification_end_at=None, account_notification_icon=None, account_notification_roles=None, **request_kwargs):

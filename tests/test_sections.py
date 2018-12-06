@@ -1,3 +1,4 @@
+from __future__ import unicode_literals
 import unittest
 import mock
 from mock import patch

@@ -1,3 +1,4 @@
+from __future__ import unicode_literals
 from canvas_sdk import client, utils
 
 def list_poll_choices_in_poll(request_ctx, poll_id, **request_kwargs):

@@ -22,6 +22,8 @@ setup(
         "Programming Language :: Python :: 2",
         "Programming Language :: Python :: 2.6",
         "Programming Language :: Python :: 2.7",
+        "Programming Language :: Python :: 3.6",
+        "Programming Language :: Python :: 3.7",
         "Development Status :: 4 - Beta",
         "Intended Audience :: Developers",
         "Topic :: Software Development",
@@ -30,7 +32,9 @@ setup(
     license='MIT',
     zip_safe=False,
     install_requires=[
+        'future',
         'requests',
+        'six',
     ],
     extras_require={
         'docs': ['sphinx>=1.2.0'],

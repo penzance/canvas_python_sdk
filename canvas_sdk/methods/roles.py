@@ -1,3 +1,4 @@
+from __future__ import unicode_literals
 from canvas_sdk import client, utils
 
 def list_roles(request_ctx, account_id, state, per_page=None, **request_kwargs):

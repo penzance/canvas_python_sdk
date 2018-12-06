@@ -1,3 +1,4 @@
+from __future__ import unicode_literals
 from canvas_sdk import client, utils
 
 def create_assignment(request_ctx, course_id, assignment_name, assignment_submission_types, assignment_position=None, assignment_allowed_extensions=None, assignment_turnitin_enabled=None, assignment_integration_data=None, assignment_integration_id=None, assignment_turnitin_settings=None, assignment_peer_reviews=None, assignment_automatic_peer_reviews=None, assignment_notify_of_update=None, assignment_group_category_id=None, assignment_grade_group_students_individually=None, assignment_external_tool_tag_attributes=None, assignment_points_possible=None, assignment_grading_type=None, assignment_due_at=None, assignment_lock_at=None, assignment_unlock_at=None, assignment_description=None, assignment_assignment_group_id=None, assignment_muted=None, assignment_assignment_overrides=None, assignment_only_visible_to_overrides=None, assignment_published=None, assignment_grading_standard_id=None, **request_kwargs):
@@ -98,7 +99,7 @@ def create_assignment(request_ctx, course_id, assignment_name, assignment_submis
         'assignment[published]' : assignment_published,
         'assignment[grading_standard_id]' : assignment_grading_standard_id,
     }
-    for attribute, value in (assignment_external_tool_tag_attributes or {}).iteritems():
+    for attribute, value in list((assignment_external_tool_tag_attributes or {}).items()):
         payload['assignment[external_tool_tag_attributes][{}]'.format(attribute)] = value
     url = request_ctx.base_api_url + path.format(course_id=course_id)
     response = client.post(request_ctx, url, payload=payload, **request_kwargs)
@@ -206,7 +207,7 @@ def edit_assignment(request_ctx, course_id, id, assignment_name=None, assignment
         'assignment[published]' : assignment_published,
         'assignment[grading_standard_id]' : assignment_grading_standard_id,
     }
-    for attribute, value in (assignment_external_tool_tag_attributes or {}).iteritems():
+    for attribute, value in list((assignment_external_tool_tag_attributes or {}).items()):
         payload['assignment[external_tool_tag_attributes][{}]'.format(attribute)] = value
     url = request_ctx.base_api_url + path.format(course_id=course_id, id=id)
     response = client.put(request_ctx, url, payload=payload, **request_kwargs)

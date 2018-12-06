@@ -1,3 +1,4 @@
+from __future__ import unicode_literals
 from canvas_sdk import client, utils
 
 def list_enrollments_courses(request_ctx, course_id, type=None, role=None, role_id=None, state=None, user_id=None, per_page=None, **request_kwargs):

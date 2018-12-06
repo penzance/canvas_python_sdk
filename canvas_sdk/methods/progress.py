@@ -1,3 +1,4 @@
+from __future__ import unicode_literals
 from canvas_sdk import client, utils
 
 def query_progress(request_ctx, id, **request_kwargs):

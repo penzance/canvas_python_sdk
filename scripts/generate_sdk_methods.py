@@ -1,7 +1,11 @@
 from __future__ import print_function
+from __future__ import unicode_literals
 
 
-import urllib2
+from future import standard_library
+standard_library.install_aliases()
+from builtins import str
+import urllib.request, urllib.error, urllib.parse
 import json
 import re
 import os
@@ -379,7 +383,7 @@ def build_module(json_api_url):
     build class reads in the api call for a class and contructs a class object 
     to be written to a file.
     """
-    resp = urllib2.urlopen(json_api_url)
+    resp = urllib.request.urlopen(json_api_url)
     json_resp = json.load(resp)
     apis = json_resp['apis']
 
@@ -449,12 +453,12 @@ def main(argv=None):
             base_canvas_url = url
    
     try:
-        response = urllib2.urlopen(base_canvas_url+'/doc/api/api-docs.json')
-    except urllib2.HTTPError as err:
+        response = urllib.request.urlopen(base_canvas_url+'/doc/api/api-docs.json')
+    except urllib.error.HTTPError as err:
         print('The server couldn\'t fulfill the request.')
         print('Error code: ', err.code)
         return 2
-    except urllib2.URLError as err:
+    except urllib.error.URLError as err:
         print('We failed to reach a server.')
         print('Reason: ', err.reason)
         return 2

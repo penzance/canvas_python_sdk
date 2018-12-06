@@ -1,3 +1,4 @@
+from __future__ import unicode_literals
 from canvas_sdk import client, utils
 
 def list_accounts(request_ctx, per_page=None, as_user_id=None, **request_kwargs):

@@ -1,3 +1,4 @@
+from __future__ import unicode_literals
 from canvas_sdk import client, utils
 
 def find_recipients_conversations(request_ctx, search, context, exclude, type, user_id, from_conversation_id, permissions, **request_kwargs):

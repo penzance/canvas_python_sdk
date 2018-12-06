@@ -1,3 +1,4 @@
+from __future__ import unicode_literals
 from canvas_sdk import client, utils
 
 def get_department_level_participation_data_terms(request_ctx, account_id, term_id, **request_kwargs):

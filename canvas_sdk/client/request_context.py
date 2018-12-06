@@ -1,7 +1,11 @@
+from __future__ import unicode_literals
 # request_context.py
+from future import standard_library
+standard_library.install_aliases()
+from builtins import object
 import requests
 from .auth import OAuth2Bearer
-from urlparse import urlparse
+from urllib.parse import urlparse
 
 
 class RequestContext(object):

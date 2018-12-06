@@ -1,3 +1,4 @@
+from __future__ import unicode_literals
 from canvas_sdk import client, utils
 
 def list_appointment_groups(request_ctx, scope=None, context_codes=None, include_past_appointments=None, include=None, **request_kwargs):

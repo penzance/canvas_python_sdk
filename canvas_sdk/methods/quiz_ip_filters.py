@@ -1,3 +1,4 @@
+from __future__ import unicode_literals
 from canvas_sdk import client, utils
 
 def get_available_quiz_ip_filters(request_ctx, course_id, quiz_id, **request_kwargs):

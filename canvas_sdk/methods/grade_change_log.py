@@ -1,3 +1,4 @@
+from __future__ import unicode_literals
 from canvas_sdk import client, utils
 
 def query_by_assignment(request_ctx, assignment_id, start_time=None, end_time=None, per_page=None, **request_kwargs):

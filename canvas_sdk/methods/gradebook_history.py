@@ -1,3 +1,4 @@
+from __future__ import unicode_literals
 from canvas_sdk import client, utils
 
 def days_in_gradebook_history_for_this_course(request_ctx, course_id, per_page=None, **request_kwargs):

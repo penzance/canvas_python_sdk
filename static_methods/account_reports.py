@@ -1,4 +1,7 @@
+from __future__ import unicode_literals
 
+from builtins import map
+from builtins import str
 def start_report(request_ctx, account_id, report, parameters, **request_kwargs):
     """
     Generates a report instance for the account.
@@ -22,7 +25,7 @@ def start_report(request_ctx, account_id, report, parameters, **request_kwargs):
     # we need to translate them to be like 'parameters[enrollments]'
     ppat = re.compile('parameters\[.+\]')
     fix_key = lambda k_v: (k_v[0] if ppat.match(str(k_v[0])) else 'parameters[{}]'.format(k_v[0]), k_v[1])
-    payload = map(fix_key, parameters.items())
+    payload = list(map(fix_key, list(parameters.items())))
     url = request_ctx.base_api_url + path.format(account_id=account_id, report=report)
     response = client.post(request_ctx, url, payload=payload, **request_kwargs)
 

@@ -1,3 +1,4 @@
+from __future__ import unicode_literals
 from canvas_sdk import client, utils
 
 def create_new_grading_standard_accounts(request_ctx, account_id, title, grading_scheme_entry_name, grading_scheme_entry_value, **request_kwargs):

@@ -1,3 +1,4 @@
+from __future__ import unicode_literals
 from canvas_sdk import client, utils
 
 def list_migration_issues_accounts(request_ctx, account_id, content_migration_id, per_page=None, **request_kwargs):

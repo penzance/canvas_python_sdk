@@ -1,3 +1,4 @@
+from __future__ import unicode_literals
 from canvas_sdk import client, utils
 
 def retrieve_all_quiz_reports(request_ctx, course_id, quiz_id, includes_all_versions=None, per_page=None, **request_kwargs):

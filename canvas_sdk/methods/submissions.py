@@ -1,3 +1,4 @@
+from __future__ import unicode_literals
 from canvas_sdk import client, utils
 
 def submit_assignment_courses(request_ctx, course_id, assignment_id, submission_submission_type, comment_text_comment=None, submission_body=None, submission_url=None, submission_file_ids=None, submission_media_comment_id=None, submission_media_comment_type=None, **request_kwargs):
