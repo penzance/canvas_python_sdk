@@ -39,6 +39,12 @@ setup(
     extras_require={
         'docs': ['sphinx>=1.2.0'],
     },
+    # TODO: `from collections import ABC` imports will break in python 3.8.
+    #       They are present both in this library and in the `futurize`
+    #       library which maintains cross-compatibility with python 2 and 3.
+    #       In order to move to python 3.8, we will likely need to discontinue
+    #       support for python 2 in this library.
+    python_requires='>=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*, !=3.5.*, <3.8',
     test_suite='tests',
     tests_require=[
         'mock>=1.0.1',
