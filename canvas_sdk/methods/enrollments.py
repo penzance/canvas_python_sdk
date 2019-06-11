@@ -313,7 +313,7 @@ def conclude_enrollment(request_ctx, course_id, id, task=None, **request_kwargs)
 
     """
 
-    task_types = ('conclude', 'delete')
+    task_types = ('conclude', 'delete', 'inactivate', 'deactivate')
     utils.validate_attr_is_acceptable(task, task_types)
     path = '/v1/courses/{course_id}/enrollments/{id}'
     payload = {
