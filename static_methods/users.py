@@ -1,4 +1,3 @@
-from __future__ import unicode_literals
 def list_users_in_account(request_ctx, account_id, search_term=None,
                           include=None, per_page=None, **request_kwargs):
     """

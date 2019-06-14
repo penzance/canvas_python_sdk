@@ -5,7 +5,6 @@ because the Canvas documentation is not up to date or for some other reason.
 
 Copy methods in this file to overwrite the same methods in the courses.py module in the methods folder.
 """
-from __future__ import unicode_literals
 
 
 def list_your_courses(request_ctx, include, enrollment_type=None, enrollment_role=None, state=None, per_page=None, as_user_id=None, **request_kwargs):

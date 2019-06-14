@@ -1,4 +1,3 @@
-from __future__ import unicode_literals
 
 def edit_section(request_ctx, id, course_section_name=None, course_section_sis_section_id=None, course_section_start_at=None, course_section_end_at=None, **request_kwargs):
     """
@@ -29,4 +28,3 @@ def edit_section(request_ctx, id, course_section_name=None, course_section_sis_s
     response = client.put(request_ctx, url, payload=payload, **request_kwargs)
     return response
 
-    

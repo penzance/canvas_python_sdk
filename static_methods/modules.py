@@ -1,4 +1,3 @@
-from __future__ import unicode_literals
 from canvas_sdk import client, utils
 
 def create_module(request_ctx, course_id, module_name, module_unlock_at=None, module_position=None, module_require_sequential_progress=None, module_prerequisite_module_ids=None, module_publish_final_grade=None, **request_kwargs):
