@@ -1,5 +1,5 @@
 import unittest
-import mock
+from unittest import mock
 import requests
 from mock import patch
 from canvas_sdk import utils
@@ -93,7 +93,7 @@ class TestUtils(unittest.TestCase):
         try:
             utils.validate_attr_is_acceptable(None, ['b', 'c'], True)
         except AttributeError:
-            print 'assert None can be passed when allow_none=True failed'
+            print('assert None can be passed when allow_none=True failed')
             raise
 
     @patch('canvas_sdk.utils.client.get')
@@ -336,4 +336,4 @@ class TestUtils(unittest.TestCase):
         result = utils.get_count(self.req_ctx, mock_function)
         self.assertEqual(result, 5, "The result of get_count should match length of result set")
 
- 
+

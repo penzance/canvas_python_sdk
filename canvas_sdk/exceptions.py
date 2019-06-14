@@ -1,4 +1,3 @@
-
 class SDKException(Exception):
 
     """ Base class for exceptions in the canvas python sdk """
@@ -8,7 +7,6 @@ class SDKException(Exception):
 class InvalidOAuthTokenError(SDKException):
     """ Indicates that an invalid access token made the request """
     pass
-
 
 class CanvasAPIError(SDKException):
 
@@ -31,10 +29,7 @@ class CanvasAPIError(SDKException):
     """
 
     def __str__(self):
-        return self.__unicode__().encode('utf-8')
-
-    def __unicode__(self):
         if self.error_msg:
-            return u'%s: %s' % (self.status_code, self.error_msg)
+            return '%s: %s' % (self.status_code, self.error_msg)
         else:
-            return u'%s' % self.status_code
+            return '%s' % self.status_code

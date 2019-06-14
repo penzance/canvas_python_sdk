@@ -1,6 +1,4 @@
-
-
-import urllib2
+import urllib.request, urllib.error, urllib.parse
 import json
 import re
 import os
@@ -24,7 +22,7 @@ Append to the begining if we encounter a python keyword
 PREPEND_STR = 'var_'
 
 """
-Current working directory 
+Current working directory
 """
 BASE_DIR = os.path.dirname(os.getcwd())
 
@@ -80,7 +78,7 @@ pre_attachment_on_duplicate = {
 
 def check_param(param):
     """
-    check if a param is a python reserved word. if so append the PREPEND_STR and return. 
+    check if a param is a python reserved word. if so append the PREPEND_STR and return.
     If not just return the param
     """
     return PREPEND_STR+param if keyword.iskeyword(param) else param
@@ -88,7 +86,7 @@ def check_param(param):
 
 def line_format(line, spacing):
     '''
-    pad lines with preceding spaces to provide the indentation required 
+    pad lines with preceding spaces to provide the indentation required
     by python
     '''
     line_lenth = len(line) + spacing
@@ -111,7 +109,7 @@ def clean_param(param):
 
 def flatten_param(param):
     """
-    Turn a parameter that looks like this param[name_one][name_two][name_three] 
+    Turn a parameter that looks like this param[name_one][name_two][name_three]
     into this param_name_one_name_two_name_three
     """
 
@@ -128,7 +126,7 @@ def is_array_param(param):
     """
     return param.get('tags') and param['tags']['type'] == 'array'
 
- 
+
 def build_payload(parameters):
     """
     build_payload creates a list of parameters to be used in the payload of
@@ -150,7 +148,7 @@ def build_payload(parameters):
 
 def format_parameter(param, required):
     """
-    format_parameter build the a parameter to be used in the 
+    format_parameter build the a parameter to be used in the
     paramter list of the methods calls we are creating
     """
 
@@ -165,7 +163,7 @@ def get_parameters(parameters):
     get paramters creates the parameter list for the method call
     Places all required params at the begining of the param list
     """
-    
+
     arg_list = []
     opt_list = []
     for param in parameters:
@@ -189,14 +187,14 @@ def get_parameter_descriptions(parameters):
         param_name = check_param(flatten_param(param['name']))
         if param['required']:
             required = 'required'
-            lines.append(':param {0}: ({1}) {2}'.format(param_name, required, 
+            lines.append(':param {0}: ({1}) {2}'.format(param_name, required,
                 param['description']))
             lines.append(':type {0}: {1}'.format(param_name, param['type']))
         else:
             required = 'optional'
-            opt_lines.append(':param {0}: ({1}) {2}'.format(param_name, 
+            opt_lines.append(':param {0}: ({1}) {2}'.format(param_name,
                 required, param['description']))
-            opt_lines.append(':type {0}: {1} or None'.format(param_name, 
+            opt_lines.append(':type {0}: {1} or None'.format(param_name,
                 param['type']))
 
     return lines + opt_lines
@@ -206,7 +204,7 @@ def get_path_parameters(parameters):
     """
     get paramters creates the parameter list for the method call
     """
-    
+
     param_list = []
     for param in parameters:
         if param['paramType'] == 'path':
@@ -217,7 +215,7 @@ def get_path_parameters(parameters):
 
 def check_for_enums(parameters):
     """
-    Check for the existance of enums in the parameter list. 
+    Check for the existance of enums in the parameter list.
     If an enum exists, we need to build a tuple of the emum names
     as well as the code that will validate the the enum. We create
     two lists one that contains the enums as tuples and another that contains
@@ -226,7 +224,7 @@ def check_for_enums(parameters):
 
     Enum params are just flat strings so there is not need to flatten them.
     """
-    
+
     enum_line = ''
     enum_lines = []
     validate_enums = []
@@ -251,9 +249,9 @@ def convert(name):
 
 def format_api_string(match):
     """
-    Convert {api:controller#section} strings to rst format 
+    Convert {api:controller#section} strings to rst format
        `controller#section <http://hostname/controller.rb>_`
-    This will link back to the canvas-lms github repo, if you want to link 
+    This will link back to the canvas-lms github repo, if you want to link
     to your own repo, just change the url below.
     """
     controller_cc = match.group(1)
@@ -300,13 +298,13 @@ def build_method(method_name, description, parameters, api_path, http_method, su
         param_descriptions.append(':type per_page: integer or None')
         payload.append('\'per_page\': per_page,')
         allow_per_page = True
-        
+
     arg_list.append('**request_kwargs')
-    
+
     """
     Create the method signature
     """
-    
+
     content = line_format('def ' + method_name + '(request_ctx, ' + ', '.join(arg_list) + '):', NONE)
     content += line_format('"""', FOUR)
 
@@ -317,7 +315,7 @@ def build_method(method_name, description, parameters, api_path, http_method, su
     for line in description.splitlines(True):
         rst_line = regex.sub(format_api_string, line)
         content += line_format(rst_line.rstrip(), FOUR)
-    
+
     """
     list out the method paramters
     """
@@ -331,7 +329,7 @@ def build_method(method_name, description, parameters, api_path, http_method, su
     content += line_format('', NONE)
     content += line_format('"""', FOUR)
     content += line_format('', NONE)
-    
+
     """
     Add the per_page check
     """
@@ -344,13 +342,13 @@ def build_method(method_name, description, parameters, api_path, http_method, su
     """
     for enum in enums:
         content += line_format(enum, FOUR)
-    
+
     """
     Add the api path
     """
     path_formatted = 'path = \'' + api_path + '\''
     content += line_format(path_formatted, FOUR)
-    
+
     """
     Add a payload if one exists
     """
@@ -365,7 +363,7 @@ def build_method(method_name, description, parameters, api_path, http_method, su
     content += line_format('url = request_ctx.base_api_url + path.format(' + ', '.join(get_path_parameters(parameters)) + ')', FOUR)
     content += line_format(
         'response = client.'+http_method.lower()+'(request_ctx, url' + payload_string + ', **request_kwargs)', FOUR)
-    
+
     content += line_format('', NONE)
     content += line_format('return response', FOUR)
     content += line_format('', NONE)
@@ -375,16 +373,16 @@ def build_method(method_name, description, parameters, api_path, http_method, su
 
 def build_module(json_api_url):
     """
-    build class reads in the api call for a class and contructs a class object 
+    build class reads in the api call for a class and contructs a class object
     to be written to a file.
     """
-    resp = urllib2.urlopen(json_api_url)
+    resp = urllib.request.urlopen(json_api_url)
     json_resp = json.load(resp)
     apis = json_resp['apis']
 
     content = line_format('from canvas_sdk import client, utils', NONE)
     content += '\n\n'
-    
+
     """
     Extract the data needed to build the method from the json source
     """
@@ -398,7 +396,7 @@ def build_module(json_api_url):
         summary = operations['summary']
         return_type = operations['type']
         content += build_method(
-            method_name, description, parameters, api_path, http_method, 
+            method_name, description, parameters, api_path, http_method,
             summary, return_type)
     return content
 
@@ -416,16 +414,16 @@ def create_sdk_directories():
     except OSError as exception:
         if exception.errno != errno.EEXIST:
             raise
-    
+
 
 def main(argv=None):
     """
-    the main method of the script calls the url provided by the user via 
+    the main method of the script calls the url provided by the user via
     command line arguments or a displays a usage message
     """
     if argv is None:
         argv = sys.argv
-    
+
     parser = argparse.ArgumentParser(description='Build Canvas SDK methods')
     parser.add_argument('-u','--url', help='Base Canvas url, default is (https://canvas.instructure.com)')
     args = vars(parser.parse_args())
@@ -438,24 +436,24 @@ def main(argv=None):
         url = args['url']
 
     if 'u' in args:
-        url = args['u']   
-    
+        url = args['u']
+
     if url:
         if 'http' not in url:
-            print 'Error: invalid url [%s]' % url   
+            print('Error: invalid url [%s]' % url)
             return 2
         else:
             base_canvas_url = url
-   
+
     try:
-        response = urllib2.urlopen(base_canvas_url+'/doc/api/api-docs.json')
-    except urllib2.HTTPError as err:
-        print 'The server couldn\'t fulfill the request.'
-        print 'Error code: ', err.code
+        response = urllib.request.urlopen(base_canvas_url+'/doc/api/api-docs.json')
+    except urllib.error.HTTPError as err:
+        print('The server couldn\'t fulfill the request.')
+        print('Error code: ', err.code)
         return 2
-    except urllib2.URLError as err:
-        print 'We failed to reach a server.'
-        print 'Reason: ', err.reason
+    except urllib.error.URLError as err:
+        print('We failed to reach a server.')
+        print('Reason: ', err.reason)
         return 2
 
     base_api_url = base_canvas_url+'/doc/api'
@@ -463,7 +461,7 @@ def main(argv=None):
     json_data = json.load(response)
     create_sdk_directories()
     apis = json_data['apis']
-    
+
     """
     Loop over all the api end points, these will be turned into python
     modules
@@ -475,7 +473,7 @@ def main(argv=None):
         file_name, ext = path.split('.')
         python_file_name = METHODS_DIR + file_name + '.py'
         with open(python_file_name, 'w') as python_file:
-            print 'Creating '+ python_file_name + '...'
+            print('Creating '+ python_file_name + '...')
             python_file_content = build_module(url)
             python_file.write(python_file_content)
         python_file.close()

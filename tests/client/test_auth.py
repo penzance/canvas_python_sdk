@@ -1,5 +1,5 @@
 import unittest
-import mock
+from unittest import mock
 from canvas_sdk.client import auth
 
 AUTH_TOKEN = 'testAuthToken'  # Bogus auth token used to get call

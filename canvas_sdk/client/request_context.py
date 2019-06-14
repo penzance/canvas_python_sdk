@@ -1,7 +1,7 @@
 # request_context.py
 import requests
 from .auth import OAuth2Bearer
-from urlparse import urlparse
+from urllib.parse import urlparse
 
 
 class RequestContext(object):

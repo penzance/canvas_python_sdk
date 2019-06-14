@@ -28,4 +28,3 @@ def edit_section(request_ctx, id, course_section_name=None, course_section_sis_s
     response = client.put(request_ctx, url, payload=payload, **request_kwargs)
     return response
 
-    

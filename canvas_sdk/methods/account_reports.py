@@ -44,8 +44,8 @@ def start_report(request_ctx, account_id, report, parameters, **request_kwargs):
     # if the parameters dict has keys like 'enrollments', 'xlist', 'include_deleted'
     # we need to translate them to be like 'parameters[enrollments]'
     ppat = re.compile('parameters\[.+\]')
-    fix_key = lambda (k, v): (k if ppat.match(str(k)) else 'parameters[{}]'.format(k), v)
-    payload = map(fix_key, parameters.items())
+    fix_key = lambda k_v: (k_v[0] if ppat.match(str(k_v[0])) else 'parameters[{}]'.format(k_v[0]), k_v[1])
+    payload = list(map(fix_key, list(parameters.items())))
     url = request_ctx.base_api_url + path.format(account_id=account_id, report=report)
     response = client.post(request_ctx, url, payload=payload, **request_kwargs)
 

@@ -190,7 +190,7 @@ def create_assignment(request_ctx, course_id, assignment_name, assignment_submis
         'assignment[published]' : assignment_published,
         'assignment[grading_standard_id]' : assignment_grading_standard_id,
     }
-    for attribute, value in (assignment_external_tool_tag_attributes or {}).iteritems():
+    for attribute, value in list((assignment_external_tool_tag_attributes or {}).items()):
         payload['assignment[external_tool_tag_attributes][{}]'.format(attribute)] = value
     url = request_ctx.base_api_url + path.format(course_id=course_id)
     response = client.post(request_ctx, url, payload=payload, **request_kwargs)
@@ -298,7 +298,7 @@ def edit_assignment(request_ctx, course_id, id, assignment_name=None, assignment
         'assignment[published]' : assignment_published,
         'assignment[grading_standard_id]' : assignment_grading_standard_id,
     }
-    for attribute, value in (assignment_external_tool_tag_attributes or {}).iteritems():
+    for attribute, value in list((assignment_external_tool_tag_attributes or {}).items()):
         payload['assignment[external_tool_tag_attributes][{}]'.format(attribute)] = value
     url = request_ctx.base_api_url + path.format(course_id=course_id, id=id)
     response = client.put(request_ctx, url, payload=payload, **request_kwargs)
