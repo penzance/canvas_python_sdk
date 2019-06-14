@@ -1,4 +1,3 @@
-from __future__ import unicode_literals
 from canvas_sdk import client, utils
 
 def delete_assignment(request_ctx, course_id, id, **request_kwargs):

@@ -1,8 +1,5 @@
-from __future__ import print_function
-from __future__ import unicode_literals
-from builtins import next
 import unittest
-import mock
+from unittest import mock
 import requests
 from mock import patch
 from canvas_sdk import utils
@@ -339,4 +336,4 @@ class TestUtils(unittest.TestCase):
         result = utils.get_count(self.req_ctx, mock_function)
         self.assertEqual(result, 5, "The result of get_count should match length of result set")
 
- 
+

@@ -1,4 +1,3 @@
-from __future__ import unicode_literals
 from canvas_sdk import client, utils
 
 def list_assignment_groups(request_ctx, course_id, include, override_assignment_dates=None, per_page=None, **request_kwargs):

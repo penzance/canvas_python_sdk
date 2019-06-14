@@ -1,4 +1,3 @@
-from __future__ import unicode_literals
 from canvas_sdk import client
 from collections import defaultdict
 

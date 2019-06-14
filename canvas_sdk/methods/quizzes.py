@@ -1,4 +1,3 @@
-from __future__ import unicode_literals
 from canvas_sdk import client, utils
 
 def list_quizzes_in_course(request_ctx, course_id, search_term=None, per_page=None, **request_kwargs):

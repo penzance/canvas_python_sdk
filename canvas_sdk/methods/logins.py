@@ -1,4 +1,3 @@
-from __future__ import unicode_literals
 from canvas_sdk import client, utils
 
 def list_user_logins_accounts(request_ctx, account_id, **request_kwargs):

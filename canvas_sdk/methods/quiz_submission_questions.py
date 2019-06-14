@@ -1,4 +1,3 @@
-from __future__ import unicode_literals
 from canvas_sdk import client, utils
 
 def get_all_quiz_submission_questions(request_ctx, quiz_submission_id, include, **request_kwargs):

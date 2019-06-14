@@ -1,4 +1,3 @@
-from __future__ import unicode_literals
 from canvas_sdk import client, utils
 
 def list_of_commmessages_for_user(request_ctx, user_id, start_time=None, end_time=None, per_page=None, **request_kwargs):

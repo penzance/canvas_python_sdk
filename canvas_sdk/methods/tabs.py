@@ -1,4 +1,3 @@
-from __future__ import unicode_literals
 from canvas_sdk import client, utils
 
 def list_available_tabs_for_course_or_group_courses(request_ctx, course_id, include, **request_kwargs):

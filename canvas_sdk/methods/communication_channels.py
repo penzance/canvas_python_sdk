@@ -1,4 +1,3 @@
-from __future__ import unicode_literals
 from canvas_sdk import client, utils
 
 def list_user_communication_channels(request_ctx, user_id, per_page=None, **request_kwargs):

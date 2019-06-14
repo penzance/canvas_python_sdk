@@ -1,4 +1,3 @@
-from __future__ import unicode_literals
 from canvas_sdk import client, utils
 
 def create_live_assessment_results(request_ctx, course_id, assessment_id, **request_kwargs):

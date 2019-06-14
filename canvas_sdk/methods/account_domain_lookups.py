@@ -1,4 +1,3 @@
-from __future__ import unicode_literals
 from canvas_sdk import client, utils
 
 def search_account_domains(request_ctx, name=None, domain=None, latitude=None, longitude=None, **request_kwargs):

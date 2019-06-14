@@ -1,4 +1,3 @@
-from __future__ import unicode_literals
 from canvas_sdk import client, utils
 
 def redirect_to_root_outcome_group_for_context_global(request_ctx, **request_kwargs):

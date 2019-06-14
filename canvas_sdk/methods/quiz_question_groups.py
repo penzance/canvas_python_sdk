@@ -1,4 +1,3 @@
-from __future__ import unicode_literals
 from canvas_sdk import client, utils
 
 def create_question_group(request_ctx, course_id, quiz_id, quiz_groups_name=None, quiz_groups_pick_count=None, quiz_groups_question_points=None, quiz_groups_assessment_question_bank_id=None, **request_kwargs):

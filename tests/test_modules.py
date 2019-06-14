@@ -1,5 +1,4 @@
-from __future__ import unicode_literals
-import mock
+from unittest import mock
 import random
 import unittest
 import uuid

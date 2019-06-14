@@ -1,4 +1,3 @@
-from __future__ import unicode_literals
 from canvas_sdk import client, utils
 
 def upload_file(request_ctx, course_id, quiz_id, name, on_duplicate, **request_kwargs):

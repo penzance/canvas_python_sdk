@@ -1,4 +1,3 @@
-from __future__ import unicode_literals
 from canvas_sdk import client, utils
 
 def fetching_latest_quiz_statistics(request_ctx, course_id, quiz_id, all_versions, **request_kwargs):

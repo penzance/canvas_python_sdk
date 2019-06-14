@@ -1,4 +1,3 @@
-from __future__ import unicode_literals
 from canvas_sdk import client, utils
 
 def list_content_exports(request_ctx, course_id, per_page=None, **request_kwargs):

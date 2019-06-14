@@ -1,7 +1,6 @@
-from __future__ import unicode_literals
 import unittest
 
-import mock
+from unittest import mock
 from mock import patch
 from requests.exceptions import HTTPError
 

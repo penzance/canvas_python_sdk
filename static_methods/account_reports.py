@@ -1,7 +1,3 @@
-from __future__ import unicode_literals
-
-from builtins import map
-from builtins import str
 def start_report(request_ctx, account_id, report, parameters, **request_kwargs):
     """
     Generates a report instance for the account.

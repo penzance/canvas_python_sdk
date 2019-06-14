@@ -1,4 +1,3 @@
-from __future__ import unicode_literals
 from canvas_sdk import client, utils
 
 def retrieve_assignment_overridden_dates_for_quizzes(request_ctx, course_id, quiz_assignment_overrides_0_quiz_ids=None, per_page=None, **request_kwargs):

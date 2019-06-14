@@ -1,4 +1,3 @@
-from __future__ import unicode_literals
 from canvas_sdk import client, utils
 
 def list_enrollment_terms(request_ctx, account_id, workflow_state=None, per_page=None, **request_kwargs):

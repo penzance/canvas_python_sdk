@@ -1,4 +1,3 @@
-from __future__ import unicode_literals
 from canvas_sdk import client, utils
 
 def set_extensions_for_student_quiz_submissions(request_ctx, course_id, quiz_id, user_id, extra_attempts=None, extra_time=None, manually_unlocked=None, extend_from_now=None, extend_from_end_at=None, **request_kwargs):

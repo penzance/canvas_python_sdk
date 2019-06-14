@@ -1,4 +1,3 @@
-from __future__ import unicode_literals
 from canvas_sdk import client, utils
 
 def get_quota_information_courses(request_ctx, course_id, **request_kwargs):

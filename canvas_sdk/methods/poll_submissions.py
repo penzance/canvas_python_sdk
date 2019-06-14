@@ -1,4 +1,3 @@
-from __future__ import unicode_literals
 from canvas_sdk import client, utils
 
 def get_single_poll_submission(request_ctx, poll_id, poll_session_id, id, **request_kwargs):

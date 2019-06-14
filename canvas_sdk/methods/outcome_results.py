@@ -1,4 +1,3 @@
-from __future__ import unicode_literals
 from canvas_sdk import client, utils
 
 def get_outcome_results(request_ctx, course_id, user_ids=None, outcome_ids=None, include=None, **request_kwargs):

@@ -1,6 +1,5 @@
-from __future__ import unicode_literals
 import unittest
-import mock
+from unittest import mock
 from mock import patch
 from canvas_sdk.client import RequestContext
 from canvas_sdk.methods import sections
@@ -89,7 +88,7 @@ class TestSections(unittest.TestCase):
         Assert that method returned the result of client 'get' call
         """
         results = sections.list_course_sections(self.req_ctx, self.course_id)
-        self.assertEquals(results, mock_client_get.return_value, 'The client call did not return the correct result.')
+        self.assertEqual(results, mock_client_get.return_value, 'The client call did not return the correct result.')
 
     @patch('canvas_sdk.methods.sections.client.post')
     def test_create_course_sections_post_called_with_request_context(self, mock_client_post):
@@ -155,7 +154,7 @@ class TestSections(unittest.TestCase):
         Assert that method returned the result of client 'post' call
         """
         results = sections.create_course_section(self.req_ctx, self.course_id, self.course_name)
-        self.assertEquals(results, mock_client_post.return_value, 'The client call did not return the correct result.')
+        self.assertEqual(results, mock_client_post.return_value, 'The client call did not return the correct result.')
 
     @patch('canvas_sdk.methods.sections.client.put')
     def test_edit_section_put_called_called_with_request_context(self, mock_client_put):
@@ -206,7 +205,7 @@ class TestSections(unittest.TestCase):
         Assert that method returned the result of client 'delete' call
         """
         results = sections.edit_section(self.req_ctx, self.section_id)
-        self.assertEquals(results, mock_client_put.return_value, 'The client call did not return the correct result.')
+        self.assertEqual(results, mock_client_put.return_value, 'The client call did not return the correct result.')
 
     @patch('canvas_sdk.methods.sections.client.delete')
     def test_delete_section_delete_called_called_with_request_context(self, mock_client_delete):
@@ -240,4 +239,4 @@ class TestSections(unittest.TestCase):
         Assert that method returned the result of client 'delete' call
         """
         results = sections.delete_section(self.req_ctx, self.section_id)
-        self.assertEquals(results, mock_client_delete.return_value, 'The client call did not return the correct result.')
+        self.assertEqual(results, mock_client_delete.return_value, 'The client call did not return the correct result.')

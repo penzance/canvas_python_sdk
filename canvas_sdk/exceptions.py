@@ -1,7 +1,3 @@
-from __future__ import unicode_literals
-from future.utils import python_2_unicode_compatible
-
-
 class SDKException(Exception):
 
     """ Base class for exceptions in the canvas python sdk """
@@ -12,7 +8,6 @@ class InvalidOAuthTokenError(SDKException):
     """ Indicates that an invalid access token made the request """
     pass
 
-@python_2_unicode_compatible
 class CanvasAPIError(SDKException):
 
     """
