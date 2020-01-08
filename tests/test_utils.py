@@ -1,7 +1,7 @@
 import unittest
 from unittest import mock
 import requests
-from mock import patch
+from unittest.mock import patch
 from canvas_sdk import utils
 from canvas_sdk.client import RequestContext
 
