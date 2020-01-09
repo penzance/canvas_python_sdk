@@ -1,7 +1,7 @@
 import unittest
 
 from unittest import mock
-from mock import patch
+from unittest.mock import patch
 from requests.exceptions import HTTPError
 
 from canvas_sdk import client

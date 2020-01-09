@@ -32,7 +32,10 @@ class TestAssignments(unittest.TestCase):
                        assignment_integration_id=self.integration_id,
                        assignment_points_possible=self.points_possible)
         self.assertTrue(mock_client_post.called)
-        self.assertDictContainsSubset(
-            {'assignment[external_tool_tag_attributes][url]': self.url,
-             'assignment[submission_types][]': 'external_tool'},
-            mock_client_post.call_args[1]['payload'])
+        assert (
+            set({
+                'assignment[external_tool_tag_attributes][url]': self.url,
+                'assignment[submission_types][]': 'external_tool'
+            }.items()) <=
+            set(mock_client_post.call_args[1]['payload'].items())
+        )

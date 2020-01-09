@@ -34,10 +34,13 @@ class TestModules(unittest.TestCase):
                        module_item_title=self.title,
                        module_item_position=self.position)
         self.assertTrue(mock_client_post.called)
-        self.assertDictContainsSubset(
-            {'module_item[completion_requirement][type]': None,
-             'module_item[completion_requirement][min_score]': None},
-            mock_client_post.call_args[1]['payload'])
+        assert (
+            set({
+                'module_item[completion_requirement][type]': None,
+                'module_item[completion_requirement][min_score]': None
+            }.items()) <=
+            set(mock_client_post.call_args[1]['payload'].items())
+        )
 
     @mock.patch('canvas_sdk.methods.modules.client.post')
     def test_create_module_item_assignment(self, mock_client_post):
@@ -48,10 +51,13 @@ class TestModules(unittest.TestCase):
                        module_item_title=self.title,
                        module_item_position=self.position)
         self.assertTrue(mock_client_post.called)
-        self.assertDictContainsSubset(
-            {'module_item[completion_requirement][type]': None,
-             'module_item[completion_requirement][min_score]': None},
-            mock_client_post.call_args[1]['payload'])
+        assert (
+            set({
+                'module_item[completion_requirement][type]': None,
+                'module_item[completion_requirement][min_score]': None
+            }.items()) <=
+            set(mock_client_post.call_args[1]['payload'].items())
+        )
 
     @mock.patch('canvas_sdk.methods.modules.client.post')
     def test_create_module_item_completion_requirement_type_is_min_score(self, mock_client_post):
@@ -65,10 +71,13 @@ class TestModules(unittest.TestCase):
                        module_item_position=self.position,
                        module_item_title=self.title)
         self.assertTrue(mock_client_post.called)
-        self.assertDictContainsSubset(
-            {'module_item[completion_requirement][type]': 'min_score',
-             'module_item[completion_requirement][min_score]': self.min_score},
-            mock_client_post.call_args[1]['payload'])
+        assert (
+            set({
+                'module_item[completion_requirement][type]': 'min_score',
+                'module_item[completion_requirement][min_score]': self.min_score
+            }.items()) <=
+            set(mock_client_post.call_args[1]['payload'].items())
+        )
 
     def test_create_module_item_external_url_required(self):
         ''' module_item_external_url is required if type='ExternalTool' '''
