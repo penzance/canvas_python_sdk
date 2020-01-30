@@ -182,7 +182,7 @@ def update_account(request_ctx, id, account_name=None, account_default_time_zone
     return response
 
 
-def create_new_sub_account(request_ctx, account_id, account_name, account_default_storage_quota_mb=None, account_default_user_storage_quota_mb=None, account_default_group_storage_quota_mb=None, per_page=None, **request_kwargs):
+def create_new_sub_account(request_ctx, account_id, account_name, sis_account_id, account_default_storage_quota_mb=None, account_default_user_storage_quota_mb=None, account_default_group_storage_quota_mb=None, per_page=None, **request_kwargs):
     """
     Add a new sub-account to a given account.
 
@@ -210,6 +210,7 @@ def create_new_sub_account(request_ctx, account_id, account_name, account_defaul
     path = '/v1/accounts/{account_id}/sub_accounts'
     payload = {
         'account[name]' : account_name,
+        'account[sis_account_id]': sis_account_id,
         'account[default_storage_quota_mb]' : account_default_storage_quota_mb,
         'account[default_user_storage_quota_mb]' : account_default_user_storage_quota_mb,
         'account[default_group_storage_quota_mb]' : account_default_group_storage_quota_mb,
