@@ -71,7 +71,7 @@ def list_external_tools_accounts(request_ctx, account_id, search_term=None, sele
 def get_sessionless_launch_url_for_external_tool_courses(request_ctx, course_id, id=None, url=None, assignment_id=None, launch_type=None, **request_kwargs):
     """
     Returns a sessionless launch url for an external tool.
-    
+
     Either the id or url must be provided.
 
         :param request_ctx: The request context
@@ -107,7 +107,7 @@ def get_sessionless_launch_url_for_external_tool_courses(request_ctx, course_id,
 def get_sessionless_launch_url_for_external_tool_accounts(request_ctx, account_id, id=None, url=None, assignment_id=None, launch_type=None, **request_kwargs):
     """
     Returns a sessionless launch url for an external tool.
-    
+
     Either the id or url must be provided.
 
         :param request_ctx: The request context
@@ -184,7 +184,7 @@ def get_single_external_tool_accounts(request_ctx, account_id, external_tool_id,
     return response
 
 
-def create_external_tool_courses(request_ctx, course_id, name, privacy_level, consumer_key, shared_secret, description=None, url=None, domain=None, icon_url=None, text=None, not_selectable=None, custom_fields=None, account_navigation_url=None, account_navigation_enabled=None, account_navigation_text=None, user_navigation_url=None, user_navigation_enabled=None, user_navigation_text=None, course_navigation_url=None, course_navigation_enabled=None, course_navigation_text=None, course_navigation_visibility=None, course_navigation_default=None, editor_button_url=None, editor_button_enabled=None, editor_button_icon_url=None, editor_button_selection_width=None, editor_button_selection_height=None, resource_selection_url=None, resource_selection_enabled=None, resource_selection_icon_url=None, resource_selection_selection_width=None, resource_selection_selection_height=None, config_type=None, config_xml=None, config_url=None, **request_kwargs):
+def create_external_tool_courses(request_ctx, course_id, name=None, privacy_level=None, consumer_key=None, shared_secret=None, description=None, url=None, domain=None, icon_url=None, text=None, not_selectable=None, custom_fields=None, account_navigation_url=None, account_navigation_enabled=None, account_navigation_text=None, user_navigation_url=None, user_navigation_enabled=None, user_navigation_text=None, course_navigation_url=None, course_navigation_enabled=None, course_navigation_text=None, course_navigation_visibility=None, course_navigation_default=None, editor_button_url=None, editor_button_enabled=None, editor_button_icon_url=None, editor_button_selection_width=None, editor_button_selection_height=None, resource_selection_url=None, resource_selection_enabled=None, resource_selection_icon_url=None, resource_selection_selection_width=None, resource_selection_selection_height=None, config_type=None, config_xml=None, config_url=None, client_id=None, **request_kwargs):
     """
     Create an external tool in the specified course/account.
     The created tool will be returned, see the "show" endpoint for an example.
@@ -263,6 +263,8 @@ def create_external_tool_courses(request_ctx, course_id, name, privacy_level, co
         :type config_xml: string or None
         :param config_url: (optional) URL where the server can retrieve an XML tool configuration, as specified in the CC xml specification. This is required if "config_type" is set to "by_url"
         :type config_url: string or None
+        :param client_id: (optional) LTI 1.3 client_id of the tool to install
+        :type client_id: string or None
         :return: Create an external tool
         :rtype: requests.Response (with void data)
 
@@ -273,50 +275,56 @@ def create_external_tool_courses(request_ctx, course_id, name, privacy_level, co
     utils.validate_attr_is_acceptable(privacy_level, privacy_level_types)
     utils.validate_attr_is_acceptable(course_navigation_visibility, course_navigation_visibility_types)
     path = '/v1/courses/{course_id}/external_tools'
-    payload = {
-        'name' : name,
-        'privacy_level' : privacy_level,
-        'consumer_key' : consumer_key,
-        'shared_secret' : shared_secret,
-        'description' : description,
-        'url' : url,
-        'domain' : domain,
-        'icon_url' : icon_url,
-        'text' : text,
-        'not_selectable' : not_selectable,
-        'custom_fields' : custom_fields,
-        'account_navigation[url]' : account_navigation_url,
-        'account_navigation[enabled]' : account_navigation_enabled,
-        'account_navigation[text]' : account_navigation_text,
-        'user_navigation[url]' : user_navigation_url,
-        'user_navigation[enabled]' : user_navigation_enabled,
-        'user_navigation[text]' : user_navigation_text,
-        'course_navigation[url]' : course_navigation_url,
-        'course_navigation[enabled]' : course_navigation_enabled,
-        'course_navigation[text]' : course_navigation_text,
-        'course_navigation[visibility]' : course_navigation_visibility,
-        'course_navigation[default]' : course_navigation_default,
-        'editor_button[url]' : editor_button_url,
-        'editor_button[enabled]' : editor_button_enabled,
-        'editor_button[icon_url]' : editor_button_icon_url,
-        'editor_button[selection_width]' : editor_button_selection_width,
-        'editor_button[selection_height]' : editor_button_selection_height,
-        'resource_selection[url]' : resource_selection_url,
-        'resource_selection[enabled]' : resource_selection_enabled,
-        'resource_selection[icon_url]' : resource_selection_icon_url,
-        'resource_selection[selection_width]' : resource_selection_selection_width,
-        'resource_selection[selection_height]' : resource_selection_selection_height,
-        'config_type' : config_type,
-        'config_xml' : config_xml,
-        'config_url' : config_url,
-    }
+    payload = {}
+    if client_id:
+        payload = {
+            'client_id': client_id
+        }
+    else:
+        payload = {
+            'name' : name,
+            'privacy_level' : privacy_level,
+            'consumer_key' : consumer_key,
+            'shared_secret' : shared_secret,
+            'description' : description,
+            'url' : url,
+            'domain' : domain,
+            'icon_url' : icon_url,
+            'text' : text,
+            'not_selectable' : not_selectable,
+            'custom_fields' : custom_fields,
+            'account_navigation[url]' : account_navigation_url,
+            'account_navigation[enabled]' : account_navigation_enabled,
+            'account_navigation[text]' : account_navigation_text,
+            'user_navigation[url]' : user_navigation_url,
+            'user_navigation[enabled]' : user_navigation_enabled,
+            'user_navigation[text]' : user_navigation_text,
+            'course_navigation[url]' : course_navigation_url,
+            'course_navigation[enabled]' : course_navigation_enabled,
+            'course_navigation[text]' : course_navigation_text,
+            'course_navigation[visibility]' : course_navigation_visibility,
+            'course_navigation[default]' : course_navigation_default,
+            'editor_button[url]' : editor_button_url,
+            'editor_button[enabled]' : editor_button_enabled,
+            'editor_button[icon_url]' : editor_button_icon_url,
+            'editor_button[selection_width]' : editor_button_selection_width,
+            'editor_button[selection_height]' : editor_button_selection_height,
+            'resource_selection[url]' : resource_selection_url,
+            'resource_selection[enabled]' : resource_selection_enabled,
+            'resource_selection[icon_url]' : resource_selection_icon_url,
+            'resource_selection[selection_width]' : resource_selection_selection_width,
+            'resource_selection[selection_height]' : resource_selection_selection_height,
+            'config_type' : config_type,
+            'config_xml' : config_xml,
+            'config_url' : config_url,
+        }
     url = request_ctx.base_api_url + path.format(course_id=course_id)
     response = client.post(request_ctx, url, payload=payload, **request_kwargs)
 
     return response
 
 
-def create_external_tool_accounts(request_ctx, account_id, name, privacy_level, consumer_key, shared_secret, description=None, url=None, domain=None, icon_url=None, text=None, not_selectable=None, custom_fields=None, account_navigation_url=None, account_navigation_enabled=None, account_navigation_text=None, user_navigation_url=None, user_navigation_enabled=None, user_navigation_text=None, course_navigation_url=None, course_navigation_enabled=None, course_navigation_text=None, course_navigation_visibility=None, course_navigation_default=None, editor_button_url=None, editor_button_enabled=None, editor_button_icon_url=None, editor_button_selection_width=None, editor_button_selection_height=None, resource_selection_url=None, resource_selection_enabled=None, resource_selection_icon_url=None, resource_selection_selection_width=None, resource_selection_selection_height=None, config_type=None, config_xml=None, config_url=None, **request_kwargs):
+def create_external_tool_accounts(request_ctx, account_id, name=None, privacy_level=None, consumer_key=None, shared_secret=None, description=None, url=None, domain=None, icon_url=None, text=None, not_selectable=None, custom_fields=None, account_navigation_url=None, account_navigation_enabled=None, account_navigation_text=None, user_navigation_url=None, user_navigation_enabled=None, user_navigation_text=None, course_navigation_url=None, course_navigation_enabled=None, course_navigation_text=None, course_navigation_visibility=None, course_navigation_default=None, editor_button_url=None, editor_button_enabled=None, editor_button_icon_url=None, editor_button_selection_width=None, editor_button_selection_height=None, resource_selection_url=None, resource_selection_enabled=None, resource_selection_icon_url=None, resource_selection_selection_width=None, resource_selection_selection_height=None, config_type=None, config_xml=None, config_url=None, client_id=None, **request_kwargs):
     """
     Create an external tool in the specified course/account.
     The created tool will be returned, see the "show" endpoint for an example.
@@ -395,6 +403,8 @@ def create_external_tool_accounts(request_ctx, account_id, name, privacy_level, 
         :type config_xml: string or None
         :param config_url: (optional) URL where the server can retrieve an XML tool configuration, as specified in the CC xml specification. This is required if "config_type" is set to "by_url"
         :type config_url: string or None
+        :param client_id: (optional) LTI 1.3 client_id of the tool to install
+        :type client_id: string or None
         :return: Create an external tool
         :rtype: requests.Response (with void data)
 
@@ -405,43 +415,49 @@ def create_external_tool_accounts(request_ctx, account_id, name, privacy_level, 
     utils.validate_attr_is_acceptable(privacy_level, privacy_level_types)
     utils.validate_attr_is_acceptable(course_navigation_visibility, course_navigation_visibility_types)
     path = '/v1/accounts/{account_id}/external_tools'
-    payload = {
-        'name' : name,
-        'privacy_level' : privacy_level,
-        'consumer_key' : consumer_key,
-        'shared_secret' : shared_secret,
-        'description' : description,
-        'url' : url,
-        'domain' : domain,
-        'icon_url' : icon_url,
-        'text' : text,
-        'not_selectable' : not_selectable,
-        'custom_fields' : custom_fields,
-        'account_navigation[url]' : account_navigation_url,
-        'account_navigation[enabled]' : account_navigation_enabled,
-        'account_navigation[text]' : account_navigation_text,
-        'user_navigation[url]' : user_navigation_url,
-        'user_navigation[enabled]' : user_navigation_enabled,
-        'user_navigation[text]' : user_navigation_text,
-        'course_navigation[url]' : course_navigation_url,
-        'course_navigation[enabled]' : course_navigation_enabled,
-        'course_navigation[text]' : course_navigation_text,
-        'course_navigation[visibility]' : course_navigation_visibility,
-        'course_navigation[default]' : course_navigation_default,
-        'editor_button[url]' : editor_button_url,
-        'editor_button[enabled]' : editor_button_enabled,
-        'editor_button[icon_url]' : editor_button_icon_url,
-        'editor_button[selection_width]' : editor_button_selection_width,
-        'editor_button[selection_height]' : editor_button_selection_height,
-        'resource_selection[url]' : resource_selection_url,
-        'resource_selection[enabled]' : resource_selection_enabled,
-        'resource_selection[icon_url]' : resource_selection_icon_url,
-        'resource_selection[selection_width]' : resource_selection_selection_width,
-        'resource_selection[selection_height]' : resource_selection_selection_height,
-        'config_type' : config_type,
-        'config_xml' : config_xml,
-        'config_url' : config_url,
-    }
+    payload = {}
+    if client_id:
+        payload = {
+            'client_id': client_id
+        }
+    else:
+        payload = {
+            'name' : name,
+            'privacy_level' : privacy_level,
+            'consumer_key' : consumer_key,
+            'shared_secret' : shared_secret,
+            'description' : description,
+            'url' : url,
+            'domain' : domain,
+            'icon_url' : icon_url,
+            'text' : text,
+            'not_selectable' : not_selectable,
+            'custom_fields' : custom_fields,
+            'account_navigation[url]' : account_navigation_url,
+            'account_navigation[enabled]' : account_navigation_enabled,
+            'account_navigation[text]' : account_navigation_text,
+            'user_navigation[url]' : user_navigation_url,
+            'user_navigation[enabled]' : user_navigation_enabled,
+            'user_navigation[text]' : user_navigation_text,
+            'course_navigation[url]' : course_navigation_url,
+            'course_navigation[enabled]' : course_navigation_enabled,
+            'course_navigation[text]' : course_navigation_text,
+            'course_navigation[visibility]' : course_navigation_visibility,
+            'course_navigation[default]' : course_navigation_default,
+            'editor_button[url]' : editor_button_url,
+            'editor_button[enabled]' : editor_button_enabled,
+            'editor_button[icon_url]' : editor_button_icon_url,
+            'editor_button[selection_width]' : editor_button_selection_width,
+            'editor_button[selection_height]' : editor_button_selection_height,
+            'resource_selection[url]' : resource_selection_url,
+            'resource_selection[enabled]' : resource_selection_enabled,
+            'resource_selection[icon_url]' : resource_selection_icon_url,
+            'resource_selection[selection_width]' : resource_selection_selection_width,
+            'resource_selection[selection_height]' : resource_selection_selection_height,
+            'config_type' : config_type,
+            'config_xml' : config_xml,
+            'config_url' : config_url,
+        }
     url = request_ctx.base_api_url + path.format(account_id=account_id)
     response = client.post(request_ctx, url, payload=payload, **request_kwargs)
 
@@ -749,5 +765,3 @@ def delete_external_tool_accounts(request_ctx, account_id, external_tool_id, **r
     response = client.delete(request_ctx, url, **request_kwargs)
 
     return response
-
-
